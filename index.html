@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
         <h1>Κατάλογος & Φόρμα Παραγγελίας</h1>
-        <div id="productGallery" class="product-gallery"></div>
+        
+        <div id="productButtonsContainer" class="product-buttons"></div>
+        
         <form id="orderForm" onsubmit="return false;">
             <h2>Στοιχεία Πελάτη</h2>
             <div class="form-grid">
@@ -43,6 +46,7 @@
             </div>
         </form>
     </div>
+
     <div class="info-section gift-scale">
         <h3>Κλίμακα Δώρων</h3>
         <ul>
@@ -54,10 +58,12 @@
     </div>
     <div class="info-section instructions">
         <h3>Οδηγίες Χρήσης</h3>
-        <p>1. Πατήστε σε μια εικόνα προϊόντος για να δείτε την περιγραφή του.<br>2. Συμπληρώστε τις ποσότητες που επιθυμείτε στον πίνακα.<br>3. Ολοκληρώστε την παραγγελία με αποστολή Email ή αποθηκεύοντάς την ως αρχείο TXT.</p>
+        <p>1. Πατήστε σε ένα κουμπί προϊόντος για να δείτε την περιγραφή του.<br>2. Συμπληρώστε τις ποσότητες που επιθυμείτε στον πίνακα.<br>3. Ολοκληρώστε την παραγγελία με αποστολή Email ή αποθηκεύοντάς την ως αρχείο TXT.</p>
     </div>
+
     <div id="productModal" class="modal"></div>
     <div id="previewModal" class="modal"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>
