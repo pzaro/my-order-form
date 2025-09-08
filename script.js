@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('previewModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2>Προεπισκόπηση</h2><span class="close-button" onclick="closePreviewModal()">&times;</span></div><div class="modal-body"><pre id="previewContent"></pre></div><div class="modal-footer"><button id="saveTxtButton" class="btn" style="background-color:#5cb85c">Αποθήκευση</button><button class="btn" style="background-color:#aaa" onclick="closePreviewModal()">Κλείσιμο</button></div></div>`;
     
     const productButtonsContainer = document.getElementById('productButtonsContainer');
-    products.forEach((p, index) => {
+    products.forEach(p => {
         const button = document.createElement('button');
         button.className = 'product-btn';
         button.textContent = p.name;
-        button.onclick = () => showProductDetails(p.name); // Pass name to lookup in the object
+        button.onclick = () => showProductDetails(p.name);
         productButtonsContainer.appendChild(button);
     });
     
@@ -120,6 +120,7 @@ function showProductDetails(productName){
         biblioTab.innerHTML = '';
     }
     document.getElementById('productModal').style.display='block';
+    // Open the first tab by default
     document.querySelector('.tab-button').click();
 }
 
