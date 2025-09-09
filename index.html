@@ -2,307 +2,68 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <title>Φόρμα Παραγγελίας</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f7f7f7;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #products-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-        }
-
-        .product {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .product h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .product p {
-            font-size: 14px;
-            color: #444;
-        }
-
-        .product input {
-            width: 60px;
-        }
-
-        .summary {
-            margin-top: 20px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .actions {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
-            padding: 8px 12px;
-            border: none;
-            background: #0073e6;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #005bb5;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            width: 500px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .tablink {
-            padding: 6px 10px;
-            border: none;
-            cursor: pointer;
-            background: #ddd;
-            border-radius: 5px;
-        }
-
-        .tablink.active {
-            background: #0073e6;
-            color: white;
-        }
-
-        .tab {
-            display: none;
-            font-size: 14px;
-        }
-
-        .tab.active {
-            display: block;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φόρμα Παραγγελίας Προϊόντων</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Φόρμα Παραγγελίας Προϊόντων</h1>
 
-    <form id="order-form">
-        <div id="products-container"></div>
-
-        <div class="summary">
-            <p><strong>Σύνολο:</strong> <span id="total">0.00</span> €</p>
-            <p><strong>ΦΠΑ (24%):</strong> <span id="vat">0.00</span> €</p>
-            <p><strong>Τελικό Ποσό:</strong> <span id="final">0.00</span> €</p>
-            <p><strong>Δώρο:</strong> <span id="gift">Κανένα</span></p>
-        </div>
-
-        <div class="actions">
-            <button type="button" id="export-txt">Εξαγωγή σε TXT</button>
-            <button type="button" id="send-email">Αποστολή Email</button>
-        </div>
-    </form>
-
-    <!-- Modal για περιγραφές -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modal-title"></h2>
-            <div class="tabs">
-                <button class="tablink active" data-tab="consumer">Consumer</button>
-                <button class="tablink" data-tab="science">Science</button>
-                <button class="tablink" data-tab="bibliography">Bibliography</button>
+    <div class="container">
+        <h1>Κατάλογος & Φόρμα Παραγγελίας</h1>
+        
+        <div id="productButtonsContainer" class="product-buttons"></div>
+        
+        <form id="orderForm" onsubmit="return false;">
+            <h2>Στοιχεία Πελάτη</h2>
+            <div class="form-grid">
+                <div class="form-group"><label for="eponimia">Επωνυμία:</label><input type="text" id="eponimia" required></div>
+                <div class="form-group"><label for="afm">ΑΦΜ:</label><input type="text" id="afm"></div>
+                <div class="form-group"><label for="doy">ΔΟΥ:</label><input type="text" id="doy"></div>
+                <div class="form-group"><label for="mobile">Κινητό:</label><input type="tel" id="mobile"></div>
+                <div class="form-group"><label for="phone">Σταθερό:</label><input type="tel" id="phone"></div>
+                <div class="form-group"><label for="email">Email:</label><input type="email" id="email"></div>
             </div>
-            <div id="consumer" class="tab active"></div>
-            <div id="science" class="tab"></div>
-            <div id="bibliography" class="tab"></div>
-        </div>
+            <table id="product-table">
+                <thead>
+                    <tr><th>Ονομασία</th><th>Αρχική Τιμή</th><th>Ποσότητα</th><th>Δώρα</th><th>Τελική Τιμή/Τεμ.</th><th>Σύνολο</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="totals-section">
+                <p>Καθαρή Αξία: <span id="net-value">0.00 €</span></p>
+                <p>Αξία ΦΠΑ (24%): <span id="vat-value">0.00 €</span></p>
+                <p><strong>Τελικό Ποσό:</strong> <span id="final-total">0.00 €</span></p>
+            </div>
+            <div class="bank-info">
+                <h3>Στοιχεία Κατάθεσης</h3>
+                <p><strong>IBAN:</strong> GR8901722520005252016160277</p>
+                <p><strong>Τράπεζα:</strong> Τράπεζα Πειραιώς</p>
+            </div>
+            <div class="export-buttons">
+                <button type="button" class="btn" style="background-color:#007bff" onclick="sendEmailViaClient()">Αποστολή με Email</button>
+                <button type="button" class="btn" style="background-color:#34495e" onclick="previewAndSaveAsTXT()">Αποθήκευση σε TXT</button>
+                <button type="button" class="btn" style="background-color:#f0ad4e" onclick="clearForm()">Καθαρισμός Φόρμας</button>
+            </div>
+        </form>
     </div>
 
-    <script>
-        // Λίστα προϊόντων
-        const products = [
-            {
-                name: "Bruise Off Bite Out & Pain Free cream",
-                price: 12.90,
-                descriptions: {
-                    consumer: "Ανακουφιστική κρέμα για μώλωπες, τσιμπήματα και τοπικό πόνο.",
-                    science: "Συνδυασμός φυτικών εκχυλισμάτων με αντιφλεγμονώδη δράση.",
-                    bibliography: "Μελέτη: Smith et al., 2021, Journal of Dermatology."
-                }
-            },
-            {
-                name: "Vitamin C 1000mg",
-                price: 9.50,
-                descriptions: {
-                    consumer: "Ισχυρό αντιοξειδωτικό για ενίσχυση του ανοσοποιητικού.",
-                    science: "Η βιταμίνη C συμμετέχει στη σύνθεση κολλαγόνου.",
-                    bibliography: "NIH Fact Sheet on Vitamin C, 2023."
-                }
-            },
-            {
-                name: "Omega 3 Fish Oil",
-                price: 15.00,
-                descriptions: {
-                    consumer: "Συμπλήρωμα για καρδιαγγειακή υγεία.",
-                    science: "EPA & DHA βελτιώνουν τη λιπιδαιμική ισορροπία.",
-                    bibliography: "Calder, 2020, Nutrients."
-                }
-            }
-        ];
+    <div class="info-section gift-scale">
+        <h3>Κλίμακα Δώρων</h3>
+        <ul>
+            <li>Για <b>9</b> τεμάχια, παίρνετε <b>+1</b> δώρο.</li>
+            <li>Για <b>18</b> τεμάχια, παίρνετε <b>+3</b> δώρα.</li>
+            <li>Για <b>24</b> τεμάχια, παίρνετε <b>+6</b> δώρα.</li>
+            <li>Για <b>48</b> τεμάχια και άνω, η προσφορά συνεχίζεται <b>αναλογικά</b>.</li>
+        </ul>
+    </div>
+    <div class="info-section instructions">
+        <h3>Οδηγίες Χρήσης</h3>
+        <p>1. Πατήστε σε ένα κουμπί προϊόντος για να δείτε την περιγραφή του.<br>2. Συμπληρώστε τις ποσότητες που επιθυμείτε στον πίνακα.<br>3. Ολοκληρώστε την παραγγελία με αποστολή Email ή αποθηκεύοντάς την ως αρχείο TXT.</p>
+    </div>
 
-        // Προσθήκη προϊόντων στη σελίδα
-        const container = document.getElementById("products-container");
-        products.forEach((p, index) => {
-            const div = document.createElement("div");
-            div.className = "product";
-            div.innerHTML = `
-                <h3>${p.name}</h3>
-                <p>Τιμή: ${p.price.toFixed(2)} €</p>
-                <input type="number" min="0" value="0" data-index="${index}">
-                <button type="button" class="info-btn" data-index="${index}">Πληροφορίες</button>
-            `;
-            container.appendChild(div);
-        });
-
-        // Υπολογισμός συνολικού ποσού
-        const inputs = document.querySelectorAll("input[type='number']");
-        inputs.forEach(input => {
-            input.addEventListener("input", updateSummary);
-        });
-
-        function updateSummary() {
-            let total = 0;
-            document.querySelectorAll("input[type='number']").forEach(input => {
-                const qty = parseInt(input.value) || 0;
-                const index = input.dataset.index;
-                total += qty * products[index].price;
-            });
-
-            const vat = total * 0.24;
-            const final = total + vat;
-
-            document.getElementById("total").textContent = total.toFixed(2);
-            document.getElementById("vat").textContent = vat.toFixed(2);
-            document.getElementById("final").textContent = final.toFixed(2);
-
-            let gift = "Κανένα";
-            if (final >= 50 && final < 100) gift = "Δώρο: Vitamin C 1000mg";
-            else if (final >= 100) gift = "Δώρο: Omega 3 Fish Oil";
-
-            document.getElementById("gift").textContent = gift;
-        }
-
-        // Modal περιγραφών
-        const modal = document.getElementById("modal");
-        const modalTitle = document.getElementById("modal-title");
-        const tabs = document.querySelectorAll(".tablink");
-        const contents = document.querySelectorAll(".tab");
-
-        document.querySelectorAll(".info-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const index = btn.dataset.index;
-                const product = products[index];
-                modalTitle.textContent = product.name;
-                document.getElementById("consumer").textContent = product.descriptions.consumer;
-                document.getElementById("science").textContent = product.descriptions.science;
-                document.getElementById("bibliography").textContent = product.descriptions.bibliography;
-                modal.style.display = "flex";
-            });
-        });
-
-        document.querySelector(".close").addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-
-        tabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                tabs.forEach(t => t.classList.remove("active"));
-                contents.forEach(c => c.classList.remove("active"));
-                tab.classList.add("active");
-                document.getElementById(tab.dataset.tab).classList.add("active");
-            });
-        });
-
-        // Εξαγωγή σε TXT
-        document.getElementById("export-txt").addEventListener("click", () => {
-            let text = "Παραγγελία:\n";
-            document.querySelectorAll("input[type='number']").forEach(input => {
-                const qty = parseInt(input.value) || 0;
-                if (qty > 0) {
-                    const p = products[input.dataset.index];
-                    text += `${p.name} x${qty} = ${(qty * p.price).toFixed(2)} €\n`;
-                }
-            });
-            text += `\nΣύνολο: ${document.getElementById("total").textContent} €`;
-            text += `\nΦΠΑ: ${document.getElementById("vat").textContent} €`;
-            text += `\nΤελικό: ${document.getElementById("final").textContent} €`;
-            text += `\nΔώρο: ${document.getElementById("gift").textContent}`;
-
-            const blob = new Blob([text], { type: "text/plain" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "order.txt";
-            link.click();
-        });
-
-        // Αποστολή email
-        document.getElementById("send-email").addEventListener("click", () => {
-            let body = "Παραγγελία:%0D%0A";
-            document.querySelectorAll("input[type='number']").forEach(input => {
-                const qty = parseInt(input.value) || 0;
-                if (qty > 0) {
-                    const p = products[input.dataset.index];
-                    body += `${p.name} x${qty} = ${(qty * p.price).toFixed(2)} €%0D%0A`;
-                }
-            });
-            body += `%0D%0AΣύνολο: ${document.getElementById("total").textContent} €`;
-            body += `%0D%0AΦΠΑ: ${document.getElementById("vat").textContent} €`;
-            body += `%0D%0ΑΤελικό: ${document.getElementById("final").textContent} €`;
-            body += `%0D%0ΑΔώρο: ${document.getElementById("gift").textContent}`;
-
-            window.location.href = `mailto:?subject=Παραγγελία&body=${body}`;
-        });
-    </script>
+    <div id="productModal" class="modal"></div>
+    <div id="previewModal" class="modal"></div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
