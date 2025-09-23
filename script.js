@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const button = document.createElement('button');
         button.className = 'product-btn';
         button.textContent = p.name;
-        button.onclick = () => showProductDetails(index);
+        button.onclick = () => showProductDetails(p.name);
         productButtonsContainer.appendChild(button);
     });
     
@@ -101,20 +101,20 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
-function showProductDetails(productIndex){
-    const p = productDetails[productIndex]; // This is an array lookup, which is incorrect for the object structure above. THIS IS THE BUG.
+function showProductDetails(productName){
+    const p = productDetails[productName];
     const modalProductName = document.getElementById('modalProductName');
     const consumerTab = document.getElementById('Consumer');
     const scienceTab = document.getElementById('Science');
     const biblioTab = document.getElementById('Biblio');
 
     if(p){
-        modalProductName.textContent = products[productIndex].name;
+        modalProductName.textContent = productName;
         consumerTab.innerHTML = p.description.consumer || '<p>Δεν υπάρχουν πληροφορίες.</p>';
         scienceTab.innerHTML = p.description.science || '<p>Δεν υπάρχουν πληροφορίες.</p>';
         biblioTab.innerHTML = p.description.bibliography || '<p>Δεν υπάρχουν πληροφορίες.</p>';
     } else {
-        modalProductName.textContent = products[productIndex].name;
+        modalProductName.textContent = productName;
         consumerTab.innerHTML = `<p>Δεν βρέθηκε αναλυτική περιγραφή για αυτό το προϊόν.</p>`;
         scienceTab.innerHTML = '';
         biblioTab.innerHTML = '';
@@ -122,7 +122,6 @@ function showProductDetails(productIndex){
     document.getElementById('productModal').style.display='block';
     document.querySelector('.tab-button').click();
 }
-
 function closeProductModal(){document.getElementById('productModal').style.display='none';}
 function closePreviewModal(){document.getElementById('previewModal').style.display='none';}
 
