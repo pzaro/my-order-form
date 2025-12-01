@@ -69,13 +69,47 @@ const productDetails = [
         name: 'Alveolair Sir',
         description: { consumer: `<h3>Φυσικό Σιρόπι</h3><p>Για την αντιμετώπιση του βήχα.</p>`, science: `<h3>Συστατικά</h3><p>Ευκάλυπτος, Θυμάρι, Αλθέα.</p>`, bibliography: `<p>Sadlon, A. E., et al.</p>` }
     },
-    { name: 'NUTRI MX PROBIOTIC PREMIUM', description: { consumer: `<h3>Προβιοτικά</h3><p>Για την υγεία του εντέρου.</p>`, science: ``, bibliography: `` } },
-    { name: 'NUTRI MX MAGNESIUM 1 Τεμ', description: { consumer: `<h3>Μαγνήσιο</h3><p>Για το νευρικό σύστημα.</p>`, science: ``, bibliography: `` } },
-    { name: 'NUTRI MX A-Z', description: { consumer: `<h3>Πολυβιταμίνη</h3><p>Για όλη την οικογένεια.</p>`, science: ``, bibliography: `` } },
-    { name: 'NUTRI MX OMEGA 3', description: { consumer: `<h3>Ωμέγα 3</h3><p>Για την καρδιά.</p>`, science: ``, bibliography: `` } },
-    { name: 'NUTRI MX JOINT', description: { consumer: `<h3>Joint Support</h3><p>Για τις αρθρώσεις.</p>`, science: ``, bibliography: `` } }
+    { 
+        name: 'NUTRI MX PROBIOTIC PREMIUM', 
+        description: { 
+            consumer: `<h3>Συμπλήρωμα Διατροφής με Προβιοτικά</h3><p>Το Probiotic Premium της Nutri-MX περιέχει <strong>18 διαφορετικά ενεργά στελέχη προβιοτικών</strong> και <strong>10 δισεκατομμύρια CFU</strong>. Τα προβιοτικά είναι ζωντανοί μικροοργανισμοί που πρέπει να καταναλώνονται σε επαρκείς ποσότητες [1]. Υποστηρίζουν το ανοσοποιητικό, το μεταβολισμό και την πέψη, βοηθώντας στη διατήρηση της υγιούς μικροχλωρίδας του εντέρου.</p>`, 
+            science: `<h3>Μηχανισμός Δράσης & Οφέλη</h3><p><strong>Υγεία Γαστρεντερικού (ΓΕΣ):</strong> Μελέτες δείχνουν ότι τα προβιοτικά συμβάλλουν στη διατήρηση της υγείας του ΓΕΣ και έχουν μελετηθεί για την επίδρασή τους σε ποικίλες παθήσεις [2].</p><p><strong>Μικροβίωμα:</strong> Η ισορροπία του εντερικού μικροβιώματος είναι κρίσιμη, καθώς ανισορροπίες μπορεί να συνδέονται με ασθένειες όπως ο διαβήτης τύπου 2 [5].</p><p><strong>Λειτουργίες:</strong> Παράγουν ουσίες με επιθυμητά αποτελέσματα και επηρεάζουν την ανοσολογική απόκριση του οργανισμού [3].</p>`, 
+            bibliography: `<ol><li>Γεώργιος Π. Καραμανώλης, ΕΚΠΑ, 14η Πανελλήνια Εκπαιδευτική Συνάντηση ΕΛΙΓΑΣΤ, 2019.</li><li>ΚΩΝΣΤΑΝΤΙΝΑ ΤΣΟΥΤΣΟΥΛΟΠΟΥΛΟΥ, MedNutrition, 17/02/2023.</li><li>Ευανθία Λιτοπούλου, Προβιοτικά τρόφιμα, Γεωπονική Σχολή Α.Π.Θ., 2013.</li><li>Παναγιώτης Νεύρας, Ποιο προβιοτικό είναι κατάλληλο για εμένα, 15/09/2020.</li><li>Lee JY, et al. The microbiome and gut homeostasis. Science 2022.</li></ol>` 
+        } 
+    },
+    { 
+        name: 'NUTRI MX MAGNESIUM 1 Τεμ', 
+        description: { 
+            consumer: `<h3>Υγεία Νευρικού & Μυϊκού Συστήματος</h3><p>Το μαγνήσιο και η βιταμίνη Β6 συμβάλλουν στη φυσιολογική λειτουργία του νευρικού συστήματος, των ψυχολογικών λειτουργιών και στη μείωση της κόπωσης. Το μαγνήσιο προάγει την ισορροπία των ηλεκτρολυτών και τη φυσιολογική λειτουργία των μυών, ενώ η Β6 υποστηρίζει τον μεταβολισμό των πρωτεϊνών και την ορμονική ρύθμιση.</p>`, 
+            science: `<h3>Βιολογικός Ρόλος & Μηχανισμός</h3><p><strong>Μαγνήσιο (Mg):</strong> Συμμετέχει ως συμπαράγοντας σε >300 αντιδράσεις (σύνθεση DNA, νευροδιαβίβαση, μυϊκή σύσπαση). Είναι φυσικός ανταγωνιστής του ασβεστίου. Η έλλειψη προκαλεί μυϊκούς σπασμούς, κόπωση, ημικρανίες.</p><p><strong>Δοσολογία:</strong> Συνιστώμενη ημερήσια πρόσληψη: 320mg (γυναίκες) - 420mg (άνδρες).</p>`, 
+            bibliography: `<p>Βιβλιογραφία βάσει γενικής ιατρικής γνώσης και αναφορών σε: [1] αφθονία στο φλοιό της Γης, [2][3] στο σύμπαν.</p>` 
+        } 
+    },
+    { 
+        name: 'NUTRI MX A-Z', 
+        description: { 
+            consumer: `<h3>Πολυβιταμίνη για Όλη την Οικογένεια</h3><p>Το A-Z Multivitamin and Minerals παρέχει έναν ισορροπημένο συνδυασμό βιταμινών και μετάλλων. Είναι ιδανικό για αθλητές, άτομα με έντονη δραστηριότητα ή όσους θέλουν να ενισχύσουν το ανοσοποιητικό τους και να καλύψουν διατροφικά κενά.</p>`, 
+            science: `<h3>Οφέλη για Ειδικές Ομάδες</h3><p><strong>Υποστήριξη:</strong> Σε περιόδους στρες ή κακής διατροφής.</p><p><strong>Ειδικές Ανάγκες:</strong> Κατάλληλο για ηλικιωμένους με αυξημένες απαιτήσεις, χορτοφάγους που στερούνται συγκεκριμένων βιταμινών και άτομα που ακολουθούν προγράμματα απώλειας βάρους.</p>`, 
+            bibliography: `<p>Δεν παρέχεται συγκεκριμένη λίστα βιβλιογραφίας.</p>` 
+        } 
+    },
+    { 
+        name: 'NUTRI MX OMEGA 3', 
+        description: { 
+            consumer: `<h3>Καρδιαγγειακή & Ψυχική Υγεία</h3><p>Τα ωμέγα-3 λιπαρά οξέα είναι πολύτιμα συμπληρώματα με πολλά οφέλη. Είναι ιδιαίτερα χρήσιμα για την καρδιαγγειακή υγεία, μειώνοντας τη φλεγμονή και προάγοντας την πήξη του αίματος. Βοηθούν επίσης στην ψυχική υγεία αυξάνοντας τη σεροτονίνη και βελτιώνουν την υγεία του δέρματος.</p>`, 
+            science: `<h3>Μηχανισμοί Δράσης</h3><p><strong>Καρδιαγγειακό:</strong> Μείωση φλεγμονής, βελτίωση λιπιδαιμικού προφίλ.</p><p><strong>Νευρικό Σύστημα:</strong> Υποστήριξη επιπέδων σεροτονίνης στον εγκέφαλο.</p><p><strong>Δέρμα:</strong> Μείωση φλεγμονωδών δερματικών καταστάσεων (π.χ. ακμή).</p>`, 
+            bibliography: `<p>Δεν παρέχεται συγκεκριμένη λίστα βιβλιογραφίας.</p>` 
+        } 
+    },
+    { 
+        name: 'NUTRI MX JOINT', 
+        description: { 
+            consumer: `<h3>Υποστήριξη Αρθρώσεων & Χόνδρων</h3><p>Το Joint Support περιέχει Γλυκοζαμίνη, Χονδροϊτίνη, MSM και Κολλαγόνο. Υποστηρίζει την ευκαμψία των αρθρώσεων, μειώνει τον πόνο και τη φλεγμονή, και βοηθά στην αναγέννηση του αρθρικού χόνδρου [1]. Το Τζίντζερ παρέχει επιπλέον αντιφλεγμονώδη δράση.</p>`, 
+            science: `<h3>Μηχανισμοί Δράσης</h3><p><strong>Γλυκοζαμίνη:</strong> Αμινοσάκχαρο απαραίτητο για τη βιοσύνθεση ουσιών αποκατάστασης των αρθρώσεων [2].</p><p><strong>Χονδροϊτίνη:</strong> Αυξάνει την ελαστικότητα του χόνδρου και ανακουφίζει από τον πόνο [1].</p><p><strong>MSM:</strong> Παρέχει οργανικό θείο, ενισχύει την αντιοξειδωτική άμυνα και την απορρόφηση θρεπτικών ουσιών [3].</p><p><strong>Κολλαγόνο:</strong> Κύριο δομικό στοιχείο τενόντων και χόνδρου (Τύπος Ι & ΙΙ) [4, 5].</p>`, 
+            bibliography: `<ol><li>Ειρήνης Μιχαήλ, MedNutrition, ΛΕΞΙΚΟ ΔΙΑΤΡΟΦΗΣ, 2020.</li><li>Έφη Δασκάλου, MSM μια φυσική πηγή θείου, 2016.</li><li>Μαριάννα Χ. Αντωνέλου, ΕΚΠΑ, ΕΞΩΚΥΤΤΑΡΙΕΣ ΟΥΣΙΕΣ, 2014.</li><li>Kislingh – Role of peptide fragments of collagen... 2019.</li></ol>` 
+        } 
+    }
 ];
-
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('productModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2 id="modalProductName"></h2><span class="close-button" onclick="closeProductModal()">&times;</span></div><div class="modal-body"><div class="modal-tabs"><button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button><button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button><button class="tab-button" onclick="openTab(event, 'Biblio')">Βιβλιογραφία</button></div><div id="Consumer" class="tab-content" style="display: block;"></div><div id="Science" class="tab-content"></div><div id="Biblio" class="tab-content"></div></div><div class="modal-quick-add"><label for="modalQuantity">Ποσότητα:</label><input type="number" id="modalQuantity" min="1" value="1"><button id="modal-add-button">Προσθήκη στην Παραγγελία</button></div></div>`;
     document.getElementById('previewModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2>Προεπισκόπηση</h2><span class="close-button" onclick="closePreviewModal()">&times;</span></div><div class="modal-body"><pre id="previewContent"></pre></div><div class="modal-footer"><button id="saveTxtButton" class="btn" style="background-color:#5cb85c">Αποθήκευση</button><button class="btn" style="background-color:#aaa" onclick="closePreviewModal()">Κλείσιμο</button></div></div>`;
