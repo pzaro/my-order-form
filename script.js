@@ -76,7 +76,7 @@ const pharmacies = [
     { id: 87, name: "ΜΟΥΛΑ ΕΛΕΥΘΕΡΙΑ", area: "Αριδαία", subArea: "Κωνσταντία", address: "ΚΩΝΣΤΑΝΤΙΑ", phone: "2384051111" },
     { id: 98, name: "ΠΑΛΙΚΟΓΛΟΥ ΕΥΔΟΚΙΑ", area: "Αριδαία", subArea: "Ίδα", address: "ΙΔΑ", phone: "2384022555" },
     { id: 100, name: "ΠΑΠΑΔΟΠΟΥΛΟΣ ΑΓΓΕΛΟΣ", area: "Αριδαία", subArea: "Ξιφιανή", address: "ΞΙΦΙΑΝΗ", phone: "2384092353" },
-    { id: 101, name: "ΠΑΠΑΠΔΟΠΟΥΛΟΥ ΠΩΛΙΝΑ", area: "Αριδαία", subArea: "Πρόμαχοι", address: "ΠΡΟΜΑΧΟΙ", phone: "2384075673" },
+    { id: 101, name: "ΠΑΠΑΔΟΠΟΥΛΟΥ ΠΩΛΙΝΑ", area: "Αριδαία", subArea: "Πρόμαχοι", address: "ΠΡΟΜΑΧΟΙ", phone: "2384075673" },
     { id: 109, name: "ΠΑΣΧΟΥΛΑΡΗ ΠΑΥΛΙΝΑ", area: "Αριδαία", subArea: "Λουτράκι", address: "ΛΟΥΤΡΑΚΙ", phone: "2384091122" },
     { id: 111, name: "ΠΛΑΤΗΣ ΒΑΣΙΛΕΙΟΣ", area: "Αριδαία", subArea: "Αριδαία (Πόλη)", address: "ΜΙΑΟΥΛΗ 21", phone: "2384022908" },
     { id: 115, name: "ΣΑΠΑΚΟΛΗ ΕΥΑΓΓΕΛΙΑ", area: "Αριδαία", subArea: "Βορεινό", address: "ΒΟΡΕΙΝΟ", phone: "2384071151" },
@@ -190,46 +190,24 @@ const pharmacies = [
 
 let globalSchedule = []; 
 
-// --- ΒΟΗΘΗΤΙΚΕΣ ΣΥΝΑΡΤΗΣΕΙΣ ---
-
 function normalize(str) {
     if (!str) return "";
-    return str
-        .toLowerCase()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
-        .replace(/\s+/g, "")
-        .trim();
+    return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").trim();
 }
 
 function parseDateStr(dateStr) {
     if (!dateStr) return null;
     const cleanStr = dateStr.trim().replace(/-/g, '/');
     const parts = cleanStr.split('/');
-    
-    // Περίπτωση d/m/y (π.χ. 1/12/2025)
     if (parts.length === 3) {
-        let d = parseInt(parts[0], 10);
-        let m = parseInt(parts[1], 10);
-        let y = parseInt(parts[2], 10);
-        
-        // ΔΙΟΡΘΩΣΗ: Έλεγχος αν το format είναι YYYY/MM/DD
-        if (d > 31) {
-            // Αν το πρώτο νούμερο είναι > 31, τότε είναι Έτος (YYYY/MM/DD)
-            y = parseInt(parts[0], 10);
-            m = parseInt(parts[1], 10);
-            d = parseInt(parts[2], 10);
-        } else {
-            // Αλλιώς είναι d/m/y
-            // Διόρθωση για 2ψηφιο έτος (π.χ. 25 -> 2025)
-            if (y < 100) y += 2000;
-        }
-        
+        let d = parseInt(parts[0], 10), m = parseInt(parts[1], 10), y = parseInt(parts[2], 10);
+        if (d > 31) { y = parseInt(parts[0], 10); m = parseInt(parts[1], 10); d = parseInt(parts[2], 10); } 
+        else { if (y < 100) y += 2000; }
         return { d, m, y };
     }
     return null;
 }
 
-// ⚠️ ΝΕΑ ΣΥΝΑΡΤΗΣΗ: Λήψη Ώρας Δικτύου ⚠️
 async function getGreeceTime() {
     try {
         const response = await fetch("https://worldtimeapi.org/api/timezone/Europe/Athens");
@@ -237,38 +215,23 @@ async function getGreeceTime() {
         const data = await response.json();
         return new Date(data.datetime);
     } catch (error) {
-        console.warn("Δεν βρέθηκε ώρα δικτύου, χρήση ώρας συσκευής.", error);
-        return new Date(); // Fallback στην ώρα συσκευής αν αποτύχει
+        return new Date();
     }
 }
 
-// Τροποποιημένη getShiftDate για να δέχεται το Date Object
 function getShiftDate(dateObj) {
-    const now = new Date(dateObj); // Δημιουργία αντιγράφου για να μην πειράξουμε το πρωτότυπο
-    // Αν η ώρα είναι < 8, πάμε στην προηγούμενη μέρα
-    if (now.getHours() < 8) {
-        now.setDate(now.getDate() - 1);
-    }
-    return {
-        d: now.getDate(),
-        m: now.getMonth() + 1,
-        y: now.getFullYear(),
-        obj: now 
-    };
+    const now = new Date(dateObj);
+    if (now.getHours() < 8) now.setDate(now.getDate() - 1);
+    return { d: now.getDate(), m: now.getMonth() + 1, y: now.getFullYear(), obj: now };
 }
 
 function parseCSVLine(text) {
-    let result = [];
-    let cell = '';
-    let inQuotes = false;
-
+    let result = [], cell = '', inQuotes = false;
     for (let i = 0; i < text.length; i++) {
         let char = text[i];
-        if (char === '"') { inQuotes = !inQuotes; }
-        else if (char === ',' && !inQuotes) {
-            result.push(cell.trim());
-            cell = '';
-        } else { cell += char; }
+        if (char === '"') inQuotes = !inQuotes;
+        else if (char === ',' && !inQuotes) { result.push(cell.trim()); cell = ''; } 
+        else cell += char;
     }
     result.push(cell.trim());
     return result;
@@ -276,39 +239,24 @@ function parseCSVLine(text) {
 
 function findPharmacyIds(rawValue, allPharmacies, currentArea) {
     if (!rawValue) return [];
-    
-    if (/^\d+$/.test(rawValue)) {
-        return [parseInt(rawValue, 10)];
-    }
-
-    if (/^[\d\-\s,]+$/.test(rawValue)) {
-        return rawValue.split(/[\-\s,]+/).map(n => parseInt(n)).filter(n => !isNaN(n));
-    }
-
+    if (/^\d+$/.test(rawValue)) return [parseInt(rawValue, 10)];
+    if (/^[\d\-\s,]+$/.test(rawValue)) return rawValue.split(/[\-\s,]+/).map(n => parseInt(n)).filter(n => !isNaN(n));
     const areaPharmacies = allPharmacies.filter(p => normalize(p.area) === normalize(currentArea));
     const tokens = rawValue.split(/[\-,\/]+/);
     let foundIds = [];
-
     tokens.forEach(token => {
         let searchStr = normalize(token);
         if (!searchStr) return;
-
         let match = areaPharmacies.find(p => normalize(p.name).includes(searchStr));
-
         if (!match) {
-            const surname = searchStr.split(' ')[0]; 
-            if (surname.length > 2) { 
-                match = areaPharmacies.find(p => normalize(p.name).includes(surname));
-            }
+            const surname = searchStr.split(' ')[0];
+            if (surname.length > 2) match = areaPharmacies.find(p => normalize(p.name).includes(surname));
         }
-
         if (match) foundIds.push(match.id);
     });
-
-    return [...new Set(foundIds)]; 
+    return [...new Set(foundIds)];
 }
 
-// ⚠️ ΑΛΛΑΓΗ ΣΤΗ ΡΟΗ ΕΚΤΕΛΕΣΗΣ (ASYNC) ⚠️
 document.addEventListener('DOMContentLoaded', async () => {
     const tabsContainer = document.getElementById('tabs-container');
     const cityContainer = document.getElementById('city-pharmacy-container');
@@ -321,6 +269,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tickerText = document.getElementById('ticker-text');
     const bottomAdContainer = document.getElementById('bottom-ad-container');
 
+    // ⚠️ Check if container exists in HTML
+    if (!bottomAdContainer) {
+        console.warn("ΠΡΟΣΟΧΗ: Λείπει το κουτί διαφήμισης (bottom-ad-container).");
+    }
+
     let fileLinkContainer = document.getElementById('file-link-container');
     if (!fileLinkContainer) {
         fileLinkContainer = document.createElement('div');
@@ -328,16 +281,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(cityTitle) cityTitle.parentNode.insertBefore(fileLinkContainer, cityTitle.nextSibling);
     }
 
-    // 1. Λήψη πραγματικής ώρας Ελλάδας (Async)
-    if(loadingMsg) loadingMsg.style.display = 'block';
-    
-    const realTime = await getGreeceTime(); // Περιμένουμε να έρθει η ώρα
-    const shiftDate = getShiftDate(realTime); // Υπολογίζουμε τη βάρδια
-
+    const realTime = await getGreeceTime();
+    const shiftDate = getShiftDate(realTime);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     if(dateDisplay) dateDisplay.textContent = shiftDate.obj.toLocaleDateString('el-GR', options);
 
-    // 2. Τώρα καλούμε το Google Sheet με τη σωστή ημερομηνία
     fetchGoogleSheet(shiftDate);
 
     async function fetchGoogleSheet(currentShiftDate) {
@@ -346,7 +294,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error("Λάθος Link! Έχεις βάλει το link επεξεργασίας.");
             }
 
-            const response = await fetch(GOOGLE_SHEET_CSV_URL);
+            // ⚠️ CACHE BUSTER: Προσθέτουμε τυχαίο αριθμό στο τέλος
+            const response = await fetch(GOOGLE_SHEET_CSV_URL + "&t=" + Date.now());
+            
             if (!response.ok) throw new Error("Δεν ήταν δυνατή η σύνδεση με το Google Sheet.");
             
             const data = await response.text();
@@ -367,7 +317,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 const link = cols[4] ? cols[4].replace(/"/g, '') : null;
                 const tickerMsg = cols[5] ? cols[5].replace(/"/g, '') : null;
-                const bottomAd = cols[6] ? cols[6].replace(/"/g, '') : null; // Στήλη G
+                
+                // SAFETY CHECK: Αν η στήλη G λείπει, βάζουμε null
+                const bottomAd = cols.length > 6 ? cols[6].replace(/"/g, '') : null;
 
                 globalSchedule.push({ 
                     dateObj: parsedDate,
@@ -457,24 +409,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </a>`;
             }
 
-            // ⚠️ ΛΟΓΙΚΗ ΔΙΑΦΗΜΙΣΗΣ (Δυναμική ή Default Z-Boost) ⚠️
-            let adContent = '';
-            if (bottomAdText && bottomAdText.length > 2) {
-                // Υπάρχει διαφήμιση στο Excel (Στήλη G)
+            // ⚠️ ΛΟΓΙΚΗ ΔΙΑΦΗΜΙΣΗΣ (Μόνο αν υπάρχει Link) ⚠️
+            if (bottomAdText && bottomAdText.length > 5) { // Αυξημένο όριο για να αποφύγουμε "σκουπίδια"
+                let adContent = '';
                 if (bottomAdText.includes('<')) {
-                    adContent = bottomAdText; // Είναι HTML (π.χ. εικόνα)
+                    // Είναι HTML (π.χ. εικόνα)
+                    adContent = bottomAdText;
                 } else {
-                    // Είναι απλό Link -> Το κάνουμε iframe
+                    // Είναι Link -> Το κάνουμε iframe
                     adContent = `<iframe src="${bottomAdText}" title="Ad" style="width:100%; height:500px; border:none; border-radius:8px;"></iframe>`;
                 }
+                
+                if (bottomAdContainer) {
+                    bottomAdContainer.innerHTML = adContent;
+                    bottomAdContainer.style.display = 'block';
+                }
             } else {
-                // Δεν υπάρχει στο Excel -> Δείχνουμε την Default Z-Boost
-                adContent = `<iframe src="https://zboost.netlify.app/" title="Z-Boost" style="width:100%; height:500px; border:none; border-radius:8px;"></iframe>`;
-            }
-
-            if (bottomAdContainer) {
-                bottomAdContainer.innerHTML = adContent;
-                bottomAdContainer.style.display = 'block';
+                // ΚΕΝΟ: Δεν κάνουμε τίποτα, το κουτί μένει κρυφό (display: none)
+                if (bottomAdContainer) {
+                    bottomAdContainer.style.display = 'none';
+                    bottomAdContainer.innerHTML = ''; // Καθαρισμός
+                }
             }
 
             const areaPharmacies = pharmacies.filter(p => normalize(p.area) === normalize(currentArea));
