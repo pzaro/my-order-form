@@ -128,7 +128,7 @@ const productDetails = [
     },
     { 
         name: 'Zarkolia Cosmetic pack',
-        description: { consumer: `<h3>Ολοκληρωμένη Προσέγγιση στην Περιποίηση</h3><p>Σετ τριών προϊόντων για ενυδάτωση και αντιγήρανση.</p>`, science: `<h3>Προϊόντα</h3><p>Revitacell, Hydralia, Eyes.</p>`, bibliography: `<p>-</p>` }
+        description: { consumer: `<h3>Ολοκληρωμένη Περιποίηση</h3><p>Σετ τριών προϊόντων για ενυδάτωση και αντιγήρανση.</p>`, science: `<h3>Προϊόντα</h3><p>Revitacell, Hydralia, Eyes.</p>`, bibliography: `<p>-</p>` }
     },
     { 
         name: 'Hydralia Face cream 50ml',
@@ -158,14 +158,14 @@ const productDetails = [
         name: 'NUTRI MX MAGNESIUM 1 Τεμ', 
         description: { 
             consumer: `<h3>Υγεία Νευρικού & Μυϊκού Συστήματος</h3><p>Το μαγνήσιο και η βιταμίνη Β6 συμβάλλουν στη φυσιολογική λειτουργία του νευρικού συστήματος, των ψυχολογικών λειτουργιών και στη μείωση της κόπωσης. Το μαγνήσιο προάγει την ισορροπία των ηλεκτρολυτών και τη φυσιολογική λειτουργία των μυών και των οστών. Η βιταμίνη Β6 βοηθά στον μεταβολισμό των πρωτεϊνών και στην ορμονική ρύθμιση.</p>`, 
-            science: `<h3>Βιολογικός Ρόλος & Μηχανισμός</h3><p><strong>Μαγνήσιο (Mg):</strong> Συμμετέχει ως συμπαράγοντας σε >300 αντιδράσεις (σύνθεση DNA, νευροδιαβίβαση, μυϊκή σύσπαση). Είναι φυσικός ανταγωνιστής του ασβεστίου. Η έλλειψη προκαλεί μυϊκούς σπασμούς, κόπωση, ημικρανίες και ταχυκαρδίες.</p><p><strong>Συνιστώμενη Πρόσληψη:</strong> 320mg (γυναίκες) - 420mg (άνδρες) ημερησίως.</p>`, 
+            science: `<h3>Βιολογικός Ρόλος & Μηχανισμός</h3><p><strong>Μαγνήσιο (Mg):</strong> Συμμετέχει ως συμπαράγοντας σε >300 αντιδράσεις (σύνθεση DNA, νευροδιαβίβαση, μυϊκή σύσπαση). Είναι φυσικός ανταγωνιστής του ασβεστίου. Η έλλειψη προκαλεί μυϊκούς σπασμούς, κόπωση, ημικρανίες.</p><p><strong>Δοσολογία:</strong> Συνιστώμενη ημερήσια πρόσληψη: 320mg (γυναίκες) - 420mg (άνδρες).</p>`, 
             bibliography: `<p>Βιβλιογραφία βάσει γενικής ιατρικής γνώσης και αναφορών σε: [1] αφθονία στο φλοιό της Γης, [2][3] στο σύμπαν.</p>` 
         } 
     },
     { 
         name: 'NUTRI MX A-Z', 
         description: { 
-            consumer: `<h3>Πολυβιταμίνη για Όλη την Οικογένεια</h3><p>Το A-Z Multivitamin and Minerals παρέχει έναν ισορροπημένο συνδυασμό βιταμινών και μετάλλων. Είναι ιδανικό για αθλητές, άτομα με έντονη δραστηριότητα ή όσους θέλουν να ενισχύσουν το ανοσοποιητικό τους και να διασφαλίσουν τη διατροφική πρόσληψη θρεπτικών συστατικών.</p>`, 
+            consumer: `<h3>Πολυβιταμίνη για Όλη την Οικογένεια</h3><p>Το A-Z Multivitamin and Minerals παρέχει έναν ισορροπημένο συνδυασμό βιταμινών και μετάλλων. Είναι ιδανικό για αθλητές, άτομα με έντονη δραστηριότητα ή όσους θέλουν να ενισχύσουν το ανοσοποιητικό τους και να καλύψουν διατροφικά κενά.</p>`, 
             science: `<h3>Οφέλη για Ειδικές Ομάδες</h3><p><strong>Υποστήριξη:</strong> Σε περιόδους στρες ή κακής διατροφής.</p><p><strong>Ειδικές Ανάγκες:</strong> Κατάλληλο για ηλικιωμένους με αυξημένες απαιτήσεις, χορτοφάγους που στερούνται συγκεκριμένων βιταμινών και άτομα που ακολουθούν προγράμματα απώλειας βάρους.</p>`, 
             bibliography: `<p>Δεν παρέχεται συγκεκριμένη λίστα βιβλιογραφίας.</p>` 
         } 
@@ -189,7 +189,7 @@ const productDetails = [
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('productModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2 id="modalProductName"></h2><span class="close-button" onclick="closeProductModal()">&times;</span></div><div class="modal-body"><div class="modal-tabs"><button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button><button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button><button class="tab-button" onclick="openTab(event, 'Biblio')">Βιβλιογραφία</button></div><div id="Consumer" class="tab-content" style="display: block;"></div><div id="Science" class="tab-content"></div><div id="Biblio" class="tab-content"></div></div><div class="modal-quick-add"><label for="modalQuantity">Ποσότητα:</label><input type="number" id="modalQuantity" min="1" value="1"><button id="modal-add-button">Προσθήκη στην Παραγγελία</button></div></div>`;
+    document.getElementById('productModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2 id="modalProductName"></h2><span class="close-button" onclick="closeProductModal()">&times;</span></div><div class="modal-body"><div class="modal-tabs"><button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button><button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button><button class="tab-button" onclick="openTab(event, 'Biblio')">Βιβλιογραφία</button></div><div id="Consumer" class="tab-content" style="display: block;"></div><div id="Science" class="tab-content"></div><div id="Biblio" class="tab-content"></div></div><div class="modal-quick-add"><label for="modalQuantity">Ποσότητα:</label><input type="number" id="modalQuantity" min="1" value="1"><button id="modal-add-button">Ενημέρωση</button></div></div>`;
     document.getElementById('previewModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2>Προεπισκόπηση</h2><span class="close-button" onclick="closePreviewModal()">&times;</span></div><div class="modal-body"><pre id="previewContent"></pre></div><div class="modal-footer"><button id="saveTxtButton" class="btn" style="background-color:#5cb85c">Αποθήκευση</button><button class="btn" style="background-color:#aaa" onclick="closePreviewModal()">Κλείσιμο</button></div></div>`;
     
     const productButtonsContainer = document.getElementById('productButtonsContainer');
@@ -280,38 +280,6 @@ function showProductDetails(productIndex){
     document.querySelector('.tab-button').click();
 }
 
-function addToOrder(productName, quantity) {
-    const tableBody = document.querySelector('#product-table tbody');
-    const productData = products.find(p => p.name === productName);
-    if (!productData) return;
-
-    let existingRow = null;
-    tableBody.querySelectorAll('tr').forEach(row => {
-        if (row.cells[0].textContent === productName) {
-            existingRow = row;
-        }
-    });
-
-    if (existingRow) {
-        const quantityInput = existingRow.querySelector('.quantity');
-        let currentQuantity = parseInt(quantityInput.value) || 0;
-        quantityInput.value = currentQuantity + quantity;
-    } else {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${productData.name}</td>
-            <td><input type="number" class="quantity" min="0" data-price="${productData.price}" oninput="updateAll()" value="${quantity}"></td>
-            <td class="gifts">0</td>
-            <td class="effective-price normal">${productData.price.toFixed(2)} €</td>
-            <td class="line-total">0.00 €</td>
-        `;
-        tableBody.appendChild(row);
-    }
-    
-    updateAll();
-    closeProductModal();
-}
-
 function closeProductModal(){document.getElementById('productModal').style.display='none';}
 function closePreviewModal(){document.getElementById('previewModal').style.display='none';}
 
@@ -325,11 +293,6 @@ function updateAll(){
         const quantityInput = row.querySelector(".quantity");
         const quantity = parseInt(quantityInput.value) || 0;
         
-        if (quantity <= 0) {
-            row.remove();
-            return; 
-        }
-
         const price = parseFloat(quantityInput.dataset.price);
         const gifts = calculateGifts(quantity);
         const totalItems = quantity + gifts;
@@ -394,6 +357,7 @@ function getOrderData(){
     }
 }
 
+// --- ΝΕΑ ΣΥΝΑΡΤΗΣΗ EMAIL ΜΕ ΒΕΛΤΙΩΜΕΝΗ ΕΜΦΑΝΙΣΗ ---
 function generateEmailBody() {
     const { customerData, items, totals } = getOrderData();
     let body = `Νέα Παραγγελία\n\n`;
@@ -452,6 +416,7 @@ function sendEmailViaClient() {
     const subject = `Νέα Παραγγελία από ${customerData.eponimia || 'Νέος Πελάτης'}`;
     const recipients = "pzaro2010@gmail.com,liapaki2017@gmail.com";
     
+    // Χρήση encodeURIComponent για σωστή διαχείριση χαρακτήρων και αποφυγή "+"
     let mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
     if (customerData.email) {
@@ -461,6 +426,7 @@ function sendEmailViaClient() {
     window.location.href = mailtoLink;
 }
 
+// --- ΣΥΝΑΡΤΗΣΗ ΓΙΑ TXT (Παραμένει αναλυτική) ---
 function generateOrderContent(){
     const{customerData:c,items:i,totals:t}=getOrderData();
     const b="\n\nΣΤΟΙΧΕΙΑ ΚΑΤΑΘΕΣΗΣ\n----------------------------------------\nIBAN: GR8901722520005252016160277\nΤράπεζα: Τράπεζα Πειραιώς\n";
