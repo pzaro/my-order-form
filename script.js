@@ -596,72 +596,95 @@ function getOrderData(){
 }
 
 // --- ΝΕΑ ΣΥΝΑΡΤΗΣΗ EMAIL ΜΕ ΒΕΛΤΙΩΜΕΝΗ ΕΜΦΑΝΙΣΗ ---
-function generateEmailBody() {
+
+function formatOrderDateTimeGR(dateObj = new Date()) {
+    try {
+        return dateObj.toLocaleString("el-GR", {
+            timeZone: "Europe/Athens",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+    } catch (e) {
+        return dateObj.toLocaleString("el-GR");
+    }
+}
+
+function generateEmailBody(orderStamp) {
     const { customerData, items, totals } = getOrderData();
-    let body = `Νέα Παραγγελία\n\n`;
-    body += `*********************************\n`;
-    body += `* ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ      *\n`;
-    body += `*********************************\n`;
-    body += `ΕΠΩΝΥΜΙΑ: ${customerData.eponimia || '-'}\n`;
-    body += `ΑΦΜ:      ${customerData.afm || '-'}\n`;
-    body += `ΔΟΥ:      ${customerData.doy || '-'}\n`;
-    body += `ΚΙΝΗΤΟ:   ${customerData.mobile || '-'}\n`;
-    body += `ΣΤΑΘΕΡΟ:  ${customerData.phone || '-'}\n`;
-    body += `EMAIL:    ${customerData.email || '-'}\n\n`;
 
-    body += `*********************************\n`;
-    body += `* ΠΑΡΑΓΓΕΛΙΑ           *\n`;
-    body += `*********************************\n`;
-    body += `Είδος                               | Τεμ  | Δώρα\n`;
-    body += `---------------------------------------------------\n`;
-    
-    items.forEach(item => {
-        let name = `* ${item.name}`;
-        if(name.length > 35) name = name.substring(0, 32) + '...';
-        
-        let line = name.padEnd(36, ' ') + 
-                   `| ${item.quantity.toString().padStart(4)} ` + 
-                   `| ${item.gifts.toString().padStart(4)}`;
-        body += `${line}\n`;
+    const stamp = orderStamp || formatOrderDateTimeGR(new Date());
+    const pharmacyName = (customerData.eponimia || "—").trim() || "—";
+
+    const padRight = (s, n) => String(s ?? "").padEnd(n, " ").slice(0, n);
+    const padLeft = (s, n) => String(s ?? "").padStart(n, " ").slice(0, n);
+
+    let body = "";
+    body += `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH\n`;
+    body += `Ημερομηνία καταχώρησης: ${stamp}\n`;
+    body += `Φαρμακείο: ${pharmacyName}\n`;
+    body += `------------------------------------------------------------\n\n`;
+
+    body += `ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ\n`;
+    body += `  Επωνυμία: ${customerData.eponimia || "-"}\n`;
+    body += `  ΑΦΜ:      ${customerData.afm || "-"}\n`;
+    body += `  ΔΟΥ:      ${customerData.doy || "-"}\n`;
+    body += `  Κινητό:   ${customerData.mobile || "-"}\n`;
+    body += `  Σταθερό:  ${customerData.phone || "-"}\n`;
+    body += `  Email:    ${customerData.email || "-"}\n\n`;
+
+    body += `ΠΡΟΪΟΝΤΑ\n`;
+    body += `${padRight("Προϊόν", 34)}  ${padLeft("Ποσ.", 6)}  ${padLeft("Τιμή", 10)}  ${padLeft("Σύνολο", 10)}\n`;
+    body += `${"-".repeat(34)}  ${"-".repeat(6)}  ${"-".repeat(10)}  ${"-".repeat(10)}\n`;
+
+    items.forEach((it) => {
+        const qtyText =
+            it.gifts && Number(it.gifts) > 0 ? `${it.quantity}(+${it.gifts})` : `${it.quantity}`;
+        body += `${padRight(it.name, 34)}  ${padLeft(qtyText, 6)}  ${padLeft(it.effectivePrice, 10)}  ${padLeft(it.total, 10)}\n`;
     });
-    
-    body += `---------------------------------------------------\n\n`;
 
-    body += `--- ΣΥΝΟΛΑ ---\n`;
-    body += `Καθαρή Αξία: ${totals.net}\n`;
-    body += `Αξία ΦΠΑ (24%): ${totals.vat}\n`;
-    body += `* ΤΕΛΙΚΟ ΠΟΣΟ: ${totals.final} *\n\n`;
+    body += `\nΤΙΜΟΛΟΓΗΣΗ (ευδιάκριτη)\n`;
+    body += `  Καθαρή αξία:   ${totals.net}\n`;
+    body += `  ΦΠΑ (24%):     ${totals.vat}\n`;
+    body += `  ΣΥΝΟΛΟ:        ${totals.final}\n\n`;
 
-    body += `--- ΣΥΝΟΛΙΚΑ ΤΕΜΑΧΙΑ (Ανά Είδος) ---\n`;
-    items.forEach(item => {
-        const totalPieces = item.quantity + item.gifts;
-        body += `- ${item.name}: ${totalPieces} τεμ.\n`;
-    });
-    body += `\n`;
-
-    body += `--- Στοιχεία Κατάθεσης ---\n`;
-    body += `IBAN: GR8901722520005252016160277\n`;
-    body += `Τράπεζα: Τράπεζα Πειραιώς\n`;
+    body += `Παρατηρήσεις: Αν χρειάζεται διόρθωση, απαντήστε εντός της ίδιας ημέρας.\n\n`;
+    body += `Zarkolia Health – Τμήμα Παραγγελιών\n`;
 
     return body;
 }
 
 function sendEmailViaClient() {
     const { customerData, items } = getOrderData();
-    if (items.length === 0) {
+
+    if (!items || items.length === 0) {
         alert("Η παραγγελία είναι κενή.");
         return;
     }
-    const body = generateEmailBody();
-    const subject = `Νέα Παραγγελία από ${customerData.eponimia || 'Νέος Πελάτης'}`;
-    const recipients = "pzaro2010@gmail.com,liapaki2017@gmail.com";
-    
-    let mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    if (customerData.email) {
-        mailtoLink += `&cc=${encodeURIComponent(customerData.email)}`;
+
+    const orderStamp = formatOrderDateTimeGR(new Date());
+    const pharmacyName = (customerData.eponimia || "—").trim() || "—";
+
+    // Θέμα όπως ζητήθηκε
+    const subject = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH (${orderStamp})- ${pharmacyName}`;
+
+    // Παραλήπτες: εσύ + Λία + πελάτης (αν έχει email)
+    const internalRecipients = ["pzaro2010@gmail.com", "liapaki2017@gmail.com"];
+    const recipients = [...internalRecipients];
+
+    if (customerData.email && String(customerData.email).includes("@")) {
+        recipients.push(String(customerData.email).trim());
     }
-    
+
+    const body = generateEmailBody(orderStamp);
+
+    const mailtoLink =
+        `mailto:${encodeURIComponent(recipients.join(","))}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
+
     window.location.href = mailtoLink;
 }
 
