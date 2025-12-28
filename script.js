@@ -613,90 +613,48 @@ function formatOrderDateTimeGR(dateObj = new Date()) {
 }
 
 function generateEmailBody(orderStamp) {
-  const { customerData, items, totals } = getOrderData();
+    const { customerData, items, totals } = getOrderData();
 
-  const stamp = orderStamp || formatOrderDateTimeGR(new Date());
-  const pharmacyName = (customerData.eponimia || "—").trim() || "—";
+    const stamp = orderStamp || formatOrderDateTimeGR(new Date());
+    const pharmacyName = (customerData.eponimia || "—").trim() || "—";
 
-  // Box drawing helpers (καθαρό σε Gmail/Outlook/Thunderbird)
-  const line = (n) => "─".repeat(n);
-  const boxTop = (w) => `┌${line(w)}┐`;
-  const boxMid = (w) => `├${line(w)}┤`;
-  const boxBot = (w) => `└${line(w)}┘`;
-  const row = (w, text) => {
-    const t = String(text ?? "");
-    const clipped = t.length > w ? t.slice(0, w - 1) + "…" : t;
-    return `│${clipped.padEnd(w, " ")}│`;
-  };
+    const padRight = (s, n) => String(s ?? "").padEnd(n, " ").slice(0, n);
+    const padLeft = (s, n) => String(s ?? "").padStart(n, " ").slice(0, n);
 
-  const padRight = (s, n) => String(s ?? "").padEnd(n, " ").slice(0, n);
-  const padLeft = (s, n) => String(s ?? "").padStart(n, " ").slice(0, n);
+    let body = "";
+    body += `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH\n`;
+    body += `Ημερομηνία καταχώρησης: ${stamp}\n`;
+    body += `Φαρμακείο: ${pharmacyName}\n`;
+    body += `------------------------------------------------------------\n\n`;
 
-  // Table widths
-  const W = 62; // συνολικό πλάτος box (εσωτερικό)
-  const colName = 32;
-  const colPack = 10;
-  const colQty = 6;
-  const colPrice = 7;
-  const colTotal = 7;
+    body += `ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ\n`;
+    body += `  Επωνυμία: ${customerData.eponimia || "-"}\n`;
+    body += `  ΑΦΜ:      ${customerData.afm || "-"}\n`;
+    body += `  ΔΟΥ:      ${customerData.doy || "-"}\n`;
+    body += `  Κινητό:   ${customerData.mobile || "-"}\n`;
+    body += `  Σταθερό:  ${customerData.phone || "-"}\n`;
+    body += `  Email:    ${customerData.email || "-"}\n\n`;
 
-  // Header box
-  let body = "";
-  body += `${boxTop(W)}\n`;
-  body += `${row(W, "ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ — ZARKOLIA HEALTH")}\n`;
-  body += `${row(W, `Ημερομηνία καταχώρησης: ${stamp}`)}\n`;
-  body += `${row(W, `Φαρμακείο: ${pharmacyName}`)}\n`;
-  body += `${boxBot(W)}\n\n`;
+    body += `ΠΡΟΪΟΝΤΑ\n`;
+    body += `${padRight("Προϊόν", 34)}  ${padLeft("Ποσ.", 6)}  ${padLeft("Τιμή", 10)}  ${padLeft("Σύνολο", 10)}\n`;
+    body += `${"-".repeat(34)}  ${"-".repeat(6)}  ${"-".repeat(10)}  ${"-".repeat(10)}\n`;
 
-  // Customer box
-  body += `${boxTop(W)}\n`;
-  body += `${row(W, "ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ")}\n`;
-  body += `${boxMid(W)}\n`;
-  body += `${row(W, `Επωνυμία: ${customerData.eponimia || "-"}`)}\n`;
-  body += `${row(W, `ΑΦΜ: ${customerData.afm || "-"}   ΔΟΥ: ${customerData.doy || "-"}`)}\n`;
-  body += `${row(W, `Email: ${customerData.email || "-"}   Τηλ.: ${customerData.phone || customerData.mobile || "-"}`)}\n`;
-  body += `${row(W, `Διεύθυνση: ${customerData.address || "-"} ${customerData.city || ""} ${customerData.postal || ""}`)}\n`;
-  body += `${boxBot(W)}\n\n`;
+    items.forEach((it) => {
+        const qtyText =
+            it.gifts && Number(it.gifts) > 0 ? `${it.quantity}(+${it.gifts})` : `${it.quantity}`;
+        body += `${padRight(it.name, 34)}  ${padLeft(qtyText, 6)}  ${padLeft(it.effectivePrice, 10)}  ${padLeft(it.total, 10)}\n`;
+    });
 
-  // Items table (aligned)
-  body += `ΠΡΟΪΟΝΤΑ\n`;
-  body += `${padRight("Προϊόν", colName)} ${padRight("Συσκ.", colPack)} ${padLeft("Ποσ.", colQty)} ${padLeft("Τιμή", colPrice)} ${padLeft("Σύνολο", colTotal)}\n`;
-  body += `${"-".repeat(colName)} ${"-".repeat(colPack)} ${"-".repeat(colQty)} ${"-".repeat(colPrice)} ${"-".repeat(colTotal)}\n`;
+    body += `\nΤΙΜΟΛΟΓΗΣΗ (ευδιάκριτη)\n`;
+    body += `  Καθαρή αξία:   ${totals.net}\n`;
+    body += `  ΦΠΑ (24%):     ${totals.vat}\n`;
+    body += `  ΣΥΝΟΛΟ:        ${totals.final}\n\n`;
 
-  items.forEach((it) => {
-    const qtyText = it.gifts && Number(it.gifts) > 0
-      ? `${it.quantity}(+${it.gifts})`
-      : `${it.quantity}`;
+    body += `Παρατηρήσεις: Αν χρειάζεται διόρθωση, απαντήστε εντός της ίδιας ημέρας.\n\n`;
+    body += `Zarkolia Health – Τμήμα Παραγγελιών\n`;
 
-    body += `${padRight(it.name, colName)} ${padRight(it.pack || "-", colPack)} ${padLeft(qtyText, colQty)} ${padLeft(it.effectivePrice, colPrice)} ${padLeft(it.total, colTotal)}\n`;
-  });
-
-  body += `\n`;
-
-  // Pricing box (πολύ ευδιάκριτο)
-  body += `${boxTop(W)}\n`;
-  body += `${row(W, "ΤΙΜΟΛΟΓΗΣΗ (ευδιάκριτη)")}\n`;
-  body += `${boxMid(W)}\n`;
-
-  const pricingLine = (label, value, bold = false) => {
-    const left = `${label}`.padEnd(26, " ");
-    const right = `${value}`.padStart(12, " ");
-    const text = `${left} ${right}${bold ? "  ◄" : ""}`;
-    return row(W, text);
-  };
-
-  body += `${pricingLine("Καθαρή αξία", totals.net)}\n`;
-  body += `${pricingLine("ΦΠΑ (24%)", totals.vat)}\n`;
-  body += `${pricingLine("ΣΥΝΟΛΟ ΠΛΗΡΩΜΗΣ", totals.final, true)}\n`;
-  body += `${boxBot(W)}\n\n`;
-
-  // Footer
-  body += `Παρατηρήσεις: Αν χρειάζεται διόρθωση, απαντήστε εντός της ίδιας ημέρας.\n`;
-  body += `Zarkolia Health – Τμήμα Παραγγελιών\n`;
-
-  return body;
+    return body;
 }
-
 
 function sendEmailViaClient() {
     const { customerData, items } = getOrderData();
