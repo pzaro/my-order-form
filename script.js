@@ -399,25 +399,16 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('previewModal').innerHTML = `<div class="modal-content"><div class="modal-header"><h2>Προεπισκόπηση</h2><span class="close-button" onclick="closePreviewModal()">&times;</span></div><div class="modal-body"><pre id="previewContent"></pre></div><div class="modal-footer"><button id="saveTxtButton" class="btn" style="background-color:#5cb85c">Αποθήκευση</button><button class="btn" style="background-color:#aaa" onclick="closePreviewModal()">Κλείσιμο</button></div></div>`;
     
     
-    const productButtonsContainerTop = document.getElementById('productButtonsContainer');
-    const productButtonsContainerBottom = document.getElementById('productButtonsContainerBottom');
+    const productButtonsContainer = document.getElementById('productButtonsContainer');
 
-    const renderProductButtons = (container) => {
-        if (!container) return;
-        container.innerHTML = '';
-        products.forEach((p, index) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'product-btn';
-            button.textContent = p.name;
-            button.onclick = () => showProductDetails(index);
-            container.appendChild(button);
-        });
-    };
-
-    renderProductButtons(productButtonsContainerTop);
-    renderProductButtons(productButtonsContainerBottom);
-
+products.forEach((p, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'product-btn';
+    button.textContent = p.name;
+    button.onclick = () => showProductDetails(index);
+    productButtonsContainer.appendChild(button);
+});
 const tableBody = document.querySelector('#product-table tbody');
     products.forEach((p, index) => {
         const row = document.createElement('tr');
@@ -609,52 +600,44 @@ function getOrderData(){
 // --- ΝΕΑ ΣΥΝΑΡΤΗΣΗ EMAIL ΜΕ ΒΕΛΤΙΩΜΕΝΗ ΕΜΦΑΝΙΣΗ ---
 function generateEmailBody() {
     const { customerData, items, totals } = getOrderData();
-    let body = `Νέα Παραγγελία\n\n`;
-    body += `*********************************\n`;
-    body += `* ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ      *\n`;
-    body += `*********************************\n`;
-    body += `ΕΠΩΝΥΜΙΑ: ${customerData.eponimia || '-'}\n`;
-    body += `ΑΦΜ:      ${customerData.afm || '-'}\n`;
-    body += `ΔΟΥ:      ${customerData.doy || '-'}\n`;
-    body += `ΚΙΝΗΤΟ:   ${customerData.mobile || '-'}\n`;
-    body += `ΣΤΑΘΕΡΟ:  ${customerData.phone || '-'}\n`;
-    body += `EMAIL:    ${customerData.email || '-'}\n\n`;
 
-    body += `*********************************\n`;
-    body += `* ΠΑΡΑΓΓΕΛΙΑ           *\n`;
-    body += `*********************************\n`;
-    body += `Είδος                               | Τεμ  | Δώρα\n`;
-    body += `---------------------------------------------------\n`;
-    
+    // Mailto bodies work best as clean plain text
+    const lines = [];
+
+    lines.push("ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ");
+    lines.push("");
+    lines.push("Στοιχεία πελάτη");
+    lines.push(`- Επωνυμία: ${customerData.eponimia || "-"}`);
+    lines.push(`- ΑΦΜ: ${customerData.afm || "-"}`);
+    lines.push(`- ΔΟΥ: ${customerData.doy || "-"}`);
+    lines.push(`- Κινητό: ${customerData.mobile || "-"}`);
+    lines.push(`- Σταθερό: ${customerData.phone || "-"}`);
+    lines.push(`- Email: ${customerData.email || "-"}`);
+    lines.push("");
+
+    lines.push("Παραγγελία");
+    // Header
+    lines.push("Προϊόν | Ποσότητα | Δώρα | Τιμή/τεμ. | Σύνολο");
+    lines.push("------------------------------------------------------------");
+
     items.forEach(item => {
-        let name = `* ${item.name}`;
-        if(name.length > 35) name = name.substring(0, 32) + '...';
-        
-        let line = name.padEnd(36, ' ') + 
-                   `| ${item.quantity.toString().padStart(4)} ` + 
-                   `| ${item.gifts.toString().padStart(4)}`;
-        body += `${line}\n`;
+        lines.push(
+            `${item.name} | ${item.quantity} | ${item.gifts} | ${item.effectivePrice} | ${item.lineTotal}`
+        );
     });
-    
-    body += `---------------------------------------------------\n\n`;
 
-    body += `--- ΣΥΝΟΛΑ ---\n`;
-    body += `Καθαρή Αξία: ${totals.net}\n`;
-    body += `Αξία ΦΠΑ (24%): ${totals.vat}\n`;
-    body += `* ΤΕΛΙΚΟ ΠΟΣΟ: ${totals.final} *\n\n`;
+    lines.push("------------------------------------------------------------");
+    lines.push(`Καθαρή αξία: ${totals.net}`);
+    lines.push(`ΦΠΑ 24%: ${totals.vat}`);
+    lines.push(`Σύνολο πληρωμής: ${totals.final}`);
+    lines.push("");
 
-    body += `--- ΣΥΝΟΛΙΚΑ ΤΕΜΑΧΙΑ (Ανά Είδος) ---\n`;
-    items.forEach(item => {
-        const totalPieces = item.quantity + item.gifts;
-        body += `- ${item.name}: ${totalPieces} τεμ.\n`;
-    });
-    body += `\n`;
+    lines.push("Στοιχεία κατάθεσης");
+    lines.push("- IBAN: GR8901722520005252016160277");
+    lines.push("- Τράπεζα: Τράπεζα Πειραιώς");
 
-    body += `--- Στοιχεία Κατάθεσης ---\n`;
-    body += `IBAN: GR8901722520005252016160277\n`;
-    body += `Τράπεζα: Τράπεζα Πειραιώς\n`;
-
-    return body;
+    return lines.join("
+");
 }
 
 function sendEmailViaClient() {
@@ -663,18 +646,179 @@ function sendEmailViaClient() {
         alert("Η παραγγελία είναι κενή.");
         return;
     }
+
+    // 1) Open a Mailchimp-style preview with copy buttons (HTML + plain text)
+    //    This gives you a clean, formatted email body you can paste into Gmail/Mailchimp.
+    openEmailPreviewAndCopy();
+
+    // 2) Also provide a mailto fallback with compact plain text (clients do not reliably support HTML via mailto)
+    const subject = "Αντίγραφο Παραγγελίας";
     const body = generateEmailBody();
-    const subject = `Νέα Παραγγελία από ${customerData.eponimia || 'Νέος Πελάτης'}`;
-    const recipients = "pzaro2010@gmail.com,liapaki2017@gmail.com";
-    
+
+    const recipients = (typeof EMAIL_RECIPIENTS !== "undefined" && EMAIL_RECIPIENTS) ? EMAIL_RECIPIENTS : "";
     let mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
+
     if (customerData.email) {
         mailtoLink += `&cc=${encodeURIComponent(customerData.email)}`;
     }
-    
+
     window.location.href = mailtoLink;
 }
+
+function escapeHtml(str) {
+    return (str || "").toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function generateEmailHtml() {
+    const { customerData, items, totals } = getOrderData();
+
+    const rows = items.map(i => `
+        <tr>
+            <td style="padding:10px 8px;border-bottom:1px solid #e9ecef;">${escapeHtml(i.name)}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e9ecef;text-align:center;">${i.quantity}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e9ecef;text-align:center;">${i.gifts}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e9ecef;text-align:right;white-space:nowrap;">${escapeHtml(i.effectivePrice)}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e9ecef;text-align:right;white-space:nowrap;"><strong>${escapeHtml(i.lineTotal)}</strong></td>
+        </tr>
+    `).join("");
+
+    const html = `
+<div style="font-family:Arial, Helvetica, sans-serif; color:#212529; line-height:1.4; max-width:680px;">
+  <div style="padding:18px 18px 10px;border:1px solid #e9ecef;border-radius:12px;">
+    <div style="font-size:18px;margin:0 0 12px;"><strong>Αντίγραφο Παραγγελίας</strong></div>
+
+    <div style="font-size:14px;margin:0 0 14px;">
+      <div style="font-weight:700;margin:0 0 6px;">Στοιχεία πελάτη</div>
+      <div>Επωνυμία: <strong>${escapeHtml(customerData.eponimia || "-")}</strong></div>
+      <div>ΑΦΜ: ${escapeHtml(customerData.afm || "-")} &nbsp;&nbsp; ΔΟΥ: ${escapeHtml(customerData.doy || "-")}</div>
+      <div>Κινητό: ${escapeHtml(customerData.mobile || "-")} &nbsp;&nbsp; Σταθερό: ${escapeHtml(customerData.phone || "-")}</div>
+      <div>Email: ${escapeHtml(customerData.email || "-")}</div>
+    </div>
+
+    <div style="font-size:14px;font-weight:700;margin:0 0 8px;">Παραγγελία</div>
+    <table style="width:100%; border-collapse:collapse; font-size:13.5px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:10px 8px;border-bottom:2px solid #dee2e6;">Προϊόν</th>
+          <th style="text-align:center;padding:10px 8px;border-bottom:2px solid #dee2e6;width:70px;">Ποσ.</th>
+          <th style="text-align:center;padding:10px 8px;border-bottom:2px solid #dee2e6;width:70px;">Δώρα</th>
+          <th style="text-align:right;padding:10px 8px;border-bottom:2px solid #dee2e6;width:110px;">Τιμή/τεμ.</th>
+          <th style="text-align:right;padding:10px 8px;border-bottom:2px solid #dee2e6;width:110px;">Σύνολο</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows || `<tr><td colspan="5" style="padding:12px 8px;color:#6c757d;">(Κενή παραγγελία)</td></tr>`}
+      </tbody>
+    </table>
+
+    <div style="margin-top:12px;border-top:1px solid #e9ecef;padding-top:12px;display:flex;gap:14px;justify-content:flex-end;flex-wrap:wrap;font-size:13.5px;">
+      <div>Καθαρή αξία: <strong>${escapeHtml(totals.net)}</strong></div>
+      <div>ΦΠΑ 24%: <strong>${escapeHtml(totals.vat)}</strong></div>
+      <div>Σύνολο πληρωμής: <strong>${escapeHtml(totals.final)}</strong></div>
+    </div>
+
+    <div style="margin-top:14px;font-size:13px;color:#495057;">
+      <div style="font-weight:700;margin-bottom:6px;">Στοιχεία κατάθεσης</div>
+      <div>IBAN: <strong>GR8901722520005252016160277</strong></div>
+      <div>Τράπεζα: Τράπεζα Πειραιώς</div>
+    </div>
+
+    <div style="margin-top:14px;font-size:12.5px;color:#6c757d;">
+      Αν το στείλεις μέσω Mailchimp: κάνε “Paste” το περιεχόμενο όπως είναι (διατηρείται η μορφοποίηση).
+    </div>
+  </div>
+</div>
+`.trim();
+
+    return html;
+}
+
+function openEmailPreviewAndCopy() {
+    const { customerData, items } = getOrderData();
+    if (items.length === 0) {
+        alert("Η παραγγελία είναι κενή.");
+        return;
+    }
+
+    const html = generateEmailHtml();
+
+    const w = window.open("", "_blank");
+    if (!w) {
+        // Pop-up blocked: fallback to clipboard only
+        copyToClipboard(html);
+        alert("Αντιγράφηκε το HTML της παραγγελίας (για Mailchimp/Gmail).");
+        return;
+    }
+
+    w.document.open();
+    w.document.write(`
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Αντίγραφο Παραγγελίας</title>
+</head>
+<body style="margin:20px;background:#f8f9fa;">
+  <div style="max-width:860px;margin:0 auto;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+      <button id="copyBtn" style="padding:10px 14px;border:0;border-radius:10px;background:#007bff;color:#fff;cursor:pointer;font-size:14px;">
+        Αντιγραφή για Mailchimp
+      </button>
+      <button id="copyTxtBtn" style="padding:10px 14px;border:0;border-radius:10px;background:#343a40;color:#fff;cursor:pointer;font-size:14px;">
+        Αντιγραφή ως απλό κείμενο
+      </button>
+    </div>
+
+    <div id="preview">${html}</div>
+  </div>
+
+<script>
+  const htmlContent = ${JSON.stringify("__HTML__")};
+  const txtContent = ${JSON.stringify("__TXT__")};
+
+  function doCopy(str){
+    navigator.clipboard.writeText(str).then(() => {
+      alert("Αντιγράφηκε στο πρόχειρο.");
+    }).catch(() => {
+      const ta = document.createElement("textarea");
+      ta.value = str; document.body.appendChild(ta);
+      ta.select(); document.execCommand("copy");
+      document.body.removeChild(ta);
+      alert("Αντιγράφηκε στο πρόχειρο.");
+    });
+  }
+
+  document.getElementById("copyBtn").onclick = () => doCopy(htmlContent);
+  document.getElementById("copyTxtBtn").onclick = () => doCopy(txtContent);
+<\/script>
+</body>
+</html>
+    `.replace("__HTML__", html.replace(/\\/g,"\\\\").replace(/`/g,"\\`"))
+       .replace("__TXT__", generateEmailBody().replace(/\\/g,"\\\\").replace(/`/g,"\\`"))
+    );
+    w.document.close();
+}
+
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+    }
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return Promise.resolve();
+}
+
+
 
 function generateOrderContent(){
     const{customerData:c,items:i,totals:t}=getOrderData();
