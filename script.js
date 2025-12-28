@@ -612,82 +612,57 @@ function formatOrderDateTimeGR(dateObj = new Date()) {
     }
 }
 
-function generateEmailHtml(orderStamp) {
-  const { customerData, items, totals } = getOrderData();
-  const stamp = orderStamp || formatOrderDateTimeGR(new Date());
-  const pharmacyName = (customerData.eponimia || "—").trim() || "—";
+function generateEmailBody(orderStamp) {
+    const { customerData, items, totals } = getOrderData();
 
-  const rows = items.map(it => `
-    <tr>
-      <td style="padding:10px;border-bottom:1px solid #eee;">${it.name}</td>
-      <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;">${it.quantity}</td>
-      <td style="padding:10px;border-bottom:1px solid #eee;text-align:center;">${it.gifts}</td>
-      <td style="padding:10px;border-bottom:1px solid #eee;text-align:right;">${it.effectivePrice}</td>
-      <td style="padding:10px;border-bottom:1px solid #eee;text-align:right;">${it.total}</td>
-    </tr>
-  `).join("");
+    const stamp = orderStamp || formatOrderDateTimeGR(new Date());
+    const pharmacyName = (customerData.eponimia || "—").trim() || "—";
 
-  return `
-  <div style="background:#f6f7fb;padding:24px;font-family:Arial,Helvetica,sans-serif;">
-    <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #e9e9ee;border-radius:14px;overflow:hidden;">
-      <div style="background:#111827;color:#fff;padding:18px 22px;">
-        <div style="font-size:14px;opacity:.9;">Zarkolia Health</div>
-        <div style="font-size:20px;font-weight:700;margin-top:4px;">Αντίγραφο Παραγγελίας</div>
-        <div style="font-size:13px;opacity:.85;margin-top:6px;">
-          ${stamp} • ${pharmacyName}
-        </div>
-      </div>
+    const padRight = (s, n) => String(s ?? "").padEnd(n, " ").slice(0, n);
+    const padLeft = (s, n) => String(s ?? "").padStart(n, " ").slice(0, n);
 
-      <div style="padding:18px 22px;">
-        <div style="font-size:14px;color:#111827;font-weight:700;margin-bottom:10px;">Στοιχεία Πελάτη</div>
-        <div style="font-size:13px;color:#374151;line-height:1.55;">
-          <div><b>Επωνυμία:</b> ${customerData.eponimia || "-"}</div>
-          <div><b>ΑΦΜ:</b> ${customerData.afm || "-"} &nbsp; <b>ΔΟΥ:</b> ${customerData.doy || "-"}</div>
-          <div><b>Email:</b> ${customerData.email || "-"} &nbsp; <b>Τηλ.:</b> ${(customerData.phone || customerData.mobile || "-")}</div>
-        </div>
+    let body = "";
+    body += `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH\n`;
+    body += `Ημερομηνία καταχώρησης: ${stamp}\n`;
+    body += `Φαρμακείο: ${pharmacyName}\n`;
+    body += `------------------------------------------------------------\n\n`;
 
-        <div style="height:14px;"></div>
+    body += `ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ\n`;
+    body += `  Επωνυμία: ${customerData.eponimia || "-"}\n`;
+    body += `  ΑΦΜ:      ${customerData.afm || "-"}\n`;
+    body += `  ΔΟΥ:      ${customerData.doy || "-"}\n`;
+    body += `  Κινητό:   ${customerData.mobile || "-"}\n`;
+    body += `  Σταθερό:  ${customerData.phone || "-"}\n`;
+    body += `  Email:    ${customerData.email || "-"}\n\n`;
 
-        <div style="font-size:14px;color:#111827;font-weight:700;margin-bottom:10px;">Προϊόντα</div>
-        <table style="width:100%;border-collapse:collapse;font-size:13px;color:#111827;">
-          <thead>
-            <tr>
-              <th style="text-align:left;padding:10px;border-bottom:2px solid #111827;">Προϊόν</th>
-              <th style="text-align:center;padding:10px;border-bottom:2px solid #111827;">Ποσ.</th>
-              <th style="text-align:center;padding:10px;border-bottom:2px solid #111827;">Δώρα</th>
-              <th style="text-align:right;padding:10px;border-bottom:2px solid #111827;">Τελ. Τιμή/Τεμ.</th>
-              <th style="text-align:right;padding:10px;border-bottom:2px solid #111827;">Σύνολο</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows}
-          </tbody>
-        </table>
+    body += `ΠΡΟΪΟΝΤΑ\n`;
+    body += `${padRight("Προϊόν", 34)}  ${padLeft("Ποσ.", 6)}  ${padLeft("Τιμή", 10)}  ${padLeft("Σύνολο", 10)}\n`;
+    body += `${"-".repeat(34)}  ${"-".repeat(6)}  ${"-".repeat(10)}  ${"-".repeat(10)}\n`;
 
-        <div style="height:16px;"></div>
+    items.forEach((it) => {
+        const qtyText =
+            it.gifts && Number(it.gifts) > 0 ? `${it.quantity}(+${it.gifts})` : `${it.quantity}`;
+        body += `${padRight(it.name, 34)}  ${padLeft(qtyText, 6)}  ${padLeft(it.effectivePrice, 10)}  ${padLeft(it.total, 10)}\n`;
+    });
 
-        <div style="background:#f9fafb;border:1px solid #eef0f4;border-radius:12px;padding:14px;">
-          <div style="display:flex;justify-content:space-between;font-size:13px;color:#374151;">
-            <span>Καθαρή Αξία</span><b style="color:#111827;">${totals.net}</b>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:13px;color:#374151;margin-top:6px;">
-            <span>ΦΠΑ (24%)</span><b style="color:#111827;">${totals.vat}</b>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:15px;margin-top:10px;padding-top:10px;border-top:1px solid #e7e7ee;">
-            <span style="font-weight:800;color:#111827;">Σύνολο Πληρωμής</span>
-            <span style="font-weight:900;color:#111827;">${totals.final}</span>
-          </div>
-        </div>
+    body += `\nΤΙΜΟΛΟΓΗΣΗ (ευδιάκριτη)\n`;
+    body += `  Καθαρή αξία:   ${totals.net}\n`;
+    body += `  ΦΠΑ (24%):     ${totals.vat}\n`;
+    body += `  ΣΥΝΟΛΟ:        ${totals.final}\n\n`;
 
-        <div style="font-size:12px;color:#6b7280;margin-top:14px;line-height:1.5;">
-          Σημείωση: Το παρόν email αποτελεί αυτοματοποιημένο αντίγραφο παραγγελίας και δεν υποκαθιστά το νόμιμο φορολογικό παραστατικό.
-        </div>
-      </div>
-    </div>
-  </div>
-  `;
+    body += `Παρατηρήσεις: Αν χρειάζεται διόρθωση, απαντήστε εντός της ίδιας ημέρας.\n\n`;
+    body += `Zarkolia Health – Τμήμα Παραγγελιών\n`;
+
+    return body;
 }
 
+function sendEmailViaClient() {
+    const { customerData, items } = getOrderData();
+
+    if (!items || items.length === 0) {
+        alert("Η παραγγελία είναι κενή.");
+        return;
+    }
 
     const orderStamp = formatOrderDateTimeGR(new Date());
     const pharmacyName = (customerData.eponimia || "—").trim() || "—";
