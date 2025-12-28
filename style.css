@@ -64,5 +64,3 @@ th { background-color: #4CAF50; color: white; }
 @media (max-width: 767px) { .form-grid { grid-template-columns: 1fr; } }
 
 
-/* Buttons κάτω από τον πίνακα προϊόντων */
-.product-buttons-bottom { margin-top: 18px; }
