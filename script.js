@@ -129,56 +129,486 @@ function consumerBlock({ title, bullets, howTo, cautions }) {
     return `<h3>${title}</h3><ul>${bullets.map(b => `<li>${b}</li>`).join("")}</ul>${howTo ? `<h4>Τρόπος χρήσης</h4><p>${howTo}</p>` : ""}${cautions ? `<h4>Προφυλάξεις</h4><p>${cautions}</p>` : ""}<div class="compliance-note">Σημείωση: Οι περιγραφές για το κοινό αφορούν καλλυντική/διατροφική χρήση και δεν υποκαθιστούν ιατρική συμβουλή.</div>`;
 }
 
-// --- 4. ΠΛΗΡΕΙΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
+// 4) PRODUCT DETAILS — Consumer + HCP MoA (no bibliography)
+// ============================================================
 const productDetails = [
-    {
-        name: 'Z-DermAspis',
-        description: {
-            consumer: consumerBlock({
-                title: "Καθαρισμός & άνεση στην καθημερινότητα",
-                bullets: ["Σπρέι υψηλής αλκοόλης για γρήγορο καθαρισμό.","Με PMD (citriodora) για απωθητική αίσθηση.","Ιδανικό για εξωτερικές δραστηριότητες."],
-                howTo: "Ψεκάστε στην επιφάνεια του δέρματος και αφήστε να στεγνώσει.",
-                cautions: "Μακριά από μάτια. Εύφλεκτο."
-            }),
-            science: hcpTable([{ing:"Alcohol denat. ~70%", moa:"Αποδιάταξη πρωτεϊνών παθογόνων."}, {ing:"PMD", moa:"Παρεμβολή σε οσφρητικούς υποδοχείς εντόμων."}]),
-            bibliography: "Carroll SP, Loye J. (2006)."
-        }
-    },
-    {
-        name: 'Bruise Off Bite Out & Pain Free cream',
-        description: {
-            consumer: consumerBlock({
-                title: "Comfort gel-cream για έντονη καταπόνηση",
-                bullets: ["Σύνθεση με <strong>Ουρία</strong> για άμεση αίσθηση ενυδάτωσης.","Βοηθά στην καλύτερη όψη μετά από χτυπήματα.","Απορροφάται γρήγορα."],
-                howTo: "Επάλειψη με ελαφρύ μασάζ στην επιβαρυμένη περιοχή.",
-                cautions: "Αποφυγή σε ερεθισμένο δέρμα."
-            }),
-            science: hcpTable([{ing:"Urea", moa:"Humectant + κερατολυτική δράση. Βελτιώνει τη διείσδυση δραστικών."}, {ing:"Arnica montana", moa:"Αναστολή NF-κB μονοπατιών (αντιφλεγμονώδη δράση)."}]),
-            bibliography: "Wohlrab J (2018). Urea in Dermatology."
-        }
-    },
-    {
-        name: 'Z-boost 30 caps',
-        description: {
-            consumer: consumerBlock({
-                title: "Υποστήριξη Ανοσοποιητικού",
-                bullets: ["Με Ψευδάργυρο για το ανοσοποιητικό.","Περιέχει <strong>Ginger</strong> και NAC για τόνωση.","Ιδανικό για περιόδους κόπωσης."],
-                howTo: "1 κάψουλα ημερησίως.",
-                cautions: "Τα συμπληρώματα δεν υποκαθιστούν ισορροπημένη διατροφή."
-            }),
-            science: hcpTable([{ing:"Zinc", moa:"Λειτουργία ανοσοποιητικού."}, {ing:"Ginger", moa:"Modulation 5-LOX/COX μονοπατιών."}]),
-            bibliography: "Reg. (EU) 432/2012."
-        }
-    },
-    {
-        name: 'NUTRI MX PROBIOTIC PREMIUM',
-        description: {
-            consumer: "<h3>Ισορροπία Εντερικής Χλωρίδας</h3><ul><li>18 στελέχη για ευρύ φάσμα αποικισμού.</li><li>Υποστήριξη της καθημερινής ευεξίας.</li></ul>",
-            science: hcpTable([{ing:"18 Probiotic Strains", moa:"Competitive exclusion παθογόνων & παραγωγή SCFA (βουτυρικό)."}]),
-            bibliography: "Lee JY, et al. (2022)."
-        }
+  {
+    name: 'Z-DermAspis',
+    image: 'images/z-dermaspis.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Καθαρισμός & αίσθηση φρεσκάδας — για δραστήριες ημέρες",
+        bullets: [
+          "Γρήγορος καθαρισμός της επιφάνειας του δέρματος όπου ενδείκνυται.",
+          "Με PMD (Citriodora) για λειτουργική «απωθητική» αίσθηση σε εξωτερικές δραστηριότητες.",
+          "Κατάλληλο για χρήση πριν/μετά από μετακινήσεις ή υπαίθριες δραστηριότητες."
+        ],
+        howTo: "Ψέκασε σε χέρια/επιφάνεια δέρματος και άφησε να στεγνώσει. Μην ξεβγάζεις.",
+        cautions: "Μακριά από μάτια/βλεννογόνους. Μην εφαρμόζεται σε ερεθισμένο/τραυματισμένο δέρμα. Εύφλεκτο."
+      }),
+      science: `
+        <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <p><strong>Στόχος:</strong> λειτουργικός καθαρισμός + οσφρητική «παρέμβαση» έναντι εντόμων.</p>
+        ${hcpTable([
+          {
+            ing: "Alcohol Denat. (~70% v/v)",
+            inci: "ALCOHOL DENAT. / ETHANOL",
+            moa: "Αποδιάταξη πρωτεϊνών και διαταραχή λιπιδικής μεμβράνης. Λειτουργικός καθαρισμός/υγιεινή επιφάνειας δέρματος."
+          },
+          {
+            ing: "PMD (p-menthane-3,8-diol)",
+            inci: "EUCALYPTUS CITRIODORA OIL (hydrated/cyclized) / PMD",
+            moa: "Λειτουργική παρέμβαση στα οσφρητικά/χημειοαισθητικά μονοπάτια των εντόμων (σύγχυση σημάτων ξενιστή)."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
     }
+  },
+
+  {
+    name: 'ZplastCream 40gr',
+    image: 'images/zplast-40.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Ενισχυμένη φροντίδα δερματικού φραγμού — καταπράυνση & άνεση",
+        bullets: [
+          "Καθημερινή περιποίηση για ξηρό/ευαίσθητο δέρμα και περιοχές με τραχύτητα.",
+          "Βελτιώνει την αίσθηση άνεσης και την όψη της επιδερμίδας από εξωτερικούς παράγοντες.",
+          "Πλούσια υφή που αφήνει προστατευτικό φιλμ."
+        ],
+        howTo: "Εφάρμοσε 1–3 φορές/ημέρα στις περιοχές που χρειάζονται.",
+        cautions: "Μόνο για εξωτερική χρήση. Διακόψτε αν εμφανιστεί ερεθισμός."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          {
+            ing: "Hypericum perforatum extract",
+            inci: "HYPERICUM PERFORATUM EXTRACT",
+            moa: "Αντιοξειδωτικό/καταπραϋντικό προφίλ. Υποστήριξη comfort και οπτικής βελτίωσης της υφής μέσω λειτουργικής ενίσχυσης του δερματικού φραγμού."
+          },
+          {
+            ing: "Chios mastic fractions",
+            inci: "PISTACIA LENTISCUS (MASTIC) OIL/EXTRACT",
+            moa: "Λιπιδική υποστήριξη και βελτίωση ‘skin feel’. Συνεισφορά σε αίσθηση άνεσης/λείανσης."
+          },
+          {
+            ing: "Calamine",
+            inci: "CALAMINE",
+            moa: "Ήπιο στυπτικό/καταπραϋντικό προφίλ με επιφανειακή αίσθηση ‘dry-touch’ και comfort."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'ZplastCream 100gr',
+    image: 'images/zplast-100.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Επαγγελματική φροντίδα (100g) — για εκτεταμένη χρήση",
+        bullets: [
+          "Μεγάλη συσκευασία για συστηματική καθημερινή περιποίηση.",
+          "Για περιοχές με έντονη ξηρότητα/τραχύτητα ή συχνή τριβή.",
+          "Βελτιώνει την αίσθηση άνεσης και την όψη της επιδερμίδας."
+        ],
+        howTo: "Εφάρμοσε σε καθαρό, στεγνό δέρμα 1–3 φορές/ημέρα.",
+        cautions: "Μόνο για εξωτερική χρήση. Διακόψτε αν εμφανιστεί ερεθισμός."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          {
+            ing: "Sea buckthorn oil (Ω-7 κ.ά.)",
+            inci: "HIPPOPHAE RHAMNOIDES OIL",
+            moa: "Λιπιδική υποστήριξη φραγμού και μείωση TEWL → βελτίωση ξηρότητας/ελαστικότητας και οπτικής υφής."
+          },
+          {
+            ing: "Calendula extract",
+            inci: "CALENDULA OFFICINALIS EXTRACT",
+            moa: "Καταπραϋντικό προφίλ και υποστήριξη comfort σε ευαίσθητη επιδερμίδα."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Bruise Off Bite Out & Pain Free cream',
+    image: 'images/bruise-off.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Fast-absorbing comfort cream — ιδανική και για μασάζ",
+        bullets: [
+          "Με ουρία για άμεση αίσθηση ενυδάτωσης και ‘softening’.",
+          "Με φυτικά εκχυλίσματα για αίσθηση ανακούφισης/άνεσης μετά από καταπόνηση.",
+          "Γρήγορη απορρόφηση, χωρίς λιπαρό τελείωμα."
+        ],
+        howTo: "Εφάρμοσε και κάνε ήπιο μασάζ μέχρι να απορροφηθεί. Επανέλαβε όπου χρειάζεται.",
+        cautions: "Αποφυγή σε ερεθισμένο/τραυματισμένο δέρμα."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          {
+            ing: "Urea",
+            inci: "UREA",
+            moa: "Humectant + dose-dependent keratolytic. Βελτίωση ενυδάτωσης κεράτινης στιβάδας και λειτουργική υποστήριξη ‘skin feel’."
+          },
+          {
+            ing: "Arnica extract",
+            inci: "ARNICA MONTANA EXTRACT",
+            moa: "Καταπραϋντικό/comfort προφίλ με μηχανισμούς που περιγράφονται προκλινικά σε φλεγμονώδεις οδούς."
+          },
+          {
+            ing: "Oregano oil (carvacrol-rich)",
+            inci: "ORIGANUM VULGARE OIL",
+            moa: "Sensory warming/counter-irritant προφίλ και βοτανικό ‘comfort’ αποτέλεσμα."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Bruise Off Bite Out & Pain Free cream 100ml',
+    image: 'images/bruise-off-100.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Οικογενειακή/επαγγελματική συσκευασία (100ml) — για συχνή χρήση",
+        bullets: [
+          "Μεγάλη συσκευασία για καθημερινή χρήση ή χρήση μετά από έντονη δραστηριότητα.",
+          "Ιδανική για μασάζ αποκατάστασης, με γρήγορη απορρόφηση.",
+          "Υποστηρίζει την αίσθηση άνεσης της επιδερμίδας."
+        ],
+        howTo: "Εφάρμοσε και κάνε μασάζ 1–3 φορές/ημέρα ανάλογα με την ανάγκη.",
+        cautions: "Αποφυγή σε βλεννογόνους/μάτια."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          {
+            ing: "Urea",
+            inci: "UREA",
+            moa: "Barrier hydration + smoothing → καλύτερο ‘skin feel’ σε συχνή χρήση/μασάζ."
+          },
+          {
+            ing: "Arnica / Oregano complex",
+            inci: "ARNICA MONTANA EXTRACT / ORIGANUM VULGARE OIL",
+            moa: "Sensory comfort + βοτανικό προφίλ για αίσθηση άνεσης."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Z-boost 30 caps',
+    image: 'images/zboost-30.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Υποστήριξη φυσιολογικών λειτουργιών — για απαιτητικές περιόδους",
+        bullets: [
+          "Σύνθεση με ψευδάργυρο και επιλεγμένα συστατικά για καθημερινή υποστήριξη.",
+          "Κατάλληλο για περιόδους αυξημένων απαιτήσεων, ταξίδια, έντονο πρόγραμμα.",
+          "Συμπληρώνει μια ισορροπημένη διατροφή."
+        ],
+        howTo: "Λήψη σύμφωνα με τις οδηγίες της συσκευασίας.",
+        cautions: "Τα συμπληρώματα δεν υποκαθιστούν ισορροπημένη διατροφή."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Zinc (Zn)", inci: "—", moa: "Ρόλος σε έμφυτη/επίκτητη ανοσία και σε ενζυμικά/αντιοξειδωτικά συστήματα." },
+          { ing: "N-Acetylcysteine (NAC)", inci: "—", moa: "Πρόδρομος γλουταθειόνης (GSH) και redox υποστήριξη." },
+          { ing: "Ginger (Zingiber officinale)", inci: "—", moa: "Βιοδραστικά (gingerols) με δράση σε COX/LOX pathways και αντιοξειδωτικό προφίλ." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Z-boost 12 caps',
+    image: 'images/zboost-12.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Συσκευασία ταχείας χρήσης — για απαιτητικές ημέρες",
+        bullets: [
+          "Σχεδιασμένο για βραχυχρόνια χρήση σε περιόδους αυξημένων απαιτήσεων.",
+          "Πρακτική συσκευασία για ταξίδια/εκτός έδρας.",
+          "Συμπληρώνει μια ισορροπημένη διατροφή."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Μην υπερβαίνετε τη συνιστώμενη ημερήσια δόση."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "CoQ10", inci: "—", moa: "Συστατικό μιτοχονδριακής ETC· αντιοξειδωτικό προφίλ." },
+          { ing: "Alpha-Lipoic Acid (ALA)", inci: "—", moa: "Redox cycling και υποστήριξη αντιοξειδωτικών συστημάτων." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Revitacell Plus Face cream 50ml',
+    image: 'images/revitacell.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Αντιοξειδωτική προστασία & βελτίωση όψης λεπτών γραμμών",
+        bullets: [
+          "Καλλυντική φροντίδα αντιοξειδωτικού προφίλ για θαμπή/κουρασμένη όψη.",
+          "Συμβάλλει στη λείανση της όψης λεπτών γραμμών και στη βελτίωση της ελαστικότητας.",
+          "Πλούσια υφή με μεταξένιο τελείωμα."
+        ],
+        howTo: "Πρωί/βράδυ σε καθαρό πρόσωπο και λαιμό.",
+        cautions: "Αποφυγή επαφής με μάτια."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Mastic fractions", inci: "PISTACIA LENTISCUS (MASTIC) EXTRACT/OIL", moa: "Αντιοξειδωτικό/λιπιδικό support και βελτίωση ‘skin feel’ μέσω barrier optimization." },
+          { ing: "Pomegranate seed oil", inci: "PUNICA GRANATUM SEED OIL", moa: "Λιπιδική υποστήριξη + αντιοξειδωτικό προφίλ με στόχο βελτίωση ξηρότητας/elasticity markers." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Hydralia Face cream 50ml',
+    image: 'images/hydralia.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Βαθιά ενυδάτωση & ‘plump’ όψη",
+        bullets: [
+          "Υαλουρονικό οξύ για άμεση αίσθηση ενυδάτωσης και οπτική λείανση.",
+          "Με μαλακτικά λιπίδια που υποστηρίζουν τον δερματικό φραγμό.",
+          "Κατάλληλη ως βάση μακιγιάζ."
+        ],
+        howTo: "Πρωί/βράδυ σε καθαρό δέρμα.",
+        cautions: "Αποφυγή επαφής με μάτια."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Hyaluronic acid", inci: "SODIUM HYALURONATE / HYALURONIC ACID", moa: "Film-forming + water-binding → ενυδάτωση και οπτική λείανση." },
+          { ing: "Jojoba oil", inci: "SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL", moa: "Wax esters → barrier support και μείωση TEWL χωρίς βαριά αίσθηση." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Revitace Eyes cream Luce 30ml',
+    image: 'images/eyes.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Φωτεινή όψη ματιών — για πρήξιμο & θαμπάδα",
+        bullets: [
+          "Ανάλαφρη υφή για καθημερινή χρήση.",
+          "Συμβάλλει στη βελτίωση της όψης πρηξίματος και στη φωτεινότητα της περιοχής.",
+          "Ιδανική για πρωί/βράδυ."
+        ],
+        howTo: "Ταμποναριστά γύρω από το κόκαλο του ματιού.",
+        cautions: "Αποφυγή επαφής με τον οφθαλμό."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Aesculus extract (escin-containing)", inci: "AESCULUS HIPPOCASTANUM EXTRACT", moa: "Microcirculation-comfort προφίλ με στόχο την ‘appearance of puffiness’." },
+          { ing: "Arnica extract", inci: "ARNICA MONTANA EXTRACT", moa: "Καταπραϋντικό/comfort προφίλ για την περιοχή." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Alveolair Sir',
+    image: 'images/alveolair.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Φυτικό σιρόπι για άνεση στο λαιμό",
+        bullets: [
+          "Φυτικά συστατικά για αίσθηση μαλακτικής άνεσης.",
+          "Κατάλληλο σε περιόδους που ο λαιμός ‘ταλαιπωρείται’ από εξωτερικούς παράγοντες.",
+          "Ευχάριστη γεύση."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Για παιδιά/εγκυμοσύνη/θηλασμό, τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Thymus (θυμάρι)", inci: "—", moa: "Βιοδραστικά με μηχανισμούς που περιγράφονται σε προκλινικά μοντέλα (σπασμολυτικό/comfort προφίλ)." },
+          { ing: "Althaea officinalis (mucilage)", inci: "—", moa: "Film-forming/προστατευτικό στρώμα → αίσθηση καταπράυνσης." },
+          { ing: "Eucalyptus fractions", inci: "—", moa: "Βοτανικό προφίλ ‘breathing comfort’ ανάλογα με το ρυθμιστικό καθεστώς διάθεσης." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX PROBIOTIC PREMIUM',
+    image: 'images/probiotic.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Πολυστέλεχο προβιοτικό — για ισορροπία εντερικής χλωρίδας",
+        bullets: [
+          "18 στελέχη προβιοτικών για πολυμορφία χλωρίδας.",
+          "Κατάλληλο σε περιόδους διατροφικών αλλαγών.",
+          "Συμπληρώνει μια ισορροπημένη διατροφή."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Probiotic strains (18 strains)", inci: "—", moa: "Competitive exclusion, SCFA παραγωγή, υποστήριξη εντερικού φραγμού, ανοσορρύθμιση (γενικό πλαίσιο)." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX MAGNESIUM 1 Τεμ',
+    image: 'images/magnesium.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Μαγνήσιο — για καθημερινή υποστήριξη",
+        bullets: [
+          "Συμπληρώνει την πρόσληψη μαγνησίου στην καθημερινή διατροφή.",
+          "Ιδανικό σε απαιτητικές περιόδους.",
+          "Εύκολη ένταξη στη ρουτίνα."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Magnesium (salt)", inci: "—", moa: "ATP biology, νευρομυϊκή διεγερσιμότητα (NMDA modulation), ενζυμική λειτουργία." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX A-Z',
+    image: 'images/az.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Πολυβιταμίνη — καθημερινή κάλυψη μικροθρεπτικών",
+        bullets: [
+          "Συνδυασμός βιταμινών και μετάλλων για διατροφική υποστήριξη.",
+          "Ιδανικό σε περιόδους έντονης καθημερινότητας.",
+          "Εύκολη λήψη."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Vitamins & minerals (σύνολο)", inci: "—", moa: "Μεταβολικά μονοπάτια ενέργειας, αντιοξειδωτική υποστήριξη και λειτουργική συμβολή ανά θρεπτικό." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX OMEGA 3',
+    image: 'images/omega3.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Omega-3 — διατροφική υποστήριξη",
+        bullets: [
+          "Ιχθυέλαιο για καθημερινή πρόσληψη ω-3.",
+          "Ιδανικό για άτομα με χαμηλή κατανάλωση λιπαρών ψαριών.",
+          "Λήψη με γεύμα για καλύτερη ανοχή."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "EPA/DHA", inci: "—", moa: "Ενσωμάτωση σε μεμβράνες, ανταγωνισμός αραχιδονικού οξέος, SPMs (resolvins) — αντιφλεγμονώδες/μεμβρανικό προφίλ." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX JOINT',
+    image: 'images/joint.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Υποστήριξη αρθρώσεων — διατροφική φόρμουλα",
+        bullets: [
+          "Σύνθεση με δομικά/λειτουργικά συστατικά για υποστήριξη της διατροφής του συνδετικού ιστού.",
+          "Κατάλληλο για απαιτητική καθημερινότητα.",
+          "Συνδυάζεται με κίνηση και επαρκή ενυδάτωση."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Glucosamine / Chondroitin", inci: "—", moa: "Δομικά των GAGs αρθρικού χόνδρου, υποστήριξη matrix biology." },
+          { ing: "MSM", inci: "—", moa: "Πηγή οργανικού θείου για δομικές πρωτεΐνες/κολλαγόνο." },
+          { ing: "Collagen type II (εφόσον υπάρχει)", inci: "—", moa: "Διατροφική/λειτουργική υποστήριξη συνδετικού ιστού, εξαρτάται από τύπο και δόση." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Zarkolia Cosmetic pack',
+    image: 'images/cosmetic-pack.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Πρωτόκολλο 3 βημάτων — ενυδάτωση, λείανση, φωτεινή όψη",
+        bullets: [
+          "Συνδυάζει Hydralia + Revitacell Plus + Revitace Eyes για ολοκληρωμένη ρουτίνα.",
+          "Στόχος: ενυδάτωση, αντιοξειδωτική υποστήριξη, βελτίωση όψης λεπτών γραμμών.",
+          "Ιδανικό ως δώρο ή ως ‘reset’ ρουτίνας."
+        ],
+        howTo: "Πρωί: Hydralia + Eyes. Βράδυ: Revitacell + Eyes.",
+        cautions: "Τηρείτε τις οδηγίες χρήσης."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Hyaluronic Acid (Hydralia)", inci: "SODIUM HYALURONATE", moa: "Water-binding + optical smoothing → ενυδάτωση και λείανση όψης." },
+          { ing: "Antioxidant lipids (Revitacell)", inci: "PUNICA GRANATUM SEED OIL / MASTIC", moa: "Barrier optimization + αντιοξειδωτικό προφίλ → βελτίωση ‘skin feel’." },
+          { ing: "Eye actives (Eyes Luce)", inci: "AESCULUS / ARNICA", moa: "Microcirculation-comfort και καταπραϋντικό προφίλ για την εμφάνιση πρηξίματος." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  }
 ];
+
 
 // --- 5. ΑΡΧΙΚΟΠΟΙΗΣΗ & LOGIC ---
 document.addEventListener("DOMContentLoaded", function() {
