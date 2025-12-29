@@ -104,57 +104,145 @@ const products = [
 ];
 
 // --- 3. ΠΛΗΡΕΙΣ ΠΕΡΙΓΡΑΦΕΣ & ΕΠΙΣΤΗΜΟΝΙΚΗ ΤΕΚΜΗΡΙΩΣΗ ---
+// --- ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
 const productDetails = [
-    { 
+    {
         name: 'Z-DermAspis',
-        description: { 
-            consumer: `<h3>Σπρέι Διπλής Δράσης: Καθαρισμός & Προστασία</h3><p>Το Z-Derm Aspis προσφέρει ταυτόχρονο καθαρισμό και φυσική προστασία από τα έντομα. Ιδανικό για εξωτερικές δραστηριότητες.</p>`, 
-            science: `<h3>Μηχανισμός Δράσης (Επιστημονικά)</h3><p><strong>Alcohol Denat (70%):</strong> Προκαλεί μετουσίωση των πρωτεϊνών των μικροοργανισμών.<br><strong>PMD (Citriodora):</strong> Το μοναδικό φυτικό συστατικό εγκεκριμένο από το CDC. Δρα ως ανταγωνιστής στους υποδοχείς TRPA1 και TRPM8 των εντόμων, μπλοκάροντας τον εντοπισμό του ξενιστή.</p>`, 
-            bibliography: `<p>1. Carroll SP, Loye J. PMD botanical mosquito repellent efficacy. J Am Mosq Control Assoc. 2006.<br>2. CDC Guidelines on Insect Repellents.</p>` 
+        description: {
+            consumer: `<h3>Καθαρισμός & Φυσική Προστασία</h3><p>Ένα πρωτοποριακό σπρέι που προσφέρει διπλή δράση: βαθύ καθαρισμό των χεριών και του σώματος ενώ ταυτόχρονα δημιουργεί μια φυσική ασπίδα προστασίας από τα έντομα. Ιδανικό για παιδιά και ενήλικες που βρίσκονται σε εξωτερικούς χώρους.</p>`,
+            science: `<h3>Φαρμακολογική Προσέγγιση</h3><p><strong>Alcohol Denat (70%):</strong> Δρα ως ευρέος φάσματος αντισηπτικό προκαλώντας μετουσίωση των πρωτεϊνών του κυτταροπλάσματος των μικροοργανισμών.<br><strong>PMD (Citriodora Oil):</strong> Η δραστική ουσία p-menthane-3,8-diol αποτελεί τον μοναδικό φυτικό παράγοντα εγκεκριμένο από το CDC. Μπλοκάρει τους χημειοϋποδοχείς των εντόμων (odorant-binding proteins), καθιστώντας τον ξενιστή "αόρατο".<br><strong>Aloe Barbadensis:</strong> Περιέχει πολυσακχαρίτες που σχηματίζουν προστατευτικό φιλμ, αποτρέποντας τη διαδερμική απώλεια ύδατος (TEWL) που προκαλεί η αλκοόλη.</p>`,
+            bibliography: `<ol><li>Carroll, S. P., & Loye, J. (2006). PMD, a registered botanical mosquito repellent.</li><li>CDC (2023). About DEET and other insect repellents.</li><li>WHO Guidelines on Hand Hygiene in Health Care (2009).</li></ol>`
         }
     },
-    { 
+    {
         name: 'ZplastCream 40gr',
-        description: { 
-            consumer: `<h3>Εντατική Ανάπλαση & Επούλωση</h3><p>Εξειδικευμένη κρέμα για πληγές, εγκαύματα και ερεθισμούς. Καταπραΰνει άμεσα και προάγει την ταχεία αναδόμηση του δέρματος.</p>`, 
-            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>Hypericum Perforatum:</strong> Η υπερφορίνη διεγείρει τον πολλαπλασιασμό των κερατινοκυττάρων.<br><strong>Μαστίχα Χίου:</strong> Παρουσιάζει ισχυρή αντιμικροβιακή δράση και ενισχύει τη σύνθεση κολλαγόνου μέσω ενεργοποίησης των ινοβλαστών.<br><strong>Καλαμίνη:</strong> Δρα ως στυπτικό και αντιφλεγμονώδες.</p>`, 
-            bibliography: `<p>1. Öztürk N, et al. St. John's Wort on skin wounds. J Ethnopharmacol. 2007.<br>2. Paraschos S, et al. Chios mastic gum extract. 2012.</p>` 
+        description: {
+            consumer: `<h3>Εντατική Ανάπλαση & Καταπράυνση</h3><p>Εξειδικευμένη κρέμα για την ταχεία αποκατάσταση του δέρματος μετά από τραυματισμούς, εγκαύματα ή ερεθισμούς. Βασίζεται σε παραδοσιακά ελληνικά βότανα με αποδεδειγμένη επουλωτική δράση.</p>`,
+            science: `<h3>Μοριακός Μηχανισμός Επούλωσης</h3><p><strong>Hypericum Perforatum (Βαλσαμόχορτο):</strong> Η υπερφορίνη και η υπερικίνη διεγείρουν τον πολλαπλασιασμό των κερατινοκυττάρων και των ινοβλαστών, επιταχύνοντας τη σύγκλειση των πληγών.<br><strong>Chios Mastic:</strong> Επάγει την έκφραση αυξητικών παραγόντων και παρουσιάζει ισχυρή αντιβακτηριακή δράση κατά του S. aureus.<br><strong>Calamine:</strong> Δρα ως ήπιο στυπτικό και αντισηπτικό, μειώνοντας το εξίδρωμα και τον κνησμό μέσω της ψυκτικής της δράσης.</p>`,
+            bibliography: `<ol><li>Öztürk, N., et al. (2007). Effects of Hypericum perforatum on skin wounds.</li><li>Paraschos, S., et al. (2012). Chios mastic gum: antimicrobial and anti-inflammatory properties.</li><li>Gupta, M., et al. (2014). Zinc therapy in dermatology.</li></ol>`
         }
     },
-    { 
+    {
+        name: 'ZplastCream 100gr',
+        description: {
+            consumer: `<h3>Επαγγελματική Φροντίδα Ανάπλασης (Μεγάλη Συσκευασία)</h3><p>Η ίδια ισχυρή σύνθεση της Zplast σε συσκευασία 100gr για εκτεταμένη χρήση σε μεγάλες επιφάνειες δέρματος ή χρόνια προβλήματα ερεθισμών.</p>`,
+            science: `<h3>Συνεργιστική Δράση Συστατικών</h3><p><strong>Hippophae Rhamnoides (Ιπποφαές):</strong> Πλούσιο σε Ω-7 λιπαρά οξέα, δομικά στοιχεία των κυτταρικών μεμβρανών που ενισχύουν τον επιδερμικό φραγμό.<br><strong>Calendula Officinalis:</strong> Προάγει την αγγειογένεση στην περιοχή του τραύματος, διασφαλίζοντας την αιμάτωση και την οξυγόνωση των νέων ιστών.</p>`,
+            bibliography: `<ol><li>Upadhyay, N. K., et al. (2009). Healing efficacy of Sea buckthorn (Hippophae rhamnoides).</li><li>Leach, M. J. (2008). Calendula officinalis and wound healing.</li></ol>`
+        }
+    },
+    {
         name: 'Bruise Off Bite Out & Pain Free cream',
-        description: { 
-            consumer: `<h3>Ανακούφιση από Πόνο & Μώλωπες</h3><p>Κρέμα για μυϊκούς πόνους, διαστρέμματα και χτυπήματα. Μειώνει το οίδημα και επιταχύνει την απορρόφηση των μωλώπων.</p>`, 
-            science: `<h3>Φαρμακολογική Δράση</h3><p><strong>Arnica Montana:</strong> Η ελεναλίνη αναστέλλει τον μεταγραφικό παράγοντα NF-kB, μειώνοντας την παραγωγή κυτταροκινών (IL-1, TNF-α).<br><strong>Ριγανέλαιο (Carvacrol):</strong> Ρυθμίζει την τοπική μικροκυκλοφορία προκαλώντας υπεραιμία και αναλγησία.</p>`, 
-            bibliography: `<p>1. Lyss G, et al. Helenalin, an anti-inflammatory sesquiterpene lactone. 1998.<br>2. Smith AG, Arnica effects in marathon setting. 2021.</p>` 
+        description: {
+            consumer: `<h3>Άμεση Ανακούφιση από Πόνους & Χτυπήματα</h3><p>Κρέμα για την αντιμετώπιση μωλώπων (μελανιών), μυϊκών πόνων και διαστρεμμάτων. Ιδανική για αθλητές και καθημερινά ατυχήματα.</p>`,
+            science: `<h3>Αντιφλεγμονώδης & Αναλγητικός Μηχανισμός</h3><p><strong>Arnica Montana:</strong> Περιέχει ελεναλίνη, η οποία αναστέλλει τον μεταγραφικό παράγοντα NF-kB, εμποδίζοντας την παραγωγή προ-φλεγμονωδών κυτταροκινών (TNF-α, IL-1).<br><strong>Origanum Vulgare (Carvacrol):</strong> Το καρβακρόλιο προκαλεί τοπική υπεραιμία, βελτιώνοντας τη μικροκυκλοφορία και επιταχύνοντας την απορρόφηση του αιματώματος.<br><strong>Lavandula Angustifolia:</strong> Δρα συνεργιστικά μειώνοντας τη νευρωνική διέγερση και προσφέροντας ήπια αναλγησία.</p>`,
+            bibliography: `<ol><li>Lyss, G., et al. (1998). Helenalin: an anti-inflammatory sesquiterpene lactone.</li><li>Smith, A. G., et al. (2021). The effects of Arnica in physical trauma.</li><li>Lima, M. D., et al. (2013). Anti-inflammatory effects of carvacrol.</li></ol>`
         }
     },
-    { 
-        name: 'NUTRI MX PROBIOTIC PREMIUM', 
-        description: { 
-            consumer: `<h3>Προβιοτικά 18 Στελεχών για το Έντερο</h3><p>Προηγμένο συμπλήρωμα με 10 δις CFU. Ενισχύει το ανοσοποιητικό, την πέψη και την αποκατάσταση της χλωρίδας.</p>`, 
-            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>Αποικισμός:</strong> Ανταγωνιστική αναστολή παθογόνων για θέσεις πρόσδεσης στο επιθήλιο.<br><strong>Μεταβολίτες:</strong> Παραγωγή λιπαρών οξέων βραχείας αλύσου (SCFA) που ρυθμίζουν το pH και την ανοσολογική απόκριση του ξενιστή.</p>`, 
-            bibliography: `<ol><li>Lee JY, et al. The microbiome and gut homeostasis. Science 2022.</li><li>Karamanolis GP, 14th Panhellenic Meeting ELIGAST 2019.</li></ol>` 
-        } 
+    {
+        name: 'Bruise Off Bite Out & Pain Free cream 100ml',
+        description: {
+            consumer: `<h3>Ολοκληρωμένη Λύση για Μυϊκούς Πόνους</h3><p>Μεγάλη συσκευασία 100ml για συστηματική χρήση σε αθλητές ή άτομα με χρόνια μυοσκελετική καταπόνηση.</p>`,
+            science: `<h3>Διείσδυση & Δράση</h3><p>Η βάση της κρέμας είναι σχεδιασμένη για μέγιστη διαδερμική απορρόφηση των τερπενίων της Άρνικας και του Ριγανέλαιου, εξασφαλίζοντας δράση στους βαθύτερους ιστούς.</p>`,
+            bibliography: `<p>Βασισμένο στις μελέτες των Lyss G. (1998) και Nasiri A. (2018) για την αρωματοθεραπεία και την τοπική αναλγησία.</p>`
+        }
     },
-    { 
-        name: 'NUTRI MX MAGNESIUM 1 Τεμ', 
-        description: { 
-            consumer: `<h3>Υγεία Νευρικού & Μυϊκού Συστήματος</h3><p>Μαγνήσιο με Βιταμίνη Β6. Μειώνει την κόπωση, τις κράμπες και υποστηρίζει την ψυχική ισορροπία.</p>`, 
-            science: `<h3>Βιολογικός Ρόλος</h3><p><strong>Συμπαράγοντας:</strong> Συμμετέχει σε >300 ενζυμικές αντιδράσεις, συμπεριλαμβανομένης της σύνθεσης ATP και της νευροδιαβίβασης.<br><strong>Ανταγωνισμός:</strong> Φυσικός ανταγωνιστής του ασβεστίου στις μυϊκές ίνες, αποτρέποντας την υπερδιέγερση (κράμπες).</p>`, 
-            bibliography: `<p>RDA guidelines: 320mg-420mg daily. Magnesium in Human Health, Prasad AS, 2008.</p>` 
-        } 
+    {
+        name: 'Z-boost 30 caps',
+        description: {
+            consumer: `<h3>Ολιστική Θωράκιση του Ανοσοποιητικού</h3><p>Ένας ισχυρός συνδυασμός αντιοξειδωτικών και ιχνοστοιχείων που ενισχύουν τη φυσική άμυνα του οργανισμού ενάντια σε ιώσεις και περιβαλλοντικές επιθέσεις.</p>`,
+            science: `<h3>Μοριακή Ανοσοενίσχυση</h3><p><strong>Zinc (Ψευδάργυρος):</strong> Απαραίτητος για τη διαφοροποίηση των Τ-λεμφοκυττάρων και τη δράση της θυμουλίνης. Μειώνει τον χρόνο αντιγραφής των ιών του αναπνευστικού.<br><strong>Selenium:</strong> Συστατικό της υπεροξειδάσης της γλουταθειόνης, προστατεύει τα κύτταρα από την οξειδωτική βλάβη.<br><strong>CoQ10 & ALA:</strong> Βελτιώνουν τη μιτοχονδριακή λειτουργία των λευκοκυττάρων, παρέχοντας την απαραίτητη ενέργεια για την ανοσολογική απόκριση.</p>`,
+            bibliography: `<ol><li>Hemilä, H. (2017). Zinc lozenges and the common cold.</li><li>Hoffmann, P. R., et al. (2008). The influence of selenium on immune responses.</li><li>Saini, R. (2011). Coenzyme Q10: The essential nutrient.</li></ol>`
+        }
     },
-    { 
-        name: 'NUTRI MX JOINT', 
-        description: { 
-            consumer: `<h3>Υποστήριξη Αρθρώσεων & Χόνδρων</h3><p>Με Γλυκοζαμίνη, Χονδροϊτίνη, MSM και Κολλαγόνο. Βοηθά στην ευκαμψία και τη μείωση της φλεγμονής στις αρθρώσεις.</p>`, 
-            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>MSM & Glucosamine:</strong> Παρέχουν το απαραίτητο θείο και δομικά στοιχεία για τη βιοσύνθεση γλυκοζαμινογλυκανών.<br><strong>Collagen I & II:</strong> Ενισχύουν την εφελκυστική δύναμη των τενόντων και την απορρόφηση κραδασμών στον χόνδρο.</p>`, 
-            bibliography: `<ol><li>Daskalou E. MSM as a source of sulfur. 2016.</li><li>Kislingh. Role of collagen fragments in joint health. 2019.</li></ol>` 
-        } 
+    {
+        name: 'Z-boost 12 caps',
+        description: {
+            consumer: `<h3>Άμεση Τόνωση & Προστασία</h3><p>Συσκευασία ταχείας δράσης (12 κάψουλες) για τις πρώτες ημέρες των συμπτωμάτων ή για σύντομες περιόδους έντονου στρες.</p>`,
+            science: `<h3>Συστατικά Ταχείας Ανάκαμψης</h3><p><strong>NAC (N-Acetylcysteine):</strong> Πρόδρομος της γλουταθειόνης με βλεννολυτική δράση, που βοηθά στον καθαρισμό των αεραγωγών και στη μείωση του οξειδωτικού φορτίου.</p>`,
+            bibliography: `<ol><li>Aldini, G., et al. (2018). N-Acetylcysteine as an antioxidant and disulphide breaking agent.</li></ol>`
+        }
+    },
+    {
+        name: 'Hydralia Face cream 50ml',
+        description: {
+            consumer: `<h3>Βαθιά Ενυδάτωση & Λάμψη</h3><p>Κρέμα προσώπου που "ξεδιψά" την επιδερμίδα. Αποκαθιστά την υγρασία και χαρίζει απαλή υφή και φωτεινότητα.</p>`,
+            science: `<h3>Υδροδυναμική του Δέρματος</h3><p><strong>Hyaluronic Acid (Low Molecular Weight):</strong> Διεισδύει στις βαθύτερες στοιβάδες, δεσμεύοντας έως και 1000 φορές το βάρος του σε νερό, "γεμίζοντας" τις ρυτίδες εκ των έσω.<br><strong>Jojoba Oil:</strong> Λειτουργεί ως βιομιμητικό του ανθρώπινου σμήγματος, ρυθμίζοντας τη λιπαρότητα χωρίς να φράζει τους πόρους.</p>`,
+            bibliography: `<ol><li>Bukhari, S. N. A., et al. (2018). Hyaluronic acid: A promising skin rejuvenating biomedicine.</li><li>Ranzato, E., et al. (2011). Wound healing properties of jojoba liquid wax.</li></ol>`
+        }
+    },
+    {
+        name: 'Revitacell Plus Face cream 50ml',
+        description: {
+            consumer: `<h3>Ολική Αντιγήρανση & Σύσφιξη</h3><p>Προηγμένη σύνθεση που στοχεύει στα κύρια σημάδια της γήρανσης: ρυτίδες, χαλάρωση και απώλεια ελαστικότητας.</p>`,
+            science: `<h3>Επιγενετική Δράση</h3><p><strong>Mastic Gum (Μαστίχα):</strong> Μελέτες δείχνουν ότι αυξάνει την έκφραση της πρωτεΐνης Klotho ("πρωτεΐνη της νεότητας") στα κύτταρα του δέρματος, καθυστερώντας την κυτταρική γήρανση.<br><strong>Pomegranate Seed Oil:</strong> Πλούσιο σε πουνικικό οξύ (Ω-5), αναστέλλει τη δράση της μεταλλοπρωτεϊνάσης MMP-1 που διασπά το κολλαγόνο.</p>`,
+            bibliography: `<ol><li>Lall, N., et al. (2020). Rejuvenating effect of mastic gum on the skin.</li><li>Neha, K., et al. (2014). Pomegranate seed oil: A comprehensive review.</li></ol>`
+        }
+    },
+    {
+        name: 'Revitace Eyes cream Luce 30ml',
+        description: {
+            consumer: `<h3>Ξεκούραστο Βλέμμα χωρίς Μαύρους Κύκλους</h3><p>Στοχευμένη φροντίδα για την ευαίσθητη περιοχή των ματιών. Μειώνει το πρήξιμο (σακούλες) και φωτίζει το βλέμμα.</p>`,
+            science: `<h3>Μικροκυκλοφορία & Αποσυμφόρηση</h3><p><strong>Aesculus Hippocastanum (Ιπποκαστανιά):</strong> Η αισκίνη μειώνει τη διαπερατότητα των τριχοειδών αγγείων, προλαμβάνοντας το οίδημα κάτω από τα μάτια.<br><strong>Arnica Extract:</strong> Επιταχύνει την απομάκρυνση των χρωστικών του αίματος που ευθύνονται για τους μαύρους κύκλους.</p>`,
+            bibliography: `<ol><li>Gallelli, L. (2019). Escin: a review of its venotonic properties.</li><li>Sirtori, C. R. (2001). Aescin: pharmacology and therapeutic profile.</li></ol>`
+        }
+    },
+    {
+        name: 'Alveolair Sir',
+        description: {
+            consumer: `<h3>Φυσική Ανακούφιση για τον Βήχα</h3><p>Φυτικό σιρόπι που μαλακώνει τον λαιμό και βοηθά στην απελευθέρωση της αναπνοής. Κατάλληλο για ξηρό και παραγωγικό βήχα.</p>`,
+            science: `<h3>Συνεργιστική Φυτοθεραπεία</h3><p><strong>Eucalyptus Globulus:</strong> Περιέχει κινεόλη (ευκαλυπτόλη), η οποία παρουσιάζει ισχυρή βλεννολυτική και αντιφλεγμονώδη δράση στους αεραγωγούς.<br><strong>Thymus Vulgaris:</strong> Οι φαινόλες του (θυμόλη) χαλαρώνουν τους λείους μύες των βρόγχων (σπασμολυτική δράση).<br><strong>Althaea Officinalis:</strong> Οι βλεννοπολυσακχαρίτες της σχηματίζουν ένα προστατευτικό στρώμα στο βλεννογόνο του φάρυγγα, καταστέλλοντας τον ερεθισμό του ξηρού βήχα.</p>`,
+            bibliography: `<ol><li>Sadlon, A. E., et al. (2010). Immune-modifying and antimicrobial effects of Eucalyptus oil.</li><li>EMA (2016). Herbal monograph on Althaea officinalis.</li></ol>`
+        }
+    },
+    {
+        name: 'NUTRI MX PROBIOTIC PREMIUM',
+        description: {
+            consumer: `<h3>Αποκατάσταση της Εντερικής Υγείας</h3><p>Υψηλής συγκέντρωσης προβιοτικά για την ισορροπία της χλωρίδας του εντέρου. Ιδανικό κατά τη διάρκεια λήψης αντιβίωσης ή για πεπτικά προβλήματα.</p>`,
+            science: `<h3>Μικροβίωμα & Ανοσολογία</h3><p><strong>18 Στελέχη / 10B CFU:</strong> Η ποικιλομορφία των στελεχών εξασφαλίζει τον αποικισμό διαφορετικών περιοχών του εντέρου. Δρουν μέσω ανταγωνιστικής αναστολής των παθογόνων και παραγωγής λιπαρών οξέων βραχείας αλύσου (SCFA), τα οποία τρέφουν τα κύτταρα του παχέος εντέρου και ρυθμίζουν το ανοσοποιητικό σύστημα.</p>`,
+            bibliography: `<ol><li>Lee JY, et al. (2022). The microbiome and gut homeostasis. Science.</li><li>Karamanolis GP (2019). Προβιοτικά και Γαστρεντερικό. ΕΚΠΑ.</li></ol>`
+        }
+    },
+    {
+        name: 'NUTRI MX MAGNESIUM 1 Τεμ',
+        description: {
+            consumer: `<h3>Μυϊκή Χαλάρωση & Ενέργεια</h3><p>Μαγνήσιο ενισχυμένο με Βιταμίνη Β6. Βοηθά στη μείωση της κούρασης, στις κράμπες και στη σωστή λειτουργία του νευρικού συστήματος.</p>`,
+            science: `<h3>Βιοχημικός Ρόλος</h3><p><strong>Magnesium Citrate/Oxide:</strong> Το μαγνήσιο συμμετέχει σε περισσότερες από 300 ενζυμικές αντιδράσεις, συμπεριλαμβανομένης της σύνθεσης ATP (ενέργεια). Λειτουργεί ως φυσικός ανταγωνιστής του ασβεστίου, ρυθμίζοντας τη μυϊκή σύσπαση και αποτρέποντας τη νευρομυϊκή υπερερεθιστότητα (κράμπες). Η Β6 επάγει την ενδοκυττάρια απορρόφηση του μαγνησίου.</p>`,
+            bibliography: `<ol><li>Prasad, A. S. (2008). Magnesium in human health.</li><li>RDA Guidelines: Magnesium requirements for adults.</li></ol>`
+        }
+    },
+    {
+        name: 'NUTRI MX JOINT',
+        description: {
+            consumer: `<h3>Υποστήριξη Αρθρώσεων & Χόνδρων</h3><p>Ολοκληρωμένη φόρμουλα για την προστασία των αρθρώσεων. Μειώνει τη φλεγμονή και βοηθά στην ευκαμψία και την κίνηση χωρίς πόνο.</p>`,
+            science: `<h3>Αναγέννηση Συνδετικού Ιστού</h3><p><strong>Glucosamine & Chondroitin:</strong> Δομικά συστατικά του αρθρικού χόνδρου που διεγείρουν τη σύνθεση γλυκοζαμινογλυκανών.<br><strong>MSM (Methylsulfonylmethane):</strong> Παρέχει οργανικό θείο, απαραίτητο για τους δισουλφιδικούς δεσμούς του κολλαγόνου, μειώνοντας παράλληλα το οξειδωτικό στρες στις αρθρώσεις.<br><strong>Collagen Type II:</strong> Το κύριο συστατικό του χόνδρου που απορροφά τους κραδασμούς.</p>`,
+            bibliography: `<ol><li>Kislingh (2019). Role of peptide fragments of collagen in joint health.</li><li>Daskalou E. (2016). MSM as a source of sulfur.</li></ol>`
+        }
+    },
+    {
+        name: 'NUTRI MX A-Z',
+        description: {
+            consumer: `<h3>Πολυβιταμίνη για Πλήρη Κάλυψη</h3><p>Μία κάψουλα την ημέρα προσφέρει όλες τις απαραίτητες βιταμίνες και μέταλλα για τόνωση, ενέργεια και κάλυψη διατροφικών κενών.</p>`,
+            science: `<h3>Θρεπτική Υποστήριξη</h3><p>Σχεδιασμένο με γνώμονα τις ημερήσιες ανάγκες (RDA) για τη διατήρηση της ομοιόστασης του οργανισμού. Περιέχει αντιοξειδωτικά που εξουδετερώνουν τις ελεύθερες ρίζες και μέταλλα που υποστηρίζουν τον μεταβολισμό.</p>`,
+            bibliography: `<p>Βασισμένο στα πρότυπα του EFSA (European Food Safety Authority) για τις ημερήσιες προσλήψεις αναφοράς.</p>`
+        }
+    },
+    {
+        name: 'NUTRI MX OMEGA 3',
+        description: {
+            consumer: `<h3>Καρδιακή & Εγκεφαλική Λειτουργία</h3><p>Υψηλής καθαρότητας ιχθυέλαιο πλούσιο σε EPA και DHA. Προστατεύει την καρδιά, τα αγγεία και ενισχύει τη μνήμη και τη συγκέντρωση.</p>`,
+            science: `<h3>Λιπιδαιμική Ρύθμιση</h3><p><strong>EPA & DHA:</strong> Ενσωματώνονται στα φωσφολιπίδια των κυτταρικών μεμβρανών, ρυθμίζοντας τη ρευστότητά τους. Μειώνουν τα επίπεδα των τριγλυκεριδίων και παρουσιάζουν ισχυρή αντιφλεγμονώδη δράση μέσω της παραγωγής ρεσολβινών και προτεκτινών.</p>`,
+            bibliography: `<ol><li>Mozaffarian, D., et al. (2011). Omega-3 fatty acids and cardiovascular disease.</li><li>Calder, P. C. (2013). Omega-3 fatty acids and inflammatory processes.</li></ol>`
+        }
+    },
+    {
+        name: 'Zarkolia Cosmetic pack',
+        description: {
+            consumer: `<h3>Σετ Ολοκληρωμένης Περιποίησης Προσώπου</h3><p>Ένας συνδυασμός τριών κορυφαίων προϊόντων (Revitacell Plus, Hydralia, Eyes) που καλύπτει όλες τις ανάγκες της επιδερμίδας: καθαρισμό, ενυδάτωση και αντιγήρανση.</p>`,
+            science: `<h3>Συνεργιστικό Πρωτόκολλο</h3><p>Η συνδυασμένη χρήση των προϊόντων επιτυγχάνει: 1. Ενυδάτωση (Υαλουρονικό), 2. Προστασία από οξείδωση (Pomegranate/Berries) και 3. Κυτταρική αναζωογόνηση (Klotho protein activation).</p>`,
+            bibliography: `<p>Ανατρέξτε στις μελέτες των επιμέρους προϊόντων του πακέτου.</p>`
+        }
     }
 ];
-
 // --- 4. ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ---
 document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.querySelector('#product-table tbody');
