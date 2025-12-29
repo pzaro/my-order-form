@@ -5,40 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Φόρμα Παραγγελίας - Zarkolia Health</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Επιπλέον στυλ για τα νέα πεδία (μπορείτε να τα μεταφέρετε στο style.css) */
-        .payment-section, .remarks-section {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #e1e4e8;
-        }
-        .payment-options {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-        .payment-options label {
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        textarea#remarks {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .hcp-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
-        .hcp-table th, .hcp-table td { border: 1px solid #e6e6e6; padding: 10px; vertical-align: top; }
-        .hcp-table th { background: #f7f7f7; text-align: left; }
-    </style>
 </head>
 <body>
 
@@ -67,20 +33,14 @@
             <div class="payment-section">
                 <h3>Τρόπος Πληρωμής</h3>
                 <div class="payment-options">
-                    <label>
-                        <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> 
-                        Αντικαταβολή Μετρητά
-                    </label>
-                    <label>
-                        <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> 
-                        Επιταγή 60 Ημερών
-                    </label>
+                    <label><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά</label>
+                    <label><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 Ημερών</label>
                 </div>
             </div>
 
             <div class="remarks-section">
                 <h3>Παρατηρήσεις</h3>
-                <textarea id="remarks" rows="3" placeholder="Προσθέστε τυχόν σημειώσεις για την παραγγελία σας (π.χ. οδηγίες παράδοσης)..."></textarea>
+                <textarea id="remarks" rows="3" placeholder="Σημειώσεις για την παραγγελία..."></textarea>
             </div>
 
             <h2>Προϊόντα προς Παραγγελία</h2>
@@ -95,8 +55,7 @@
                         <th>Σύνολο</th>
                     </tr>
                 </thead>
-                <tbody>
-                    </tbody>
+                <tbody></tbody>
             </table>
 
             <div class="totals-section">
@@ -105,8 +64,22 @@
                 <p class="final-sum"><strong>Τελικό Ποσό:</strong> <span id="final-total">0.00 €</span></p>
             </div>
 
-            <div class="bank-info" style="margin-top: 20px; font-size: 0.9em; color: #666;">
-                <p><strong>Στοιχεία Κατάθεσης:</strong> Τράπεζα Πειραιώς | IBAN: GR8901722520005252016160277</p>
+            <div class="scales-container">
+                <h3>Κλίμακες Δώρων</h3>
+                <div class="scales-grid">
+                    <div class="scale-item"><strong>9 - 17</strong> τεμ. ➜ <strong>+1</strong> Δώρο</div>
+                    <div class="scale-item"><strong>18 - 23</strong> τεμ. ➜ <strong>+3</strong> Δώρα</div>
+                    <div class="scale-item"><strong>24 - 47</strong> τεμ. ➜ <strong>+6</strong> Δώρα</div>
+                    <div class="scale-item"><strong>48+</strong> τεμ. ➜ <strong>15</strong> Δώρα ανά 48άδα</div>
+                </div>
+            </div>
+
+            <div class="bank-info-container">
+                <h3>Στοιχεία Κατάθεσης</h3>
+                <p>Τράπεζα Πειραιώς</p>
+                <div class="iban-box">
+                    IBAN: <span><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
+                </div>
             </div>
 
             <div class="export-buttons">
@@ -117,9 +90,7 @@
         </form>
     </div>
 
-    <div id="productModal" class="modal">
-        </div>
-
+    <div id="productModal" class="modal"></div>
     <div id="previewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,20 +108,12 @@
     </div>
     
     <script src="script.js"></script>
-
     <script>
-        // Λογική για να επιτρέπεται μόνο μία επιλογή στα Checkboxes πληρωμής
         function onlyOne(checkbox) {
             var checkboxes = document.getElementsByName('payment');
-            checkboxes.forEach((item) => {
-                if (item !== checkbox) item.checked = false;
-            });
+            checkboxes.forEach((item) => { if (item !== checkbox) item.checked = false; });
         }
-
-        // Συνάρτηση κλεισίματος του preview modal (χρησιμοποιείται στο κουμπί Χ)
-        function closePreviewModal() {
-            document.getElementById('previewModal').style.display = 'none';
-        }
+        function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
     </script>
 </body>
 </html>
