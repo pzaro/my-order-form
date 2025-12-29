@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Σύστημα Παραγγελιών</title>
+    <title>Zarkolia Health - Order System</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,11 +12,11 @@
     <div class="main-container">
         <header class="main-header">
             <h1>ZARKOLIA HEALTH</h1>
-            <p>Ψηφιακός Κατάλογος & Φόρμα Παραγγελιοληψίας</p>
+            <p>Ψηφιακός Κατάλογος & Σύστημα Παραγγελιοληψίας</p>
         </header>
         
         <section class="catalog-section">
-            <h2 class="section-title">Επιστημονική Ενημέρωση Προϊόντων</h2>
+            <h2 class="section-title">Επιστημονική Ενημέρωση (HCP & Consumer)</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
         
@@ -25,7 +25,7 @@
             <div class="form-grid">
                 <div class="form-group full-mobile">
                     <label for="afm">ΑΦΜ (Αυτόματη Αναζήτηση)</label>
-                    <input type="text" id="afm" placeholder="π.χ. 999746768">
+                    <input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ πελάτη...">
                 </div>
                 <div class="form-group full-mobile">
                     <label for="eponimia">Επωνυμία</label>
@@ -41,28 +41,28 @@
                 <div class="info-block">
                     <h3>Τρόπος Πληρωμής</h3>
                     <div class="payment-options">
-                        <label class="custom-checkbox">
+                        <label class="custom-radio">
                             <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)">
-                            <span class="checkmark"></span> Αντικαταβολή Μετρητά
+                            Αντικαταβολή Μετρητά
                         </label>
-                        <label class="custom-checkbox">
+                        <label class="custom-radio">
                             <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)">
-                            <span class="checkmark"></span> Επιταγή 60 Ημερών
+                            Επιταγή 60 Ημερών
                         </label>
                     </div>
                 </div>
                 <div class="info-block">
-                    <h3>Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="2" placeholder="Σημειώσεις για την παράδοση..."></textarea>
+                    <h3>Παρατηρήσεις Παραγγελίας</h3>
+                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις, οδηγίες παράδοσης κ.λπ."></textarea>
                 </div>
             </div>
 
-            <h2 class="section-title">Προϊόντα Παραγγελίας</h2>
+            <h2 class="section-title">Πίνακας Προϊόντων</h2>
             <div class="table-responsive">
                 <table id="product-table">
                     <thead>
                         <tr>
-                            <th>Προϊόν</th>
+                            <th>Ονομασία</th>
                             <th>Τιμή</th>
                             <th>Ποσότητα</th>
                             <th>Δώρα</th>
@@ -85,18 +85,18 @@
             <div class="scales-box">
                 <h3>Κλίμακες Δώρων</h3>
                 <div class="scales-flex">
-                    <div class="badge">9-17 τεμ ➜ <strong>+1</strong></div>
-                    <div class="badge">18-23 τεμ ➜ <strong>+3</strong></div>
-                    <div class="badge">24-47 τεμ ➜ <strong>+6</strong></div>
-                    <div class="badge premium">48+ τεμ ➜ <strong>15 Δώρα/48άδα</strong></div>
+                    <div class="scale-badge">9-17 τεμ ➜ <strong>+1 Δώρο</strong></div>
+                    <div class="scale-badge">18-23 τεμ ➜ <strong>+3 Δώρα</strong></div>
+                    <div class="scale-badge">24-47 τεμ ➜ <strong>+6 Δώρα</strong></div>
+                    <div class="scale-badge premium">48+ τεμ ➜ <strong>15 Δώρα/48άδα</strong></div>
                 </div>
             </div>
 
             <div class="bank-card">
                 <h3>Στοιχεία Κατάθεσης</h3>
                 <p>Τράπεζα Πειραιώς</p>
-                <div class="iban-display">
-                    <span><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
+                <div class="iban-container">
+                    IBAN: <span class="iban-text"><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
                 </div>
             </div>
 
@@ -112,12 +112,13 @@
     <div id="previewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Προεπισκόπηση</h2>
+                <h2>Προεπισκόπηση Παραγγελίας</h2>
                 <span class="close-button" onclick="closePreviewModal()">&times;</span>
             </div>
             <pre id="previewContent" class="preview-box"></pre>
             <div class="modal-footer">
-                <button id="saveTxtButton" class="btn-main btn-email">Αποθήκευση</button>
+                <button id="saveTxtButton" class="btn-main btn-email">Λήψη Αρχείου</button>
+                <button class="btn-main btn-clear" onclick="closePreviewModal()">Κλείσιμο</button>
             </div>
         </div>
     </div>
