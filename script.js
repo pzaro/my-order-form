@@ -1,4 +1,4 @@
-// --- 1. ΠΛΗΡΗΣ ΒΑΣΗ ΠΕΛΑΤΩΝ ---
+// --- 1. ΒΑΣΗ ΔΕΔΟΜΕΝΩΝ ΠΕΛΑΤΩΝ ---
 const knownCustomers = {
     "025305198": { eponimia: "ΒΑΡΕΛΑΣ ΜΙΧΑΗΛ ΧΡΗΣΤΟ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6937457161", phone: "", email: "mixalisvarelas@gmail.com" },
     "028058883": { eponimia: "ΤΡΙΑΝΤΑΦΥΛΛΙΔΗΣ ΛΑΖΑΡΟΣ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6944581887", phone: "2381041464", email: "trilazar@otenet.gr" },
@@ -16,6 +16,7 @@ const knownCustomers = {
     "081095923": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΑΔΑΜΙΔΗ Α ΑΔΑΜΙΔΟΥ Μ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΙ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6976974411", phone: "2551021444", email: "adamidou.mar@gmail.com" },
     "082988981": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΕΥΑΓΓΕΛΟΣ ΚΥΡΙΑΚΙΔΗΣ ΕΜΜΑΝΟΥ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6977611613", phone: "2382083233", email: "vagemm@gmail.com" },
     "084186015": { eponimia: "PROJECT ΚΑΣΑΠΑΚΗΣ Θ & ΣΙΑ Ο.Ε", doy: "Η ΘΕΣΣΑΛΟΝΙΚΗΣ", mobile: "", phone: "2310832124", email: "info@projectk.gr" },
+    "094352564": { eponimia: "ΙΤΧ ΕΛΛΑΣ ΜΟΝΟΠΡΟΣΩΠΗ Α", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ", mobile: "", phone: "", email: "" },
     "095141629": { eponimia: "ΔΟΜΙΚΗ Π ΠΑΥΛΙΔΗΣ Α.Ε", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6979794428", phone: "2382099599", email: "g.apostolidis@domiki-pavlides.gr" },
     "105965545": { eponimia: "ΚΑΛΑΙΤΖΙΔΗΣ ΕΥΣΤΑΘΙΟΣ ΦΩΤΙΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6947438490", phone: "", email: "kalatzidis@gmail.com" },
     "107019964": { eponimia: "ΚΑΡΑΤΖΙΔΗΣ ΒΑΣΙΛΕΙΟΣ ΠΑΝΑΓΙΩΤΗ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2384042170", email: "karatzidis.pharmacy@gmail.com" },
@@ -47,7 +48,7 @@ const knownCustomers = {
     "152502387": { eponimia: "ΤΖΙΝΕΒΗ ΑΛΙΚΗ ΑΝΔΡΟΝΙΚΗ ΠΑΝΑΓΙΩΤΗ", doy: "ΝΕΩΝ ΜΟΥΔΑΝΙΩΝ", mobile: "6934165285", phone: "2399 020050", email: "alicetzi28@gmail.com" },
     "153360643": { eponimia: "ΚΑΖΑΚΟΥ ΚΩΝΣΤΑΝΤΙΝΑ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6974171503", phone: "+302551023378", email: "kazakoukonstantina@gmail.com" },
     "159693610": { eponimia: "ΧΡΥΣΟΣΤΟΜΙΔΗΣ ΑΝΤΩΝΙΟΣ ΠΑΡΑΣΚΕΥΑ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "", phone: "2382025735", email: "a.chrysostomidis@hotmail.com" },
-    "165645258": { eponimia: "ΦΑΝΤΙΔΟΥ ΕΙΡΗΝΗ LΑΖΑΡΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381089980", email: "fantidou.pharmacy@gmail.com" },
+    "165645258": { eponimia: "ΦΑΝΤΙΔΟΥ ΕΙΡΗΝΗ ΛΑΖΑΡΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381089980", email: "fantidou.pharmacy@gmail.com" },
     "169699055": { eponimia: "ΧΕΛΗ ΑΝΑΣΤΑΣΙΑ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "698 882 0879", phone: "2381097677", email: "anasta.cheli10@gmail.com" },
     "300639167": { eponimia: "ΤΡΙΑΝΤΑΦΥΛΛΙΔΟΥ ΕΛΕΝΗ ΑΡΙΣΤΕΙΔΗ", doy: "ΟΡΕΣΤΙΑΔΑΣ", mobile: "6940207039", phone: "2553024243", email: "eleni.triantafillidou@gmail.com" },
     "800339648": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΖΙΟΥΤΑ ΓΕΩΡΓΙΑ ΧΡΙΣΤΙΑΝΑ ΚΑΙ ΣΙΑ Ο", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341028777", email: "zioutaxristiana@hotmail.gr" },
@@ -55,7 +56,7 @@ const knownCustomers = {
     "800414167": { eponimia: "ΜΑΧΜΟΥΡΙΔΟΥ ΚΑΙ ΣΙΑ Ο", doy: "ΟΡΕΣΤΙΑΔΑΣ", mobile: "6944258002", phone: "2553024676", email: "www.maxmouridou@hotmail.gr" },
     "800472889": { eponimia: "ΦΑΡΜΑΚΕΙΑ ΣΠΥΡΙΔΗΣ Δ ΒΑΛΑΣΙΔΟΥ ΙΣ Ο", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341023040", email: "dimitris_sp@yahoo.com" },
     "800586973": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΦΑΡΜΑΚΗΣ ΙΩΑΝΝΗΣ ΚΑΙ ΣΙΑ Ο", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6984914098", phone: "+30 2391091551", email: "farmakisg21@hotmail.gr" },
-    "800616945": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΨΥΧΟΓΥΟΥ ΑΙΚΑΤΕΡΙΝΗ - ΨΥΧΟΓΥΟΥ ΣΟΦΙΑ - ΧΡΙΣΤΙΝΑ Ο.Ε", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381022232", email: "anaspsi@gmail.com" },
+    "800616945": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΨΥΧΟΓΥΟΥ ΑΙΚΑΤΕΡΙΝΗ - ΨΥΧΟΓΥΟΥ ΣΟΦΙΑ -ΧΡΙΣΤΙΝΑ Ο.Ε", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381022232", email: "anaspsi@gmail.com" },
     "800699181": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ Κ ΓΕΩΡΓΙΑΔΟΥ ΚΑΙ Κ ΚΑΤΣΙΑΝΟΣ Ο", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341029949", email: "katsianoskos@gmail.com" },
     "800759157": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΧΡΗΣΤΟΥ ΠΕΛΑΓΙΑ ΚΑΙ ΣΑΡΗΓΚΙΟΛΗΣ ΟΡΕΣΤΗΣ ΙΩΑΝΝΗΣ Ο", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "+302384024298", email: "orestis.sarigkiolis@gmail.com" },
     "801577292": { eponimia: "ΝΙΚΟΛΑΟΣ ΚΟΥΤΣΟΥΜΠΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΤΡΙΠΟΛΗΣ", mobile: "6981203517", phone: "", email: "nickoskoutsou@gmail.com" },
@@ -65,17 +66,16 @@ const knownCustomers = {
     "802644097": { eponimia: "ΣΥΣΤΕΓΑΖΟΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΕΥΑ ΚΟΤΙΔΟΥ ΠΛΑΤΗΣ ΒΑΣΙΛΕΙΟΣ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΕΙΑ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2384022908", email: "evakotidou@gmail.com" },
     "802741555": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΤΣΩΝΗ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6932461323", phone: "2551038473", email: "tsonispharmacy@gmail.com" },
     "802744858": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΓΚΑΪΝΤΑΤΖΗΣ ΒΑΣΙΛΕΙΟΣ ΓΚΑΪΝΤΑΤΖΗ ΕΥΔΟΞΙΑ Ο", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6980289717", phone: "2551024463", email: "gkaintatzi.pharmacy@gmail.com" },
-    "943525640": { eponimia: "ΙΤΧ ΕΛΛΑΣ ΜΟΝΟΠΡΟΣΩΠΗ Α", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ", mobile: "", phone: "", email: "" },
     "996853821": { eponimia: "ΚΟΙΝΩΝΙΑ ΚΛΗΡΟΝΟΜΩΝ ΔΟΥΛΚΕΡΙΔΗ ΧΑΡΑΛΑΜΠΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381088845", email: "farmakeio.skydra@gmail.com" },
     "997687603": { eponimia: "ΤΣΙΤΣΙΟΣ ΑΘΑΝΑΣΙΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "6978762108", phone: "2531022785", email: "pharmthanos@gmail.com" },
     "997961412": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΠΑΝΑΓΙΩΤΙΔΟΥ ΑΙΚΑΤΕΡΙΝΗ ΦΡΑΓΓΙΔΟΥ ΝΙΚΟΛΕΤΑ Ο", doy: "ΚΙΛΚΙΣ", mobile: "6986962826", phone: "2341023924", email: "farmakeiofraggidou@gmail.com" },
     "997961880": { eponimia: "ΚΑΡΙΠΙΔΟΥ ΧΡΙΣΤΙΝΑ ΚΑΙ ΣΙΑ ΟΜΟΡΡΥΘΜΟΣ ΕΤΑΙΡΕΙΑ", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341020865", email: "chriskaripidou@gmail.com" },
-    "998548940": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΑΧΤΣΗΣ ΣΤΕΡΓΙΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6948053736", phone: "2551 029523", email: "aachtsi@gmail.com" },
+    "998548940": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΑΧΤΣΗΣ ΣΤΕΡΓΙΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6948053736", phone: "2551029523", email: "aachtsi@gmail.com" },
     "998720640": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΜΕΡΟΠΗΣ ΜΠΑΧΤΣΕΒΑΝΙΔΟΥ ΚΑΙ ΣΙΑ Ε", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381023080", email: "fiorabach@hotmail.com" },
     "998721309": { eponimia: "ΤΣΙΤΛΑΚΙΔΟΥ Μ ΚΑΙ ΣΙΑ Ο", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381091116", email: "maria_tsitlakidou@hotmail.com" },
-    "999228431": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΗΛΙΑ ΧΑΛΙΓΙΑΝΝΗ ΚΑΙ ΣΙΑ Ο", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "6936632283", phone: "2531 023758", email: "iliaspharm@yahoo.com" },
+    "999228431": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΗΛΙΑ ΧΑΛΙΓΙΑΝΝΗ ΚΑΙ ΣΙΑ Ο", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "6936632283", phone: "2531023758", email: "iliaspharm@yahoo.com" },
     "999260690": { eponimia: "ΦΛΩΡΟΣ ΓΕΩΡΓΙΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΙΩΝΙΑΣ ΘΕΣΣΑΛΟΝΙΚΗΣ", mobile: "6944732173", phone: "", email: "florospharmacy@yahoo.gr" },
-    "999295953": { eponimia: "Συστεγασμένα φαρμακεία Αλ.Γκικας- Αν.Γκικα Ο.Ε", doy: "Γιαννιτσών", mobile: "6977598429", phone: "2382024813", email: "anagkika@gmail.com" },
+    "999295953": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΑΛ.ΓΚΙΚΑΣ- ΑΝ.ΓΚΙΚΑ Ο.Ε", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6977598429", phone: "2382024813", email: "anagkika@gmail.com" },
     "999295989": { eponimia: "Α ΓΚΑΙΤΑΤΖΗΣ ΚΑΙ ΣΙΑ Ε", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "", phone: "2382099191", email: "gkaitatzisaggelos@yahoo.gr" },
     "999296071": { eponimia: "ΚΑΡΑΟΥΛΑΝΗ ΕΥΑΓΓΕΛΙΑ ΚΑΙ ΣΙΑ Ο", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "", phone: "2382042299", email: "psiamanta@hotmail.com" },
     "999387480": { eponimia: "ΜΗΤΚΑΣ ΑΔΑΜΑΝΤΙΟΣ ΚΑΙ ΣΙΑ Ε", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6945411342", phone: "2551028396", email: "farmakiomitkas@gmail.com" },
@@ -103,12 +103,56 @@ const products = [
     { name: 'NUTRI MX JOINT', price: 10.16 }
 ];
 
-// --- 3. ΠΛΗΡΕΙΣ ΠΕΡΙΓΡΑΦΕΣ ---
+// --- 3. ΠΛΗΡΕΙΣ ΠΕΡΙΓΡΑΦΕΣ & ΕΠΙΣΤΗΜΟΝΙΚΗ ΤΕΚΜΗΡΙΩΣΗ ---
 const productDetails = [
-    { name: 'Z-DermAspis', description: { consumer: `<h3>Σπρέι Διπλής Δράσης</h3><p>Καθαρισμός και προστασία από έντομα.</p>`, science: `<h3>Συστατικά</h3><p>Αλκοόλη & PMD.</p>`, bibliography: `<p>WHO Guidelines.</p>` } },
-    { name: 'NUTRI MX PROBIOTIC PREMIUM', description: { consumer: `<h3>Προβιοτικά 18 Στελεχών</h3><p>10 δις CFU για το ανοσοποιητικό.</p>`, science: `<h3>Μηχανισμός</h3><p>Υγεία ΓΕΣ και μικροβιώματος.</p>`, bibliography: `<p>Lee JY, et al. Science 2022.</p>` } },
-    { name: 'NUTRI MX MAGNESIUM 1 Τεμ', description: { consumer: `<h3>Μαγνήσιο & Β6</h3><p>Μείωση κόπωσης και μυϊκή λειτουργία.</p>`, science: `<h3>Δράση</h3><p>Συμπαράγοντας σε 300+ αντιδράσεις.</p>`, bibliography: `<p>RDA: 320-420mg.</p>` } },
-    { name: 'NUTRI MX JOINT', description: { consumer: `<h3>Joint Support</h3><p>Γλυκοζαμίνη, Χονδροϊτίνη, MSM.</p>`, science: `<h3>Δράση</h3><p>Αναγέννηση χόνδρου.</p>`, bibliography: `<p>MedNutrition 2020.</p>` } }
+    { 
+        name: 'Z-DermAspis',
+        description: { 
+            consumer: `<h3>Σπρέι Διπλής Δράσης: Καθαρισμός & Προστασία</h3><p>Το Z-Derm Aspis προσφέρει ταυτόχρονο καθαρισμό και φυσική προστασία από τα έντομα. Ιδανικό για εξωτερικές δραστηριότητες.</p>`, 
+            science: `<h3>Μηχανισμός Δράσης (Επιστημονικά)</h3><p><strong>Alcohol Denat (70%):</strong> Προκαλεί μετουσίωση των πρωτεϊνών των μικροοργανισμών.<br><strong>PMD (Citriodora):</strong> Το μοναδικό φυτικό συστατικό εγκεκριμένο από το CDC. Δρα ως ανταγωνιστής στους υποδοχείς TRPA1 και TRPM8 των εντόμων, μπλοκάροντας τον εντοπισμό του ξενιστή.</p>`, 
+            bibliography: `<p>1. Carroll SP, Loye J. PMD botanical mosquito repellent efficacy. J Am Mosq Control Assoc. 2006.<br>2. CDC Guidelines on Insect Repellents.</p>` 
+        }
+    },
+    { 
+        name: 'ZplastCream 40gr',
+        description: { 
+            consumer: `<h3>Εντατική Ανάπλαση & Επούλωση</h3><p>Εξειδικευμένη κρέμα για πληγές, εγκαύματα και ερεθισμούς. Καταπραΰνει άμεσα και προάγει την ταχεία αναδόμηση του δέρματος.</p>`, 
+            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>Hypericum Perforatum:</strong> Η υπερφορίνη διεγείρει τον πολλαπλασιασμό των κερατινοκυττάρων.<br><strong>Μαστίχα Χίου:</strong> Παρουσιάζει ισχυρή αντιμικροβιακή δράση και ενισχύει τη σύνθεση κολλαγόνου μέσω ενεργοποίησης των ινοβλαστών.<br><strong>Καλαμίνη:</strong> Δρα ως στυπτικό και αντιφλεγμονώδες.</p>`, 
+            bibliography: `<p>1. Öztürk N, et al. St. John's Wort on skin wounds. J Ethnopharmacol. 2007.<br>2. Paraschos S, et al. Chios mastic gum extract. 2012.</p>` 
+        }
+    },
+    { 
+        name: 'Bruise Off Bite Out & Pain Free cream',
+        description: { 
+            consumer: `<h3>Ανακούφιση από Πόνο & Μώλωπες</h3><p>Κρέμα για μυϊκούς πόνους, διαστρέμματα και χτυπήματα. Μειώνει το οίδημα και επιταχύνει την απορρόφηση των μωλώπων.</p>`, 
+            science: `<h3>Φαρμακολογική Δράση</h3><p><strong>Arnica Montana:</strong> Η ελεναλίνη αναστέλλει τον μεταγραφικό παράγοντα NF-kB, μειώνοντας την παραγωγή κυτταροκινών (IL-1, TNF-α).<br><strong>Ριγανέλαιο (Carvacrol):</strong> Ρυθμίζει την τοπική μικροκυκλοφορία προκαλώντας υπεραιμία και αναλγησία.</p>`, 
+            bibliography: `<p>1. Lyss G, et al. Helenalin, an anti-inflammatory sesquiterpene lactone. 1998.<br>2. Smith AG, Arnica effects in marathon setting. 2021.</p>` 
+        }
+    },
+    { 
+        name: 'NUTRI MX PROBIOTIC PREMIUM', 
+        description: { 
+            consumer: `<h3>Προβιοτικά 18 Στελεχών για το Έντερο</h3><p>Προηγμένο συμπλήρωμα με 10 δις CFU. Ενισχύει το ανοσοποιητικό, την πέψη και την αποκατάσταση της χλωρίδας.</p>`, 
+            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>Αποικισμός:</strong> Ανταγωνιστική αναστολή παθογόνων για θέσεις πρόσδεσης στο επιθήλιο.<br><strong>Μεταβολίτες:</strong> Παραγωγή λιπαρών οξέων βραχείας αλύσου (SCFA) που ρυθμίζουν το pH και την ανοσολογική απόκριση του ξενιστή.</p>`, 
+            bibliography: `<ol><li>Lee JY, et al. The microbiome and gut homeostasis. Science 2022.</li><li>Karamanolis GP, 14th Panhellenic Meeting ELIGAST 2019.</li></ol>` 
+        } 
+    },
+    { 
+        name: 'NUTRI MX MAGNESIUM 1 Τεμ', 
+        description: { 
+            consumer: `<h3>Υγεία Νευρικού & Μυϊκού Συστήματος</h3><p>Μαγνήσιο με Βιταμίνη Β6. Μειώνει την κόπωση, τις κράμπες και υποστηρίζει την ψυχική ισορροπία.</p>`, 
+            science: `<h3>Βιολογικός Ρόλος</h3><p><strong>Συμπαράγοντας:</strong> Συμμετέχει σε >300 ενζυμικές αντιδράσεις, συμπεριλαμβανομένης της σύνθεσης ATP και της νευροδιαβίβασης.<br><strong>Ανταγωνισμός:</strong> Φυσικός ανταγωνιστής του ασβεστίου στις μυϊκές ίνες, αποτρέποντας την υπερδιέγερση (κράμπες).</p>`, 
+            bibliography: `<p>RDA guidelines: 320mg-420mg daily. Magnesium in Human Health, Prasad AS, 2008.</p>` 
+        } 
+    },
+    { 
+        name: 'NUTRI MX JOINT', 
+        description: { 
+            consumer: `<h3>Υποστήριξη Αρθρώσεων & Χόνδρων</h3><p>Με Γλυκοζαμίνη, Χονδροϊτίνη, MSM και Κολλαγόνο. Βοηθά στην ευκαμψία και τη μείωση της φλεγμονής στις αρθρώσεις.</p>`, 
+            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>MSM & Glucosamine:</strong> Παρέχουν το απαραίτητο θείο και δομικά στοιχεία για τη βιοσύνθεση γλυκοζαμινογλυκανών.<br><strong>Collagen I & II:</strong> Ενισχύουν την εφελκυστική δύναμη των τενόντων και την απορρόφηση κραδασμών στον χόνδρο.</p>`, 
+            bibliography: `<ol><li>Daskalou E. MSM as a source of sulfur. 2016.</li><li>Kislingh. Role of collagen fragments in joint health. 2019.</li></ol>` 
+        } 
+    }
 ];
 
 // --- 4. ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ---
@@ -178,6 +222,7 @@ function updateFromModal(index){
 }
 
 function closeProductModal(){document.getElementById('productModal').style.display='none';}
+function closePreviewModal(){document.getElementById('previewModal').style.display='none';}
 
 function openTab(evt, name) {
     let i, tabcontent = document.getElementsByClassName("tab-content"), tablinks = document.getElementsByClassName("tab-button");
@@ -187,7 +232,6 @@ function openTab(evt, name) {
     evt.currentTarget.className += " active";
 }
 
-// --- ΝΕΑ ΣΥΝΑΡΤΗΣΗ EMAIL ΜΕ ΤΟ ΖΗΤΟΥΜΕΝΟ FORMAT ---
 function sendEmailViaClient() {
     const payment = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "Δεν επιλέχθηκε";
     const remarks = document.getElementById("remarks").value || "-";
@@ -245,5 +289,5 @@ function previewAndSaveAsTXT(){
         link.click();
     };
 }
-function closePreviewModal(){document.getElementById('previewModal').style.display='none';}
+
 function clearForm(){ document.getElementById("orderForm").reset(); document.querySelectorAll(".quantity").forEach(q => q.value="0"); updateAll(); }
