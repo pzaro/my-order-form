@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Φόρμα Παραγγελίας - Zarkolia Health</title>
+    <title>Σύστημα Παραγγελιών - Zarkolia Health</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Κατάλογος & Φόρμα Παραγγελίας</h1>
+        <h1>Φόρμα Παραγγελίας & Επιστημονικός Κατάλογος</h1>
         
         <div id="productButtonsContainer" class="product-buttons"></div>
         
@@ -18,7 +18,7 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label for="afm">ΑΦΜ (Αυτόματη Αναζήτηση):</label>
-                    <input type="text" id="afm" placeholder="Πληκτρολογήστε ΑΦΜ...">
+                    <input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ...">
                 </div>
                 <div class="form-group">
                     <label for="eponimia">Επωνυμία:</label>
@@ -43,15 +43,15 @@
                 <textarea id="remarks" rows="3" placeholder="Σημειώσεις για την παραγγελία..."></textarea>
             </div>
 
-            <h2>Προϊόντα προς Παραγγελία</h2>
+            <h2>Προϊόντα</h2>
             <table id="product-table">
                 <thead>
                     <tr>
-                        <th>Ονομασία Προϊόντος</th>
+                        <th>Προϊόν</th>
                         <th style="width: 80px;">Τιμή</th>
                         <th style="width: 100px;">Ποσότητα</th>
                         <th style="width: 60px;">Δώρα</th>
-                        <th>Τελική Τιμή/Τεμ.</th>
+                        <th>Τελική/Τεμ.</th>
                         <th>Σύνολο</th>
                     </tr>
                 </thead>
@@ -60,8 +60,8 @@
 
             <div class="totals-section">
                 <p>Καθαρή Αξία: <span id="net-value">0.00 €</span></p>
-                <p>Αξία ΦΠΑ (24%): <span id="vat-value">0.00 €</span></p>
-                <p class="final-sum"><strong>Τελικό Ποσό:</strong> <span id="final-total">0.00 €</span></p>
+                <p>ΦΠΑ (24%): <span id="vat-value">0.00 €</span></p>
+                <p class="final-sum"><strong>ΤΕΛΙΚΟ ΣΥΝΟΛΟ:</strong> <span id="final-total">0.00 €</span></p>
             </div>
 
             <div class="scales-container">
@@ -83,8 +83,8 @@
             </div>
 
             <div class="export-buttons">
-                <button type="button" class="btn btn-email" onclick="sendEmailViaClient()">Αποστολή με Email</button>
-                <button type="button" class="btn btn-txt" onclick="previewAndSaveAsTXT()">Αποθήκευση σε TXT</button>
+                <button type="button" class="btn btn-email" onclick="sendEmailViaClient()">Αποστολή Email</button>
+                <button type="button" class="btn btn-txt" onclick="previewAndSaveAsTXT()">Αποθήκευση TXT</button>
                 <button type="button" class="btn btn-clear" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
@@ -94,15 +94,15 @@
     <div id="previewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Προεπισκόπηση Παραγγελίας</h2>
+                <h2>Προεπισκόπηση</h2>
                 <span class="close-button" onclick="closePreviewModal()">&times;</span>
             </div>
             <div class="modal-body">
-                <pre id="previewContent" style="background: #f4f4f4; padding: 15px; border-radius: 5px; white-space: pre-wrap;"></pre>
+                <pre id="previewContent"></pre>
             </div>
             <div class="modal-footer">
-                <button id="saveTxtButton" class="btn" style="background-color:#5cb85c">Επιβεβαίωση & Αποθήκευση</button>
-                <button class="btn" style="background-color:#aaa" onclick="closePreviewModal()">Ακύρωση</button>
+                <button id="saveTxtButton" class="btn" style="background-color:#5cb85c">Αποθήκευση</button>
+                <button class="btn" style="background-color:#aaa" onclick="closePreviewModal()">Κλείσιμο</button>
             </div>
         </div>
     </div>
