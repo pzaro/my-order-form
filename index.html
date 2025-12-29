@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Φόρμα Παραγγελίας - Zarkolia & Nutri-MX</title>
+    <title>Σύστημα Παραγγελιών - Zarkolia & Nutri-MX</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Κατάλογος & Φόρμα Παραγγελίας</h1>
+        <h1>Φόρμα Παραγγελίας & Κατάλογος</h1>
         
         <div id="productButtonsContainer" class="product-buttons"></div>
         
@@ -17,8 +17,8 @@
             <h2>Στοιχεία Πελάτη</h2>
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="afm">ΑΦΜ (Αυτόματη Συμπλήρωση):</label>
-                    <input type="text" id="afm" placeholder="Πληκτρολογήστε ΑΦΜ...">
+                    <label for="afm">ΑΦΜ (Αυτόματη Αναζήτηση):</label>
+                    <input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ...">
                 </div>
                 <div class="form-group">
                     <label for="eponimia">Επωνυμία:</label>
@@ -30,57 +30,55 @@
                 <div class="form-group"><label for="email">Email:</label><input type="email" id="email"></div>
             </div>
 
-            <div class="payment-section">
+            <div class="payment-section" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                 <h3>Τρόπος Πληρωμής</h3>
-                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
-                    <label style="cursor:pointer;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά</label>
-                    <label style="cursor:pointer;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 Ημερών</label>
+                <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+                    <label style="cursor:pointer; font-weight: bold;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά</label>
+                    <label style="cursor:pointer; font-weight: bold;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 Ημερών</label>
                 </div>
             </div>
 
-            <div class="remarks-section">
-                <h3>Παρατηρήσεις</h3>
-                <textarea id="remarks" rows="4" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #dce1e6;" placeholder="Προσθέστε τυχόν σημειώσεις..."></textarea>
+            <div class="remarks-section" style="margin-bottom: 20px;">
+                <h3>Παρατηρήσεις Παραγγελίας</h3>
+                <textarea id="remarks" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Σημειώσεις (π.χ. ώρα παράδοσης, ειδικές οδηγίες)..."></textarea>
             </div>
 
-            <h2>Προϊόντα προς Παραγγελία</h2>
+            <h2>Προϊόντα</h2>
             <table id="product-table">
                 <thead>
                     <tr>
-                        <th>Ονομασία</th>
+                        <th>Προϊόν</th>
                         <th style="width: 80px;">Τιμή</th>
                         <th style="width: 100px;">Ποσότητα</th>
                         <th style="width: 60px;">Δώρα</th>
-                        <th>Τελική Τιμή/Τεμ.</th>
+                        <th>Τελική/Τεμ.</th>
                         <th>Σύνολο</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
 
-            <div class="totals-section">
+            <div class="totals-box">
                 <p>Καθαρή Αξία: <span id="net-value">0.00 €</span></p>
-                <p>Αξία ΦΠΑ (24%): <span id="vat-value">0.00 €</span></p>
-                <p><strong>Τελικό Ποσό:</strong> <span id="final-total">0.00 €</span></p>
+                <p>ΦΠΑ (24%): <span id="vat-value">0.00 €</span></p>
+                <p class="final-total">ΣΥΝΟΛΟ: <span id="final-total">0.00 €</span></p>
             </div>
 
-            <div class="bank-info">
-                <h3>Στοιχεία Κατάθεσης</h3>
-                <p><strong>IBAN:</strong> GR8901722520005252016160277</p>
-                <p><strong>Τράπεζα:</strong> Τράπεζα Πειραιώς</p>
+            <div class="bank-details" style="margin: 20px 0; font-size: 0.9em; color: #555;">
+                <p><strong>Τράπεζα Πειραιώς:</strong> IBAN GR8901722520005252016160277</p>
             </div>
 
-            <div class="export-buttons">
-                <button type="button" class="btn" style="background-color:#007bff" onclick="sendEmailViaClient()">Αποστολή με Email</button>
-                <button type="button" class="btn" style="background-color:#34495e" onclick="previewAndSaveAsTXT()">Αποθήκευση σε TXT</button>
-                <button type="button" class="btn" style="background-color:#f0ad4e" onclick="clearForm()">Καθαρισμός</button>
+            <div class="actions">
+                <button type="button" class="btn email-btn" onclick="sendEmailViaClient()">Αποστολή Email</button>
+                <button type="button" class="btn txt-btn" onclick="previewAndSaveAsTXT()">Αποθήκευση TXT</button>
+                <button type="button" class="btn clear-btn" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
     </div>
 
     <div id="productModal" class="modal"></div>
     <div id="previewModal" class="modal"></div>
-    
+
     <script src="script.js"></script>
     <script>
         function onlyOne(checkbox) {
