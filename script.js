@@ -116,78 +116,160 @@ const products = [
 ];
 
 // --- 3. ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ---
+// --- ΠΛΗΡΗΣ ΕΠΙΣΤΗΜΟΝΙΚΗ ΑΝΑΛΥΣΗ ΠΡΟΪΟΝΤΩΝ ---
 const productDetails = [
-    { 
-        name: 'Bruise Off Bite Out & Pain Free cream',
-        image: 'images/bruise-off.jpg',
-        description: { 
-            consumer: `<h3>Άμεση Απορρόφηση Μωλώπων & Πόνου</h3><p>Εξειδικευμένη κρέμα για μελανιές, πρήξιμο και μυϊκούς πόνους. Χάρη στην <strong>Ουρία</strong>, τα δραστικά συστατικά απορροφώνται αμέσως, προσφέροντας γρήγορη ανακούφιση και ορατή μείωση του αιματώματος.</p>`, 
-            science: `<h3>Φαρμακολογικός Μηχανισμός</h3><p><strong>Urea (Ουρία):</strong> Λειτουργεί ως ισχυρός ενισχυτής διείσδυσης (penetration enhancer). Διασπά τους δεσμούς υδρογόνου των κερατινοκυττάρων, αυξάνοντας τη διαπερατότητα της στοιβάδας ώστε η Άρνικα και το Καρβακρόλιο να φτάσουν ταχύτερα στον τραυματισμένο ιστό.<br><strong>Arnica Montana (Helenalin):</strong> Η ελεναλίνη αναστέλλει τον μεταγραφικό παράγοντα <strong>NF-kB</strong>, εμποδίζοντας την έκφραση των ενζύμων COX-2 και iNOS που προκαλούν τη φλεγμονή και το οίδημα.<br><strong>Carvacrol (Ριγανέλαιο):</strong> Δρα ως αγωνιστής των υποδοχέων <strong>TRPV1</strong>, προκαλώντας ελεγχόμενη τοπική υπεραιμία που απομακρύνει τα προϊόντα της φλεγμονής.</p>`, 
-            bibliography: `<p>1. Lyss G, et al. (1998). Helenalin: an anti-inflammatory sesquiterpene lactone. Biol. Chem.<br>2. Wohlrab J. (2018). Urea in Dermatology. Dermatol Clin.<br>3. Lima MD, et al. (2013). Pharmacology of Carvacrol.</p>` 
-        }
-    },
-    { 
-        name: 'Z-boost 30 caps',
-        image: 'images/z-boost.jpg',
-        description: { 
-            consumer: `<h3>Ολιστική Θωράκιση με Ginger</h3><p>Προηγμένο συμπλήρωμα για την ενίσχυση του ανοσοποιητικού. Το <strong>Ginger</strong> προσφέρει ισχυρή αντιφλεγμονώδη προστασία, ενώ ο Ψευδάργυρος και η NAC θωρακίζουν το αναπνευστικό σύστημα.</p>`, 
-            science: `<h3>Μοριακή Ανοσοενίσχυση</h3><p><strong>Zingiber officinale (Ginger):</strong> Οι τζιντζερόλες αναστέλλουν τη δράση των ενζύμων κυκλοοξυγενάσης (COX) και λιποξυγενάσης (LOX), μειώνοντας τη σύνθεση προσταγλανδινών και λευκοτριενίων. Παράλληλα, διεγείρει τη φαγοκυττάρωση των λευκοκυττάρων.<br><strong>Zinc:</strong> Απαραίτητος για τη διαφοροποίηση των Τ-λεμφοκυττάρων και τη δράση της θυμουλίνης.<br><strong>N-Acetylcysteine (NAC):</strong> Άμεσος πρόδρομος της γλουταθειόνης (GSH). Παρουσιάζει βλεννολυτική δράση διασπώντας τους δισουλφιδικούς δεσμούς των βλεννοπρωτεϊνών.</p>`, 
-            bibliography: `<p>1. Grzanna R, et al. (2005). Ginger—an herbal medicinal product with broad anti-inflammatory actions.<br>2. Hemilä H. (2017). Zinc and the common cold. JRSM Open.<br>3. Saini R. (2011). Coenzyme Q10: The essential nutrient.</p>` 
-        }
-    },
-    { 
+    {
         name: 'Z-DermAspis',
         image: 'images/z-dermaspis.jpg',
-        description: { 
-            consumer: `<h3>Σπρέι Διπλής Δράσης: Καθαρισμός & Προστασία</h3><p>Το Z-Derm Aspis προσφέρει ταυτόχρονο καθαρισμό και φυσική προστασία από τα έντομα. Ιδανικό για παιδιά και ενήλικες σε εξωτερικούς χώρους.</p>`, 
-            science: `<h3>Φαρμακολογική Προσέγγιση</h3><p><strong>Alcohol Denat (70%):</strong> Μετουσίωση πρωτεϊνών κυτταροπλάσματος παθογόνων μικροοργανισμών.<br><strong>PMD (Citriodora Oil):</strong> Η δραστική ουσία p-menthane-3,8-diol είναι ο μοναδικός φυτικός παράγοντας εγκεκριμένος από το CDC. Δρα παρεμβαίνοντας στις <strong>πρωτεΐνες δέσμευσης οσμών (OBPs)</strong> των εντόμων, εμποδίζοντας τον εντοπισμό του ξενιστή.</p>`, 
-            bibliography: `<p>1. Carroll SP, et al. (2006). PMD botanical mosquito repellent. J Am Mosq Control Assoc.<br>2. CDC Guidelines on Insect Repellents (2023).</p>` 
+        description: {
+            consumer: `<h3>Καθαρισμός & Φυσική Προστασία</h3><p>Ένα πρωτοποριακό σπρέι που προσφέρει διπλή δράση: βαθύ καθαρισμό ενώ ταυτόχρονα δημιουργεί μια φυσική ασπίδα προστασίας από τα έντομα. Ιδανικό για παιδιά και ενήλικες, καθώς δεν περιέχει DEET.</p>`,
+            science: `<h3>Φαρμακολογικός Μηχανισμός</h3><p><strong>Alcohol Denat (70%):</strong> Δρα ως ευρέος φάσματος αντισηπτικό προκαλώντας μετουσίωση των πρωτεϊνών του κυτταροπλάσματος των μικροοργανισμών.<br><strong>PMD (Citriodora Oil):</strong> Η δραστική ουσία p-menthane-3,8-diol είναι ο μοναδικός φυτικός παράγοντας εγκεκριμένος από το CDC. Δρα παρεμβαίνοντας στις <strong>πρωτεΐνες δέσμευσης οσμών (OBPs)</strong> των εντόμων, εμποδίζοντας τον εντοπισμό των πτητικών ενώσεων του ξενιστή (γαλακτικό οξύ, CO2).</p>`,
+            bibliography: `<p>1. Carroll SP, Loye J. PMD botanical mosquito repellent efficacy. J Am Mosq Control Assoc. 2006.<br>2. CDC Guidelines on Insect Repellents (2023).</p>`
         }
     },
-    { 
+    {
         name: 'ZplastCream 40gr',
-        image: 'images/zplast.jpg',
-        description: { 
-            consumer: `<h3>Εντατική Ανάπλαση & Επούλωση</h3><p>Εξειδικευμένη κρέμα για πληγές, εγκαύματα και ερεθισμούς. Επιταχύνει το κλείσιμο της πληγής και προστατεύει από μολύνσεις.</p>`, 
-            science: `<h3>Μοριακή Δράση</h3><p><strong>Hypericum Perforatum (Υπερφορίνη):</strong> Διεγείρει τον πολλαπλασιασμό των κερατινοκυττάρων και των ινοβλαστών, επιταχύνοντας τη σύγκλειση πληγών.<br><strong>Chios Mastic Oil:</strong> Ενεργοποιεί τη σύνθεση κολλαγόνου και παρουσιάζει ισχυρή αντιμικροβιακή δράση κατά του S. aureus.<br><strong>Calamine:</strong> Ήπιο στυπτικό που καταστέλλει την τοπική απελευθέρωση ισταμίνης (αντικνησμώδης δράση).</p>`, 
-            bibliography: `<p>1. Öztürk N, et al. (2007). St. John's Wort on skin wounds. J Ethnopharmacol.<br>2. Paraschos S, et al. (2012). Chios mastic gum properties.</p>` 
+        image: 'images/zplast-40.jpg',
+        description: {
+            consumer: `<h3>Εντατική Ανάπλαση & Επούλωση</h3><p>Εξειδικευμένη κρέμα για πληγές, εγκαύματα και ερεθισμούς. Καταπραΰνει άμεσα, εμποδίζει τις μολύνσεις και προάγει την ταχεία αναδόμηση του δέρματος χωρίς σημάδια.</p>`,
+            science: `<h3>Μοριακός Μηχανισμός Επούλωσης</h3><p><strong>Hypericum Perforatum (Υπερφορίνη):</strong> Διεγείρει τον πολλαπλασιασμό των κερατινοκυττάρων και των ινοβλαστών, επιταχύνοντας τη σύγκλειση των πληγών.<br><strong>Chios Mastic Oil:</strong> Ενεργοποιεί τη σύνθεση κολλαγόνου μέσω της οδού TGF-β και παρουσιάζει ισχυρή αντιμικροβιακή δράση κατά του S. aureus.<br><strong>Calamine:</strong> Δρα ως ήπιο στυπτικό και αντιφλεγμονώδες, καταστέλλοντας την τοπική απελευθέρωση ισταμίνης.</p>`,
+            bibliography: `<p>1. Öztürk N, et al. Hypericum perforatum on skin wounds. J Ethnopharmacol. 2007.<br>2. Paraschos S, et al. Chios mastic gum: antimicrobial properties. 2012.</p>`
         }
     },
-    { 
+    {
+        name: 'ZplastCream 100gr',
+        image: 'images/zplast-100.jpg',
+        description: {
+            consumer: `<h3>Επαγγελματική Φροντίδα Ανάπλασης (100gr)</h3><p>Η ίδια ισχυρή επουλωτική σύνθεση σε μεγάλη συσκευασία για εκτεταμένη χρήση σε μεγάλες επιφάνειες δέρματος ή χρόνια προβλήματα ερεθισμών.</p>`,
+            science: `<h3>Συνεργιστική Δράση</h3><p>Περιλαμβάνει <strong>Ιπποφαές (Ω-7)</strong> για την ενίσχυση του επιδερμικού φραγμού και <strong>Καλέντουλα</strong> που προάγει την αγγειογένεση στην περιοχή του τραύματος, διασφαλίζοντας την οξυγόνωση των νέων ιστών.</p>`,
+            bibliography: `<p>1. Upadhyay NK, et al. Healing efficacy of Hippophae rhamnoides. 2009.<br>2. Leach MJ. Calendula officinalis and wound healing. 2008.</p>`
+        }
+    },
+    {
+        name: 'Bruise Off Bite Out & Pain Free cream',
+        image: 'images/bruise-off.jpg',
+        description: {
+            consumer: `<h3>Άμεση Απορρόφηση Μωλώπων & Πόνου</h3><p>Η λύση για μελανιές, πρήξιμο και μυϊκούς πόνους. Χάρη στην <strong>Ουρία</strong>, τα δραστικά συστατικά (Άρνικα, Ριγανέλαιο) απορροφώνται αμέσως, προσφέροντας γρήγορη ανακούφιση και ορατή μείωση του αιματώματος.</p>`,
+            science: `<h3>Φαρμακοδυναμική Μηχανισμού</h3><p><strong>Urea (Ουρία):</strong> Λειτουργεί ως ισχυρός ενισχυτής διείσδυσης (penetration enhancer), διασπώντας τους δεσμούς υδρογόνου της κερατίνης ώστε τα τερπένια να φτάσουν στον υποδόριο ιστό.<br><strong>Arnica Montana (Helenalin):</strong> Η ελεναλίνη αναστέλλει τον μεταγραφικό παράγοντα <strong>NF-kB</strong>, εμποδίζοντας τη γονιδιακή έκφραση των ενζύμων COX-2 (φλεγμονή).<br><strong>Carvacrol (Ριγανέλαιο):</strong> Αγωνιστής των υποδοχέων <strong>TRPV1</strong>, προκαλώντας ελεγχόμενη υπεραιμία που απομακρύνει τα μεταβολικά παραπροϊόντα της φλεγμονής.</p>`,
+            bibliography: `<p>1. Lyss G, et al. Helenalin mechanism. Biol. Chem. 1998.<br>2. Wohlrab J. Urea in Dermatology. Dermatol Clin. 2018.</p>`
+        }
+    },
+    {
+        name: 'Bruise Off Bite Out & Pain Free cream 100ml',
+        image: 'images/bruise-off-100.jpg',
+        description: {
+            consumer: `<h3>Ολοκληρωμένη Λύση για Μυϊκούς Πόνους (100ml)</h3><p>Μεγάλη συσκευασία για συστηματική χρήση σε αθλητές ή άτομα με χρόνια μυοσκελετική καταπόνηση. Ιδανική για μασάζ αποκατάστασης.</p>`,
+            science: `<h3>Βιοδιαθεσιμότητα</h3><p>Η φαρμακοτεχνική μορφή εξασφαλίζει παρατεταμένη αποδέσμευση των δραστικών συστατικών (Άρνικα, Λεβάντα, Λινέλαιο) στους ιστούς, μειώνοντας το οξειδωτικό στρες στην περιοχή του τραύματος.</p>`,
+            bibliography: `<p>Nasiri A, et al. (2018). Essential oils in pain management.</p>`
+        }
+    },
+    {
+        name: 'Z-boost 30 caps',
+        image: 'images/zboost-30.jpg',
+        description: {
+            consumer: `<h3>Ολιστική Θωράκιση με Ginger</h3><p>Προηγμένο συμπλήρωμα για την ενίσχυση του ανοσοποιητικού. Το <strong>Ginger</strong> προσφέρει ισχυρή αντιφλεγμονώδη προστασία, ενώ ο Ψευδάργυρος και η NAC θωρακίζουν το αναπνευστικό σύστημα.</p>`,
+            science: `<h3>Μοριακή Ανοσοενίσχυση</h3><p><strong>Zingiber officinale (Ginger):</strong> Οι τζιντζερόλες αναστέλλουν τη δράση των ενζύμων COX και LOX, μειώνοντας τη σύνθεση προσταγλανδινών και λευκοτριενίων.<br><strong>Zinc (Ψευδάργυρος):</strong> Απαραίτητος για τη δράση της <strong>θυμουλίνης</strong>, ρυθμίζοντας τη διαφοροποίηση των Τ-λεμφοκυττάρων.<br><strong>N-Acetylcysteine (NAC):</strong> Πρόδρομος της γλουταθειόνης (GSH). Παρουσιάζει βλεννολυτική δράση διασπώντας τους δισουλφιδικούς δεσμούς των βλεννοπρωτεϊνών.</p>`,
+            bibliography: `<p>1. Grzanna R, et al. (2005). Ginger—an herbal medicinal product with broad anti-inflammatory actions.<br>2. Hemilä H. (2017). Zinc and the common cold. JRSM Open.</p>`
+        }
+    },
+    {
+        name: 'Z-boost 12 caps',
+        image: 'images/zboost-12.jpg',
+        description: {
+            consumer: `<h3>Άμεση Τόνωση & Προστασία (Συσκευασία Ταχείας Δράσης)</h3><p>Σχεδιασμένο για τις πρώτες ημέρες των συμπτωμάτων. Βοηθά το σώμα να ανταπεξέλθει γρήγορα στην κόπωση και τις ιώσεις.</p>`,
+            science: `<h3>Αντιοξειδωτική Δράση</h3><p>Περιέχει <strong>CoQ10</strong> και <strong>ALA</strong>, τα οποία βελτιώνουν τη μιτοχονδριακή λειτουργία των λευκοκυττάρων, παρέχοντας την απαραίτητη ενέργεια για την ταχεία ανοσολογική απόκριση.</p>`,
+            bibliography: `<p>Saini R. (2011). Coenzyme Q10: The essential nutrient.</p>`
+        }
+    },
+    {
         name: 'Revitacell Plus Face cream 50ml',
         image: 'images/revitacell.jpg',
-        description: { 
-            consumer: `<h3>Επιγενετική Αντιγήρανση & Σύσφιξη</h3><p>Προηγμένη σύνθεση που ενεργοποιεί την "πρωτεΐνη της νεότητας" στο δέρμα σας. Μειώνει τις ρυτίδες και προσφέρει ορατό lifting.</p>`, 
-            science: `<h3>Μοριακή Δράση (Klotho Protein)</h3><p><strong>Mastic Gum Extract:</strong> Αυξάνει την έκφραση της πρωτεΐνης <strong>Klotho</strong> στα κύτταρα της επιδερμίδας, καθυστερώντας την κυτταρική γήρανση και βελτιώνοντας την κυτταρική επικοινωνία.<br><strong>Pomegranate Seed Oil:</strong> Πλούσιο σε πουνικικό οξύ (Ω-5), αναστέλλει τα ένζυμα μεταλλοπρωτεϊνάσης (MMP-1) που αποδομούν το κολλαγόνο.</p>`, 
-            bibliography: `<p>1. Lall N, et al. (2020). Rejuvenating effect of mastic gum on skin.<br>2. Neha K, et al. (2014). Pomegranate seed oil: A comprehensive review.</p>` 
+        description: {
+            consumer: `<h3>Επιγενετική Αντιγήρανση & lifting</h3><p>Προηγμένη κρέμα που ενεργοποιεί την "πρωτεΐνη της νεότητας" στο δέρμα σας. Μειώνει τις βαθιές ρυτίδες, προσφέρει σύσφιξη και προστατεύει από την οξείδωση και τη ρύπανση.</p>`,
+            science: `<h3>Μοριακή Δράση (Klotho Protein)</h3><p><strong>Mastic Gum Extract:</strong> Αυξάνει την έκφραση της πρωτεΐνης <strong>Klotho</strong> στα κύτταρα της επιδερμίδας, καθυστερώντας την κυτταρική γήρανση.<br><strong>Pomegranate Seed Oil:</strong> Πλούσιο σε πουνικικό οξύ (Ω-5), αναστέλλει τα ένζυμα μεταλλοπρωτεϊνάσης (MMP-1) που αποδομούν το κολλαγόνο.</p>`,
+            bibliography: `<p>1. Lall N, et al. (2020). Rejuvenating effect of mastic gum on skin.<br>2. Neha K, et al. (2014). Pomegranate seed oil review.</p>`
         }
     },
-    { 
-        name: 'NUTRI MX PROBIOTIC PREMIUM', 
+    {
+        name: 'Hydralia Face cream 50ml',
+        image: 'images/hydralia.jpg',
+        description: {
+            consumer: `<h3>Βαθιά Ενυδάτωση & Λάμψη</h3><p>Κρέμα προσώπου που αποκαθιστά την υγρασία στις βαθύτερες στοιβάδες. Χαρίζει απαλή υφή, φωτεινότητα και ελαστικότητα στην επιδερμίδα.</p>`,
+            science: `<h3>Υδροδυναμική του Δέρματος</h3><p><strong>Hyaluronic Acid (LMW):</strong> Το χαμηλού μοριακού βάρους υαλουρονικό διεισδύει βαθιά, δεσμεύοντας μόρια νερού εκ των έσω.<br><strong>Jojoba Oil:</strong> Λειτουργεί ως βιομιμητικό του ανθρώπινου σμήγματος, αποκαθιστώντας τον υδρολιπιδικό φραγμό χωρίς να φράζει τους πόρους.</p>`,
+            bibliography: `<p>Bukhari SNA, et al. (2018). Hyaluronic acid: A rejuvenating biomedicine.</p>`
+        }
+    },
+    {
+        name: 'Revitace Eyes cream Luce 30ml',
+        image: 'images/eyes.jpg',
+        description: {
+            consumer: `<h3>Ξεκούραστο Βλέμμα χωρίς Μαύρους Κύκλους</h3><p>Στοχευμένη φροντίδα για την περιοχή των ματιών. Μειώνει ορατά το πρήξιμο (σακούλες), αποχρωματίζει τους μαύρους κύκλους και φωτίζει το βλέμμα.</p>`,
+            science: `<h3>Μικροκυκλοφορία & Αποσυμφόρηση</h3><p><strong>Aesculus Hippocastanum (Escin):</strong> Η αισκίνη μειώνει τη διαπερατότητα των τριχοειδών αγγείων, προλαμβάνοντας το οίδημα.<br><strong>Arnica Extract:</strong> Επιταχύνει την απομάκρυνση των χρωστικών του αίματος που ευθύνονται για τον σκούρο κύκλο κάτω από τα μάτια.</p>`,
+            bibliography: `<p>Gallelli L. (2019). Escin: a review of its venotonic properties.</p>`
+        }
+    },
+    {
+        name: 'Alveolair Sir',
+        image: 'images/alveolair.jpg',
+        description: {
+            consumer: `<h3>Φυσική Ανακούφιση για τον Βήχα</h3><p>Φυτικό σιρόπι που μαλακώνει τον λαιμό και βοηθά στην απελευθέρωση της αναπνοής. Κατάλληλο για ξηρό και παραγωγικό βήχα.</p>`,
+            science: `<h3>Συνεργιστική Φυτοθεραπεία</h3><p><strong>Eucalyptus Globulus (Cineole):</strong> Παρουσιάζει ισχυρή βλεννολυτική και αντιφλεγμονώδη δράση.<br><strong>Thymus Vulgaris (Thymol):</strong> Χαλαρώνει τους λείους μύες των βρόγχων (σπασμολυτική δράση).<br><strong>Althaea Officinalis:</strong> Οι βλεννοπολυσακχαρίτες της σχηματίζουν ένα προστατευτικό στρώμα στο βλεννογόνο, καταστέλλοντας τον ερεθισμό.</p>`,
+            bibliography: `<p>EMA (2016). Herbal monograph on Althaea officinalis & Thymus vulgaris.</p>`
+        }
+    },
+    {
+        name: 'NUTRI MX PROBIOTIC PREMIUM',
         image: 'images/probiotic.jpg',
-        description: { 
-            consumer: `<h3>18 Στελέχη για την Εντερική Υγεία</h3><p>Υψηλής συγκέντρωσης προβιοτικά (10 δις CFU) για την αποκατάσταση της χλωρίδας, την πέψη και την ενίσχυση του ανοσοποιητικού.</p>`, 
-            science: `<h3>Μηχανισμός Δράσης</h3><p><strong>Αποικισμός:</strong> Ανταγωνιστική αναστολή παθογόνων στο επιθήλιο.<br><strong>SCFA Production:</strong> Τα στελέχη παράγουν Λιπαρά Οξέα Βραχείας Αλύσου (κυρίως βουτυρικό οξύ), τα οποία τρέφουν τα κολονοκύτταρα και ρυθμίζουν την ανοσολογική απόκριση μέσω των κυττάρων <strong>Tregs</strong>.</p>`, 
-            bibliography: `<ol><li>Lee JY, et al. (2022). The microbiome and gut homeostasis. Science.</li><li>Karamanolis GP (2019). Προβιοτικά και Γαστρεντερικό. ΕΚΠΑ.</li></ol>` 
-        } 
+        description: {
+            consumer: `<h3>18 Στελέχη για την Εντερική Υγεία</h3><p>Υψηλής συγκέντρωσης προβιοτικά (10 δις CFU) για την αποκατάσταση της χλωρίδας και την ενίσχυση του ανοσοποιητικού από το έντερο.</p>`,
+            science: `<h3>Μικροβίωμα & Ανοσολογία</h3><p><strong>18 Στελέχη:</strong> Διασφαλίζουν πολυμορφία στον αποικισμό. Παράγουν <strong>Λιπαρά Οξέα Βραχείας Αλύσου (SCFA)</strong>, τα οποία τρέφουν τα κολονοκύτταρα και ρυθμίζουν τη δράση των κυττάρων <strong>Tregs</strong>, μειώνοντας τη συστηματική φλεγμονή.</p>`,
+            bibliography: `<p>1. Lee JY, et al. The microbiome and gut homeostasis. Science. 2022.<br>2. Karamanolis GP. Προβιοτικά και Γαστρεντερικό. 2019.</p>`
+        }
     },
-    { 
-        name: 'NUTRI MX MAGNESIUM 1 Τεμ', 
+    {
+        name: 'NUTRI MX MAGNESIUM 1 Τεμ',
         image: 'images/magnesium.jpg',
-        description: { 
-            consumer: `<h3>Μυϊκή Χαλάρωση & Ψυχική Ηρεμία</h3><p>Μαγνήσιο ενισχυμένο με Βιταμίνη Β6. Σταματά τις κράμπες, μειώνει την κόπωση και βοηθά στον ποιοτικό ύπνο.</p>`, 
-            science: `<h3>Βιοχημικός Ρόλος</h3><p><strong>Magnesium Citrate/Oxide:</strong> Συμπαράγοντας σε >300 ενζυμικές αντιδράσεις (ATP synthesis).<br><strong>Νευρομυϊκός Μηχανισμός:</strong> Λειτουργεί ως φυσικός ανταγωνιστής του ασβεστίου στις συνάψεις, μπλοκάροντας τους υποδοχείς NMDA και αποτρέποντας την υπερδιέγερση των μυϊκών ινών.</p>`, 
-            bibliography: `<p>1. Prasad AS (2008). Magnesium in human health.<br>2. RDA Guidelines: Magnesium for adults.</p>` 
-        } 
+        description: {
+            consumer: `<h3>Μυϊκή Χαλάρωση & Ψυχική Ηρεμία</h3><p>Μαγνήσιο ενισχυμένο με Βιταμίνη Β6. Σταματά τις κράμπες, μειώνει την κόπωση και βοηθά στον ποιοτικό ύπνο ρυθμίζοντας το νευρικό σύστημα.</p>`,
+            science: `<h3>Βιοχημικός Ρόλος</h3><p><strong>Magnesium Citrate/Oxide:</strong> Συμπαράγοντας σε >300 ενζυμικές αντιδράσεις (ATP synthesis).<br><strong>Νευρομυϊκός Μηχανισμός:</strong> Λειτουργεί ως φυσικός ανταγωνιστής του ασβεστίου στις συνάψεις, μπλοκάροντας τους υποδοχείς NMDA και αποτρέποντας την υπερδιέγερση των μυϊκών ινών.</p>`,
+            bibliography: `<p>Prasad AS. Magnesium in human health. 2008. RDA Guidelines.</p>`
+        }
     },
-    { 
-        name: 'NUTRI MX JOINT', 
+    {
+        name: 'NUTRI MX JOINT',
         image: 'images/joint.jpg',
-        description: { 
-            consumer: `<h3>Υποστήριξη Αρθρώσεων & Χόνδρων</h3><p>Ολοκληρωμένη φόρμουλα για τις αρθρώσεις. "Λιπαίνει" τους χόνδρους, μειώνει τη φλεγμονή και βοηθά στην κίνηση χωρίς πόνο.</p>`, 
-            science: `<h3>Αναγέννηση Συνδετικού Ιστού</h3><p><strong>Glucosamine & Chondroitin:</strong> Δομικά συστατικά των γλυκοζαμινογλυκανών (GAGs) του χόνδρου.<br><strong>MSM:</strong> Παρέχει οργανικό θείο για τον σχηματισμό δισουλφιδικών δεσμών στις ίνες κολλαγόνου, ενισχύοντας τη δομική ακεραιότητα του χόνδρου.<br><strong>Collagen Type II:</strong> Ειδικό κολλαγόνο που απορροφά τους κραδασμούς στις αρθρικές επιφάνειες.</p>`, 
-            bibliography: `<ol><li>Kislingh (2019). Peptide fragments of collagen in joint health.</li><li>Daskalou E. (2016). MSM as a source of sulfur.</li></ol>` 
-        } 
+        description: {
+            consumer: `<h3>Υποστήριξη Αρθρώσεων & Χόνδρων</h3><p>Ολοκληρωμένη φόρμουλα που "λιπαίνει" τους χόνδρους, μειώνει τη φλεγμονή και βοηθά στην αποκατάσταση της κίνησης χωρίς πόνο.</p>`,
+            science: `<h3>Αναγέννηση Συνδετικού Ιστού</h3><p><strong>Glucosamine & Chondroitin:</strong> Δομικά συστατικά των γλυκοζαμινογλυκανών του αρθρικού χόνδρου.<br><strong>MSM:</strong> Παρέχει οργανικό θείο για τον σχηματισμό δισουλφιδικών δεσμών στις ίνες κολλαγόνου.<br><strong>Collagen Type II:</strong> Ειδικό κολλαγόνο που απορροφά τους κραδασμούς στις αρθρικές επιφάνειες.</p>`,
+            bibliography: `<p>1. Kislingh. Role of collagen in joint health. 2019.<br>2. Daskalou E. MSM as a source of sulfur. 2016.</p>`
+        }
+    },
+    {
+        name: 'NUTRI MX A-Z',
+        image: 'images/az.jpg',
+        description: {
+            consumer: `<h3>Πολυβιταμίνη για Πλήρη Κάλυψη</h3><p>Πλήρες φάσμα 24 βιταμινών και μετάλλων για τόνωση, ενέργεια και κάλυψη διατροφικών κενών σε περιόδους έντονης κόπωσης.</p>`,
+            science: `<h3>Μεταβολική Ομοιόσταση</h3><p>Σχεδιασμένο βάσει των ημερήσιων αναγκών (RDA) για τη διασφάλιση της ομαλής λειτουργίας όλων των μεταβολικών μονοπατιών και την προστασία από το οξειδωτικό στρες.</p>`,
+            bibliography: `<p>EFSA Journal. Dietary Reference Values for nutrients.</p>`
+        }
+    },
+    {
+        name: 'NUTRI MX OMEGA 3',
+        image: 'images/omega3.jpg',
+        description: {
+            consumer: `<h3>Καρδιακή Υγεία & Μνήμη</h3><p>Υψηλής καθαρότητας ιχθυέλαιο. Προστατεύει την καρδιά, ρυθμίζει τα τριγλυκερίδια και ενισχύει τη μνήμη και τη συγκέντρωση.</p>`,
+            science: `<h3>EPA/DHA & Φλεγμονή</h3><p>Τα EPA/DHA ενσωματώνονται στις κυτταρικές μεμβράνες και δρουν ως ανταγωνιστές του αραχιδονικού οξέος, οδηγώντας στη σύνθεση <strong>ρεσολβινών</strong> που τερματίζουν ενεργά τη διαδικασία της φλεγμονής.</p>`,
+            bibliography: `<p>Calder PC. Omega-3 fatty acids and inflammatory processes. 2013.</p>`
+        }
+    },
+    {
+        name: 'Zarkolia Cosmetic pack',
+        image: 'images/cosmetic-pack.jpg',
+        description: {
+            consumer: `<h3>Σετ Ολοκληρωμένης Αντιγήρανσης</h3><p>Ολοκληρωμένο πρωτόκολλο περιποίησης που συνδυάζει Revitacell Plus, Hydralia και Revitace Eyes για ολική επαναφορά της επιδερμίδας.</p>`,
+            science: `<h3>Συνεργιστικό Πρωτόκολλο</h3><p>Επιτυγχάνει 1. Βαθιά ενυδάτωση (Υαλουρονικό), 2. Αντιοξειδωτική θωράκιση (Ρόδι/Berries) και 3. Επιγενετική αναζωογόνηση μέσω της ενεργοποίησης της πρωτεΐνης Klotho.</p>`,
+            bibliography: `<p>Συνδυασμένη βιβλιογραφία Revitacell, Hydralia και Revitace Eyes.</p>`
+        }
     }
 ];
 
