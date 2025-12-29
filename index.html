@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Φόρμα Παραγγελίας Προϊόντων</title>
+    <title>Φόρμα Παραγγελίας - Zarkolia & Nutri-MX</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,12 +16,31 @@
         <form id="orderForm" onsubmit="return false;">
             <h2>Στοιχεία Πελάτη</h2>
             <div class="form-grid">
-                <div class="form-group"><label for="eponimia">Επωνυμία:</label><input type="text" id="eponimia" required></div>
-                <div class="form-group"><label for="afm">ΑΦΜ:</label><input type="text" id="afm"></div>
+                <div class="form-group">
+                    <label for="afm">ΑΦΜ (Αυτόματη Συμπλήρωση):</label>
+                    <input type="text" id="afm" placeholder="Πληκτρολογήστε ΑΦΜ...">
+                </div>
+                <div class="form-group">
+                    <label for="eponimia">Επωνυμία:</label>
+                    <input type="text" id="eponimia" required>
+                </div>
                 <div class="form-group"><label for="doy">ΔΟΥ:</label><input type="text" id="doy"></div>
                 <div class="form-group"><label for="mobile">Κινητό:</label><input type="tel" id="mobile"></div>
                 <div class="form-group"><label for="phone">Σταθερό:</label><input type="tel" id="phone"></div>
                 <div class="form-group"><label for="email">Email:</label><input type="email" id="email"></div>
+            </div>
+
+            <div class="payment-section">
+                <h3>Τρόπος Πληρωμής</h3>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <label style="cursor:pointer;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά</label>
+                    <label style="cursor:pointer;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 Ημερών</label>
+                </div>
+            </div>
+
+            <div class="remarks-section">
+                <h3>Παρατηρήσεις</h3>
+                <textarea id="remarks" rows="4" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #dce1e6;" placeholder="Προσθέστε τυχόν σημειώσεις..."></textarea>
             </div>
 
             <h2>Προϊόντα προς Παραγγελία</h2>
@@ -36,8 +55,7 @@
                         <th>Σύνολο</th>
                     </tr>
                 </thead>
-                <tbody>
-                    </tbody>
+                <tbody></tbody>
             </table>
 
             <div class="totals-section">
@@ -55,28 +73,20 @@
             <div class="export-buttons">
                 <button type="button" class="btn" style="background-color:#007bff" onclick="sendEmailViaClient()">Αποστολή με Email</button>
                 <button type="button" class="btn" style="background-color:#34495e" onclick="previewAndSaveAsTXT()">Αποθήκευση σε TXT</button>
-                <button type="button" class="btn" style="background-color:#f0ad4e" onclick="clearForm()">Καθαρισμός Φόρμας</button>
+                <button type="button" class="btn" style="background-color:#f0ad4e" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
-    </div>
-
-    <div class="info-section gift-scale">
-        <h3>Κλίμακα Δώρων</h3>
-        <ul>
-            <li>Για <b>9</b> τεμάχια, παίρνετε <b>+1</b> δώρο.</li>
-            <li>Για <b>18</b> τεμάχια, παίρνετε <b>+3</b> δώρα.</li>
-            <li>Για <b>24</b> τεμάχια, παίρνετε <b>+6</b> δώρα.</li>
-            <li>Για <b>48</b> τεμάχια και άνω, η προσφορά συνεχίζεται <b>αναλογικά</b>.</li>
-        </ul>
-    </div>
-    <div class="info-section instructions">
-        <h3>Οδηγίες Χρήσης</h3>
-        <p>1. Συμπληρώστε τα στοιχεία σας.<br>2. Βάλτε την επιθυμητή ποσότητα δίπλα σε κάθε προϊόν στον πίνακα.<br>3. Πατήστε τα κουμπιά πάνω για να δείτε πληροφορίες προϊόντων (προαιρετικό).<br>4. Πατήστε "Αποστολή με Email" για να ολοκληρώσετε.</p>
     </div>
 
     <div id="productModal" class="modal"></div>
     <div id="previewModal" class="modal"></div>
     
     <script src="script.js"></script>
+    <script>
+        function onlyOne(checkbox) {
+            var checkboxes = document.getElementsByName('payment');
+            checkboxes.forEach((item) => { if (item !== checkbox) item.checked = false; });
+        }
+    </script>
 </body>
 </html>
