@@ -11,14 +11,14 @@
 
     <div class="main-container">
         <header class="main-header">
-            <div class="logo-area">
+            <div class="logo-section">
                 <h1>ZARKOLIA<span>HEALTH</span></h1>
-                <p>Digital Order & Scientific Catalog System</p>
+                <p>Ψηφιακός Κατάλογος & Σύστημα Παραγγελιοληψίας</p>
             </div>
         </header>
         
         <section class="catalog-section">
-            <h2 class="section-title">Επιστημονικός Κατάλογος</h2>
+            <h2 class="section-title">Επιστημονικός Κατάλογος (HCP & Consumer)</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
         
@@ -26,7 +26,7 @@
             <h2 class="section-title">Στοιχεία Πελάτη</h2>
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="afm">ΑΦΜ (Αυτόματη Αναζήτηση)</label>
+                    <label for="afm">ΑΦΜ (Αναζήτηση)</label>
                     <input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ...">
                 </div>
                 <div class="form-group">
@@ -43,13 +43,13 @@
                 <div class="info-block">
                     <h3>Τρόπος Πληρωμής</h3>
                     <div class="payment-options">
-                        <label class="custom-choice">
+                        <label class="custom-checkbox">
                             <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)">
-                            <span class="choice-box"></span> Αντικαταβολή Μετρητά
+                            <span class="checkmark"></span> Αντικαταβολή Μετρητά
                         </label>
-                        <label class="custom-choice">
+                        <label class="custom-checkbox">
                             <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)">
-                            <span class="choice-box"></span> Επιταγή 60 Ημερών
+                            <span class="checkmark"></span> Επιταγή 60 Ημερών
                         </label>
                     </div>
                 </div>
@@ -72,7 +72,8 @@
                             <th>Σύνολο</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        </tbody>
                 </table>
             </div>
 
@@ -85,42 +86,43 @@
             </div>
 
             <div class="scales-box">
-                <h3>Πολιτική Δώρων</h3>
+                <h3>Κλίμακες Δώρων</h3>
                 <div class="scales-flex">
-                    <div class="badge-item">9 - 17 τεμ ➜ <strong>+1</strong></div>
-                    <div class="badge-item">18 - 23 τεμ ➜ <strong>+3</strong></div>
-                    <div class="badge-item">24 - 47 τεμ ➜ <strong>+6</strong></div>
-                    <div class="badge-item premium">48+ τεμ ➜ <strong>15 Δώρα/48άδα</strong></div>
+                    <div class="scale-badge">9 - 17 τεμ ➜ <strong>+1</strong></div>
+                    <div class="scale-badge">18 - 23 τεμ ➜ <strong>+3</strong></div>
+                    <div class="scale-badge">24 - 47 τεμ ➜ <strong>+6</strong></div>
+                    <div class="scale-badge premium">48+ τεμ ➜ <strong>15 Δώρα/48άδα</strong></div>
                 </div>
             </div>
 
-            <div class="iban-card">
+            <div class="bank-card">
                 <h3>Στοιχεία Κατάθεσης</h3>
                 <p>Τράπεζα Πειραιώς</p>
-                <div class="iban-visual">
-                    <span><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
+                <div class="iban-container">
+                    IBAN: <span class="iban-text"><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
                 </div>
             </div>
 
             <div class="action-bar">
-                <button type="button" class="btn-primary" onclick="sendEmailViaClient()">Αποστολή Email</button>
-                <button type="button" class="btn-secondary" onclick="previewAndSaveAsTXT()">Αρχείο TXT</button>
-                <button type="button" class="btn-danger" onclick="clearForm()">Καθαρισμός</button>
+                <button type="button" class="btn-main btn-email" onclick="sendEmailViaClient()">Αποστολή Email</button>
+                <button type="button" class="btn-main btn-txt" onclick="previewAndSaveAsTXT()">Αρχείο TXT</button>
+                <button type="button" class="btn-main btn-clear" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
     </div>
 
     <div id="productModal" class="modal"></div>
+
     <div id="previewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Προεπισκόπηση</h2>
+                <h2>Προεπισκόπηση Παραγγελίας</h2>
                 <span class="close-button" onclick="closePreviewModal()">&times;</span>
             </div>
-            <pre id="previewContent"></pre>
+            <pre id="previewContent" class="preview-box"></pre>
             <div class="modal-footer">
-                <button id="saveTxtButton" class="btn-primary">Αποθήκευση</button>
-                <button class="btn-secondary" onclick="closePreviewModal()">Κλείσιμο</button>
+                <button id="saveTxtButton" class="btn-main btn-email">Λήψη Αρχείου</button>
+                <button class="btn-main btn-clear" onclick="closePreviewModal()">Κλείσιμο</button>
             </div>
         </div>
     </div>
