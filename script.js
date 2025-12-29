@@ -1,5 +1,7 @@
 // ============================================================
-// ZARKOLIA ORDER APP — ENRICHED PRODUCT INFO (Simplified HCP)
+// ZARKOLIA ORDER APP — ENRICHED PRODUCT INFO (Consumer + HCP)
+// - Removed: Evidence grading + Safety/Notes column + bibliography tab content
+// - Kept: Consumer + HCP mechanism/role content, modal tabs, all ordering logic
 // ============================================================
 
 // --- 1. ΠΛΗΡΗΣ ΒΑΣΗ ΔΕΔΟΜΕΝΩΝ ΠΕΛΑΤΩΝ ---
@@ -22,7 +24,6 @@ const knownCustomers = {
   "084186015": { eponimia: "PROJECT ΚΑΣΑΠΑΚΗΣ Θ & ΣΙΑ Ο.Ε", doy: "Η ΘΕΣΣΑΛΟΝΙΚΗΣ", mobile: "", phone: "2310832124", email: "info@projectk.gr" },
   "094352564": { eponimia: "ΙΤΧ ΕΛΛΑΣ ΜΟΝΟΠΡΟΣΩΠΗ Α", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ", mobile: "", phone: "", email: "" },
   "095141629": { eponimia: "ΔΟΜΙΚΗ Π ΠΑΥΛΙΔΗΣ Α.Ε", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6979794428", phone: "2382099599", email: "g.apostolidis@domiki-pavlides.gr" },
-  "096006210": { eponimia: "ΠΡΟΜΗΘΕΥΤΙΚΟΣ ΣΥΝΣΜΟΣ ΦΑΡΠΟΙΩΝ ΑΤΤΙΚΗΣ Π", doy: "ΠΕΡΙΣΤΕΡΙΟΥ", mobile: "", phone: "210 5709400", email: "asaxoni@prosyfape.gr" },
   "105965545": { eponimia: "ΚΑΛΑΙΤΖΙΔΗΣ ΕΥΣΤΑΘΙΟΣ ΦΩΤΙΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6947438490", phone: "", email: "kalatzidis@gmail.com" },
   "107019964": { eponimia: "ΚΑΡΑΤΖΙΔΗΣ ΒΑΣΙΛΕΙΟΣ ΠΑΝΑΓΙΩΤΗ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2384042170", email: "karatzidis.pharmacy@gmail.com" },
   "107428053": { eponimia: "ΓΩΝΙΑΔΗ ΛΙΑΝΑ ΑΧΙΛΛΕΑ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381089588", email: "lgfarm15@gmail.com" },
@@ -82,7 +83,7 @@ const knownCustomers = {
   "802744858": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΓΚΑΪΝΤΑΤΖΗΣ ΒΑΣΙΛΕΙΟΣ  ΓΚΑΪΝΤΑΤΖΗ ΕΥΔΟΞΙΑ Ο", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6980289717", phone: "2551024463", email: "gkaintatzi.pharmacy@gmail.com" },
   "996853821": { eponimia: "ΚΟΙΝΩΝΙΑ ΚΛΗΡΟΝΟΜΩΝ ΔΟΥΛΚΕΡΙΔΗ ΧΑΡΑΛΑΜΠΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381088845", email: "farmakeio.skydra@gmail.com" },
   "997687603": { eponimia: "ΤΣΙΤΣΙΟΣ ΑΘΑΝΑΣΙΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "6978762108", phone: "2531022785", email: "pharmthanos@gmail.com" },
-  "997688685": { eponimia: "ΣΦ ΚΑΛΟΥΔΗ ΚΩΝΣΤΑΝΤΙNIA & ΖΟΥΜΑ ΣΤΑΜΑΤΙΑ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΕΙΑ", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "", phone: "", email: "stam1213zoum@gmail.com" },
+  "997688685": { eponimia: "ΣΦ ΚΑΛΟΥΔΗ ΚΩΝΣΤΑΝΤΙΝΙΑ & ΖΟΥΜΑ ΣΤΑΜΑΤΙΑ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΕΙΑ", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "", phone: "", email: "stam1213zoum@gmail.com" },
   "997957423": { eponimia: "ΗΛΙΑΣ Θ ΚΑΤΡΗΣ Ε", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ", mobile: "", phone: "", email: "iliaskatrispharmacy@gmail.com" },
   "997961412": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΠΑΝΑΓΙΩΤΙΔΟΥ ΑΙΚΑΤΕΡΙΝΗ  ΦΡΑΓΓΙΔΟΥ ΝΙΚΟΛΕΤΑ Ο", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "", email: "farmakeiofraggidou@gmail.com" },
   "997961880": { eponimia: "ΚΑΡΙΠΙΔΟΥ ΧΡΙΣΤΙΝΑ ΚΑΙ ΣΙΑ ΟΜΟΡΡΥΘΜΟΣ ΕΤΑΙΡΕΙΑ", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341020865", email: "chriskaripidou@gmail.com" },
@@ -121,7 +122,7 @@ const products = [
 ];
 
 // ============================================================
-// 3) HELPERS — Simplified Tables
+// 3) HELPERS — render HCP mechanism table (no Evidence/Safety)
 // ============================================================
 function hcpTable(rows) {
   const head = `
@@ -147,20 +148,13 @@ function consumerBlock({ title, bullets, howTo, cautions }) {
     ${howTo ? `<h4>Τρόπος χρήσης</h4><p>${howTo}</p>` : ""}
     ${cautions ? `<h4>Προφυλάξεις</h4><p>${cautions}</p>` : ""}
     <div class="compliance-note">
-      <strong>Σημείωση συμμόρφωσης:</strong> Οι περιγραφές για το κοινό αφορούν καλλυντική/διατροφική χρήση και δεν υποκαθιστούν ιατρική συμβουλή.
+      <strong>Σημείωση:</strong> Οι περιγραφές για το κοινό αφορούν καλλυντική/διατροφική χρήση και δεν υποκαθιστούν ιατρική συμβουλή.
     </div>
   `;
 }
 
-function biblioList(items) {
-  return `
-    <h3>Βιβλιογραφία / Ρυθμιστικά Άγκυρα</h3>
-    <ol>${items.map(i => `<li>${i}</li>`).join("")}</ol>
-  `;
-}
-
 // ============================================================
-// 4) PRODUCT DETAILS — Simplified HCP (No Evidence/Safety columns)
+// 4) PRODUCT DETAILS — Consumer + HCP MoA (no bibliography)
 // ============================================================
 const productDetails = [
   {
@@ -170,69 +164,104 @@ const productDetails = [
       consumer: consumerBlock({
         title: "Καθαρισμός & αίσθηση φρεσκάδας — για δραστήριες ημέρες",
         bullets: [
-          "Υψηλή περιεκτικότητα σε αλκοόλη για γρήγορο καθαρισμό της επιφάνειας του δέρματος.",
-          "Με PMD (Citriodora) για λειτουργική «απωθητική» αίσθηση σε εξωτερικούς χώρους.",
-          "Ιδανικό για χρήση πριν/μετά από μετακινήσεις και υπαίθριες δραστηριότητες."
+          "Γρήγορος καθαρισμός της επιφάνειας του δέρματος όπου ενδείκνυται.",
+          "Με PMD (Citriodora) για λειτουργική «απωθητική» αίσθηση σε εξωτερικές δραστηριότητες.",
+          "Κατάλληλο για χρήση πριν/μετά από μετακινήσεις ή υπαίθριες δραστηριότητες."
         ],
-        howTo: "Ψέκασε σε χέρια/επιφάνεια δέρματος και άφησε να στεγνώσει.",
-        cautions: "Μακριά από μάτια. Εύφλεκτο — μακριά από φλόγα."
+        howTo: "Ψέκασε σε χέρια/επιφάνεια δέρματος και άφησε να στεγνώσει. Μην ξεβγάζεις.",
+        cautions: "Μακριά από μάτια/βλεννογόνους. Μην εφαρμόζεται σε ερεθισμένο/τραυματισμένο δέρμα. Εύφλεκτο."
       }),
       science: `
         <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <p><strong>Στόχος:</strong> λειτουργικός καθαρισμός + οσφρητική «παρέμβαση» έναντι εντόμων.</p>
         ${hcpTable([
           {
-            ing: "Alcohol Denat. ~70% v/v",
-            moa: "Αποδιάταξη πρωτεϊνών και διαταραχή λιπιδικής μεμβράνης μικροοργανισμών. Καθαρισμός επιφάνειας δέρματος."
+            ing: "Alcohol Denat. (~70% v/v)",
+            inci: "ALCOHOL DENAT. / ETHANOL",
+            moa: "Αποδιάταξη πρωτεϊνών και διαταραχή λιπιδικής μεμβράνης. Λειτουργικός καθαρισμός/υγιεινή επιφάνειας δέρματος."
           },
           {
             ing: "PMD (p-menthane-3,8-diol)",
-            moa: "Λειτουργική παρέμβαση στα οσφρητικά/χημειοαισθητικά μονοπάτια εντόμων (σύγχυση σημάτων ξενιστή)."
+            inci: "EUCALYPTUS CITRIODORA OIL (hydrated/cyclized) / PMD",
+            moa: "Λειτουργική παρέμβαση στα οσφρητικά/χημειοαισθητικά μονοπάτια των εντόμων (σύγχυση σημάτων ξενιστή)."
           }
         ])}
       `,
-      bibliography: biblioList([
-        "Biocidal Products Regulation (EU) 528/2012.",
-        "Carroll SP, Loye J. PMD botanical repellent efficacy."
-      ])
+      bibliography: `<p>—</p>`
     }
   },
+
   {
     name: 'ZplastCream 40gr',
     image: 'images/zplast-40.jpg',
     description: {
       consumer: consumerBlock({
-        title: "Ενισχυμένη φροντίδα δερματικού φραγμού",
+        title: "Ενισχυμένη φροντίδα δερματικού φραγμού — καταπράυνση & άνεση",
         bullets: [
-          "Καθημερινή περιποίηση για ξηρό, ευαίσθητο ή ταλαιπωρημένο δέρμα.",
-          "Συμβάλλει στην καταπράυνση ερεθισμών από κρύο, τριβή ή ξηρότητα.",
-          "Πλούσια υφή που μειώνει το αίσθημα «τραβήγματος»."
+          "Καθημερινή περιποίηση για ξηρό/ευαίσθητο δέρμα και περιοχές με τραχύτητα.",
+          "Βελτιώνει την αίσθηση άνεσης και την όψη της επιδερμίδας από εξωτερικούς παράγοντες.",
+          "Πλούσια υφή που αφήνει προστατευτικό φιλμ."
         ],
         howTo: "Εφάρμοσε 1–3 φορές/ημέρα στις περιοχές που χρειάζονται.",
         cautions: "Μόνο για εξωτερική χρήση. Διακόψτε αν εμφανιστεί ερεθισμός."
       }),
       science: `
-        <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <h3>Επιστημονικά</h3>
         ${hcpTable([
           {
             ing: "Hypericum perforatum extract",
-            moa: "Αντιοξειδωτική/καταπραϋντική δράση, υποστήριξη επανεπιθηλιοποίησης σε προκλινικό επίπεδο."
+            inci: "HYPERICUM PERFORATUM EXTRACT",
+            moa: "Αντιοξειδωτικό/καταπραϋντικό προφίλ. Υποστήριξη comfort και οπτικής βελτίωσης της υφής μέσω λειτουργικής ενίσχυσης του δερματικού φραγμού."
           },
           {
-            ing: "Chios Mastic oil",
-            moa: "Λιπιδική υποστήριξη + αντιοξειδωτικό προφίλ. Comfort/conditioning επιδερμίδας."
+            ing: "Chios mastic fractions",
+            inci: "PISTACIA LENTISCUS (MASTIC) OIL/EXTRACT",
+            moa: "Λιπιδική υποστήριξη και βελτίωση ‘skin feel’. Συνεισφορά σε αίσθηση άνεσης/λείανσης."
           },
           {
-            ing: "Calamine (ZnO + Fe2O3)",
-            moa: "Ήπια στυπτική/καταπραϋντική δράση, μείωση ερεθιστικής αίσθησης επιφανειακά."
+            ing: "Calamine",
+            inci: "CALAMINE",
+            moa: "Ήπιο στυπτικό/καταπραϋντικό προφίλ με επιφανειακή αίσθηση ‘dry-touch’ και comfort."
           }
         ])}
       `,
-      bibliography: biblioList([
-        "EU Reg. 655/2013 — Common Criteria for Cosmetic Claims.",
-        "Öztürk N, et al. Hypericum perforatum and skin support (2007)."
-      ])
+      bibliography: `<p>—</p>`
     }
   },
+
+  {
+    name: 'ZplastCream 100gr',
+    image: 'images/zplast-100.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Επαγγελματική φροντίδα (100g) — για εκτεταμένη χρήση",
+        bullets: [
+          "Μεγάλη συσκευασία για συστηματική καθημερινή περιποίηση.",
+          "Για περιοχές με έντονη ξηρότητα/τραχύτητα ή συχνή τριβή.",
+          "Βελτιώνει την αίσθηση άνεσης και την όψη της επιδερμίδας."
+        ],
+        howTo: "Εφάρμοσε σε καθαρό, στεγνό δέρμα 1–3 φορές/ημέρα.",
+        cautions: "Μόνο για εξωτερική χρήση. Διακόψτε αν εμφανιστεί ερεθισμός."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          {
+            ing: "Sea buckthorn oil (Ω-7 κ.ά.)",
+            inci: "HIPPOPHAE RHAMNOIDES OIL",
+            moa: "Λιπιδική υποστήριξη φραγμού και μείωση TEWL → βελτίωση ξηρότητας/ελαστικότητας και οπτικής υφής."
+          },
+          {
+            ing: "Calendula extract",
+            inci: "CALENDULA OFFICINALIS EXTRACT",
+            moa: "Καταπραϋντικό προφίλ και υποστήριξη comfort σε ευαίσθητη επιδερμίδα."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
   {
     name: 'Bruise Off Bite Out & Pain Free cream',
     image: 'images/bruise-off.jpg',
@@ -240,138 +269,376 @@ const productDetails = [
       consumer: consumerBlock({
         title: "Fast-absorbing comfort cream — ιδανική και για μασάζ",
         bullets: [
-          "Με ουρία για άμεση αίσθηση ενυδάτωσης και ‘softening’ της επιδερμίδας.",
-          "Με φυτικά εκχυλίσματα για αίσθηση ανακούφισης μετά από καταπόνηση.",
+          "Με ουρία για άμεση αίσθηση ενυδάτωσης και ‘softening’.",
+          "Με φυτικά εκχυλίσματα για αίσθηση ανακούφισης/άνεσης μετά από καταπόνηση.",
           "Γρήγορη απορρόφηση, χωρίς λιπαρό τελείωμα."
         ],
-        howTo: "Εφάρμοσε σε καθαρό δέρμα και κάνε ήπιο μασάζ μέχρι να απορροφηθεί.",
-        cautions: "Αποφυγή σε ερεθισμένο δέρμα. Προσοχή σε αλλεργία στην Άρνικα."
+        howTo: "Εφάρμοσε και κάνε ήπιο μασάζ μέχρι να απορροφηθεί. Επανέλαβε όπου χρειάζεται.",
+        cautions: "Αποφυγή σε ερεθισμένο/τραυματισμένο δέρμα."
       }),
       science: `
-        <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <h3>Επιστημονικά</h3>
         ${hcpTable([
           {
             ing: "Urea",
-            moa: "Humectant + κερατολυτική δράση. Βελτίωση ενυδάτωσης κεράτινης στιβάδας και υποβοήθηση διείσδυσης."
+            inci: "UREA",
+            moa: "Humectant + dose-dependent keratolytic. Βελτίωση ενυδάτωσης κεράτινης στιβάδας και λειτουργική υποστήριξη ‘skin feel’."
           },
           {
-            ing: "Arnica montana extract",
-            moa: "Προκλινικά: αναστολή NF-κB μονοπατιών. Καλλυντικά: βελτίωση όψης μετά από καταπόνηση."
+            ing: "Arnica extract",
+            inci: "ARNICA MONTANA EXTRACT",
+            moa: "Καταπραϋντικό/comfort προφίλ με μηχανισμούς που περιγράφονται προκλινικά σε φλεγμονώδεις οδούς."
           },
           {
-            ing: "Origanum oil (carvacrol-rich)",
-            moa: "Sensory warming/counter-irritant προφίλ και βελτίωση τοπικής αίσθησης."
+            ing: "Oregano oil (carvacrol-rich)",
+            inci: "ORIGANUM VULGARE OIL",
+            moa: "Sensory warming/counter-irritant προφίλ και βοτανικό ‘comfort’ αποτέλεσμα."
           }
         ])}
       `,
-      bibliography: biblioList([
-        "Wohlrab J. Urea in dermatology (review).",
-        "Lyss G, et al. Helenalin / NF-κB mechanisms."
-      ])
+      bibliography: `<p>—</p>`
     }
   },
+
+  {
+    name: 'Bruise Off Bite Out & Pain Free cream 100ml',
+    image: 'images/bruise-off-100.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Οικογενειακή/επαγγελματική συσκευασία (100ml) — για συχνή χρήση",
+        bullets: [
+          "Μεγάλη συσκευασία για καθημερινή χρήση ή χρήση μετά από έντονη δραστηριότητα.",
+          "Ιδανική για μασάζ αποκατάστασης, με γρήγορη απορρόφηση.",
+          "Υποστηρίζει την αίσθηση άνεσης της επιδερμίδας."
+        ],
+        howTo: "Εφάρμοσε και κάνε μασάζ 1–3 φορές/ημέρα ανάλογα με την ανάγκη.",
+        cautions: "Αποφυγή σε βλεννογόνους/μάτια."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          {
+            ing: "Urea",
+            inci: "UREA",
+            moa: "Barrier hydration + smoothing → καλύτερο ‘skin feel’ σε συχνή χρήση/μασάζ."
+          },
+          {
+            ing: "Arnica / Oregano complex",
+            inci: "ARNICA MONTANA EXTRACT / ORIGANUM VULGARE OIL",
+            moa: "Sensory comfort + βοτανικό προφίλ για αίσθηση άνεσης."
+          }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
   {
     name: 'Z-boost 30 caps',
     image: 'images/zboost-30.jpg',
     description: {
       consumer: consumerBlock({
-        title: "Υποστήριξη φυσιολογικών λειτουργιών",
+        title: "Υποστήριξη φυσιολογικών λειτουργιών — για απαιτητικές περιόδους",
         bullets: [
-          "Σύνθεση με ψευδάργυρο που συμβάλλει στη φυσιολογική λειτουργία του ανοσοποιητικού.",
-          "Περιέχει Ginger και NAC για συμπληρωματική υποστήριξη.",
-          "Ιδανικό για περιόδους αυξημένων απαιτήσεων."
+          "Σύνθεση με ψευδάργυρο και επιλεγμένα συστατικά για καθημερινή υποστήριξη.",
+          "Κατάλληλο για περιόδους αυξημένων απαιτήσεων, ταξίδια, έντονο πρόγραμμα.",
+          "Συμπληρώνει μια ισορροπημένη διατροφή."
         ],
-        howTo: "1 κάψουλα ημερησίως ή σύμφωνα με τις οδηγίες.",
-        cautions: "Δεν υποκαθιστά ισορροπημένη διατροφή. Συμβουλευτείτε ιατρό αν λαμβάνετε αγωγή."
+        howTo: "Λήψη σύμφωνα με τις οδηγίες της συσκευασίας.",
+        cautions: "Τα συμπληρώματα δεν υποκαθιστούν ισορροπημένη διατροφή."
       }),
       science: `
-        <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <h3>Επιστημονικά</h3>
         ${hcpTable([
-          {
-            ing: "Zinc",
-            moa: "Ρόλος σε έμφυτη/επίκτητη ανοσία, thymulin activity, epithelial integrity. Claim-level υποστήριξη."
-          },
-          {
-            ing: "Ginger (Zingiber officinale)",
-            moa: "Μείωση 5-LOX/COX δραστηριότητας και modulation αντιφλεγμονώδους σηματοδότησης."
-          },
-          {
-            ing: "N-Acetylcysteine (NAC)",
-            moa: "Πρόδρομος γλουταθειόνης, redox support και αντιοξειδωτική προστασία."
-          }
+          { ing: "Zinc (Zn)", inci: "—", moa: "Ρόλος σε έμφυτη/επίκτητη ανοσία και σε ενζυμικά/αντιοξειδωτικά συστήματα." },
+          { ing: "N-Acetylcysteine (NAC)", inci: "—", moa: "Πρόδρομος γλουταθειόνης (GSH) και redox υποστήριξη." },
+          { ing: "Ginger (Zingiber officinale)", inci: "—", moa: "Βιοδραστικά (gingerols) με δράση σε COX/LOX pathways και αντιοξειδωτικό προφίλ." }
         ])}
       `,
-      bibliography: biblioList([
-        "EU Reg. 432/2012 — Union list of permitted health claims.",
-        "Grzanna R, et al. Ginger anti-inflammatory actions."
-      ])
+      bibliography: `<p>—</p>`
     }
   },
+
+  {
+    name: 'Z-boost 12 caps',
+    image: 'images/zboost-12.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Συσκευασία ταχείας χρήσης — για απαιτητικές ημέρες",
+        bullets: [
+          "Σχεδιασμένο για βραχυχρόνια χρήση σε περιόδους αυξημένων απαιτήσεων.",
+          "Πρακτική συσκευασία για ταξίδια/εκτός έδρας.",
+          "Συμπληρώνει μια ισορροπημένη διατροφή."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Μην υπερβαίνετε τη συνιστώμενη ημερήσια δόση."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "CoQ10", inci: "—", moa: "Συστατικό μιτοχονδριακής ETC· αντιοξειδωτικό προφίλ." },
+          { ing: "Alpha-Lipoic Acid (ALA)", inci: "—", moa: "Redox cycling και υποστήριξη αντιοξειδωτικών συστημάτων." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Revitacell Plus Face cream 50ml',
+    image: 'images/revitacell.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Αντιοξειδωτική προστασία & βελτίωση όψης λεπτών γραμμών",
+        bullets: [
+          "Καλλυντική φροντίδα αντιοξειδωτικού προφίλ για θαμπή/κουρασμένη όψη.",
+          "Συμβάλλει στη λείανση της όψης λεπτών γραμμών και στη βελτίωση της ελαστικότητας.",
+          "Πλούσια υφή με μεταξένιο τελείωμα."
+        ],
+        howTo: "Πρωί/βράδυ σε καθαρό πρόσωπο και λαιμό.",
+        cautions: "Αποφυγή επαφής με μάτια."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Mastic fractions", inci: "PISTACIA LENTISCUS (MASTIC) EXTRACT/OIL", moa: "Αντιοξειδωτικό/λιπιδικό support και βελτίωση ‘skin feel’ μέσω barrier optimization." },
+          { ing: "Pomegranate seed oil", inci: "PUNICA GRANATUM SEED OIL", moa: "Λιπιδική υποστήριξη + αντιοξειδωτικό προφίλ με στόχο βελτίωση ξηρότητας/elasticity markers." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Hydralia Face cream 50ml',
+    image: 'images/hydralia.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Βαθιά ενυδάτωση & ‘plump’ όψη",
+        bullets: [
+          "Υαλουρονικό οξύ για άμεση αίσθηση ενυδάτωσης και οπτική λείανση.",
+          "Με μαλακτικά λιπίδια που υποστηρίζουν τον δερματικό φραγμό.",
+          "Κατάλληλη ως βάση μακιγιάζ."
+        ],
+        howTo: "Πρωί/βράδυ σε καθαρό δέρμα.",
+        cautions: "Αποφυγή επαφής με μάτια."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Hyaluronic acid", inci: "SODIUM HYALURONATE / HYALURONIC ACID", moa: "Film-forming + water-binding → ενυδάτωση και οπτική λείανση." },
+          { ing: "Jojoba oil", inci: "SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL", moa: "Wax esters → barrier support και μείωση TEWL χωρίς βαριά αίσθηση." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Revitace Eyes cream Luce 30ml',
+    image: 'images/eyes.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Φωτεινή όψη ματιών — για πρήξιμο & θαμπάδα",
+        bullets: [
+          "Ανάλαφρη υφή για καθημερινή χρήση.",
+          "Συμβάλλει στη βελτίωση της όψης πρηξίματος και στη φωτεινότητα της περιοχής.",
+          "Ιδανική για πρωί/βράδυ."
+        ],
+        howTo: "Ταμποναριστά γύρω από το κόκαλο του ματιού.",
+        cautions: "Αποφυγή επαφής με τον οφθαλμό."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Aesculus extract (escin-containing)", inci: "AESCULUS HIPPOCASTANUM EXTRACT", moa: "Microcirculation-comfort προφίλ με στόχο την ‘appearance of puffiness’." },
+          { ing: "Arnica extract", inci: "ARNICA MONTANA EXTRACT", moa: "Καταπραϋντικό/comfort προφίλ για την περιοχή." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Alveolair Sir',
+    image: 'images/alveolair.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Φυτικό σιρόπι για άνεση στο λαιμό",
+        bullets: [
+          "Φυτικά συστατικά για αίσθηση μαλακτικής άνεσης.",
+          "Κατάλληλο σε περιόδους που ο λαιμός ‘ταλαιπωρείται’ από εξωτερικούς παράγοντες.",
+          "Ευχάριστη γεύση."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Για παιδιά/εγκυμοσύνη/θηλασμό, τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Thymus (θυμάρι)", inci: "—", moa: "Βιοδραστικά με μηχανισμούς που περιγράφονται σε προκλινικά μοντέλα (σπασμολυτικό/comfort προφίλ)." },
+          { ing: "Althaea officinalis (mucilage)", inci: "—", moa: "Film-forming/προστατευτικό στρώμα → αίσθηση καταπράυνσης." },
+          { ing: "Eucalyptus fractions", inci: "—", moa: "Βοτανικό προφίλ ‘breathing comfort’ ανάλογα με το ρυθμιστικό καθεστώς διάθεσης." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
   {
     name: 'NUTRI MX PROBIOTIC PREMIUM',
     image: 'images/probiotic.jpg',
     description: {
       consumer: consumerBlock({
-        title: "Πολυστέλεχο προβιοτικό — ισορροπία χλωρίδας",
+        title: "Πολυστέλεχο προβιοτικό — για ισορροπία εντερικής χλωρίδας",
         bullets: [
-          "18 στελέχη προβιοτικών για ευρύ φάσμα αποικισμού.",
-          "Υποστηρίζει τη φυσιολογική ισορροπία της εντερικής χλωρίδας.",
-          "Πρακτική συσκευασία κάψουλας."
+          "18 στελέχη προβιοτικών για πολυμορφία χλωρίδας.",
+          "Κατάλληλο σε περιόδους διατροφικών αλλαγών.",
+          "Συμπληρώνει μια ισορροπημένη διατροφή."
         ],
-        howTo: "1 κάψουλα ημερησίως.",
-        cautions: "Σε ανοσοκαταστολή απαιτείται ιατρική συμβουλή."
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
       }),
       science: `
-        <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <h3>Επιστημονικά</h3>
         ${hcpTable([
-          {
-            ing: "Probiotic strains (18 strains)",
-            moa: "Competitive exclusion, παραγωγή SCFA, ενίσχυση φραγμού και ανοσορρύθμιση (Tregs)."
-          }
+          { ing: "Probiotic strains (18 strains)", inci: "—", moa: "Competitive exclusion, SCFA παραγωγή, υποστήριξη εντερικού φραγμού, ανοσορρύθμιση (γενικό πλαίσιο)." }
         ])}
       `,
-      bibliography: biblioList([
-        "Lee JY, et al. The microbiome and gut homeostasis (2022).",
-        "Karamanolis GP. Probiotics and GI health."
-      ])
+      bibliography: `<p>—</p>`
     }
   },
+
   {
     name: 'NUTRI MX MAGNESIUM 1 Τεμ',
     image: 'images/magnesium.jpg',
     description: {
       consumer: consumerBlock({
-        title: "Μαγνήσιο — μυϊκή λειτουργία & μείωση κόπωσης",
+        title: "Μαγνήσιο — για καθημερινή υποστήριξη",
         bullets: [
-          "Συμβάλλει στη φυσιολογική λειτουργία των μυών και του νευρικού συστήματος.",
-          "Συμβάλλει στη μείωση της κούρασης και της κόπωσης.",
-          "Σε μορφή για βέλτιστη απορρόφηση."
+          "Συμπληρώνει την πρόσληψη μαγνησίου στην καθημερινή διατροφή.",
+          "Ιδανικό σε απαιτητικές περιόδους.",
+          "Εύκολη ένταξη στη ρουτίνα."
         ],
-        howTo: "1 δισκίο/κάψουλα ημερησίως.",
-        cautions: "Σε νεφρική ανεπάρκεια απαιτείται ιατρική παρακολούθηση."
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
       }),
       science: `
-        <h3>Επιστημονικά (για Φαρμακοποιούς/Ιατρούς)</h3>
+        <h3>Επιστημονικά</h3>
         ${hcpTable([
-          {
-            ing: "Magnesium",
-            moa: "Συμπαράγοντας σε >300 ενζυμικές αντιδράσεις, ATP biology, ρύθμιση νευρομυϊκής διεγερσιμότητας."
-          }
+          { ing: "Magnesium (salt)", inci: "—", moa: "ATP biology, νευρομυϊκή διεγερσιμότητα (NMDA modulation), ενζυμική λειτουργία." }
         ])}
       `,
-      bibliography: biblioList([
-        "EU Reg. 432/2012 — permits health claims (Mg).",
-        "EFSA Journal 2010;8(10):1807."
-      ])
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX A-Z',
+    image: 'images/az.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Πολυβιταμίνη — καθημερινή κάλυψη μικροθρεπτικών",
+        bullets: [
+          "Συνδυασμός βιταμινών και μετάλλων για διατροφική υποστήριξη.",
+          "Ιδανικό σε περιόδους έντονης καθημερινότητας.",
+          "Εύκολη λήψη."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Vitamins & minerals (σύνολο)", inci: "—", moa: "Μεταβολικά μονοπάτια ενέργειας, αντιοξειδωτική υποστήριξη και λειτουργική συμβολή ανά θρεπτικό." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX OMEGA 3',
+    image: 'images/omega3.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Omega-3 — διατροφική υποστήριξη",
+        bullets: [
+          "Ιχθυέλαιο για καθημερινή πρόσληψη ω-3.",
+          "Ιδανικό για άτομα με χαμηλή κατανάλωση λιπαρών ψαριών.",
+          "Λήψη με γεύμα για καλύτερη ανοχή."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "EPA/DHA", inci: "—", moa: "Ενσωμάτωση σε μεμβράνες, ανταγωνισμός αραχιδονικού οξέος, SPMs (resolvins) — αντιφλεγμονώδες/μεμβρανικό προφίλ." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'NUTRI MX JOINT',
+    image: 'images/joint.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Υποστήριξη αρθρώσεων — διατροφική φόρμουλα",
+        bullets: [
+          "Σύνθεση με δομικά/λειτουργικά συστατικά για υποστήριξη της διατροφής του συνδετικού ιστού.",
+          "Κατάλληλο για απαιτητική καθημερινότητα.",
+          "Συνδυάζεται με κίνηση και επαρκή ενυδάτωση."
+        ],
+        howTo: "Λήψη σύμφωνα με τη συσκευασία.",
+        cautions: "Τηρείτε τις οδηγίες."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Glucosamine / Chondroitin", inci: "—", moa: "Δομικά των GAGs αρθρικού χόνδρου, υποστήριξη matrix biology." },
+          { ing: "MSM", inci: "—", moa: "Πηγή οργανικού θείου για δομικές πρωτεΐνες/κολλαγόνο." },
+          { ing: "Collagen type II (εφόσον υπάρχει)", inci: "—", moa: "Διατροφική/λειτουργική υποστήριξη συνδετικού ιστού, εξαρτάται από τύπο και δόση." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
+    }
+  },
+
+  {
+    name: 'Zarkolia Cosmetic pack',
+    image: 'images/cosmetic-pack.jpg',
+    description: {
+      consumer: consumerBlock({
+        title: "Πρωτόκολλο 3 βημάτων — ενυδάτωση, λείανση, φωτεινή όψη",
+        bullets: [
+          "Συνδυάζει Hydralia + Revitacell Plus + Revitace Eyes για ολοκληρωμένη ρουτίνα.",
+          "Στόχος: ενυδάτωση, αντιοξειδωτική υποστήριξη, βελτίωση όψης λεπτών γραμμών.",
+          "Ιδανικό ως δώρο ή ως ‘reset’ ρουτίνας."
+        ],
+        howTo: "Πρωί: Hydralia + Eyes. Βράδυ: Revitacell + Eyes.",
+        cautions: "Τηρείτε τις οδηγίες χρήσης."
+      }),
+      science: `
+        <h3>Επιστημονικά</h3>
+        ${hcpTable([
+          { ing: "Hyaluronic Acid (Hydralia)", inci: "SODIUM HYALURONATE", moa: "Water-binding + optical smoothing → ενυδάτωση και λείανση όψης." },
+          { ing: "Antioxidant lipids (Revitacell)", inci: "PUNICA GRANATUM SEED OIL / MASTIC", moa: "Barrier optimization + αντιοξειδωτικό προφίλ → βελτίωση ‘skin feel’." },
+          { ing: "Eye actives (Eyes Luce)", inci: "AESCULUS / ARNICA", moa: "Microcirculation-comfort και καταπραϋντικό προφίλ για την εμφάνιση πρηξίματος." }
+        ])}
+      `,
+      bibliography: `<p>—</p>`
     }
   }
-  // Μπορείτε να προσθέσετε και τα υπόλοιπα προϊόντα με την ίδια δομή hcpTable
 ];
 
 // ============================================================
-// 5. UI + LOGIC (MODALS, TOTALS, EMAIL)
+// 5) UI + LOGIC (MODALS, TOTALS, EMAIL) — unchanged
 // ============================================================
 
+// Minimal style for HCP table (removed evidence/safety styles)
 (function injectHcpStyles(){
   const css = `
   .hcp-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
@@ -379,44 +646,38 @@ const productDetails = [
   .hcp-table th{background:#f7f7f7;text-align:left}
   .hcp-table .sub{font-size:12px;color:#666;margin-top:4px}
   .compliance-note{margin-top:12px;padding:10px;border:1px dashed #cfcfcf;border-radius:10px;background:#fafafa;font-size:13px;color:#333}
+  .modal-body h4{margin:12px 0 6px}
   `;
   const s=document.createElement('style'); s.innerHTML=css; document.head.appendChild(s);
 })();
 
 document.addEventListener("DOMContentLoaded", function() {
   const tableBody = document.querySelector('#product-table tbody');
-  if (tableBody) {
-    products.forEach((p, index) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `<td>${p.name}</td><td>${p.price.toFixed(2)} €</td><td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td><td class="gifts">0</td><td class="effective-price normal">${p.price.toFixed(2)} €</td><td class="line-total">0.00 €</td>`;
-      tableBody.appendChild(row);
-    });
-  }
+  products.forEach((p, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${p.name}</td><td>${p.price.toFixed(2)} €</td><td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td><td class="gifts">0</td><td class="effective-price normal">${p.price.toFixed(2)} €</td><td class="line-total">0.00 €</td>`;
+    tableBody.appendChild(row);
+  });
 
   const btnContainer = document.getElementById('productButtonsContainer');
-  if (btnContainer) {
-    products.forEach((p, index) => {
-      const btn = document.createElement('button');
-      btn.className = 'product-btn'; btn.textContent = p.name;
-      btn.onclick = () => showProductDetails(index);
-      btnContainer.appendChild(btn);
-    });
-  }
+  products.forEach((p, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'product-btn'; btn.textContent = p.name;
+    btn.onclick = () => showProductDetails(index);
+    btnContainer.appendChild(btn);
+  });
 
-  const afmInput = document.getElementById('afm');
-  if (afmInput) {
-    afmInput.addEventListener('input', function() {
-      const afm = this.value.trim();
-      if (knownCustomers[afm]) {
-        const c = knownCustomers[afm];
-        document.getElementById('eponimia').value = c.eponimia;
-        document.getElementById('doy').value = c.doy;
-        document.getElementById('mobile').value = c.mobile;
-        document.getElementById('phone').value = c.phone;
-        document.getElementById('email').value = c.email;
-      }
-    });
-  }
+  document.getElementById('afm').addEventListener('input', function() {
+    const afm = this.value.trim();
+    if (knownCustomers[afm]) {
+      const c = knownCustomers[afm];
+      document.getElementById('eponimia').value = c.eponimia;
+      document.getElementById('doy').value = c.doy;
+      document.getElementById('mobile').value = c.mobile;
+      document.getElementById('phone').value = c.phone;
+      document.getElementById('email').value = c.email;
+    }
+  });
   updateAll();
 });
 
@@ -433,12 +694,9 @@ function updateAll(){
     net += lineTotal;
   });
   const vat = net * 0.24;
-  const netEl = document.getElementById("net-value");
-  const vatEl = document.getElementById("vat-value");
-  const totalEl = document.getElementById("final-total");
-  if (netEl) netEl.textContent = `${net.toFixed(2)} €`;
-  if (vatEl) vatEl.textContent = `${vat.toFixed(2)} €`;
-  if (totalEl) totalEl.textContent = `${(net + vat).toFixed(2)} €`;
+  document.getElementById("net-value").textContent = `${net.toFixed(2)} €`;
+  document.getElementById("vat-value").textContent = `${vat.toFixed(2)} €`;
+  document.getElementById("final-total").textContent = `${(net + vat).toFixed(2)} €`;
 }
 
 function showProductDetails(index){
@@ -465,7 +723,7 @@ function showProductDetails(index){
       </div>
       <div class="modal-quick-add">
         <label>Ποσότητα:</label>
-        <input type="number" id="modalQuantity" value="${tableInput ? tableInput.value : 1}">
+        <input type="number" id="modalQuantity" value="${tableInput.value > 0 ? tableInput.value : 1}">
         <button onclick="updateFromModal(${index})">Ενημέρωση</button>
       </div>
     </div>`;
@@ -473,23 +731,23 @@ function showProductDetails(index){
   if(p){
     document.getElementById('Consumer').innerHTML = p.description.consumer || "<p>Δεν υπάρχουν πληροφορίες.</p>";
     document.getElementById('Science').innerHTML = p.description.science || "<p>Δεν υπάρχουν επιστημονικές πληροφορίες.</p>";
-    document.getElementById('Biblio').innerHTML = p.description.bibliography || "<p>Δεν υπάρχει βιβλιογραφία.</p>";
+    document.getElementById('Biblio').innerHTML = "<p>—</p>"; // kept tab, removed content
+  } else {
+    document.getElementById('Consumer').innerHTML = "<p>Δεν βρέθηκαν λεπτομέρειες προϊόντος.</p>";
+    document.getElementById('Science').innerHTML = "<p>—</p>";
+    document.getElementById('Biblio').innerHTML = "<p>—</p>";
   }
 
   document.getElementById('productModal').style.display='block';
 }
 
 function updateFromModal(index){
-  const qtyInput = document.getElementById(`qty-${index}`);
-  const modalQty = document.getElementById('modalQuantity');
-  if (qtyInput && modalQty) {
-      qtyInput.value = modalQty.value;
-      updateAll(); 
-  }
-  closeProductModal();
+  document.getElementById(`qty-${index}`).value = document.getElementById('modalQuantity').value;
+  updateAll(); closeProductModal();
 }
 
 function closeProductModal(){document.getElementById('productModal').style.display='none';}
+function closePreviewModal(){document.getElementById('previewModal').style.display='none';}
 
 function openTab(evt, name) {
   let i, tabcontent = document.getElementsByClassName("tab-content"), tablinks = document.getElementsByClassName("tab-button");
@@ -519,7 +777,7 @@ function sendEmailViaClient() {
     if(q > 0) {
       const gifts = r.querySelector('.gifts').textContent;
       const lineTotal = r.querySelector('.line-total').textContent;
-      body += `* ${r.cells[0].textContent} | Τεμ: ${q} | Δώρα: ${gifts} | Σύνολο: ${lineTotal}\n`;
+      body += `* ${r.cells[0].textContent} | Τεμ: ${q} | Δώρα: ${gifts} | Αξία: ${lineTotal}\n`;
     }
   });
   body += `---------------------------------------------------\n\n`;
@@ -546,11 +804,15 @@ function previewAndSaveAsTXT(){
   });
   content += `\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}`;
 
-  const blob = new Blob([content],{type:'text/plain;charset=utf-8'});
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `Order_${name}.txt`;
-  link.click();
+  document.getElementById('previewContent').textContent = content;
+  document.getElementById('previewModal').style.display='block';
+  document.getElementById('saveTxtButton').onclick = () => {
+    const blob = new Blob([content],{type:'text/plain;charset=utf-8'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `Order_${name}.txt`;
+    link.click();
+  };
 }
 
 function clearForm(){
