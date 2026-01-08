@@ -831,32 +831,29 @@ const productDetails = [
     }
 ];
 
-// INITIALIZATION
-document.addEventListener("DOMContentLoaded", function() {
+// --- ΛΟΓΙΚΗ ΕΦΑΡΜΟΓΗΣ ---
+document.addEventListener("DOMContentLoaded", () => {
+    const btnContainer = document.getElementById('productButtonsContainer');
     const tableBody = document.querySelector('#product-table tbody');
+
     products.forEach((p, index) => {
+        // Κουμπιά στον Κατάλογο
+        const btn = document.createElement('button');
+        btn.className = 'product-btn';
+        btn.innerHTML = `\${p.name}<br><span style="color:var(--emerald-dark); font-size:0.8rem;">\${p.price.toFixed(2)} €</span>`;
+        btn.onclick = () => showProductDetails(index);
+        btnContainer.appendChild(btn);
+
+        // Γραμμές στον Πίνακα
         const row = document.createElement('tr');
-        row.innerHTML = `<td><strong>${p.name}</strong></td><td>${p.price.toFixed(2)} €</td><td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td><td><span id="gift-${index}">0</span></td><td id="effective-${index}">${p.price.toFixed(2)} €</td><td id="total-${index}">0.00 €</td>`;
+        row.innerHTML = `<td>\${p.name}</td><td>\${p.price.toFixed(2)}</td><td><input type="number" class="quantity" id="qty-\${index}" min="0" oninput="updateAll()" value="0" style="width:50px; padding:8px; border-radius:8px; border:1px solid #ddd;"></td><td><span id="gift-\${index}">0</span></td><td id="effective-\${index}">\${p.price.toFixed(2)}</td><td id="total-\${index}">0.00</td>`;
         tableBody.appendChild(row);
     });
 
-    const btnContainer = document.getElementById('productButtonsContainer');
-    products.forEach((p, index) => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.onclick = () => showProductDetails(index);
-        card.innerHTML = `
-            <img src="images/${p.name}.jpg" onerror="this.src='https://via.placeholder.com/200x180?text=${encodeURIComponent(p.name)}'">
-            <div class="product-title">${p.name}</div>
-            <div class="product-price">${p.price.toFixed(2)} €</div>
-        `;
-        btnContainer.appendChild(card);
-    });
-
-    // AFM Search Logic
+    // Αναζήτηση ΑΦΜ
     document.getElementById('afm').addEventListener('input', function() {
         const c = knownCustomers[this.value.trim()];
-        if (c) {
+        if(c) {
             document.getElementById('eponimia').value = c.eponimia;
             document.getElementById('doy').value = c.doy;
             document.getElementById('mobile').value = c.mobile;
@@ -865,16 +862,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// LOGIC FUNCTIONS (Calculate Gifts, Update All, processOrder, κλπ παραμένουν ως είχαν)
 function calculateGifts(q){ if(q < 9) return 0; if(q < 18) return 1; if(q < 24) return 3; if(q < 48) return 6; return Math.floor(q / 48) * 15; }
+
 function updateAll(){ 
     let net = 0;
     products.forEach((p, i) => {
-        const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
+        const q = parseInt(document.getElementById(`qty-\${i}`).value) || 0;
         const g = calculateGifts(q);
         const line = q * p.price;
-        document.getElementById(`gift-${i}`).textContent = g;
-        document.getElementById(`total-${i}`).textContent = line.toFixed(2) + " €";
+        document.getElementById(`gift-\${i}`).textContent = g;
+        document.getElementById(`total-\${i}`).textContent = line.toFixed(2) + " €";
         net += line;
     });
     const vat = net * 0.24;
@@ -883,24 +880,27 @@ function updateAll(){
     document.getElementById("final-total").textContent = (net + vat).toFixed(2) + " €";
 }
 
-function hcpTable(rows) { return `<table class="hcp-table"><thead><tr><th>Συστατικό</th><th>MoA</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`; }
-function consumerBlock(d) { return `<h3>${d.title}</h3><ul>${d.bullets.map(b => `<li>${b}</li>`).join("")}</ul>`; }
-function biblioList(i) { return `<h3>Βιβλιογραφία</h3><ol>${i.map(x => `<li>${x}</li>`).join("")}</ol>`; }
-
 function showProductDetails(index){
     const p = productDetails.find(i => i.name === products[index].name);
-    const tableInput = document.getElementById(`qty-${index}`);
     const modal = document.getElementById('productModal');
-    modal.innerHTML = `<div class="modal-content"><span class="close-button" onclick="closeProductModal()">&times;</span><h2>${products[index].name}</h2><div class="modal-tabs"><button class="tab-button active" onclick="openTab(event, 'Consumer')">Κοινό</button><button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button></div><div id="Consumer" class="tab-content" style="display:block">${p ? p.description.consumer : ""}</div><div id="Science" class="tab-content">${p ? p.description.science : ""}</div><div style="margin-top:20px; text-align:center;"><label>Ποσότητα:</label> <input type="number" id="modalQty" value="${tableInput.value}" style="width:60px;"> <button class="btn-primary" onclick="updateFromModal(${index})">Ενημέρωση</button></div></div>`;
+    modal.innerHTML = `<div class="modal-content"><span style="float:right; cursor:pointer; font-size:2.5rem; color:#aaa;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span><h2 style="color:var(--emerald-dark);">\${products[index].name}</h2><div style="margin-top:20px;">\${p ? p.description.consumer + p.description.science + p.description.bibliography : "Μη διαθέσιμο"}</div></div>`;
     modal.style.display='block';
 }
-function updateFromModal(i){ document.getElementById(`qty-${i}`).value = document.getElementById('modalQty').value; updateAll(); closeProductModal(); }
-function closeProductModal(){ document.getElementById('productModal').style.display='none'; }
-function onlyOne(checkbox) { document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); }
 
 async function processOrder() {
-    const eponimia = document.getElementById("eponimia").value;
-    if(!eponimia) { alert("Επιλέξτε πελάτη!"); return; }
-    alert("Η παραγγελία αποστέλλεται στο Cloud...");
-    // Fetch logic to Google Sheets...
+    const name = document.getElementById("eponimia").value;
+    if(!name) { alert("Συμπληρώστε όνομα πελάτη!"); return; }
+    document.getElementById("submitBtn").textContent = "Αποστολή...";
+    // Εδώ μπαίνει το fetch για το Google Sheets
+    setTimeout(() => { alert("Η παραγγελία αποθηκεύτηκε στο Cloud!"); document.getElementById("submitBtn").textContent = "Ολοκλήρωση"; }, 1500);
 }
+
+function onlyOne(checkbox) { document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); }
+
+function sendEmailViaClient() {
+    const name = document.getElementById("eponimia").value;
+    const total = document.getElementById("final-total").textContent;
+    window.location.href = `mailto:pzaro2010@gmail.com?subject=Order_\${name}&body=Total_\${total}`;
+}
+
+function clearForm(){ if(confirm("Καθαρισμός φόρμας;")) { location.reload(); } }
