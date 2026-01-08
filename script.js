@@ -3,7 +3,7 @@
 // ============================================================
 
 // --- 1. CONFIGURATION (ACTIVE GOOGLE SHEETS BRIDGE) ---
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbD1c9wID4goOn4LhZT8dc3E4kaDcWddmu6QR36x5I1uGYQdLc9bk31W1FVkNvQo_aJzg/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxX_8wet6wd4gN5gLDlFOZjIfqGA6C5Tas_x8raCQuHtw93WMWvXidXUn6Fyx80ME1uTA/exec";
 
 // --- 2. HELPERS ΓΙΑ MODALS & ΠΙΝΑΚΕΣ ---
 function hcpTable(rows) {
