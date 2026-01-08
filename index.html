@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Σύστημα Παραγγελιών</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Zarkolia Health - Premium Order System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="main-container">
         <header class="main-header">
-            <div class="logo-section">
+            <div class="logo-box">
                 <h1>ZARKOLIA<span>HEALTH</span></h1>
-                <p>Ψηφιακός Κατάλογος & Σύστημα Παραγγελιοληψίας</p>
+                <p>Digital Catalog & Ordering Interface</p>
             </div>
         </header>
         
         <section class="catalog-section">
-            <h2 class="section-title">Επιστημονικός Κατάλογος (HCP & Consumer)</h2>
+            <h2 class="section-title">Επιστημονικός Κατάλογος</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
         
@@ -26,7 +26,7 @@
             <h2 class="section-title">Στοιχεία Πελάτη</h2>
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="afm">ΑΦΜ (Αναζήτηση)</label>
+                    <label for="afm">ΑΦΜ (Αυτόματη Αναζήτηση)</label>
                     <input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ...">
                 </div>
                 <div class="form-group">
@@ -39,15 +39,15 @@
                 <div class="form-group"><label for="email">Email</label><input type="email" id="email"></div>
             </div>
 
-            <div class="payment-remarks-grid">
+            <div class="info-layout">
                 <div class="info-block">
                     <h3>Τρόπος Πληρωμής</h3>
                     <div class="payment-options">
-                        <label class="custom-checkbox">
+                        <label class="custom-check">
                             <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)">
                             <span class="checkmark"></span> Αντικαταβολή Μετρητά
                         </label>
-                        <label class="custom-checkbox">
+                        <label class="custom-check">
                             <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)">
                             <span class="checkmark"></span> Επιταγή 60 Ημερών
                         </label>
@@ -55,12 +55,12 @@
                 </div>
                 <div class="info-block">
                     <h3>Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις για την παραγγελία..."></textarea>
+                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις για την παραγγελία σας..."></textarea>
                 </div>
             </div>
 
-            <h2 class="section-title">Πίνακας Παραγγελίας</h2>
-            <div class="table-container">
+            <h2 class="section-title">Πίνακας Προϊόντων</h2>
+            <div class="table-responsive">
                 <table id="product-table">
                     <thead>
                         <tr>
@@ -72,57 +72,54 @@
                             <th>Σύνολο</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
 
-            <div class="summary-wrapper">
+            <div class="summary-container">
                 <div class="totals-card">
-                    <div class="total-row"><span>Καθαρή Αξία:</span> <span id="net-value">0.00 €</span></div>
-                    <div class="total-row"><span>ΦΠΑ (24%):</span> <span id="vat-value">0.00 €</span></div>
-                    <div class="total-row grand-total"><span>ΤΕΛΙΚΟ ΣΥΝΟΛΟ:</span> <span id="final-total">0.00 €</span></div>
+                    <div class="total-line"><span>Καθαρή Αξία:</span> <span id="net-value">0.00 €</span></div>
+                    <div class="total-line"><span>ΦΠΑ (24%):</span> <span id="vat-value">0.00 €</span></div>
+                    <div class="total-line grand-total"><span>ΤΕΛΙΚΟ ΠΟΣΟ:</span> <span id="final-total">0.00 €</span></div>
                 </div>
             </div>
 
-            <div class="scales-box">
+            <div class="policy-section">
                 <h3>Κλίμακες Δώρων</h3>
-                <div class="scales-flex">
-                    <div class="scale-badge">9 - 17 τεμ ➜ <strong>+1</strong></div>
-                    <div class="scale-badge">18 - 23 τεμ ➜ <strong>+3</strong></div>
-                    <div class="scale-badge">24 - 47 τεμ ➜ <strong>+6</strong></div>
-                    <div class="scale-badge premium">48+ τεμ ➜ <strong>15 Δώρα/48άδα</strong></div>
+                <div class="badge-grid">
+                    <div class="badge">9 - 17 τεμ ➜ <strong>+1</strong></div>
+                    <div class="badge">18 - 23 τεμ ➜ <strong>+3</strong></div>
+                    <div class="badge">24 - 47 τεμ ➜ <strong>+6</strong></div>
+                    <div class="badge highlight">48+ τεμ ➜ <strong>15 Δώρα / 48άδα</strong></div>
                 </div>
             </div>
 
             <div class="bank-card">
                 <h3>Στοιχεία Κατάθεσης</h3>
                 <p>Τράπεζα Πειραιώς</p>
-                <div class="iban-container">
-                    IBAN: <span class="iban-text"><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
+                <div class="iban-visual">
+                    IBAN: <span><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
                 </div>
             </div>
 
-            <div class="action-bar">
-                <button type="button" class="btn-main btn-email" onclick="sendEmailViaClient()">Αποστολή Email</button>
-                <button type="button" class="btn-main btn-txt" onclick="previewAndSaveAsTXT()">Αρχείο TXT</button>
-                <button type="button" class="btn-main btn-clear" onclick="clearForm()">Καθαρισμός</button>
+            <div class="action-footer">
+                <button type="button" class="btn-primary" onclick="sendEmailViaClient()">Αποστολή Email</button>
+                <button type="button" class="btn-secondary" onclick="previewAndSaveAsTXT()">Αρχείο TXT</button>
+                <button type="button" class="btn-danger" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
     </div>
 
     <div id="productModal" class="modal"></div>
-
     <div id="previewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Προεπισκόπηση Παραγγελίας</h2>
+                <h2>Προεπισκόπηση</h2>
                 <span class="close-button" onclick="closePreviewModal()">&times;</span>
             </div>
             <pre id="previewContent" class="preview-box"></pre>
             <div class="modal-footer">
-                <button id="saveTxtButton" class="btn-main btn-email">Λήψη Αρχείου</button>
-                <button class="btn-main btn-clear" onclick="closePreviewModal()">Κλείσιμο</button>
+                <button id="saveTxtButton" class="btn-primary">Αποθήκευση</button>
             </div>
         </div>
     </div>
