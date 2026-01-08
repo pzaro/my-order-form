@@ -105,7 +105,7 @@ const products = [
     { name: 'Zplast Total Repair 100ml', price: 26.80 },
     { name: 'ZplastCream 40gr', price: 12.30 },
     { name: 'ZplastCream 100gr', price: 24.79 },
-    { name: 'Bruise Off Bite Out & Pain Free cream', price: 5.26 },
+    { name: 'Bruise Off Bite Out & Pain Free cream 50ml', price: 5.26 },
     { name: 'Bruise Off Bite Out & Pain Free cream 100ml', price: 9.50 },
     { name: 'Z-boost 30 caps', price: 14.93 },
     { name: 'Z-boost 12 caps', price: 6.99 },
