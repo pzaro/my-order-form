@@ -248,36 +248,122 @@ const productDetails = [
         name: 'Hydralia Face cream 50ml',
         description: {
             consumer: consumerBlock({
-                title: "Βαθιά Ενυδάτωση & Plumping Effect",
-                bullets: ["**LMW Υαλουρονικό:** Γέμισμα ρυτίδων.", "**Jojoba Oil:** Προστασία φραγμού.", "**Αναζωογόνηση:** Φυσική λάμψη."],
-                howTo: "Πρωί & Βράδυ.", cautions: "Δερματολογικά ελεγμένη."
+                title: "Βαθιά Ενυδάτωση, Plumping Effect & Προστασία Φραγμού",
+                bullets: [
+                    "**Τεχνολογία Υαλουρονικού:** Συνδυάζει διαφορετικά μοριακά βάρη για άμεση επιφανειακή ενυδάτωση και εσωτερικό «γέμισμα» (plumping) των λεπτών γραμμών.",
+                    "**Βιομιμητική Δράση:** Το έλαιο Jojoba μιμείται το φυσικό σμήγμα του δέρματος, ενισχύοντας τον λιπιδικό φραγμό χωρίς να φράζει τους πόρους.",
+                    "**Μεταξένια Υφή:** Απορροφάται άμεσα, αποτελώντας την ιδανική βάση για μακιγιάζ και καθημερινή προστασία από την περιβαλλοντική ξηρότητα.",
+                    "**Αναζωογόνηση:** Επαναφέρει την ελαστικότητα και τη φυσική λάμψη στην αφυδατωμένη επιδερμίδα."
+                ],
+                howTo: "Εφαρμόστε πρωί και βράδυ σε καθαρό πρόσωπο και λαιμό με κυκλικές κινήσεις.",
+                cautions: "Δερματολογικά ελεγμένη. Χωρίς parabens. Κατάλληλη για όλους τους τύπους δέρματος, ιδανική για κανονικές και μεικτές επιδερμίδες."
             }),
-            science: `<h3>Μοριακή Υδροδυναμική</h3>${hcpTable([{ing: "HA (LMW)", moa: "Deep Hydration: Δεσμεύει νερό στον χόριο ιστό."}, {ing: "Jojoba Oil", moa: "Biomimetic Lipids: Μειώνει το TEWL."}])}`,
-            bibliography: biblioList(["Bukhari SNA (2018).", "Verdier-Sévrain S (2007)."])
+            science: `
+                <h3>Μοριακή Υδροδυναμική & Barrier Optimization</h3>
+                <p><strong>Στόχος:</strong> Αποκατάσταση της διαδερμικής απώλειας ύδατος (TEWL) και ρύθμιση της ωσμωτικής ισορροπίας των κερατινοκυττάρων.</p>
+                ${hcpTable([
+                    {
+                        ing: "Hyaluronic Acid (LMW - Low Molecular Weight)",
+                        moa: "<strong>Deep Hydration:</strong> Λόγω του μικρού μοριακού μεγέθους, διεισδύει κάτω από την κεράτινη στοιβάδα. Δεσμεύει μόρια νερού στον χόριο ιστό, αυξάνοντας τον όγκο της εξωκυττάριας ουσίας (Plumping Effect)."
+                    },
+                    {
+                        ing: "Jojoba Oil (Simmondsia Chinensis)",
+                        moa: "<strong>Biomimetic Lipids:</strong> Πλούσιο σε εστέρες κηρού που προσομοιάζουν στο ανθρώπινο σμήγμα. Ενισχύει τη συνοχή των κερατινοκυττάρων και αποκαθιστά το υδρολιπιδικό φιλμ, μειώνοντας δραστικά το TEWL."
+                    },
+                    {
+                        ing: "Natural Moisturizing Factors (NMFs)",
+                        moa: "<strong>Osmotic Balance:</strong> Προσελκύουν και συγκρατούν την υγρασία στο εσωτερικό των κυττάρων, διατηρώντας την ενζυμική δραστηριότητα που είναι απαραίτητη για τη φυσιολογική απολέπιση."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Bukhari SNA, et al. (2018). Hyaluronic acid, a promising skin rejuvenating biomedicine: A review of recent updates and pre-clinical and clinical investigations on cosmetic and therapeutic effects.",
+                "Ranzato E, et al. (2011). Jojoba oil: An updated review of its pharmacological and cosmetic properties. Journal of Ethnopharmacology.",
+                "Papakonstantinou E, et al. (2012). Hyaluronic acid: A key molecule in skin aging. Dermato-Endocrinology.",
+                "Verdier-Sévrain S, et al. (2007). Skin hydration: a review on its molecular mechanisms. Journal of Cosmetic Dermatology."
+            ])
+
         }
     },
     {
-        name: 'Revitacell Plus Face cream 50ml',
+       name: 'Revitacell Plus Face cream 50ml',
         description: {
             consumer: consumerBlock({
-                title: "Επιγενετική Αντιγήρανση & Σύσφιξη",
-                bullets: ["**Κυτταρική Επαναφορά:** Klotho Protein.", "**Αντιοξειδωτική Ασπίδα:** Ω-5 Ροδιού.", "**Premium Αναδόμηση:** Με Μαστίχα."],
-                howTo: "Βράδυ σε καθαρό δέρμα.", cautions: "35+ ηλικιακή ομάδα."
+                title: "Επιγενετική Αντιγήρανση, Σύσφιξη & Ενεργοποίηση Νεότητας",
+                bullets: [
+                    "**Κυτταρική Επαναφορά:** Ενεργοποιεί την «πρωτεΐνη Klotho», η οποία είναι επιστημονικά αναγνωρισμένη ως η πρωτεΐνη της κυτταρικής μακροζωίας.",
+                    "**Αντιοξειδωτική Ασπίδα:** Το έλαιο Ροδιού (Ω-5) προστατεύει το δέρμα από τη φωτογήρανση και τις ελεύθερες ρίζες.",
+                    "**Ολική Αναδόμηση:** Βελτιώνει την πυκνότητα του δέρματος, λειαίνει τις βαθιές ρυτίδες και επαναφέρει το περίγραμμα του προσώπου.",
+                    "**Premium Φροντίδα:** Ενισχυμένη σύνθεση με Μαστιχέλαιο Χίου για μέγιστη αναπλαστική δράση."
+                ],
+                howTo: "Εφαρμόστε το βράδυ (ή πρωί και βράδυ για ώριμες επιδερμίδες) σε καθαρό δέρμα. Συνδυάζεται ιδανικά με το Revitace Eyes.",
+                cautions: "Ισχυρή αντιγηραντική δράση. Κατάλληλη για ηλικίες 35+ ή δέρματα με ορατά σημάδια κόπωσης και γήρανσης."
             }),
-            science: `<h3>Επιγενετική & Remodeling</h3>${hcpTable([{ing: "Mastic Oil", moa: "Klotho Gene Induction: DNA repair."}, {ing: "Punicic Acid (Ω5)", moa: "MMP-1 Inhibition: Αναστολή αποδόμησης κολλαγόνου."}])}`,
-            bibliography: biblioList(["Lall N (2020).", "Neha K (2014)."])
+            science: `
+                <h3>Επιγενετική & Dermal Remodeling</h3>
+                <p><strong>Θεραπευτικό Rationale:</strong> Ρύθμιση της γονιδιακής έκφρασης των ινοβλαστών και προστασία του δομικού κολλαγόνου.</p>
+                ${hcpTable([
+                    {
+                        ing: "Chios Mastic Oil (Lentiscus fractions)",
+                        moa: "<strong>Klotho Gene Induction:</strong> Επάγει την έκφραση της πρωτεΐνης Klotho στους ινοβλάστες. Αυτό ενισχύει τους ενδογενείς μηχανισμούς επιδιόρθωσης του DNA και βελτιώνει την κυτταρική αποτοξίνωση (proteasome activity)."
+                    },
+                    {
+                        ing: "Pomegranate Seed Oil (Punicic Acid - Ω5)",
+                        moa: "<strong>MMP-1 Inhibition:</strong> Το πουνικικό οξύ αναστέλλει τις μεταλλοπρωτεϊνάσεις (MMPs), τα ένζυμα που αποδομούν το κολλαγόνο και την ελαστίνη κατά τη φωτογήρανση. Δρα ως πανίσχυρος αντιοξειδωτικός ρυθμιστής."
+                    },
+                    {
+                        ing: "Phytosterols & Tocopherols",
+                        moa: "<strong>Structural Support:</strong> Ενισχύουν τη βιοσύνθεση των λιπιδίων του μεσοκυττάριου χώρου, αυξάνοντας την πυκνότητα (density) του χορίου και την ελαστικότητα του ιστού."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Lall N, et al. (2020). Rejuvenating effect of mastic gum on human dermal fibroblasts: An epigenetic approach.",
+                "Neha K, et al. (2014). Pomegranate seed oil in dermatology: A comprehensive review. Journal of Cosmetic Dermatology.",
+                "Heber D, et al. (2007). Pomegranate Ellagitannins: Dermal support and photo-protection mechanisms.",
+                "Kuro-o M. (2009). Klotho and aging: Molecular mechanisms of the aging-suppressor gene. Nagoya Journal of Medical Science."
+            ])
         }
     },
     {
         name: 'Revitace Eyes cream Luce 30ml',
         description: {
             consumer: consumerBlock({
-                title: "Φωτεινό Βλέμμα & Αποσυμφόρηση",
-                bullets: ["**Στοχευμένη Δράση:** Σακούλες & μαύροι κύκλοι.", "**Άμεση Φωτεινότητα:** Luce Technology.", "**Σύσφιξη Βλεφάρων:** Τονώνει το δέρμα."],
-                howTo: "Ταμποναριστά.", cautions: "Οφθαλμολογικά ελεγμένη."
+                title: "Φωτεινό Βλέμμα, Αποσυμφόρηση & Κατά των Μαύρων Κύκλων",
+                bullets: [
+                    "**Στοχευμένη Δράση:** Μειώνει ορατά το πρήξιμο (σακούλες) και τη χρωματική ένταση των μαύρων κύκλων στην περικογχική περιοχή.",
+                    "**Άμεση Φωτεινότητα:** Η τεχνολογία 'Luce' αντανακλά το φως, προσφέροντας ξεκούραστη όψη από την πρώτη εφαρμογή.",
+                    "**Σύσφιξη Βλεφάρων:** Βελτιώνει την τονικότητα του λεπτού δέρματος γύρω από τα μάτια, προλαμβάνοντας τη χαλάρωση.",
+                    "**Καταπραϋντική Φροντίδα:** Με εκχύλισμα Άρνικας για τη μείωση της τοπικής συμφόρησης."
+                ],
+                howTo: "Εφαρμόστε μικρή ποσότητα πρωί και βράδυ. Τοποθετήστε ταμποναριστά με το παράμεσο δάχτυλο στο οστό της κόγχης του ματιού (από μέσα προς τα έξω).",
+                cautions: "Οφθαλμολογικά ελεγμένη. Αποφύγετε την άμεση επαφή με τον επιπεφυκότα."
             }),
-            science: `<h3>Περικογχική Αποκατάσταση</h3>${hcpTable([{ing: "Escin", moa: "Venotonic: Μειώνει τη διαρροή υγρών."}, {ing: "Arnica Extract", moa: "Heme Degradation Support: Απορρόφηση χρωστικών."}, {ing: "Peptides", moa: "Drainage Activation: Μειώνει το puffiness."}])}`,
-            bibliography: biblioList(["Gallelli L (2019).", "Sirtori CR (2001)."])
+            science: `
+                <h3>Μικροκυκλοφορία & Περικογχική Αποκατάσταση</h3>
+                <p><strong>Στόχος:</strong> Ενίσχυση του τριχοειδικού δικτύου και απορρόφηση των προϊόντων λύσης της αιμοσφαιρίνης.</p>
+                ${hcpTable([
+                    {
+                        ing: "Escin (Aesculus Hippocastanum)",
+                        moa: "<strong>Venotonic Profile:</strong> Η αισκίνη αυξάνει την τονικότητα των τοιχωμάτων των τριχοειδών αγγείων και μειώνει τον αριθμό και τη διάμετρο των πόρων της ενδοθηλιακής μεμβράνης, περιορίζοντας τη διαρροή υγρών (οίδημα)."
+                    },
+                    {
+                        ing: "Arnica Montana Extract",
+                        moa: "<strong>Heme Degradation Support:</strong> Βοηθά στην απορρόφηση των χρωστικών του αίματος (χολερυθρίνη) που ευθύνονται για το χαρακτηριστικό σκούρο χρώμα των μαύρων κύκλων."
+                    },
+                    {
+                        ing: "Peptide Complex",
+                        moa: "<strong>Drainage Activation:</strong> Ενεργοποιεί τη λεμφική παροχέτευση της περιοχής, μειώνοντας τη συσσώρευση υγρών που προκαλεί το 'puffiness' (πρήξιμο) των βλεφάρων."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Gallelli L. (2019). Escin: a review of its anti-edematous, anti-inflammatory, and venotonic properties. Drug Design, Development and Therapy.",
+                "Sirtori CR. (2001). Aescin: pharmacology, pharmacokinetics and therapeutic profile. Pharmacological Research.",
+                "MacKay D. (2001). Hemorrhoids and varicose veins: a review of treatment options. Alternative Medicine Review (Arnica/Escin analysis).",
+                "Rohdewald P. (2002). A review of the bio-availability and clinical efficacy of Aescin."
+            ])
+
         }
     },
     {
