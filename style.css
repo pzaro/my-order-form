@@ -15,11 +15,9 @@ body {
     color: var(--slate);
 }
 
-h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
-
 .main-container { max-width: 1100px; margin: auto; }
 
-/* Κατάλογος ως Κουμπιά */
+/* Product Buttons Grid */
 .product-grid-nav {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -30,32 +28,29 @@ h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
 .product-btn {
     background: #ffffff;
     border: 2px solid var(--border);
-    padding: 15px 10px;
+    padding: 15px;
     border-radius: 14px;
     font-weight: 700;
     font-size: 0.9rem;
-    color: var(--slate);
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: 0.2s;
     text-align: center;
-    min-height: 60px;
+    min-height: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .product-btn:hover {
     border-color: var(--emerald);
     background-color: var(--emerald-light);
-    color: var(--emerald-dark);
     transform: translateY(-2px);
 }
 
-/* Άνετα Πεδία Τιμολόγησης */
+/* Billing Section */
 .order-card {
-    background: #fff; padding: 45px;
-    border-radius: 35px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
+    background: #fff; padding: 40px;
+    border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 .form-grid { 
@@ -68,36 +63,34 @@ h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
 
 .form-group label { 
     font-size: 0.8rem; font-weight: 800; color: var(--slate-light); 
-    margin-bottom: 10px; display: block; text-transform: uppercase;
+    margin-bottom: 8px; display: block; text-transform: uppercase;
 }
 
 .form-group input { 
-    width: 100%; padding: 18px 20px; 
-    border: 2px solid #f1f5f9; border-radius: 16px; 
+    width: 100%; padding: 18px; 
+    border: 2px solid #f1f5f9; border-radius: 14px; 
     font-size: 1.1rem; background: #f8fafc;
-    transition: 0.3s; box-sizing: border-box;
+    box-sizing: border-box; transition: 0.3s;
 }
 
 .form-group input:focus { 
-    border-color: var(--emerald); outline: none; 
-    background: #fff; box-shadow: 0 0 0 5px var(--emerald-light); 
+    border-color: var(--emerald); outline: none; background: #fff;
 }
 
-/* Πίνακας & Totals */
-.table-responsive { border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin: 30px 0; }
+/* Table & Totals */
+.table-responsive { border-radius: 15px; border: 1px solid var(--border); overflow: hidden; margin: 30px 0; }
 table { width: 100%; border-collapse: collapse; }
-th { background: #f8fafc; padding: 15px; text-align: left; font-size: 0.75rem; color: var(--slate-light); }
+th { background: #f8fafc; padding: 15px; text-align: left; font-size: 0.8rem; color: var(--slate-light); }
 td { padding: 15px; border-top: 1px solid #f1f5f9; font-weight: 600; }
 
 .summary-container { display: flex; justify-content: flex-end; }
-.totals-card { background: var(--slate); color: #fff; padding: 35px; border-radius: 30px; min-width: 350px; }
-.grand-total { border-top: 1px solid #475569; padding-top: 20px; margin-top: 15px; font-size: 2rem; color: #34d399; }
+.totals-card { background: var(--slate); color: #fff; padding: 30px; border-radius: 25px; min-width: 320px; }
+.grand-total { border-top: 1px solid #475569; padding-top: 15px; margin-top: 15px; font-size: 1.8rem; color: #34d399; }
 
-/* Actions */
 .action-footer { display: flex; gap: 15px; margin-top: 30px; }
-.btn-primary { background: var(--emerald); color: white; flex: 2; padding: 22px; border-radius: 18px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; }
-.btn-secondary { background: var(--slate); color: white; flex: 1; padding: 22px; border-radius: 18px; border: none; font-weight: 800; cursor: pointer; }
+.btn-primary { background: var(--emerald); color: white; flex: 2; padding: 20px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer; }
+.btn-secondary { background: var(--slate); color: white; flex: 1; padding: 20px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer; }
 
 /* Modal */
-.modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
-.modal-content { background: #fff; width: 85%; max-width: 850px; margin: 5vh auto; border-radius: 30px; padding: 40px; overflow-y: auto; max-height: 85vh; }
+.modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+.modal-content { background: #fff; width: 90%; max-width: 800px; margin: 5vh auto; border-radius: 25px; padding: 40px; overflow-y: auto; max-height: 85vh; position: relative; }
