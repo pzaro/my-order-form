@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Premium Order System</title>
+    <title>Zarkolia Health - Scientific Catalog & Order System</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,26 +13,20 @@
         <header class="main-header">
             <div class="logo-box">
                 <h1>ZARKOLIA<span>HEALTH</span></h1>
-                <p>Digital Catalog & Scientific Interface</p>
+                <p>Digital Scientific Catalog & Premium Ordering System</p>
             </div>
         </header>
         
         <section class="catalog-section">
-            <h2 class="section-title">Επιστημονικός Κατάλογος Προϊόντων</h2>
+            <h2 class="section-title">Επιστημονικό Εγχειρίδιο Προϊόντων</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
         
         <form id="orderForm" class="order-card" onsubmit="return false;">
             <h2 class="section-title">Στοιχεία Πελάτη</h2>
             <div class="form-grid">
-                <div class="form-group">
-                    <label for="afm">ΑΦΜ (Αναζήτηση)</label>
-                    <input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ...">
-                </div>
-                <div class="form-group">
-                    <label for="eponimia">Επωνυμία</label>
-                    <input type="text" id="eponimia" required>
-                </div>
+                <div class="form-group"><label for="afm">ΑΦΜ (Αναζήτηση)</label><input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ..."></div>
+                <div class="form-group"><label for="eponimia">Επωνυμία</label><input type="text" id="eponimia" required></div>
                 <div class="form-group"><label for="doy">ΔΟΥ</label><input type="text" id="doy"></div>
                 <div class="form-group"><label for="mobile">Κινητό</label><input type="tel" id="mobile"></div>
                 <div class="form-group"><label for="phone">Σταθερό</label><input type="tel" id="phone"></div>
@@ -43,20 +37,11 @@
                 <div class="info-block">
                     <h3>Τρόπος Πληρωμής</h3>
                     <div class="payment-options">
-                        <label class="custom-check">
-                            <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)">
-                            <span class="checkmark"></span> Αντικαταβολή Μετρητά
-                        </label>
-                        <label class="custom-check">
-                            <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)">
-                            <span class="checkmark"></span> Επιταγή 60 Ημερών
-                        </label>
+                        <label class="custom-check"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"><span class="checkmark"></span> Αντικαταβολή Μετρητά</label>
+                        <label class="custom-check"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"><span class="checkmark"></span> Επιταγή 60 Ημερών</label>
                     </div>
                 </div>
-                <div class="info-block">
-                    <h3>Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις παραγγελίας..."></textarea>
-                </div>
+                <div class="info-block"><h3>Παρατηρήσεις</h3><textarea id="remarks" rows="3" placeholder="Σημειώσεις παραγγελίας..."></textarea></div>
             </div>
 
             <h2 class="section-title">Πίνακας Παραγγελίας</h2>
@@ -84,13 +69,13 @@
                 </div>
             </div>
 
-            <div class="scales-box">
+            <div class="policy-section">
                 <h3>Κλίμακες Δώρων</h3>
                 <div class="badge-grid">
-                    <div class="badge">9-17 τεμ ➜ <strong>+1</strong></div>
-                    <div class="badge">18-23 τεμ ➜ <strong>+3</strong></div>
-                    <div class="badge">24-47 τεμ ➜ <strong>+6</strong></div>
-                    <div class="badge highlight">48+ τεμ ➜ <strong>15 Δώρα/48άδα</strong></div>
+                    <div class="badge">9 - 17 τεμ ➜ <strong>+1</strong></div>
+                    <div class="badge">18 - 23 τεμ ➜ <strong>+3</strong></div>
+                    <div class="badge">24 - 47 τεμ ➜ <strong>+6</strong></div>
+                    <div class="badge highlight">48+ τεμ ➜ <strong>15 Δώρα / 48άδα</strong></div>
                 </div>
             </div>
 
@@ -113,14 +98,9 @@
     <div id="productModal" class="modal"></div>
     <div id="previewModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Προεπισκόπηση</h2>
-                <span class="close-button" onclick="closePreviewModal()">&times;</span>
-            </div>
+            <div class="modal-header"><h2>Προεπισκόπηση</h2><span class="close-button" onclick="closePreviewModal()">&times;</span></div>
             <pre id="previewContent" class="preview-box"></pre>
-            <div class="modal-footer">
-                <button id="saveTxtButton" class="btn-primary">Αποθήκευση</button>
-            </div>
+            <div class="modal-footer"><button id="saveTxtButton" class="btn-primary">Αποθήκευση</button></div>
         </div>
     </div>
     
