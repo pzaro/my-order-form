@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Premium Scientific Compendium</title>
+    <title>Zarkolia Health - Premium Scientific Compendium & Cloud ERP</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="main-container">
         <header class="main-header">
             <div class="logo-box">
                 <h1>ZARKOLIA<span>HEALTH</span></h1>
-                <p>Digital Scientific Catalog & Premium Ordering System</p>
+                <p>Digital Scientific Catalog & Cloud Ordering System</p>
             </div>
         </header>
         
         <section class="catalog-section">
-            <h2 class="section-title">Επιστημονικό Εγχειρίδιο Προϊόντων</h2>
+            <h2 class="section-title">Επιστημονικό Εγχειρίδιο Προϊόντων (HCP Analysis)</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
         
@@ -42,8 +41,8 @@
                     </div>
                 </div>
                 <div class="info-block">
-                    <h3>Παρατηρήσεις Παραγγελίας</h3>
-                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις, οδηγίες παράδοσης..."></textarea>
+                    <h3>Παρατηρήσεις</h3>
+                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις παραγγελίας..."></textarea>
                 </div>
             </div>
 
@@ -51,14 +50,7 @@
             <div class="table-responsive">
                 <table id="product-table">
                     <thead>
-                        <tr>
-                            <th>Προϊόν</th>
-                            <th>Τιμή (€)</th>
-                            <th>Ποσότητα</th>
-                            <th>Δώρα</th>
-                            <th>Τελική/Τεμ.</th>
-                            <th>Σύνολο</th>
-                        </tr>
+                        <tr><th>Προϊόν</th><th>Τιμή (€)</th><th>Ποσότητα</th><th>Δώρα</th><th>Τελική/Τεμ.</th><th>Σύνολο</th></tr>
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -72,48 +64,29 @@
                 </div>
             </div>
 
-            <div class="policy-section">
-                <h3>Κλίμακες Δώρων</h3>
-                <div class="badge-grid">
-                    <div class="badge">9 - 17 τεμ ➜ <strong>+1</strong></div>
-                    <div class="badge">18 - 23 τεμ ➜ <strong>+3</strong></div>
-                    <div class="badge">24 - 47 τεμ ➜ <strong>+6</strong></div>
-                    <div class="badge highlight">48+ τεμ ➜ <strong>15 Δώρα / 48άδα</strong></div>
-                </div>
-            </div>
-
             <div class="bank-card">
                 <h3>Στοιχεία Κατάθεσης</h3>
                 <p>Τράπεζα Πειραιώς</p>
                 <div class="iban-visual">
-                    IBAN: <span id="copy-iban"><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
+                    IBAN: <span><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
                 </div>
             </div>
 
             <div class="action-footer">
-                <button type="button" class="btn-primary" onclick="sendEmailViaClient()">Αποστολή Email</button>
-                <button type="button" class="btn-secondary" onclick="previewAndSaveAsTXT()">Αρχείο TXT</button>
+                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Google Sheet</button>
+                <button type="button" class="btn-secondary" onclick="sendEmailViaClient()">Email (Backup)</button>
                 <button type="button" class="btn-danger" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
     </div>
 
     <div id="productModal" class="modal"></div>
-    <div id="previewModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header"><h2>Προεπισκόπηση</h2><span class="close-button" onclick="closePreviewModal()">&times;</span></div>
-            <pre id="previewContent" class="preview-box"></pre>
-            <div class="modal-footer"><button id="saveTxtButton" class="btn-primary">Αποθήκευση</button></div>
-        </div>
-    </div>
-    
     <script src="script.js"></script>
     <script>
         function onlyOne(checkbox) {
             var checkboxes = document.getElementsByName('payment');
             checkboxes.forEach((item) => { if (item !== checkbox) item.checked = false; });
         }
-        function closePreviewModal() { document.getElementById('previewModal').style.display = 'none'; }
     </script>
 </body>
 </html>
