@@ -161,7 +161,7 @@ const productDetails = [
         }
     },
     {
-        name: 'ZplastCream 100 ml', // Αντιστοιχεί στη Zplast Cream 50ml βάσει καταλόγου τιμών
+        name: 'ZplastCream 100gr', // Αντιστοιχεί στη Zplast Cream 50ml βάσει καταλόγου τιμών
         description: {
             consumer: consumerBlock({
                 title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
@@ -201,7 +201,7 @@ const productDetails = [
         }
     },
     {
-       name: 'ZplastCream 40 ml', // Αντιστοιχεί στη Zplast Cream 50ml βάσει καταλόγου τιμών
+       name: 'ZplastCream 40gr', // Αντιστοιχεί στη Zplast Cream 50ml βάσει καταλόγου τιμών
         description: {
             consumer: consumerBlock({
                 title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
