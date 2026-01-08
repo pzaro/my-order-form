@@ -135,134 +135,281 @@ function biblioList(items) {
     return `<h3>Βιβλιογραφική Τεκμηρίωση</h3><ol>${items.map(i => `<li>${i}</li>`).join("")}</ol>`;
 }
 
-// --- 4. ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
+// --- 4. ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ (HCP LEVEL) ---
 const productDetails = [
     {
         name: 'Z-DermAspis',
         description: {
             consumer: consumerBlock({
-                title: "Ολοκληρωμένη Υγιεινή Επιφάνειας & Βιολογική Ασπίδα Προστασίας",
+                title: "Υγιεινή & Φυσική Απωθητική Ασπίδα",
                 bullets: [
-                    "**Άμεση Αντισηπτική Δράση:** Υψηλή περιεκτικότητα σε αιθυλική αλκοόλη (70% v/v) για τον αποτελεσματικό καθαρισμό των χεριών.",
-                    "**Φυσική Απωθητική Τεχνολογία:** Με PMD, το μοναδικό φυτικό συστατικό εγκεκριμένο από διεθνείς οργανισμούς για προστασία από έντομα.",
-                    "**Outdoor Specialized:** Ιδανικό για αθλητές και παιδιά σε εξωτερικούς χώρους."
+                    "**Άμεση Αντισηψία:** 70% v/v αιθυλική αλκοόλη για εξουδετέρωση παθογόνων.",
+                    "**Βιολογική Προστασία:** Με PMD (Citriodora), το μοναδικό φυτικό συστατικό εγκεκριμένο από CDC/EPA.",
+                    "**Outdoor Specialized:** Ιδανικό για outdoor δραστηριότητες, δεν κολλάει και προσφέρει μακρά προστασία."
                 ],
                 howTo: "Ψεκάστε ομοιόμορφα και αφήστε να στεγνώσει φυσικά.",
-                cautions: "Εύφλεκτο προϊόν. Αποφύγετε επαφή με μάτια."
+                cautions: "Εύφλεκτο. Αποφύγετε την επαφή με τα μάτια."
             }),
-            science: `<h3>Φαρμακολογική Προσέγγιση (MoA)</h3>${hcpTable([{ing: "Ethanol 70%", moa: "Μετουσίωση πρωτεϊνών και λύση λιπιδικής μεμβράνης παθογόνων μικροοργανισμών."}, {ing: "PMD", moa: "Ανταγωνιστής OBPs εντόμων. Αποκλείει τη χημειοαισθητική ικανότητα εντοπισμού ξενιστή."}])}`,
-            bibliography: biblioList(["Carroll SP (2006). PMD botanical mosquito repellent efficacy.", "CDC Guidelines (2024)."])
+            science: `<h3>Φαρμακολογικό Rationale (MoA)</h3>${hcpTable([
+                { ing: "Ethanol (70%)", moa: "Μετουσίωση πρωτεϊνών και λύση λιπιδικής μεμβράνης παθογόνων μικροοργανισμών." },
+                { ing: "PMD (p-menthane-3,8-diol)", moa: "Ανταγωνιστής OBPs (Odorant Binding Proteins). Αποκλείει τη χημειοαισθητική ικανότητα των εντόμων να εντοπίζουν τον ξενιστή (CO2/γαλακτικό οξύ)." }
+            ])}`,
+            bibliography: biblioList(["Carroll SP (2006). PMD mosquito repellent efficacy. J. Am. Mosq. Control Assoc.", "CDC Guidelines (2024). Active ingredients against vector-borne diseases."])
         }
     },
     {
-        name: 'Zplast Total Repair 50ml',
+        name: 'ZplastCream 40gr', // Καλύπτει τις συσκευασίες 50ml και 100ml
         description: {
             consumer: consumerBlock({
-                title: "Ολική Ανάπλαση & Κλινική Επούλωση Ιστών",
+                title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
                 bullets: [
-                    "Εξειδικευμένη για πληγές, εγκαύματα και ουλές.",
-                    "Επιταχύνει τον πολλαπλασιασμό κυττάρων μέσω SMAD signaling.",
-                    "Πρόληψη σχηματισμού χηλοειδών."
+                    "**Εξειδικευμένη Αποκατάσταση:** Σχεδιασμένη για πληγές, μετεγχειρητικές τομές και εγκαύματα.",
+                    "**Ταχεία Επιθηλιοποίηση:** Επιταχύνει τον πολλαπλασιασμό των κυττάρων και τη σύγκλειση τραυμάτων.",
+                    "**Πρόληψη Σημαδιών:** Διασφαλίζει ελαστικότητα και ελαχιστοποιεί τον κίνδυνο ουλών."
                 ],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως.",
-                cautions: "Μόνο εξωτερική χρήση."
+                howTo: "Εφαρμογή 2-3 φορές ημερησίως μέχρι την πλήρη ίαση.",
+                cautions: "Μόνο εξωτερική χρήση. Δερματολογικά ελεγμένο."
             }),
             science: `<h3>Μηχανισμός Ιστικής Αναδόμησης</h3>
 
 [Image of skin wound healing process]
-${hcpTable([{ing: "Centella Asiatica", moa: "Διεγείρει τη σύνθεση κολλαγόνου Ι και ενεργοποιεί το SMAD signaling για ταχεία επούλωση."}, {ing: "Hyaluronic Acid", moa: "Scaffold Technology: Ρυθμίζει την υδροδυναμική της ECM και τη μετανάστευση ινοβλαστών."}])}`,
-            bibliography: biblioList(["Bylka W, et al. (2013). Centella asiatica in cosmetology.", "Wohlrab J (2018). HA in wound management."])
+${hcpTable([
+                { ing: "Centella Asiatica (Triterpenoids)", moa: "<strong>SMAD Signaling Activation:</strong> Διεγείρει τη βιοσύνθεση Κολλαγόνου Τύπου Ι & III. Αυξάνει τον εφελκυσμό του νέου ιστού." },
+                { ing: "Hyaluronic Acid", moa: "<strong>ECM Scaffold Technology:</strong> Ρυθμίζει την υδροδυναμική της ECM και παρέχει το ικρίωμα για τη μετανάστευση των ινοβλαστών." },
+                { ing: "Hypericum Perforatum", moa: "<strong>Keratinocyte Stimulation:</strong> Η υπερφορίνη διεγείρει τη διαφοροποίηση των κερατινοκυττάρων και προσφέρει αντιφλεγμονώδη δράση." }
+            ])}`,
+            bibliography: biblioList(["Bylka W, et al. (2013). Centella asiatica in dermatology. PubMed.", "Wohlrab J (2018). HA in modern wound management. J. Dermatol."])
         }
     },
     {
-        name: 'Zplast Total Repair 100ml',
+        name: 'Zplast Total Repair 50ml', // Καλύπτει και τα 100ml
         description: {
             consumer: consumerBlock({
-                title: "Ολική Ανάπλαση & Κλινική Επούλωση (Professional Size)",
-                bullets: ["Συσκευασία 100ml για εκτεταμένη χρήση.", "Ταχεία επιθηλιοποίηση.", "Πλήρης αναδόμηση φραγμού."],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως.",
-                cautions: "Δερματολογικά ελεγμένο."
+                title: "Ολική Αναδόμηση Φραγμού & Εντατική Επούλωση",
+                bullets: [
+                    "**Lipid Replenishment:** Με Ω-7 και Ω-5 λιπίδια για την αποκατάσταση της δερματικής ακεραιότητας.",
+                    "**Anti-Scar Technology:** Ειδικά σχεδιασμένο για την αποφυγή υπερτροφικών ουλών.",
+                    "**Deep Repair:** Δρα στα βαθύτερα επίπεδα της επιδερμίδας για ολική επαναφορά."
+                ],
+                howTo: "Εφαρμόστε 2-3 φορές ημερησίως. Ιδανικό για μετεπεμβατική χρήση (laser, peeling).",
+                cautions: "Κατάλληλο για διαβητικό πόδι και χρόνια έλκη."
             }),
-            science: `<h3>Μοριακή Ανάλυση Professional</h3>${hcpTable([{ing: "Centella Asiatica", moa: "Επάγει τη φωσφορυλίωση SMAD2/3 για σύνθεση κολλαγόνου."}, {ing: "Mastic Oil", moa: "Ενεργοποιεί TGF-β για αναδιοργάνωση ινών κολλαγόνου."}])}`,
-            bibliography: biblioList(["Bylka W (2013).", "Paraschos S (2012). Mastic Gum activities review."])
+            science: `<h3>Μοριακή Ανάλυση Total Repair</h3>${hcpTable([
+                { ing: "Sea Buckthorn Oil (Ω-7)", moa: "<strong>Membrane Stabilizer:</strong> Ενσωματώνεται στα φωσφολιπίδια των κυττάρων, ενισχύοντας τη δομική συνοχή του νέου επιθηλίου." },
+                { ing: "Chios Mastic Oil", moa: "<strong>TGF-β Induction:</strong> Ενεργοποιεί τον αυξητικό παράγοντα TGF-β, ο οποίος ρυθμίζει τη σύνθεση ελαστίνης." },
+                { ing: "Hyaluronic Acid Multi-MW", moa: "<strong>Osmotic Regulation:</strong> Διασφαλίζει moist healing περιβάλλον και αποτρέπει τη νέκρωση των ιστών." }
+            ])}`,
+            bibliography: biblioList(["Upadhyay NK, et al. (2009). Sea buckthorn facilitates wound healing.", "Paraschos S, et al. (2012). Chios Mastic Gum biological activities."])
         }
     },
     {
-        name: 'Bruise Off Bite Out & Pain Free cream',
+        name: 'Bruise Off Bite Out & Pain Free cream', // Καλύπτει 50ml και 100ml
         description: {
             consumer: consumerBlock({
-                title: "Αποσυμφόρηση & Αναλγησία",
-                bullets: ["Άμεση απορρόφηση εκχυμώσεων (μελανιές).", "Μείωση οιδήματος (πρήξιμο).", "Ανακούφιση πόνου τσιμπημάτων."],
+                title: "Αποσυμφόρηση & Αναλγητική Δράση",
+                bullets: [
+                    "**Άμεση Απορρόφηση:** Εξαφανίζει μελανιές (εκχυμώσεις) και οιδήματα γρήγορα.",
+                    "**Penetration Technology:** Η Ουρία επιτρέπει στα δραστικά συστατικά να φτάσουν στο βάθος του μώλωπα.",
+                    "**Καταπραϋντική Δράση:** Ιδανικό για τσιμπήματα εντόμων και μυϊκούς πόνους."
+                ],
                 howTo: "Επάλειψη με ήπιο μασάζ 3-4 φορές ημερησίως.",
                 cautions: "Περιέχει Άρνικα. Μην εφαρμόζεται σε ανοιχτές πληγές."
             }),
-            science: `<h3>Μοριακός Μηχανισμός</h3>${hcpTable([{ing: "Urea", moa: "Penetration Enhancer: Διασπά δεσμούς υδρογόνου κερατίνης για βαθιά διείσδυση δραστικών."}, {ing: "Arnica (Helenalin)", moa: "Αναστολή NF-κB: Καταστολή προ-φλεγμονωδών κυτταροκινών (COX-2)."}, {ing: "Carvacrol", moa: "Αγωνιστής TRPV1: Τοπική υπεραιμία για απομάκρυνση οιδήματος."}])}`,
-            bibliography: biblioList(["Wohlrab J (2018). Urea in Dermatology.", "Lyss G (1998). Helenalin mechanism."])
+            science: `<h3>Μοριακή Αντιφλεγμονώδης Στόχευση</h3>${hcpTable([
+                { ing: "Urea (Ουρία)", moa: "<strong>Penetration Enhancer:</strong> Διασπά δεσμούς υδρογόνου κερατίνης, αυξάνοντας τη διαδερμική βιοδιαθεσιμότητα των βοτανικών δραστικών." },
+                { ing: "Arnica Montana (Helenalin)", moa: "<strong>NF-κB Inhibition:</strong> Καταστέλλει την έκφραση προ-φλεγμονωδών κυτταροκινών (IL-1, TNF-α)." },
+                { ing: "Carvacrol", moa: "<strong>TRPV1 Agonist:</strong> Προκαλεί ελεγχόμενη τοπική υπεραιμία για την ταχεία απομάκρυνση του οιδήματος." }
+            ])}`,
+            bibliography: biblioList(["Wohlrab J (2018). Urea in Dermatology.", "Lyss G, et al. (1998). Helenalin as anti-inflammatory tool."])
         }
     },
     {
-        name: 'Bruise Off Bite Out & Pain Free cream 100ml',
+        name: 'Z-boost 30 caps', // Καλύπτει και τα 12 caps
         description: {
             consumer: consumerBlock({
-                title: "Αποσυμφόρηση & Ανακούφιση (Professional Size)",
-                bullets: ["Συσκευασία 100ml για αθλητικές κακώσεις.", "Τεχνολογία ταχείας απορρόφησης.", "Μη λιπαρή υφή."],
-                howTo: "Εφαρμογή 3-4 φορές ημερησίως.",
-                cautions: "Αποφύγετε βλεννογόνους."
-            }),
-            science: `<h3>Φαρμακολογικό Rationale</h3>${hcpTable([{ing: "Urea", moa: "Αυξάνει τη διαδερμική βιοδιαθεσιμότητα βοτανικών δραστικών."}, {ing: "Helenalin", moa: "Μειώνει τη μεσολαβούμενη από φλεγμονή εξαγγείωση υγρών."}])}`,
-            bibliography: biblioList(["Wohlrab J (2018).", "EMA Assessment Report (2014) on Arnica."])
-        }
-    },
-    {
-        name: 'Z-boost 30 caps',
-        description: {
-            consumer: consumerBlock({
-                title: "Θωράκιση Ανοσοποιητικού & Κυτταρική Προστασία",
-                bullets: ["Στοχευμένη άμυνα έναντι ιώσεων.", "Αντιοξειδωτική υπεροχή με NAC.", "Φυσική αντιφλεγμονώδη δράση με Ginger."],
+                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού",
+                bullets: [
+                    "**Στοχευμένη Άμυνα:** Ενισχύει τον οργανισμό έναντι ιώσεων και κρυολογήματος.",
+                    "**Αντιοξειδωτική Υπεροχή:** Με NAC και Ψευδάργυρο για την εξουδετέρωση ελευθέρων ριζών.",
+                    "**Ενεργειακή Τόνωση:** Περιέχει CoQ10 για τη μείωση της κόπωσης."
+                ],
                 howTo: "1 κάψουλα ημερησίως μετά το γεύμα.",
-                cautions: "Συμπλήρωμα διατροφής."
+                cautions: "Συμπλήρωμα διατροφής. Συμβουλευτείτε ιατρό εάν λαμβάνετε φάρμακα."
             }),
-            science: `<h3>Ανοσοφαρμακολογία</h3>${hcpTable([{ing: "Zinc", moa: "Αναστέλλει την RNA-εξαρτώμενη RNA πολυμεράση των ιών."}, {ing: "Gingerols", moa: "Dual Pathway Inhibition: Αναστολή 5-LOX και COX."}])}`,
-            bibliography: biblioList(["Hemilä H (2017). Zinc and common cold.", "Grzanna R (2005). Ginger actions."])
+            science: `<h3>Ανοσοφαρμακολογική Υποστήριξη</h3>${hcpTable([
+                { ing: "Zinc (Ψευδάργυρος)", moa: "<strong>Viral Replication Inhibition:</strong> Αναστέλλει την RNA-εξαρτώμενη RNA πολυμεράση των ιών στο ρινικό επιθήλιο." },
+                { ing: "N-Acetylcysteine (NAC)", moa: "<strong>GSH Precursor:</strong> Παρέχει το υπόστρωμα για τη σύνθεση Γλουταθειόνης. Παρουσιάζει βλεννολυτική δράση." },
+                { ing: "Gingerols", moa: "<strong>Dual Path Inhibition:</strong> Αναστολή COX-2 και 5-LOX, μειώνοντας τις προ-φλεγμονώδεις προσταγλανδίνες." }
+            ])}`,
+            bibliography: biblioList(["Hemilä H (2017). Zinc and common cold meta-analysis.", "Grzanna R (2005). Ginger broad anti-inflammatory actions."])
+        }
+    },
+    {
+        name: 'Alveolair Sir',
+        description: {
+            consumer: consumerBlock({
+                title: "Φυτική Προστασία & Καταπράυνση Αναπνευστικού",
+                bullets: [
+                    "**Άμεση Ανακούφιση:** Μαλακώνει τον λαιμό και καταπραΰνει τον ερεθισμένο βλεννογόνο.",
+                    "**Φυσική Σύνθεση:** Με Θυμάρι, Αλθέα και Ευκάλυπτο για ολοκληρωμένη δράση.",
+                    "**Αποχρεμπτική Δράση:** Βοηθά στην απομάκρυνση των εκκρίσεων και διευκολύνει την αναπνοή."
+                ],
+                howTo: "10ml, 2-3 φορές ημερησίως ή σύμφωνα με τις οδηγίες του ιατρού.",
+                cautions: "Φυλάσσεται μακριά από παιδιά. Μετά το άνοιγμα διατηρείται στο ψυγείο."
+            }),
+            science: `<h3>Βλεννογονική Προστασία & Βρογχοδιαστολή</h3>${hcpTable([
+                { ing: "Althaea officinalis (Root)", moa: "<strong>Mucilage Barrier:</strong> Οι πολυσακχαρίτες (βλέννες) σχηματίζουν ένα προστατευτικό βιο-φιλμ στο φαρυγγικό βλεννογόνο, μειώνοντας τον μηχανικό ερεθισμό." },
+                { ing: "Thymus vulgaris (Thymol)", moa: "<strong>Bronchospasmolysis:</strong> Η θυμόλη δρα στους β-2 υποδοχείς των λείων μυϊκών ινών των βρόγχων, προσφέροντας σπασμολυτική και αντιμικροβιακή δράση." },
+                { ing: "Eucalyptus Globulus", moa: "<strong>Secretolytic Action:</strong> Ενεργοποιεί το κροσσωτό επιθήλιο (mucociliary clearance), επιταχύνοντας την κάθαρση της βλέννας." }
+            ])}`,
+            bibliography: biblioList(["EMA/HMPC Monograph on Thymus vulgaris.", "Althaea officinalis: A review of its phytochemistry and pharmacology. Journal of Ethnopharmacology."])
         }
     },
     {
         name: 'NUTRI MX PROBIOTIC PREMIUM',
         description: {
             consumer: consumerBlock({
-                title: "18 Στελέχη για Εντερική Υγεία",
-                bullets: ["10 δις CFU για αποκατάσταση χλωρίδας.", "Πεπτική και ανοσολογική υποστήριξη.", "Πρόληψη διάρροιας από αντιβίωση."],
-                howTo: "1 κάψουλα ημερησίως.",
-                cautions: "Σε ανοσοκαταστολή ρωτήστε ιατρό."
+                title: "Προηγμένη Ισορροπία Μικροβιώματος (18 Στελέχη)",
+                bullets: [
+                    "**Μέγιστο Φάσμα:** 18 διαφορετικά στελέχη για πλήρη κάλυψη του εντερικού σωλήνα.",
+                    "**Υψηλή Συγκέντρωση:** 10 δισεκατομμύρια CFU για εγγυημένο αποικισμό.",
+                    "**Ανοσολογική Ενίσχυση:** Ρυθμίζει το 70% του ανοσοποιητικού συστήματος που εδράζεται στο έντερο."
+                ],
+                howTo: "1 κάψουλα ημερησίως, κατά προτίμηση το πρωί ή 2 ώρες μετά από αντιβίωση.",
+                cautions: "Συμπλήρωμα διατροφής. Μην υπερβαίνετε τη δόση."
             }),
-            science: `<h3>Μικροβιακή Ομοιόσταση</h3>${hcpTable([{ing: "SCFA Production", moa: "Παραγωγή βουτυρικού οξέος για θρέψη κολονοκυττάρων."}, {ing: "Tregs Induction", moa: "Επάγει ρυθμιστικά Τ-κύτταρα για ανοσολογική ισορροπία."}])}`,
-            bibliography: biblioList(["Lee JY (2022). Science.", "Karamanolis GP (2019). Probiotics role."])
+            science: `<h3>Μικροβιακή Ομοιόσταση & Ανοσορρύθμιση</h3>${hcpTable([
+                { ing: "18 Probiotic Strains", moa: "<strong>Competitive Exclusion:</strong> Κατάληψη θέσεων πρόσδεσης και μείωση του pH του αυλού, εμποδίζοντας την ανάπτυξη παθογόνων." },
+                { ing: "SCFA (Butyrate) Production", moa: "<strong>Epithelial Integrity:</strong> Παραγωγή βουτυρικού οξέος που αποτελεί την κύρια πηγή ενέργειας για τα κολονοκύτταρα και ενισχύει τα Tight Junctions." },
+                { ing: "Tregs Induction", moa: "<strong>Immune Tolerance:</strong> Αλληλεπίδραση με τα Peyer’s patches για την επαγωγή ρυθμιστικών Τ-κυττάρων (Tregs) και παραγωγή IL-10." }
+            ])}`,
+            bibliography: biblioList(["Lee JY, et al. (2022). Homeostasis & Probiotics. Science.", "Karamanolis GP (2019). Clinical role of probiotics."])
+        }
+    },
+    {
+        name: 'Hydralia Face cream 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Βαθιά Ενυδάτωση & Plumping Effect",
+                bullets: ["**LMW Υαλουρονικό:** Για εσωτερικό 'γέμισμα' ρυτίδων.", "**Jojoba Oil:** Μιμείται το φυσικό σμήγμα.", "**Αναζωογόνηση:** Επαναφέρει τη φυσική λάμψη."],
+                howTo: "Πρωί και βράδυ σε καθαρό πρόσωπο.",
+                cautions: "Δερματολογικά ελεγμένη."
+            }),
+            science: `<h3>Μοριακή Υδροδυναμική</h3>${hcpTable([
+                { ing: "Hyaluronic Acid (LMW)", moa: "Διεισδύει κάτω από την κεράτινη, δεσμεύοντας νερό στον χόριο ιστό (Plumping Effect)." },
+                { ing: "Jojoba Oil", moa: "Biomimetic Lipids: Ενισχύει τη συνοχή των κερατινοκυττάρων και μειώνει το TEWL." }
+            ])}`,
+            bibliography: biblioList(["Bukhari SNA (2018). Hyaluronic acid investigation.", "Verdier-Sévrain S (2007). Skin hydration review."])
+        }
+    },
+    {
+        name: 'Revitacell Plus Face cream 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Επιγενετική Αντιγήρανση & Σύσφιξη",
+                bullets: ["**Klotho Protein:** Ενεργοποιεί το 'γονίδιο νεότητας'.", "**Ω-5 Ροδιού:** Ισχυρή προστασία από φωτογήρανση.", "**Premium Αναδόμηση:** Με Μαστιχέλαιο Χίου."],
+                howTo: "Βράδυ σε πρόσωπο και λαιμό.",
+                cautions: "Ισχυρή αντιγηραντική δράση."
+            }),
+            science: `<h3>Επιγενετική & Remodeling</h3>${hcpTable([
+                { ing: "Mastic Oil fractions", moa: "Επάγει την έκφραση Klotho στους ινοβλάστες, ενισχύοντας τη DNA επιδιόρθωση." },
+                { ing: "Punicic Acid (Ω5)", moa: "MMP-1 Inhibition: Αναστέλλει τις μεταλλοπρωτεϊνάσεις που αποδομούν το κολλαγόνο." }
+            ])}`,
+            bibliography: biblioList(["Lall N, et al. (2020). Mastic gum on fibroblasts.", "Kuro-o M. (2009). Klotho and aging suppressor gene."])
+        }
+    },
+    {
+        name: 'Revitace Eyes cream Luce 30ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Φωτεινό Βλέμμα & Κατά των Μαύρων Κύκλων",
+                bullets: ["**Luce Tech:** Αντανακλά το φως για ξεκούραστη όψη.", "**Αποσυμφόρηση:** Μειώνει σακούλες και μαύρους κύκλους.", "**Σύσφιξη:** Τονώνει το λεπτό δέρμα των βλεφάρων."],
+                howTo: "Ταμποναριστά πρωί και βράδυ.",
+                cautions: "Αποφύγετε την επαφή με τον επιπεφυκότα."
+            }),
+            science: `<h3>Περικογχική Αποκατάσταση</h3>${hcpTable([
+                { ing: "Escin (A. Hippocastanum)", moa: "Venotonic: Αυξάνει την τονικότητα τριχοειδών, περιορίζοντας τη διαρροή υγρών (οίδημα)." },
+                { ing: "Arnica Extract", moa: "Heme Degradation Support: Επιταχύνει την απορρόφηση των χρωστικών χολερυθρίνης." },
+                { ing: "Peptides", moa: "Drainage Activation: Ενεργοποιεί τη λεμφική παροχέτευση της περιοχής." }
+            ])}`,
+            bibliography: biblioList(["Gallelli L. (2019). Escin review.", "Sirtori CR. (2001). Aescin pharmacology."])
         }
     },
     {
         name: 'NUTRI MX JOINT',
         description: {
             consumer: consumerBlock({
-                title: "Δομική Υποστήριξη Αρθρώσεων",
-                bullets: ["Γλυκοζαμίνη, Χονδροϊτίνη και MSM.", "Κολλαγόνο Τύπου ΙΙ για ανάπλαση.", "Μείωση δυσκαμψίας."],
+                title: "Δομική Υποστήριξη Αρθρώσεων & Χόνδρων",
+                bullets: ["**Θρέψη Χόνδρου:** Γλυκοζαμίνη και Χονδροϊτίνη.", "**Ανάπλαση:** MSM και Κολλαγόνο Τύπου ΙΙ.", "**Κινητικότητα:** Μειώνει τη δυσκαμψία."],
                 howTo: "1-2 δισκία ημερησίως.",
                 cautions: "Αλλεργία σε οστρακοειδή."
             }),
-            science: `<h3>Chondroprotection</h3>${hcpTable([{ing: "Native Collagen II", moa: "Oral Tolerance Mechanism: Καταστολή αυτοάνοσης φλεγμονής στην άρθρωση."}, {ing: "MSM", moa: "Sulfur Donor: Σταθεροποίηση δισουλφιδικών δεσμών κολλαγόνου."}])}`,
+            science: `<h3>Chondroprotection</h3>${hcpTable([
+                { ing: "GAG Precursors", moa: "Υποστρώματα για τη βιοσύνθεση αγρεκάνης στον αρθρικό χόνδρο." },
+                { ing: "Native Collagen II", moa: "Oral Tolerance Mechanism: Καταστέλλει την αυτοάνοση φλεγμονή στις αρθρώσεις." }
+            ])}`,
             bibliography: biblioList(["Hochberg MC (2016). OA management.", "Lugo JP (2013). UC-II study."])
+        }
+    },
+    {
+        name: 'NUTRI MX A-Z',
+        description: {
+            consumer: consumerBlock({
+                title: "Πλήρης Πολυβιταμίνη AZ",
+                bullets: ["**24 Συστατικά:** Πλήρης κάλυψη καθημερινών αναγκών.", "**Ενέργεια:** Σύμπλεγμα Β για μεταβολισμό ATP.", "**Άμυνα:** C, D και Ψευδάργυρος."],
+                howTo: "1 δισκίο μετά το πρωινό.",
+                cautions: "Συμπλήρωμα διατροφής."
+            }),
+            science: `<h3>Μεταβολική Ομοιόσταση</h3>${hcpTable([
+                { ing: "B-Complex", moa: "Co-enzymatic Activity: Απαραίτητες για τον κύκλο του Krebs και την παραγωγή ενέργειας." },
+                { ing: "Vitamin C & Zinc", moa: "Immune Support: Ενίσχυση φαγοκυττάρωσης και σταθερότητα DNA." }
+            ])}`,
+            bibliography: biblioList(["Kennedy DO. (2016). B Vitamins and the Brain.", "EFSA Journal (2010). Vitamin C/Zinc claims."])
+        }
+    },
+    {
+        name: 'NUTRI MX OMEGA 3',
+        description: {
+            consumer: consumerBlock({
+                title: "Ωμέγα-3 Υψηλής Καθαρότητας",
+                bullets: ["**Καρδιά:** EPA/DHA για φυσιολογική λειτουργία.", "**Εγκέφαλος:** DHA για γνωσιακή υποστήριξη.", "**Όραση:** Διατήρηση υγείας αμφιβληστροειδούς."],
+                howTo: "1-2 μαλακές κάψουλες ημερησίως.",
+                cautions: "Προσοχή σε αλλεργία στο ψάρι."
+            }),
+            science: `<h3>Λιπιδική Βιολογία</h3>${hcpTable([
+                { ing: "EPA", moa: "Anti-inflammatory: Ανταγωνιστής αραχιδονικού οξέος για τα ένζυμα COX/LOX." },
+                { ing: "Resolvins (SPMs)", moa: "Resolution of Inflammation: Ενεργός τερματισμός της φλεγμονώδους απόκρισης." }
+            ])}`,
+            bibliography: biblioList(["Calder PC. (2013). Omega-3 and inflammation.", "Mozaffarian D (2011). Cardiovascular disease review."])
         }
     },
     {
         name: 'NUTRI MX MAGNESIUM 1 Τεμ',
         description: {
             consumer: consumerBlock({
-                title: "Μαγνήσιο & Β6",
-                bullets: ["Πρόληψη κραμπών.", "Μείωση άγχους και βελτίωση ύπνου.", "Ηλεκτρολυτική ισορροπία."],
+                title: "Μαγνήσιο & Β6 (Κατά των Κραμπών)",
+                bullets: ["**Μυϊκή Χαλάρωση:** Πρόληψη κραμπών και σπασμών.", "**Νευρικό Σύστημα:** Μείωση άγχους και βελτίωση ύπνου.", "**Ενέργεια:** Μείωση κόπωσης."],
                 howTo: "1 δισκίο το βράδυ.",
                 cautions: "Σε νεφρική ανεπάρκεια ρωτήστε ιατρό."
             }),
-            science: `<h3>Νευρομυϊκή Φυσιολογία</h3>${hcpTable([{ing: "Magnesium", moa: "NMDA Antagonist: Ρύθμιση νευρομυϊκής διεγερσιμότητας."}, {ing: "Mg-ATP Complex", moa: "Απαραίτητο για όλες τις μεταβολικές διεργασίες."}])}`,
-            bibliography: biblioList(["EFSA Journal (2010). Mg claims.", "Prasad AS (2008). Magnesium in Health."])
+            science: `<h3>Νευρομυϊκή Φυσιολογία</h3>${hcpTable([
+                { ing: "Magnesium", moa: "NMDA Antagonist: Λειτουργεί ως αναστολέας στον υποδοχέα NMDA, αποτρέποντας την υπερδιέγερση." },
+                { ing: "Mg-ATP Complex", moa: "Απαραίτητος συμπαράγοντας για την ενεργό μορφή της μεταβολικής ενέργειας." }
+            ])}`,
+            bibliography: biblioList(["Prasad AS. (2008). Magnesium in Human Health.", "Pouteau E (2018). Mg + B6 for severe stress."])
+        }
+    },
+    {
+        name: 'Zarkolia Cosmetic pack',
+        description: {
+            consumer: consumerBlock({
+                title: "Ολοκληρωμένο Πρωτόκολλο Αντιγήρανσης",
+                bullets: ["**24h Routine:** Πλήρης φροντίδα (Hydralia, Revitacell, Eyes).", "**Συνέργεια:** Μέγιστο αποτέλεσμα με συνδυαστική χρήση.", "**Αναδόμηση:** Κάλυψη όλων των αναγκών του δέρματος."],
+                howTo: "Πρωί: Hydralia & Eyes. Βράδυ: Revitacell & Eyes.",
+                cautions: "Premium Scientific Gift Box."
+            }),
+            science: `<p>Συνεργιστικό μοντέλο που καλύπτει ταυτόχρονα την υδροδυναμική της ECM, την επιγενετική αναδόμηση και την τριχοειδική παροχέτευση.</p>`,
+            bibliography: biblioList(["Integrated scientific references of Zarkolia series."])
         }
     }
 ];
