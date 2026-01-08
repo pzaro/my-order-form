@@ -800,6 +800,163 @@ const productDetails = [
             ])
         }
     },
+    {
+        name: 'NUTRI MX JOINT',
+        description: {
+            consumer: consumerBlock({
+                title: "Ολοκληρωμένη Δομική Υποστήριξη Αρθρώσεων & Χόνδρων",
+                bullets: [
+                    "**Στοχευμένη Θρέψη:** Συνδυάζει Γλυκοζαμίνη και Χονδροϊτίνη για τη διατήρηση της ακεραιότητας και της λίπανσης των αρθρώσεων.",
+                    "**Αναγεννητική Δράση:** Το MSM και το Κολλαγόνο Τύπου ΙΙ ενισχύουν τη σταθερότητα του συνδετικού ιστού και των τενόντων.",
+                    "**Μείωση Δυσκαμψίας:** Συμβάλλει στην ομαλή κίνηση και στην προστασία των αρθρώσεων από την καθημερινή καταπόνηση.",
+                    "**Ιδανικό για Αθλητές:** Απαραίτητο για άτομα με έντονη φυσική δραστηριότητα ή εκφυλιστικές αλλοιώσεις (οστεοαρθρίτιδα)."
+                ],
+                howTo: "Λαμβάνετε 1-2 δισκία ημερησίως, κατά προτίμηση μαζί με τα γεύματα. Συνιστάται η συστηματική λήψη για τουλάχιστον 3 μήνες.",
+                cautions: "Περιέχει συστατικά από οστρακοειδή (αλλεργιογόνο). Συμβουλευτείτε ιατρό εάν λαμβάνετε αντιπηκτική αγωγή."
+            }),
+            science: `
+                <h3>Βιοχημεία του Χόνδρου & Chondroprotection</h3>
+                <p><strong>Στόχος:</strong> Αναστολή των καταβολικών ενζύμων και διέγερση της σύνθεσης της εξωκυττάριας ουσίας (ECM) του χόνδρου.</p>
+                ${hcpTable([
+                    {
+                        ing: "Glucosamine & Chondroitin Sulfate",
+                        moa: "<strong>GAG Precursors:</strong> Λειτουργούν ως υποστρώματα για τη βιοσύνθεση γλυκοζαμινογλυκανών και αγρεκάνης. Η χονδροϊτίνη αναστέλλει την ελαστάση και τη λευκοκυτταρική εστεράση, προστατεύοντας το αρθρικό υγρό."
+                    },
+                    {
+                        ing: "Native Collagen Type II",
+                        moa: "<strong>Oral Tolerance Mechanism:</strong> Αλληλεπιδρά με τις πλάκες Peyer στο έντερο, επάγοντας ρυθμιστικά Τ-κύτταρα (Tregs) που καταστέλλουν την αυτοάνοση φλεγμονώδη απόκριση στον αρθρικό χόνδρο."
+                    },
+                    {
+                        ing: "MSM (Methylsulfonylmethane)",
+                        moa: "<strong>Sulfur Bioavailability:</strong> Παρέχει οργανικό θείο για τη σταθεροποίηση των δισουλφιδικών δεσμών στις ίνες κολλαγόνου, ενώ μειώνει την παραγωγή ελευθέρων ριζών (ROS) στα χονδροκύτταρα."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Hochberg MC, et al. (2016). Combined chondroitin sulfate and glucosamine for painful knee osteoarthritis. Annals of the Rheumatic Diseases.",
+                "Lugo JP, et al. (2013). Undenatured type II collagen (UC-II®) for joint support. J Int Soc Sports Nutr.",
+                "Butawan M, et al. (2017). Methylsulfonylmethane: Applications and Safety. Nutrients.",
+                "EFSA Panel on Dietetic Products (NDA). Scientific Opinion on Glucosamine and joint health."
+            ])
+        }
+    },
+    {
+        name: 'NUTRI MX A-Z',
+        description: {
+            consumer: consumerBlock({
+                title: "Πλήρης Πολυβιταμίνη για Τόνωση, Ενέργεια & Μεταβολισμό",
+                bullets: [
+                    "**24 Βασικά Θρεπτικά Συστατικά:** Πλήρης κάλυψη βιταμινών, μετάλλων και ιχνοστοιχείων για την καθημερινή υποστήριξη του οργανισμού.",
+                    "**Ενεργειακή Τόνωση:** Συμβάλλει στη μείωση της κούρασης και της κόπωσης χάρη στο σύμπλεγμα βιταμινών Β.",
+                    "**Ενίσχυση Ανοσοποιητικού:** Με βιταμίνες C, D και Ψευδάργυρο για την θωράκιση της φυσικής άμυνας.",
+                    "**Πνευματική Διαύγεια:** Υποστηρίζει τη φυσιολογική γνωσιακή λειτουργία και τη συγκέντρωση."
+                ],
+                howTo: "Λαμβάνετε 1 δισκίο ημερησίως, κατά προτίμηση μετά το πρωινό γεύμα.",
+                cautions: "Συμπλήρωμα διατροφής. Να μην υπερβαίνεται η συνιστώμενη δόση. Μακριά από μικρά παιδιά."
+            }),
+            science: `
+                <h3>Μεταβολική Ομοιόσταση & Μικροθρεπτικά</h3>
+                <p><strong>Στόχος:</strong> Διασφάλιση των ενζυμικών συμπαραγόντων για τον κύκλο του Krebs και την αντιοξειδωτική άμυνα.</p>
+                ${hcpTable([
+                    {
+                        ing: "B-Complex (B1, B2, B6, B12)",
+                        moa: "<strong>Co-enzymatic Activity:</strong> Απαραίτητες για τη μετατροπή των μακροθρεπτικών σε ATP. Ρυθμίζουν τον μεταβολισμό της ομοκυστεΐνης και τη σύνθεση νευροδιαβιβαστών."
+                    },
+                    {
+                        ing: "Vitamin C & Zinc",
+                        moa: "<strong>Immune Support:</strong> Η βιταμίνη C ενισχύει τη φαγοκυττάρωση των ουδετεροφίλων. Ο ψευδάργυρος είναι κρίσιμος για τη σταθερότητα των 'zinc fingers' στις πρωτεΐνες μεταγραφής του DNA."
+                    },
+                    {
+                        ing: "Lutein & Trace Elements",
+                        moa: "<strong>Oxidative Stress Control:</strong> Η λουτεΐνη προστατεύει την ωχρά κηλίδα από τη φωτοοξείδωση. Το Μαγγάνιο και ο Χαλκός αποτελούν δομικά στοιχεία της υπεροξειδικής δισμουτάσης (SOD)."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Regulation (EU) 432/2012 on permitted health claims for vitamins and minerals.",
+                "Kennedy DO. (2016). B Vitamins and the Brain: Mechanisms, Dose and Efficacy. Nutrients.",
+                "EFSA Journal (2010). Scientific Opinion on the substantiation of health claims related to Vitamin C and Zinc."
+            ])
+        }
+    },
+    {
+        name: 'NUTRI MX OMEGA 3',
+        description: {
+            consumer: consumerBlock({
+                title: "Υψηλή Καθαρότητα Ωμέγα-3 για Καρδιά, Εγκέφαλο & Όραση",
+                bullets: [
+                    "**Καρδιαγγειακή Υγεία:** Το EPA και το DHA συμβάλλουν στη φυσιολογική λειτουργία της καρδιάς και τη διατήρηση των τριγλυκεριδίων.",
+                    "**Νευρική Υποστήριξη:** Το DHA αποτελεί βασικό δομικό στοιχείο του εγκεφάλου, ενισχύοντας τη μνήμη και τη γνωσιακή λειτουργία.",
+                    "**Υγεία των Ματιών:** Συμβάλλει στη διατήρηση της φυσιολογικής όρασης και της υγείας του αμφιβληστροειδούς.",
+                    "**Μοριακή Απόσταξη:** Εγγυημένη καθαρότητα από βαρέα μέταλλα και ρύπους."
+                ],
+                howTo: "Λαμβάνετε 1-2 μαλακές κάψουλες ημερησίως μαζί με το φαγητό για βέλτιστη απορρόφηση.",
+                cautions: "Συμπλήρωμα διατροφής. Προσοχή σε άτομα με αλλεργία στο ψάρι. Συμβουλευτείτε ιατρό αν λαμβάνετε αντιπηκτικά."
+            }),
+            science: `
+                <h3>Λιπιδική Βιολογία & Φλεγμονώδης Επίλυση</h3>
+                <p><strong>Στόχος:</strong> Ρύθμιση της ρευστότητας των κυτταρικών μεμβρανών και παραγωγή προ-επιλυτικών διαμεσολαβητών.</p>
+                ${hcpTable([
+                    {
+                        ing: "EPA (Eicosapentaenoic Acid)",
+                        moa: "<strong>Anti-inflammatory Substrate:</strong> Ανταγωνίζεται το αραχιδονικό οξύ (AA) για τα ένζυμα COX και LOX, οδηγώντας στην παραγωγή λιγότερο φλεγμονωδών προσταγλανδινών (σειρά 3) και λευκοτριενίων (σειρά 5)."
+                    },
+                    {
+                        ing: "DHA (Docosahexaenoic Acid)",
+                        moa: "<strong>Neuroprotection:</strong> Αποτελεί το 40% των πολυακόρεστων λιπαρών οξέων στον εγκέφαλο. Ρυθμίζει τη συναπτική διαβίβαση και τη λειτουργία των φωτοϋποδοχέων."
+                    },
+                    {
+                        ing: "Specialized Pro-resolving Mediators (SPMs)",
+                        moa: "<strong>Resolution of Inflammation:</strong> Το EPA και το DHA αποτελούν πρόδρομα μόρια για τις ρεσολβίνες (Resolvins), οι οποίες δίνουν το σήμα για τον ενεργό τερματισμό της φλεγμονής."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Calder PC. (2013). Omega-3 fatty acids and inflammatory processes. British Journal of Clinical Pharmacology.",
+                "Mozaffarian D & Wu JH. (2011). Omega-3 fatty acids and cardiovascular disease. Journal of the American College of Cardiology.",
+                "Swanson D, et al. (2012). Omega-3 Fatty Acids EPA and DHA: Health Benefits Throughout Life. Advances in Nutrition."
+            ])
+        }
+    },
+    {
+        name: 'NUTRI MX MAGNESIUM 1 Τεμ',
+        description: {
+            consumer: consumerBlock({
+                title: "Μαγνήσιο & Β6 για Μυϊκή Χαλάρωση & Νευρική Ισορροπία",
+                bullets: [
+                    "**Κατά των Κραμπών:** Συμβάλλει στη φυσιολογική λειτουργία των μυών και την πρόληψη των μυϊκών σπασμών.",
+                    "**Νευρικό Σύστημα:** Βοηθά στη μείωση του άγχους, της ευερεθιστότητας και στη βελτίωση της ποιότητας του ύπνου.",
+                    "**Μείωση Κόπωσης:** Η βιταμίνη Β6 ενισχύει την απορρόφηση του μαγνησίου και τη μεταβολική ενέργεια.",
+                    "**Ηλεκτρολυτική Ισορροπία:** Απαραίτητο για τη διατήρηση της ομοιόστασης των μετάλλων στον οργανισμό."
+                ],
+                howTo: "Λαμβάνετε 1 δισκίο ημερησίως, κατά προτίμηση το βράδυ πριν τον ύπνο.",
+                cautions: "Συμπλήρωμα διατροφής. Σε περιπτώσεις νεφρικής ανεπάρκειας, η λήψη πρέπει να γίνεται κατόπιν ιατρικής συμβουλής."
+            }),
+            science: `
+                <h3>Νευρομυϊκή Φυσιολογία & NMDA Modulation</h3>
+                <p><strong>Στόχος:</strong> Ρύθμιση του διαύλου ασβεστίου και υποστήριξη της μιτοχονδριακής παραγωγής ATP.</p>
+                ${hcpTable([
+                    {
+                        ing: "Magnesium (Citrate/Oxide)",
+                        moa: "<strong>NMDA Antagonist:</strong> Το μαγνήσιο λειτουργεί ως φυσικός αναστολέας στον υποδοχέα NMDA, αποτρέποντας την υπερδιέγερση των νευρώνων (excitotoxicity). Ρυθμίζει τη σύσπαση/χάλαση των μυϊκών ινών."
+                    },
+                    {
+                        ing: "Vitamin B6 (Pyridoxine)",
+                        moa: "<strong>Magnesium Chaperone:</strong> Ενεργεί ως φορέας που διευκολύνει την είσοδο του μαγνησίου στο εσωτερικό των κυττάρων. Συμμετέχει στη σύνθεση του GABA (κατασταλτικός νευροδιαβιβαστής)."
+                    },
+                    {
+                        ing: "ATP Biology",
+                        moa: "<strong>Energy Metabolism:</strong> Το Μαγνήσιο είναι απαραίτητος συμπαράγοντας για το σύμπλοκο Mg-ATP, την ενεργό μορφή της ενέργειας που χρησιμοποιείται σε όλες τις μεταβολικές διεργασίες."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "EFSA Journal (2010). Scientific Opinion on the substantiation of health claims related to Magnesium.",
+                "Prasad AS. (2008). Magnesium in Human Health. Molecular Medicine.",
+                "Pouteau E, et al. (2018). Is Magnesium plus Vitamin B6 better than Magnesium alone for severe stress? A randomized controlled trial. PLoS ONE."
+            ])
+        }
+    },
 ];
 
 // --- 5. ΑΡΧΙΚΟΠΟΙΗΣΗ ΕΦΑΡΜΟΓΗΣ ---
