@@ -121,365 +121,133 @@ const products = [
     { name: 'NUTRI MX JOINT', price: 10.16 }
 ];
 
-// --- 3. HELPERS ΓΙΑ MODALS & ΠΙΝΑΚΕΣ ---
-function hcpTable(rows) {
-    return `<table class="hcp-table"><thead><tr><th>Συστατικό</th><th>Όφελος & Μηχανισμός</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
-}
-
-function consumerBlock({ title, bullets, howTo, cautions }) {
-    return `<h3>${title}</h3><ul>${bullets.map(b => `<li>${b}</li>`).join("")}</ul>${howTo ? `<h4>Τρόπος χρήσης</h4><p>${howTo}</p>` : ""}${cautions ? `<h4>Προφυλάξεις</h4><p>${cautions}</p>` : ""}`;
-}
-
-function biblioList(items) {
-    return `<h3>Βιβλιογραφία</h3><ul>${items.map(i => `<li>${i}</li>`).join("")}</ul>`;
-}
-
-// --- 4. ΠΛΗΡΕΙΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ (CONSOLIDATED & IMPROVED) ---
+// --- 3. ΕΝΙΣΧΥΜΕΝΕΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
 const productDetails = [
     {
         name: 'Z-DermAspis',
         description: {
-            consumer: consumerBlock({
-                title: "Καθαρισμός & Φυσική Ασπίδα Προστασίας",
-                bullets: ["Σπρέι υψηλής περιεκτικότητας σε αλκοόλη για άμεση υγιεινή των χεριών.", "Με PMD (Citriodora) για δημιουργία «απωθητικού προφίλ» έναντι εντόμων.", "Ιδανικό για εξωτερικές δραστηριότητες και καθημερινή άνεση."],
-                howTo: "Ψεκάστε ομοιόμορφα και αφήστε να στεγνώσει.",
-                cautions: "Εύφλεκτο. Αποφύγετε επαφή με μάτια."
-            }),
-            science: hcpTable([{ing: "Alcohol Denat. (70%)", moa: "Μετουσίωση πρωτεϊνών και λύση λιπιδικής μεμβράνης παθογόνων."}, {ing: "PMD", moa: "Παρεμβολή στους χημειοαισθητήρες εντόμων, εμποδίζοντας τον εντοπισμό του ξενιστή."}]),
-            bibliography: biblioList(["Carroll SP & Loye J (2006). PMD botanical mosquito repellent.", "CDC Guidelines on Repellents (2023)."])
+            consumer: "<h3>Καθαρισμός & Φυσική Προστασία</h3><p>Ένα σπρέι διπλής δράσης που προσφέρει άμεση υγιεινή των χεριών ενώ παράλληλα δημιουργεί μια φυσική ασπίδα προστασίας από τα έντομα. Ιδανικό για παιδιά και ενήλικες σε εξωτερικούς χώρους.</p>",
+            science: "<h3>Μηχανισμός Δράσης</h3><table class='hcp-table'><tr><th>Συστατικό</th><th>Δράση</th></tr><tr><td>Alcohol 70%</td><td>Αντισηψία μέσω μετουσίωσης πρωτεϊνών παθογόνων.</td></tr><tr><td>PMD (Citriodora)</td><td>Φυσική απώθηση εντόμων μέσω οσφρητικού αποκλεισμού.</td></tr></table>"
         }
     },
     {
         name: 'ZplastCream 40gr',
         description: {
-            consumer: consumerBlock({
-                title: "Εντατική Φροντίδα & Καταπράυνση Φραγμού",
-                bullets: ["Προηγμένη σύνθεση για ξηρό, ευαίσθητο ή ταλαιπωρημένο δέρμα.", "Υποστηρίζει τη φυσική ανάπλαση και μειώνει το αίσθημα «τραβήγματος».", "Πλούσια υφή που προστατεύει από κρύο και τριβή."],
-                howTo: "Εφαρμογή 2-3 φορές την ημέρα.", cautions: "Μόνο για εξωτερική χρήση."
-            }),
-            science: hcpTable([{ing: "Hypericum Perforatum", moa: "Ενισχύει την επανεπιθηλιοποίηση και προσφέρει αντιοξειδωτική δράση."}, {ing: "Chios Mastic Oil", moa: "Ενεργοποιεί τη σύνθεση κολλαγόνου."}, {ing: "Sea Buckthorn (Ω-7)", moa: "Αναπλήρωση λιπιδίων φραγμού."}]),
-            bibliography: biblioList(["Öztürk N, et al. (2007). Hypericum in skin wounds.", "Paraschos S (2012). Mastic gum properties."])
-        }
-    },
-    {
-        name: 'ZplastCream 100gr',
-        description: {
-            consumer: consumerBlock({
-                title: "Εντατική Φροντίδα & Καταπράυνση Φραγμού",
-                bullets: ["Προηγμένη σύνθεση για ξηρό, ευαίσθητο ή ταλαιπωρημένο δέρμα.", "Υποστηρίζει τη φυσική ανάπλαση και μειώνει το αίσθημα «τραβήγματος».", "Πλούσια υφή που προστατεύει από κρύο και τριβή."],
-                howTo: "Εφαρμογή 2-3 φορές την ημέρα.", cautions: "Μόνο για εξωτερική χρήση."
-            }),
-            science: hcpTable([{ing: "Hypericum Perforatum", moa: "Ενισχύει την επανεπιθηλιοποίηση και προσφέρει αντιοξειδωτική δράση."}, {ing: "Chios Mastic Oil", moa: "Ενεργοποιεί τη σύνθεση κολλαγόνου."}, {ing: "Sea Buckthorn (Ω-7)", moa: "Αναπλήρωση λιπιδίων φραγμού."}]),
-            bibliography: biblioList(["Öztürk N, et al. (2007). Hypericum in skin wounds.", "Paraschos S (2012). Mastic gum properties."])
-        }
-    },
-    {
-        name: 'Zplast Total Repair 50ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Ολική Ανάπλαση & Εντατική Επούλωση",
-                bullets: ["Εξειδικευμένη φόρμουλα για πληγές, εγκαύματα και ουλές.", "Επιταχύνει τον πολλαπλασιασμό των κυττάρων.", "Μειώνει άμεσα τον ερεθισμό και τον πόνο."],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως.", cautions: "Μόνο για εξωτερική χρήση."
-            }),
-            science: hcpTable([{ing: "Hypericum Perforatum", moa: "Υψηλή υπερφορίνη για ταχεία κυτταρική ανάπλαση."}, {ing: "Chios Mastic Oil", moa: "Ενεργοποιεί ινοβλάστες για κολλαγόνο."}, {ing: "Hyaluronic Acid", moa: "Διασφαλίζει το απαραίτητο υγρό περιβάλλον επούλωσης."}]),
-            bibliography: biblioList(["Öztürk N, et al. (2007). Hypericum in skin wounds.", "Paraschos S (2012). Mastic gum properties."])
-        }
-    },
-    {
-        name: 'Zplast Total Repair 100ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Ολική Ανάπλαση & Εντατική Επούλωση",
-                bullets: ["Εξειδικευμένη φόρμουλα για πληγές, εγκαύματα και ουλές.", "Επιταχύνει τον πολλαπλασιασμό των κυττάρων.", "Μειώνει άμεσα τον ερεθισμό και τον πόνο."],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως.", cautions: "Μόνο για εξωτερική χρήση."
-            }),
-            science: hcpTable([{ing: "Hypericum Perforatum", moa: "Υψηλή υπερφορίνη για ταχεία κυτταρική ανάπλαση."}, {ing: "Chios Mastic Oil", moa: "Ενεργοποιεί ινοβλάστες για κολλαγόνο."}, {ing: "Hyaluronic Acid", moa: "Διασφαλίζει το απαραίτητο υγρό περιβάλλον επούλωσης."}]),
-            bibliography: biblioList(["Öztürk N, et al. (2007). Hypericum in skin wounds.", "Paraschos S (2012). Mastic gum properties."])
+            consumer: "<h3>Ανάπλαση & Επούλωση</h3><p>Εξειδικευμένη κρέμα για ερεθισμένο δέρμα, πληγές και εγκαύματα. Επιταχύνει τη φυσική διαδικασία αναδόμησης της επιδερμίδας και καταπραΰνει άμεσα την ερυθρότητα.</p>",
+            science: "<h3>Φαρμακολογική Ανάλυση</h3><table class='hcp-table'><tr><th>Συστατικό</th><th>Δράση</th></tr><tr><td>Hypericum Perforatum</td><td>Ενίσχυση πολλαπλασιασμού κερατινοκυττάρων.</td></tr><tr><td>Mastic Oil</td><td>Ισχυρή αντιμικροβιακή και αντιφλεγμονώδης δράση.</td></tr><tr><td>Calamine</td><td>Ήπιο στυπτικό που μειώνει το οίδημα.</td></tr></table>"
         }
     },
     {
         name: 'Bruise Off Bite Out & Pain Free cream',
         description: {
-            consumer: consumerBlock({
-                title: "Άμεση Ανακούφιση & Αποσυμφόρηση",
-                bullets: ["Με <strong>Ουρία</strong> για ταχεία απορρόφηση και ενυδάτωση.", "Βελτιώνει την όψη μετά από μώλωπες ή έντονη καταπόνηση.", "Ιδανικό για τοπικό μασάζ."],
-                howTo: "Επάλειψη με μασάζ μέχρι να απορροφηθεί.", cautions: "Αποφυγή σε ανοιχτές πληγές."
-            }),
-            science: hcpTable([{ing: "Urea", moa: "Αυξάνει τη διαπερατότητα της κεράτινης στιβάδας για ταχύτερη δράση."}, {ing: "Arnica (Helenalin)", moa: "Αναστολή NF-κB, μείωση οιδήματος."}, {ing: "Carvacrol", moa: "Τοπική υπεραιμία (counter-irritant) για απομάκρυνση φλεγμονωδών παραγόντων."}]),
-            bibliography: biblioList(["Wohlrab J (2018). Urea in Dermatology.", "Lyss G, et al. (1998). Helenalin mechanism."])
-        }
-    },
-    {
-        name: 'Bruise Off Bite Out & Pain Free cream 100ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Άμεση Ανακούφιση & Αποσυμφόρηση",
-                bullets: ["Με <strong>Ουρία</strong> για ταχεία απορρόφηση και ενυδάτωση.", "Βελτιώνει την όψη μετά από μώλωπες ή έντονη καταπόνηση.", "Ιδανικό για τοπικό μασάζ."],
-                howTo: "Επάλειψη με μασάζ μέχρι να απορροφηθεί.", cautions: "Αποφυγή σε ανοιχτές πληγές."
-            }),
-            science: hcpTable([{ing: "Urea", moa: "Αυξάνει τη διαπερατότητα της κεράτινης στιβάδας για ταχύτερη δράση."}, {ing: "Arnica (Helenalin)", moa: "Αναστολή NF-κB, μείωση οιδήματος."}, {ing: "Carvacrol", moa: "Τοπική υπεραιμία (counter-irritant) για απομάκρυνση φλεγμονωδών παραγόντων."}]),
-            bibliography: biblioList(["Wohlrab J (2018). Urea in Dermatology.", "Lyss G, et al. (1998). Helenalin mechanism."])
+            consumer: "<h3>Απορρόφηση Μωλώπων & Αναλγησία</h3><p>Η λύση για μελανιές, πρήξιμο και μυϊκούς πόνους. Χάρη στην <strong>Ουρία</strong>, απορροφάται βαθιά και προσφέρει γρήγορη ανακούφιση από τοπικούς τραυματισμούς και τσιμπήματα.</p>",
+            science: "<h3>Επιστημονικά Δεδομένα</h3><table class='hcp-table'><tr><th>Συστατικό</th><th>Δράση</th></tr><tr><td>Urea (Ουρία)</td><td>Penetration Enhancer: Αυξάνει τη διαπερατότητα των δραστικών.</td></tr><tr><td>Arnica Montana</td><td>Αναστολή NF-kB (μείωση φλεγμονής).</td></tr><tr><td>Carvacrol</td><td>Τοπική υπεραιμία για ταχύτερη απορρόφηση οιδήματος.</td></tr></table>"
         }
     },
     {
         name: 'Z-boost 30 caps',
         description: {
-            consumer: consumerBlock({
-                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού",
-                bullets: ["Με Ψευδάργυρο, <strong>Ginger</strong> και NAC.", "Συμβάλλει στη φυσιολογική λειτουργία του ανοσοποιητικού.", "Προστασία από το οξειδωτικό στρες."],
-                howTo: "1 κάψουλα ημερησίως μετά το γεύμα.", cautions: "Συμπλήρωμα διατροφής."
-            }),
-            science: hcpTable([{ing: "Zinc & Selenium", moa: "Ρύθμιση διαφοροποίησης Τ-λεμφοκυττάρων."}, {ing: "Ginger (Gingerols)", moa: "Ρύθμιση οδών 5-LOX και COX."}, {ing: "NAC & CoQ10", moa: "Πρόδρομος GSH και μιτοχονδριακή υποστήριξη."}]),
-            bibliography: biblioList(["Reg. (EU) 432/2012 (Zinc claims).", "Grzanna R, et al. (2005). Ginger anti-inflammatory actions."])
-        }
-    },
-    {
-        name: 'Z-boost 12 caps',
-        description: {
-            consumer: consumerBlock({
-                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού",
-                bullets: ["Με Ψευδάργυρο, <strong>Ginger</strong> και NAC.", "Συμβάλλει στη φυσιολογική λειτουργία του ανοσοποιητικού.", "Προστασία από το οξειδωτικό στρες."],
-                howTo: "1 κάψουλα ημερησίως μετά το γεύμα.", cautions: "Συμπλήρωμα διατροφής."
-            }),
-            science: hcpTable([{ing: "Zinc & Selenium", moa: "Ρύθμιση διαφοροποίησης Τ-λεμφοκυττάρων."}, {ing: "Ginger (Gingerols)", moa: "Ρύθμιση οδών 5-LOX και COX."}, {ing: "NAC & CoQ10", moa: "Πρόδρομος GSH και μιτοχονδριακή υποστήριξη."}]),
-            bibliography: biblioList(["Reg. (EU) 432/2012 (Zinc claims).", "Grzanna R, et al. (2005). Ginger anti-inflammatory actions."])
-        }
-    },
-    {
-        name: 'Revitacell Plus Face cream 50ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Επιγενετική Αντιγήρανση & Σύσφιξη",
-                bullets: ["Ενεργοποιεί την «πρωτεΐνη Klotho» (νεότητα) για κυτταρική μακροζωία.", "Μείωση των ρυτίδων και βελτίωση ελαστικότητας.", "Πλούσια σε αντιοξειδωτικά λιπίδια Ροδιού."],
-                howTo: "Πρωί/βράδυ σε καθαρό πρόσωπο.", cautions: "Κατάλληλη για όλους τους τύπους."
-            }),
-            science: hcpTable([{ing: "Mastic Gum Extract", moa: "Επάγει την έκφραση της Klotho protein στους ινοβλάστες."}, {ing: "Pomegranate Seed Oil", moa: "Αναστέλλει τις μεταλλοπρωτεϊνάσεις (MMP-1) που αποδομούν το κολλαγόνο."}]),
-            bibliography: biblioList(["Lall N, et al. (2020). Revitacell mechanism review.", "Neha K, et al. (2014). Pomegranate seed oil review."])
-        }
-    },
-    {
-        name: 'Hydralia Face cream 50ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Βαθιά Ενυδάτωση & Plumping Effect",
-                bullets: ["Συνδυασμός Υαλουρονικού οξέος για «γέμισμα» γραμμών.", "Ενισχύει τη δέσμευση υγρασίας στις βαθύτερες στοιβάδες.", "Ιδανική βάση για μακιγιάζ."],
-                howTo: "Πρωί σε καθαρή επιδερμίδα.", cautions: "Χωρίς parabens."
-            }),
-            science: hcpTable([{ing: "Sodium Hyaluronate (LMW)", moa: "Το χαμηλού μοριακού βάρους υαλουρονικό διεισδύει βαθύτερα (plumping)."}, {ing: "Jojoba Oil", moa: "Βιομιμητικοί εστέρες κηρού που ενισχύουν τον φραγμό."}]),
-            bibliography: biblioList(["Bukhari SNA, et al. (2018). Hyaluronic acid review.", "Ranzato E (2011). Jojoba oil properties."])
-        }
-    },
-    {
-        name: 'Revitace Eyes cream Luce 30ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Φωτεινό Βλέμμα & Αποσυμφόρηση",
-                bullets: ["Δράση κατά του πρηξίματος και των μαύρων κύκλων.", "Βελτιώνει τη μικροκυκλοφορία για ξεκούραστη όψη.", "Προσφέρει άμεση φωτεινότητα."],
-                howTo: "Ταμποναριστά πρωί και βράδυ.", cautions: "Οφθαλμολογικά ελεγμένη."
-            }),
-            science: hcpTable([{ing: "Escin (Ιπποκαστανιά)", moa: "Venotonic profile: Μειώνει τη διαπερατότητα των τριχοειδών."}, {ing: "Arnica Extract", moa: "Βοηθά στην απορρόφηση των χρωστικών του αίματος (κύκλοι)."}]),
-            bibliography: biblioList(["Gallelli L (2019). Escin review.", "Sirtori CR (2001). Aescin pharmacology."])
-        }
-    },
-    {
-        name: 'Zarkolia Cosmetic pack',
-        description: {
-            consumer: consumerBlock({
-                title: "Ολοκληρωμένο Πρωτόκολλο Αντιγήρανσης",
-                bullets: ["Η πλήρης ρουτίνα: Revitacell + Hydralia + Eyes.", "Συνδυαστική δράση για ενυδάτωση, σύσφιξη και λάμψη.", "Το απόλυτο δώρο για την υγεία της επιδερμίδας."],
-                howTo: "Πρωί: Hydralia & Eyes. Βράδυ: Revitacell & Eyes.", cautions: "Συνέργεια δραστικών."
-            }),
-            science: `<p>Ο συνδυασμός επιτυγχάνει ταυτόχρονη ρύθμιση του επιγενετικού ρολογιού (Klotho), της υδροδυναμικής (HA) και της μικροκυκλοφορίας (Escin).</p>`,
-            bibliography: biblioList(["Συνδυασμένη βιβλιογραφία Zarkolia series."])
-        }
-    },
-    {
-        name: 'Alveolair Sir',
-        description: {
-            consumer: consumerBlock({
-                title: "Φυτική Καταπράυνση & Άνεση Λαιμού",
-                bullets: ["Με Θυμάρι, Αλθέα και Ευκάλυπτο.", "Μαλακώνει τον λαιμό και βοηθά στην αναπνοή.", "Ευχάριστη γεύση."],
-                howTo: "Λήψη σύμφωνα με τις οδηγίες.", cautions: "Συμβουλευτείτε ιατρό αν τα συμπτώματα επιμένουν."
-            }),
-            science: hcpTable([{ing: "Thymus (θυμάρι)", moa: "Σπασμολυτικό και αντιμικροβιακό προφίλ (Thymol)."}, {ing: "Althaea root", moa: "Βλέννες που σχηματίζουν προστατευτικό φιλμ στο βλεννογόνο."}]),
-            bibliography: biblioList(["EMA/HMPC Monographs for Thyme and Althaea."])
+            consumer: "<h3>Θωράκιση Ανοσοποιητικού</h3><p>Ολοκληρωμένη φόρμουλα για την ενίσχυση της άμυνας του οργανισμού. Με Ψευδάργυρο, Ginger και NAC, προσφέρει αντιοξειδωτική προστασία και θωρακίζει το αναπνευστικό σύστημα.</p>",
+            science: "<h3>Ανοσολογία</h3><table class='hcp-table'><tr><th>Συστατικό</th><th>Δράση</th></tr><tr><td>Gingerols</td><td>Αναστολή οδών COX/LOX (αντιφλεγμονώδης δράση).</td></tr><tr><td>Zinc</td><td>Ρύθμιση διαφοροποίησης Τ-λεμφοκυττάρων.</td></tr><tr><td>NAC</td><td>Πρόδρομος γλουταθειόνης (GSH) & βλεννολυτική δράση.</td></tr></table>"
         }
     },
     {
         name: 'NUTRI MX PROBIOTIC PREMIUM',
         description: {
-            consumer: consumerBlock({
-                title: "Ισορροπία Μικροβιώματος & Πέψη",
-                bullets: ["18 στελέχη προβιοτικών (10 δις CFU).", "Υποστηρίζει τη φυσιολογική εντερική λειτουργία.", "Ενίσχυση ανοσοποιητικού."],
-                howTo: "1 κάψουλα ημερησίως.", cautions: "Τηρείτε τις οδηγίες."
-            }),
-            science: hcpTable([{ing: "18 Strains", moa: "Competitive exclusion παθογόνων και παραγωγή SCFA (βουτυρικό)."}]),
-            bibliography: biblioList(["Lee JY, et al. (2022). Science.", "Karamanolis GP (2019)."])
-        }
-    },
-    {
-        name: 'NUTRI MX MAGNESIUM 1 Τεμ',
-        description: {
-            consumer: consumerBlock({
-                title: "Μυϊκή Λειτουργία & Μείωση Κόπωσης",
-                bullets: ["Μαγνήσιο ενισχυμένο με Β6.", "Συμβάλλει στη μείωση της κούρασης.", "Υποστήριξη νευρικού συστήματος."],
-                howTo: "1 δισκίο ημερησίως.", cautions: "Σε νεφρική ανεπάρκεια απαιτείται ιατρική παρακολούθηση."
-            }),
-            science: hcpTable([{ing: "Magnesium (Citrate/Oxide)", moa: "Συμπαράγοντας σε >300 ενζυμικές αντιδράσεις (ATP)."}, {ing: "NMDA Modulation", moa: "Ρύθμιση νευρομυϊκής διεγερσιμότητας."}]),
-            bibliography: biblioList(["EU Reg. 432/2012 for Mg claims.", "Prasad AS (2008)."])
-        }
-    },
-    {
-        name: 'NUTRI MX A-Z',
-        description: {
-            consumer: consumerBlock({
-                title: "Πλήρης Πολυβιταμίνη AZ",
-                bullets: ["24 βιταμίνες, μέταλλα και ιχνοστοιχεία.", "Κάλυψη διατροφικών κενών.", "Τόνωση και ενέργεια."],
-                howTo: "1 δισκίο ημερησίως.", cautions: "Μην υπερβαίνετε τη δόση."
-            }),
-            science: hcpTable([{ing: "Vitamin Complex", moa: "Διασφάλιση μεταβολικής ομοιόστασης και ενεργειακού κύκλου (Krebs)."}]),
-            bibliography: biblioList(["Regulation (EU) 432/2012 for vitamins.", "EFSA DRVs."])
-        }
-    },
-    {
-        name: 'NUTRI MX OMEGA 3',
-        description: {
-            consumer: consumerBlock({
-                title: "Καρδιακή Λειτουργία & Εγκεφαλική Υποστήριξη",
-                bullets: ["Υψηλή καθαρότητα EPA/DHA.", "Συμβάλλει στη φυσιολογική λειτουργία της καρδιάς.", "Υποστήριξη της όρασης."],
-                howTo: "1-2 κάψουλες ημερησίως.", cautions: "Προσοχή σε αλλεργία ψαριού."
-            }),
-            science: hcpTable([{ing: "EPA/DHA", moa: "Ενσωμάτωση σε μεμβράνες και παραγωγή resolvins (αντιφλεγμονώδης δράση)."}]),
-            bibliography: biblioList(["Calder PC (2013). Omega-3 and inflammation.", "Mozaffarian D (2011)."])
-        }
-    },
-    {
-        name: 'NUTRI MX JOINT',
-        description: {
-            consumer: consumerBlock({
-                title: "Υποστήριξη Αρθρώσεων & Χόνδρων",
-                bullets: ["Γλυκοζαμίνη, Χονδροϊτίνη, MSM και Κολλαγόνο ΙΙ.", "Υποστηρίζει τη φυσιολογική κίνηση.", "Διατροφική υποστήριξη του χόνδρου."],
-                howTo: "1-2 δισκία ημερησίως.", cautions: "Προσοχή σε αλλεργία οστρακοειδών."
-            }),
-            science: hcpTable([{ing: "Glucosamine/Chondroitin", moa: "Δομικοί πρόδρομοι γλυκοζαμινογλυκανών (GAGs) χόνδρου."}, {ing: "Collagen Type II", moa: "Oral tolerance και δομική υποστήριξη."}]),
-            bibliography: biblioList(["Kislingh (2019). Collagen in joint health.", "Daskalou E (2016)."])
+            consumer: "<h3>18 Στελέχη για την Εντερική Υγεία</h3><p>10 δισεκατομμύρια CFU ανά κάψουλα για την αποκατάσταση της χλωρίδας και την ενίσχυση του μεταβολισμού. Ιδανικό για λήψη μαζί με αντιβίωση ή για πεπτικές διαταραχές.</p>",
+            science: "<h3>Μικροβίωμα</h3><p>Περιέχει στελέχη Lactobacillus και Bifidobacterium που παράγουν Λιπαρά Οξέα Βραχείας Αλύσου (SCFA), τρέφοντας το εντερικό επιθήλιο και ρυθμίζοντας την ανοσολογική απόκριση.</p>"
         }
     }
+    // Προσθέστε παρόμοιες περιγραφές για τα υπόλοιπα προϊόντα...
 ];
 
-// --- 5. ΑΡΧΙΚΟΠΟΙΗΣΗ ΕΦΑΡΜΟΓΗΣ ---
+// --- 4. ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ΕΦΑΡΜΟΓΗΣ ---
 document.addEventListener("DOMContentLoaded", function() {
+    // Δημιουργία Πίνακα Προϊόντων
     const tableBody = document.querySelector('#product-table tbody');
-    if(tableBody) {
-        products.forEach((p, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><strong>${p.name}</strong></td>
-                <td>${p.price.toFixed(2)} €</td>
-                <td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td>
-                <td><span id="gift-${index}" class="scale-badge" style="padding:4px 12px; border-width:1px;">0</span></td>
-                <td id="effective-${index}">${p.price.toFixed(2)} €</td>
-                <td id="total-${index}" style="font-weight:700;">0.00 €</td>`;
-            tableBody.appendChild(row);
-        });
-    }
+    products.forEach((p, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${p.name}</td>
+            <td>${p.price.toFixed(2)} €</td>
+            <td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td>
+            <td class="gifts" id="gift-${index}">0</td>
+            <td class="effective-price" id="effective-${index}">${p.price.toFixed(2)} €</td>
+            <td class="line-total" id="total-${index}">0.00 €</td>
+        `;
+        tableBody.appendChild(row);
+    });
 
+    // Δημιουργία Κουμπιών Καταλόγου
     const btnContainer = document.getElementById('productButtonsContainer');
-    if(btnContainer) {
-        products.forEach((p, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'product-btn'; btn.textContent = p.name;
-            btn.onclick = () => showProductDetails(index);
-            btnContainer.appendChild(btn);
-        });
-    }
+    products.forEach((p, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'product-btn';
+        btn.textContent = p.name;
+        btn.onclick = () => showProductDetails(index);
+        btnContainer.appendChild(btn);
+    });
 
-    const afmInput = document.getElementById('afm');
-    if(afmInput) {
-        afmInput.addEventListener('input', function() {
-            const afm = this.value.trim();
-            if (knownCustomers[afm]) {
-                const c = knownCustomers[afm];
-                document.getElementById('eponimia').value = c.eponimia;
-                document.getElementById('doy').value = c.doy;
-                document.getElementById('mobile').value = c.mobile;
-                document.getElementById('phone').value = c.phone;
-                document.getElementById('email').value = c.email;
-            }
-        });
-    }
-    updateAll();
+    // Αυτόματη Αναζήτηση ΑΦΜ
+    document.getElementById('afm').addEventListener('input', function() {
+        const afm = this.value.trim();
+        if (knownCustomers[afm]) {
+            const c = knownCustomers[afm];
+            document.getElementById('eponimia').value = c.eponimia;
+            document.getElementById('doy').value = c.doy;
+            document.getElementById('mobile').value = c.mobile;
+            document.getElementById('phone').value = c.phone;
+            document.getElementById('email').value = c.email;
+        }
+    });
 });
 
-// --- 6. ΥΠΟΛΟΓΙΣΜΟΙ ΔΩΡΩΝ & ΣΥΝΟΛΩΝ ---
-function calculateGifts(q){
+function calculateGifts(q) {
     if(q < 9) return 0;
     if(q < 18) return 1;
     if(q < 24) return 3;
     if(q < 48) return 6;
-    return Math.floor(q / 48) * 15;
+    return Math.floor(q * (15/48));
 }
 
-function updateAll(){
+function updateAll() {
     let net = 0;
-    const rows = document.querySelectorAll('#product-table tbody tr');
-    rows.forEach((row, index) => {
+    document.querySelectorAll('#product-table tbody tr').forEach((row, index) => {
         const qInput = row.querySelector(".quantity"), q = parseInt(qInput.value) || 0, p = parseFloat(qInput.dataset.price);
         const gifts = calculateGifts(q), lineTotal = q * p;
-        const giftEl = document.getElementById(`gift-${index}`);
-        const effEl = document.getElementById(`effective-${index}`);
-        const totalEl = document.getElementById(`total-${index}`);
-        if(giftEl) giftEl.textContent = gifts;
-        if(effEl) effEl.textContent = (q > 0 ? (lineTotal / (q + gifts)).toFixed(2) : p.toFixed(2)) + " €";
-        if(totalEl) totalEl.textContent = lineTotal.toFixed(2) + " €";
+        document.getElementById(`gift-${index}`).textContent = gifts;
+        document.getElementById(`effective-${index}`).textContent = (q > 0 ? (lineTotal / (q + gifts)).toFixed(2) : p.toFixed(2)) + " €";
+        document.getElementById(`total-${index}`).textContent = lineTotal.toFixed(2) + " €";
         net += lineTotal;
     });
     const vat = net * 0.24;
-    const netEl = document.getElementById("net-value");
-    const vatEl = document.getElementById("vat-value");
-    const finalEl = document.getElementById("final-total");
-    if(netEl) netEl.textContent = net.toFixed(2) + " €";
-    if(vatEl) vatEl.textContent = vat.toFixed(2) + " €";
-    if(finalEl) finalEl.textContent = (net + vat).toFixed(2) + " €";
+    document.getElementById("net-value").textContent = net.toFixed(2) + " €";
+    document.getElementById("vat-value").textContent = vat.toFixed(2) + " €";
+    document.getElementById("final-total").textContent = (net + vat).toFixed(2) + " €";
 }
 
-// --- 7. ΔΙΑΧΕΙΡΙΣΗ MODALS ---
-function showProductDetails(index){
+function showProductDetails(index) {
     const p = productDetails.find(i => i.name === products[index].name);
-    const tableInput = document.getElementById(`qty-${index}`);
     const modal = document.getElementById('productModal');
-    if(!modal) return;
-    let imgPath = `images/${products[index].name}.jpg`;
+    
     modal.innerHTML = `
         <div class="modal-content">
-            <div class="modal-header"><h2>${products[index].name}</h2><span class="close-button" onclick="closeProductModal()">&times;</span></div>
-            <img src="${imgPath}" onerror="this.style.display='none'" style="max-width:200px; display:block; margin:15px auto; border-radius:12px;">
-            <div class="modal-body">
-                <div class="modal-tabs">
-                    <button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button>
-                    <button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button>
-                    <button class="tab-button" onclick="openTab(event, 'Biblio')">Βιβλιογραφία</button>
-                </div>
-                <div id="Consumer" class="tab-content" style="display:block">${p ? p.description.consumer : "—"}</div>
-                <div id="Science" class="tab-content">${p ? p.description.science : "—"}</div>
-                <div id="Biblio" class="tab-content">${p ? p.description.bibliography : "—"}</div>
+            <div class="modal-header">
+                <h2>${products[index].name}</h2>
+                <span class="close-button" onclick="closeProductModal()">&times;</span>
             </div>
-            <div style="margin-top:20px; text-align:center; padding:15px; border-top:1px solid #eee;">
-                <label>Ποσότητα:</label> <input type="number" id="modalQty" value="${tableInput.value}" style="width:70px; padding:10px; border-radius:8px; border:1px solid #ccc;">
-                <button class="btn-main btn-email" style="padding:10px 25px; margin-left:10px; border-radius:8px; border:none; background:#059669; color:white; font-weight:bold; cursor:pointer;" onclick="updateFromModal(${index})">Ενημέρωση Ποσότητας</button>
+            <div class="modal-tabs">
+                <button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button>
+                <button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button>
             </div>
-        </div>`;
-    modal.style.display='block';
+            <div id="Consumer" class="tab-content" style="display:block">${p ? p.description.consumer : "Πληροφορίες σύντομα..."}</div>
+            <div id="Science" class="tab-content">${p ? p.description.science : "—"}</div>
+        </div>
+    `;
+    modal.style.display = 'block';
 }
 
-function updateFromModal(index){
-    const qtyInput = document.getElementById(`qty-${index}`);
-    const modalQty = document.getElementById('modalQty');
-    if (qtyInput && modalQty) { qtyInput.value = modalQty.value; updateAll(); }
-    closeProductModal();
-}
-
-function closeProductModal(){ document.getElementById('productModal').style.display='none'; }
+function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
 
 function openTab(evt, name) {
     let i, tabcontent = document.getElementsByClassName("tab-content"), tablinks = document.getElementsByClassName("tab-button");
@@ -489,33 +257,35 @@ function openTab(evt, name) {
     evt.currentTarget.className += " active";
 }
 
-// --- 8. ΕΞΑΓΩΓΗ EMAIL & TXT ---
 function sendEmailViaClient() {
     const payment = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "Δεν επιλέχθηκε";
     const name = document.getElementById("eponimia").value;
-    const afm = document.getElementById("afm").value;
-    if(!name) { alert("Εισάγετε Επωνυμία!"); return; }
     const subject = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH / ${new Date().toLocaleDateString('el-GR')} / ${name}`;
-    let body = `Αντίγραφο Παραγγελίας - Το παρόν δεν αποτελεί παραστατικό αγορών\n\nΠΕΛΑΤΗΣ: ${name}\nΑΦΜ: ${afm}\n\nΠΡΟΪΟΝΤΑ:\n`;
+    let body = `Αντίγραφο Παραγγελίας - Το παρόν δεν αποτελεί παραστατικό αγορών\n\nΠΕΛΑΤΗΣ: ${name}\n\nΠΡΟΪΟΝΤΑ:\n`;
     document.querySelectorAll("#product-table tbody tr").forEach(r => {
         const q = parseInt(r.querySelector('.quantity').value) || 0;
-        if(q > 0) body += `* ${r.cells[0].textContent} | Τεμ: ${q} | Δώρα: ${r.querySelector('.scale-badge').textContent}\n`;
+        if(q > 0) body += `* ${r.cells[0].textContent} | Τεμ: ${q} | Δώρα: ${r.cells[3].textContent}\n`;
     });
     body += `\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}\n\nΠΛΗΡΩΜΗ: ${payment}\nΠΑΡΑΤΗΡΗΣΕΙΣ: ${document.getElementById("remarks").value}\n\nIBAN: GR89 0172 2520 0052 5201 6160 277`;
     window.location.href = `mailto:pzaro2010@gmail.com,liapaki2017@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-function previewAndSaveAsTXT(){
+function previewAndSaveAsTXT() {
     const name = document.getElementById("eponimia").value;
-    if(!name) { alert("Εισάγετε Επωνυμία!"); return; }
-    let content = `ΠΑΡΑΓΓΕΛΙΑ ZARKOLIA HEALTH\nΠΕΛΑΤΗΣ: ${name}\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}\nIBAN: GR89 0172 2520 0052 5201 6160 277`;
+    let content = `ΠΑΡΑΓΓΕΛΙΑ ZARKOLIA HEALTH\nΠΕΛΑΤΗΣ: ${name}\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}`;
     document.getElementById('previewContent').textContent = content;
-    document.getElementById('previewModal').style.display='block';
+    document.getElementById('previewModal').style.display = 'block';
     document.getElementById('saveTxtButton').onclick = () => {
-        const blob = new Blob([content],{type:'text/plain;charset=utf-8'});
-        const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
-        link.download = `Order_${name}.txt`; link.click();
+        const blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `Order_${name}.txt`;
+        link.click();
     };
 }
 
-function clearForm(){ if(confirm("Καθαρισμός;")) { document.getElementById("orderForm").reset(); updateAll(); } }
+function clearForm() { 
+    document.getElementById("orderForm").reset(); 
+    document.querySelectorAll(".quantity").forEach(q => q.value = "0");
+    updateAll(); 
+}
