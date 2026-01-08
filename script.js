@@ -151,19 +151,7 @@ const productDetails = [
         }
     },
     {
-        name: 'Zplast Total Repair 50ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Ολική Αναδόμηση Φραγμού & Εντατική Επούλωση",
-                bullets: ["Lipid Replenishment: Ω-7 & Ω-5.", "Anti-Scar Technology: Προλαμβάνει χηλοειδή.", "Deep Repair: Ολική επαναφορά."],
-                howTo: "2-3 φορές ημερησίως.", cautions: "Κατάλληλο για διαβητικό πόδι."
-            }),
-            science: `<h3>Μοριακή Ανάλυση Total Repair</h3>${hcpTable([{ing: "Sea Buckthorn Oil (Ω-7)", moa: "Ενισχύει τη δομική συνοχή του νέου επιθηλίου."}, {ing: "Chios Mastic Oil", moa: "TGF-β Induction: Ρύθμιση σύνθεσης ελαστίνης."}, {ing: "HA Multi-MW", moa: "Osmotic Regulation: Διασφαλίζει moist healing."}])}`,
-            bibliography: biblioList(["Upadhyay NK (2009).", "Paraschos S (2012)."])
-        }
-    },
-    {
-        name: 'Zplast Total Repair 100ml',
+        name: 'ZplastCream 40gr',
         description: {
             consumer: consumerBlock({
                 title: "Ολική Αναδόμηση Φραγμού & Εντατική Επούλωση",
@@ -178,6 +166,18 @@ const productDetails = [
         name: 'ZplastCream 100gr',
         description: {
             consumer: consumerBlock({
+                title: "Ολική Αναδόμηση Φραγμού & Εντατική Επούλωση",
+                bullets: ["Lipid Replenishment: Ω-7 & Ω-5.", "Anti-Scar Technology: Προλαμβάνει χηλοειδή.", "Deep Repair: Ολική επαναφορά."],
+                howTo: "2-3 φορές ημερησίως.", cautions: "Κατάλληλο για διαβητικό πόδι."
+            }),
+            science: `<h3>Μοριακή Ανάλυση Total Repair</h3>${hcpTable([{ing: "Sea Buckthorn Oil (Ω-7)", moa: "Ενισχύει τη δομική συνοχή του νέου επιθηλίου."}, {ing: "Chios Mastic Oil", moa: "TGF-β Induction: Ρύθμιση σύνθεσης ελαστίνης."}, {ing: "HA Multi-MW", moa: "Osmotic Regulation: Διασφαλίζει moist healing."}])}`,
+            bibliography: biblioList(["Upadhyay NK (2009).", "Paraschos S (2012)."])
+        }
+    },
+    {
+        name: 'Zplast Total Repair 100ml',
+        description: {
+            consumer: consumerBlock({
                 title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
                 bullets: ["Εξειδικευμένη Αποκατάσταση: Σχεδιασμένη για δερματικές λύσεις συνέχειας, μετεγχειρητικές τομές και εγκαύματα.", "Ταχεία Επιθηλιοποίηση: Επιταχύνει τον πολλαπλασιασμό των κυττάρων.", "Προστασία Ιστού: Δημιουργεί ένα βιοσυμβατό φιλμ."],
                 howTo: "Εφαρμόστε στην πάσχουσα περιοχή 2-3 φορές ημερησίως.", cautions: "Μόνο για εξωτερική χρήση."
@@ -190,7 +190,7 @@ ${hcpTable([{ing: "Centella Asiatica", moa: "SMAD Signaling: Διεγείρει 
         }
     },
     {
-        name: 'ZplastCream 40gr',
+        name: 'Zplast Total Repair 50ml',
         description: {
             consumer: consumerBlock({
                 title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
