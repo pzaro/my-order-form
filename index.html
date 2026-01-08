@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - ERP & Compendium</title>
+    <title>Zarkolia Health - Premium Scientific Catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +11,7 @@
     <div class="main-container">
         <header style="text-align:center; margin-bottom:40px;">
             <h1 style="font-size:2.8rem; color:var(--emerald-dark); margin:0;">ZARKOLIA<span style="color:var(--slate); font-weight:300;">HEALTH</span></h1>
-            <p style="color:var(--slate-light); font-weight:600;">Digital Scientific Catalog & Cloud Ordering</p>
+            <p style="color:var(--slate-light); font-weight:600;">Digital Scientific Catalog & Order Management</p>
         </header>
 
         <section>
@@ -37,7 +37,7 @@
                 </div>
                 <div style="background:#f8fafc; padding:25px; border-radius:20px;">
                     <h3 style="margin-top:0;">Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="3" style="width:100%; border:none; border-radius:12px; padding:15px;"></textarea>
+                    <textarea id="remarks" rows="3" style="width:100%; border:none; border-radius:12px; padding:15px; font-family:inherit;" placeholder="Σημειώσεις..."></textarea>
                 </div>
             </div>
 
@@ -59,12 +59,18 @@
             </div>
 
             <div class="action-footer">
-                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Google Sheet</button>
-                <button type="button" class="btn-secondary" onclick="sendEmailViaClient()">Email Backup</button>
+                <button type="button" class="btn-primary" id="submitBtn" onclick="sendEmailViaClient()">Ολοκλήρωση & Αποστολή Email</button>
+                <button type="button" class="btn-danger" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
     </div>
     <div id="productModal" class="modal"></div>
     <script src="script.js"></script>
+    <script>
+        function onlyOne(checkbox) {
+            var checkboxes = document.getElementsByName('payment');
+            checkboxes.forEach((item) => { if (item !== checkbox) item.checked = false; });
+        }
+    </script>
 </body>
 </html>
