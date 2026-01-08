@@ -442,12 +442,40 @@ const productDetails = [
         name: 'Zarkolia Cosmetic pack',
         description: {
             consumer: consumerBlock({
-                title: "Ολοκληρωμένο Πρωτόκολλο Αντιγήρανσης",
-                bullets: ["**24h Routine:** Hydralia, Revitacell, Eyes.", "**Συνέργεια:** Μέγιστο αποτέλεσμα.", "**Αναδόμηση:** Πλήρης φροντίδα."],
-                howTo: "Πρωί & Βράδυ.", cautions: "Premium Gift Box."
+                title: "Ολοκληρωμένο Πρωτόκολλο Αντιγήρανσης & Αναδόμησης",
+                bullets: [
+                    "**Συνδυαστική Υπεροχή:** Περιλαμβάνει Hydralia Face, Revitacell Plus και Revitace Eyes για μια πλήρη 24ωρη ρουτίνα φροντίδας.",
+                    "**Στάδιο 1 (Hydralia):** Πρωινή ενυδάτωση, προστασία φραγμού και plumping effect για όλη την ημέρα.",
+                    "**Στάδιο 2 (Revitacell):** Βραδινή επιγενετική αναδόμηση, ενεργοποίηση του Klotho και λείανση ρυτίδων κατά τη διάρκεια του ύπνου.",
+                    "**Στάδιο 3 (Eyes Luce):** 24ωρη φροντίδα ματιών για φωτεινότητα, αποσυμφόρηση και καταπολέμηση μαύρων κύκλων."
+                ],
+                howTo: "**Πρωί:** Καθαρισμός ➜ Revitace Eyes ➜ Hydralia Face. **Βράδυ:** Καθαρισμός ➜ Revitace Eyes ➜ Revitacell Plus.",
+                cautions: "Το απόλυτο επιστημονικό δώρο για την υγεία της επιδερμίδας. Συνέργεια δραστικών για μέγιστο κλινικό αποτέλεσμα."
             }),
-            science: `<p>Συνεργιστικό μοντέλο που καλύπτει ταυτόχρονα την υδροδυναμική, την επιγενετική αναδόμηση και την τριχοειδική παροχέτευση.</p>`,
-            bibliography: biblioList(["Integrated scientific references."])
+            science: `
+                <h3>Συνεργιστικό Μοντέλο Δερμοκοσμητικής Παρέμβασης</h3>
+                <p><strong>Rationale:</strong> Ο συνδυασμός των τριών σκευασμάτων εξασφαλίζει την κάλυψη όλων των αναγκών της εξωκυττάριας ουσίας και του κυτταρικού μεταβολισμού.</p>
+                ${hcpTable([
+                    {
+                        ing: "Hydration (Hydralia)",
+                        moa: "Ρύθμιση ωσμωτικής πίεσης και άμεση πλήρωση του υδρολιπιδικού φραγμού."
+                    },
+                    {
+                        ing: "Epigenetics (Revitacell)",
+                        moa: "Ενεργοποίηση γονιδιακών μονοπατιών επιδιόρθωσης (Klotho) και αναστολή ενζυμικής αποδόμησης (MMPs)."
+                    },
+                    {
+                        ing: "Microcirculation (Eyes Luce)",
+                        moa: "Βελτίωση της τριχοειδικής κυκλοφορίας και μείωση της περικογχικής κατακράτησης υγρών."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Συνδυασμένη βιβλιογραφία των μεμονωμένων προϊόντων (Lall N, Bukhari SNA, Gallelli L).",
+                "Farris PK. (2014). Cosmeceuticals and Cosmetic Practice: A multi-modal approach to skin aging.",
+                "Rinnerthaler M, et al. (2015). Oxidative stress in aging human skin. Biomolecules."
+            ])
+
         }
     }
 ];
