@@ -161,87 +161,325 @@ const productDetails = [
         }
     },
     {
+        name: 'ZplastCream 100 ml', // Αντιστοιχεί στη Zplast Cream 50ml βάσει καταλόγου τιμών
+        description: {
+            consumer: consumerBlock({
+                title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
+                bullets: [
+                    "**Εξειδικευμένη Αποκατάσταση:** Σχεδιασμένη για δερματικές λύσεις συνέχειας, μετεγχειρητικές τομές και εγκαύματα.",
+                    "**Ταχεία Επιθηλιοποίηση:** Επιταχύνει τον πολλαπλασιασμό των κυττάρων και τη σύγκλειση των πληγών.",
+                    "**Προστασία Ιστού:** Δημιουργεί ένα βιοσυμβατό φιλμ που διατηρεί την ελαστικότητα και προλαμβάνει τη δημιουργία ουλών.",
+                    "**Premium Φροντίδα:** Ιδανική για ευαίσθητες περιοχές που απαιτούν υψηλό ρυθμό αναδόμησης."
+                ],
+                howTo: "Εφαρμόστε στην πάσχουσα περιοχή 2-3 φορές ημερησίως μέχρι την πλήρη ίαση.",
+                cautions: "Μόνο για εξωτερική χρήση. Δερματολογικά ελεγμένο προϊόν."
+            }),
+            science: `
+                <h3>Φαρμακολογικό Rationale & Μοριακή Δράση</h3>
+                <p><strong>Θεραπευτικός Στόχος:</strong> Ενεργοποίηση των ενδογενών μηχανισμών ανάπλασης και δομική ρύθμιση της εξωκυττάριας ουσίας (ECM).</p>
+                [Image of skin wound healing process]
+                ${hcpTable([
+                    {
+                        ing: "Centella Asiatica (Triterpenoids)",
+                        moa: "<strong>SMAD Signaling:</strong> Τα τριτερπενοειδή διεγείρουν τη βιοσύνθεση Κολλαγόνου Τύπου Ι & III μέσω της οδού SMAD, αυξάνοντας την αντοχή του ιστού στον εφελκυσμό."
+                    },
+                    {
+                        ing: "Hyaluronic Acid",
+                        moa: "<strong>Scaffold Technology:</strong> Δημιουργεί το απαραίτητο ικρίωμα για τη μετανάστευση των ινοβλαστών και διασφαλίζει το Moist Wound Healing περιβάλλον."
+                    },
+                    {
+                        ing: "Hypericum Perforatum",
+                        moa: "<strong>Keratinocyte Stimulation:</strong> Η υπερφορίνη διεγείρει τον πολλαπλασιασμό των κερατινοκυττάρων και προσφέρει αντιμικροβιακή προστασία ευρέος φάσματος."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Bylka W, et al. (2013). Centella asiatica in dermatology. PubMed: 24386321.",
+                "Wohlrab J (2018). Role of HA in modern wound management. J. Dermatol.",
+                "Öztürk N (2007). Hypericum in skin wound healing efficacy."
+            ])
+        }
+    },
+    {
+       name: 'ZplastCream 40 ml', // Αντιστοιχεί στη Zplast Cream 50ml βάσει καταλόγου τιμών
+        description: {
+            consumer: consumerBlock({
+                title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
+                bullets: [
+                    "**Εξειδικευμένη Αποκατάσταση:** Σχεδιασμένη για δερματικές λύσεις συνέχειας, μετεγχειρητικές τομές και εγκαύματα.",
+                    "**Ταχεία Επιθηλιοποίηση:** Επιταχύνει τον πολλαπλασιασμό των κυττάρων και τη σύγκλειση των πληγών.",
+                    "**Προστασία Ιστού:** Δημιουργεί ένα βιοσυμβατό φιλμ που διατηρεί την ελαστικότητα και προλαμβάνει τη δημιουργία ουλών.",
+                    "**Premium Φροντίδα:** Ιδανική για ευαίσθητες περιοχές που απαιτούν υψηλό ρυθμό αναδόμησης."
+                ],
+                howTo: "Εφαρμόστε στην πάσχουσα περιοχή 2-3 φορές ημερησίως μέχρι την πλήρη ίαση.",
+                cautions: "Μόνο για εξωτερική χρήση. Δερματολογικά ελεγμένο προϊόν."
+            }),
+            science: `
+                <h3>Φαρμακολογικό Rationale & Μοριακή Δράση</h3>
+                <p><strong>Θεραπευτικός Στόχος:</strong> Ενεργοποίηση των ενδογενών μηχανισμών ανάπλασης και δομική ρύθμιση της εξωκυττάριας ουσίας (ECM).</p>
+                [Image of skin wound healing process]
+                ${hcpTable([
+                    {
+                        ing: "Centella Asiatica (Triterpenoids)",
+                        moa: "<strong>SMAD Signaling:</strong> Τα τριτερπενοειδή διεγείρουν τη βιοσύνθεση Κολλαγόνου Τύπου Ι & III μέσω της οδού SMAD, αυξάνοντας την αντοχή του ιστού στον εφελκυσμό."
+                    },
+                    {
+                        ing: "Hyaluronic Acid",
+                        moa: "<strong>Scaffold Technology:</strong> Δημιουργεί το απαραίτητο ικρίωμα για τη μετανάστευση των ινοβλαστών και διασφαλίζει το Moist Wound Healing περιβάλλον."
+                    },
+                    {
+                        ing: "Hypericum Perforatum",
+                        moa: "<strong>Keratinocyte Stimulation:</strong> Η υπερφορίνη διεγείρει τον πολλαπλασιασμό των κερατινοκυττάρων και προσφέρει αντιμικροβιακή προστασία ευρέος φάσματος."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Bylka W, et al. (2013). Centella asiatica in dermatology. PubMed: 24386321.",
+                "Wohlrab J (2018). Role of HA in modern wound management. J. Dermatol.",
+                "Öztürk N (2007). Hypericum in skin wound healing efficacy."
+            ])
+        }
+    },
+    {
+        name: 'Zplast Total Repair 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Ολική Αναδόμηση Φραγμού & Εντατική Επούλωση",
+                bullets: [
+                    "**Εντατική Δράση:** Ενισχυμένη σύνθεση για την ολική αποκατάσταση του δερματικού φραγμού σε περιπτώσεις έντονων ερεθισμών ή βλαβών.",
+                    "**Lipid Replenishment:** Με Ω-7 και Ω-5 λιπίδια που αναπληρώνουν τη χαμένη υγρασία και ελαστικότητα.",
+                    "**Anti-Scar Technology:** Προλαμβάνει τη δημιουργία χηλοειδών και υπερτροφικών ουλών.",
+                    "**Deep Repair:** Δρα στα βαθύτερα στρώματα της επιδερμίδας για μόνιμο αποτέλεσμα ανάπλασης."
+                ],
+                howTo: "Εφαρμόστε 2-3 φορές ημερησίως. Ιδανικό για μετεπεμβατική χρήση (laser, peeling).",
+                cautions: "Κατάλληλο για διαβητικό πόδι και χρόνια έλκη υπό ιατρική επίβλεψη."
+            }),
+            science: `
+                <h3>Προηγμένη Ιστική Αναδόμηση</h3>
+                <p><strong>Στόχος:</strong> Ταυτόχρονη επιδιόρθωση DNA και αναπλήρωση μεμβρανικών λιπιδίων.</p>
+                ${hcpTable([
+                    {
+                        ing: "Sea Buckthorn Oil (Ω-7)",
+                        moa: "<strong>Membrane Stabilization:</strong> Το παλμιτολεϊκό οξύ ενσωματώνεται στα φωσφολιπίδια των κυτταρικών μεμβρανών, ενισχύοντας τη δομική συνοχή του νέου ιστού."
+                    },
+                    {
+                        ing: "Chios Mastic Oil",
+                        moa: "<strong>TGF-β Induction:</strong> Επάγει την έκφραση του μεταμορφωτικού αυξητικού παράγοντα βήτα, ο οποίος ενορχηστρώνει τη σύνθεση ελαστίνης και κολλαγόνου."
+                    },
+                    {
+                        ing: "Hyaluronic Acid Multi-weight",
+                        moa: "<strong>Osmotic Regulation:</strong> Ρυθμίζει την υδροδυναμική ισορροπία της ECM, αποτρέποντας την αφυδάτωση των κερατινοκυττάρων."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Upadhyay NK, et al. (2009). Sea buckthorn oil facilitates wound healing. PubMed.",
+                "Paraschos S, et al. (2012). Chios Mastic Gum biological activities.",
+                "Schultz GS, et al. (2011). Extracellular matrix and growth factors in healing."
+            ])
+        }
+    },
+     {
         name: 'Zplast Total Repair 100ml',
         description: {
             consumer: consumerBlock({
                 title: "Ολική Αναδόμηση Φραγμού & Εντατική Επούλωση",
-                bullets: ["**Lipid Replenishment:** Ω-7 & Ω-5.", "**Anti-Scar Technology:** Προλαμβάνει χηλοειδή.", "**Deep Repair:** Ολική επαναφορά."],
-                howTo: "2-3 φορές ημερησίως.", cautions: "Κατάλληλο για διαβητικό πόδι."
+                bullets: [
+                    "**Εντατική Δράση:** Ενισχυμένη σύνθεση για την ολική αποκατάσταση του δερματικού φραγμού σε περιπτώσεις έντονων ερεθισμών ή βλαβών.",
+                    "**Lipid Replenishment:** Με Ω-7 και Ω-5 λιπίδια που αναπληρώνουν τη χαμένη υγρασία και ελαστικότητα.",
+                    "**Anti-Scar Technology:** Προλαμβάνει τη δημιουργία χηλοειδών και υπερτροφικών ουλών.",
+                    "**Deep Repair:** Δρα στα βαθύτερα στρώματα της επιδερμίδας για μόνιμο αποτέλεσμα ανάπλασης."
+                ],
+                howTo: "Εφαρμόστε 2-3 φορές ημερησίως. Ιδανικό για μετεπεμβατική χρήση (laser, peeling).",
+                cautions: "Κατάλληλο για διαβητικό πόδι και χρόνια έλκη υπό ιατρική επίβλεψη."
             }),
-            science: `<h3>Μοριακή Ανάλυση Total Repair</h3>${hcpTable([{ing: "Sea Buckthorn Oil (Ω-7)", moa: "Ενισχύει τη δομική συνοχή του νέου επιθηλίου."}, {ing: "Chios Mastic Oil", moa: "TGF-β Induction: Ρυθμίζει τη σύνθεση ελαστίνης."}, {ing: "HA Multi-MW", moa: "Osmotic Regulation: Διασφαλίζει moist healing."}])}`,
-            bibliography: biblioList(["Upadhyay NK (2009).", "Paraschos S (2012)."])
+            science: `
+                <h3>Προηγμένη Ιστική Αναδόμηση</h3>
+                <p><strong>Στόχος:</strong> Ταυτόχρονη επιδιόρθωση DNA και αναπλήρωση μεμβρανικών λιπιδίων.</p>
+                ${hcpTable([
+                    {
+                        ing: "Sea Buckthorn Oil (Ω-7)",
+                        moa: "<strong>Membrane Stabilization:</strong> Το παλμιτολεϊκό οξύ ενσωματώνεται στα φωσφολιπίδια των κυτταρικών μεμβρανών, ενισχύοντας τη δομική συνοχή του νέου ιστού."
+                    },
+                    {
+                        ing: "Chios Mastic Oil",
+                        moa: "<strong>TGF-β Induction:</strong> Επάγει την έκφραση του μεταμορφωτικού αυξητικού παράγοντα βήτα, ο οποίος ενορχηστρώνει τη σύνθεση ελαστίνης και κολλαγόνου."
+                    },
+                    {
+                        ing: "Hyaluronic Acid Multi-weight",
+                        moa: "<strong>Osmotic Regulation:</strong> Ρυθμίζει την υδροδυναμική ισορροπία της ECM, αποτρέποντας την αφυδάτωση των κερατινοκυττάρων."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Upadhyay NK, et al. (2009). Sea buckthorn oil facilitates wound healing. PubMed.",
+                "Paraschos S, et al. (2012). Chios Mastic Gum biological activities.",
+                "Schultz GS, et al. (2011). Extracellular matrix and growth factors in healing."
+            ])
         }
     },
     {
-        name: 'ZplastCream 40gr',
+        name: 'Bruise Off Bite Out & Pain Free cream 50ml', // Αντιστοιχεί στα 50ml
         description: {
             consumer: consumerBlock({
-                title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
-                bullets: ["**Εξειδικευμένη Αποκατάσταση:** Πληγές & τομές.", "**Ταχεία Επιθηλιοποίηση:** Επιταχύνει τον πολλαπλασιασμό.", "**Πρόληψη Σημαδιών:** Διασφαλίζει ελαστικότητα."],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως.", cautions: "Εξωτερική χρήση."
+                title: "Άμεση Αποσυμφόρηση & Ανακούφιση από Τραυματισμούς",
+                bullets: [
+                    "**Τριπλή Στόχευση:** Εξαφανίζει μελανιές (εκχυμώσεις), μειώνει το οίδημα και ανακουφίζει από μυϊκούς πόνους.",
+                    "**Βαθιά Διείσδυση:** Η Ουρία μαλακώνει την επιδερμίδα, επιτρέποντας στα δραστικά συστατικά να φτάσουν άμεσα στο αιμάτωμα.",
+                    "**Άμεση Δράση:** Ιδανικό για τσιμπήματα εντόμων, διαστρέμματα και μώλωπες μετά από αισθητικές επεμβάσεις.",
+                    "**Cooling Effect:** Προσφέρει άμεση αίσθηση ανακούφισης και δροσιάς στην πάσχουσα περιοχή."
+                ],
+                howTo: "Επάλειψη με ήπιο μασάζ 3-4 φορές ημερησίως μέχρι την απορρόφηση των μελανιών.",
+                cautions: "Περιέχει Άρνικα. Μην εφαρμόζεται σε ανοιχτές πληγές ή βλεννογόνους."
             }),
-            science: `<h3>Μηχανισμός Ιστικής Αναδόμησης</h3>${hcpTable([{ing: "Centella Asiatica", moa: "SMAD Signaling Activation: Διεγείρει Κολλαγόνο Ι & III."}, {ing: "Hyaluronic Acid", moa: "ECM Scaffold: Ρυθμίζει τη μετανάστευση ινοβλαστών."}, {ing: "Hypericum Perforatum", moa: "Keratinocyte Stimulation: Διεγείρει τη διαφοροποίηση."}])}`,
-            bibliography: biblioList(["Bylka W (2013).", "Wohlrab J (2018)."])
+            science: `
+                <h3>Μοριακός Μηχανισμός Αντιφλεγμονώδους Δράσης</h3>
+                <p><strong>Στόχος:</strong> Αναστολή της φλεγμονώδους εξαγγείωσης και επιτάχυνση της κάθαρσης της αιμοσφαιρίνης.</p>
+                
+                ${hcpTable([
+                    {
+                        ing: "Urea (Ουρία)",
+                        moa: "<strong>Penetration Enhancer:</strong> Λειτουργεί ως κερατολυτικός φορέας που διασπά τους δεσμούς υδρογόνου, αυξάνοντας τη διαδερμική βιοδιαθεσιμότητα των βοτανικών δραστικών."
+                    },
+                    {
+                        ing: "Arnica Montana (Helenalin)",
+                        moa: "<strong>NF-κB Inhibition:</strong> Η ελεναλίνη αναστέλλει τον μεταγραφικό παράγοντα NF-κB, καταστέλλοντας την έκφραση προ-φλεγμονωδών κυτταροκινών (IL-1, TNF-α)."
+                    },
+                    {
+                        ing: "Carvacrol",
+                        moa: "<strong>TRPV1 Modulation:</strong> Προκαλεί ελεγχόμενη τοπική υπεραιμία, η οποία επιταχύνει τη μεταβολική απομάκρυνση των προϊόντων της φλεγμονής και του οιδήματος."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Wohlrab J (2018). Urea in Dermatology. PubMed.",
+                "Lyss G, et al. (1998). Helenalin as a potent anti-inflammatory tool. Biol Chem.",
+                "EMA Assessment Report on Arnica montana L. (2014)."
+            ])
+
         }
     },
     {
-        name: 'ZplastCream 100gr',
+        name: 'Bruise Off Bite Out & Pain Free cream 100ml', // Αντιστοιχεί στα 50ml
         description: {
             consumer: consumerBlock({
-                title: "Κλινική Επούλωση & Κυτταρική Ανάπλαση",
-                bullets: ["**Εξειδικευμένη Αποκατάσταση:** Πληγές & τομές.", "**Ταχεία Επιθηλιοποίηση:** Επιταχύνει τον πολλαπλασιασμό.", "**Πρόληψη Σημαδιών:** Διασφαλίζει ελαστικότητα."],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως.", cautions: "Εξωτερική χρήση."
+                title: "Άμεση Αποσυμφόρηση & Ανακούφιση από Τραυματισμούς",
+                bullets: [
+                    "**Τριπλή Στόχευση:** Εξαφανίζει μελανιές (εκχυμώσεις), μειώνει το οίδημα και ανακουφίζει από μυϊκούς πόνους.",
+                    "**Βαθιά Διείσδυση:** Η Ουρία μαλακώνει την επιδερμίδα, επιτρέποντας στα δραστικά συστατικά να φτάσουν άμεσα στο αιμάτωμα.",
+                    "**Άμεση Δράση:** Ιδανικό για τσιμπήματα εντόμων, διαστρέμματα και μώλωπες μετά από αισθητικές επεμβάσεις.",
+                    "**Cooling Effect:** Προσφέρει άμεση αίσθηση ανακούφισης και δροσιάς στην πάσχουσα περιοχή."
+                ],
+                howTo: "Επάλειψη με ήπιο μασάζ 3-4 φορές ημερησίως μέχρι την απορρόφηση των μελανιών.",
+                cautions: "Περιέχει Άρνικα. Μην εφαρμόζεται σε ανοιχτές πληγές ή βλεννογόνους."
             }),
-            science: `<h3>Μηχανισμός Ιστικής Αναδόμησης</h3>${hcpTable([{ing: "Centella Asiatica", moa: "SMAD Signaling Activation: Διεγείρει Κολλαγόνο Ι & III."}, {ing: "Hyaluronic Acid", moa: "ECM Scaffold: Ρυθμίζει τη μετανάστευση ινοβλαστών."}, {ing: "Hypericum Perforatum", moa: "Keratinocyte Stimulation: Διεγείρει τη διαφοροποίηση."}])}`,
-            bibliography: biblioList(["Bylka W (2013).", "Wohlrab J (2018)."])
-        }
-    },
-    {
-        name: 'Bruise Off Bite Out & Pain Free cream',
-        description: {
-            consumer: consumerBlock({
-                title: "Αποσυμφόρηση & Αναλγητική Δράση",
-                bullets: ["**Άμεση Απορρόφηση:** Εξαφανίζει μελανιές & οιδήματα.", "**Penetration Technology:** Με Ουρία.", "**Καταπραϋντική Δράση:** Τσιμπήματα & μυϊκοί πόνοι."],
-                howTo: "3-4 φορές ημερησίως.", cautions: "Περιέχει Άρνικα."
-            }),
-            science: `<h3>Μοριακή Αντιφλεγμονώδης Στόχευση</h3>${hcpTable([{ing: "Urea", moa: "Penetration Enhancer: Διασπά δεσμούς υδρογόνου κερατίνης."}, {ing: "Arnica (Helenalin)", moa: "NF-κB Inhibition: Καταστέλλει IL-1 & TNF-α."}, {ing: "Carvacrol", moa: "TRPV1 Agonist: Ταχεία απομάκρυνση οιδήματος."}])}`,
-            bibliography: biblioList(["Wohlrab J (2018).", "Lyss G (1998)."])
-        }
-    },
-    {
-        name: 'Bruise Off Bite Out & Pain Free cream 100ml',
-        description: {
-            consumer: consumerBlock({
-                title: "Αποσυμφόρηση & Αναλγητική Δράση",
-                bullets: ["**Άμεση Απορρόφηση:** Εξαφανίζει μελανιές & οιδήματα.", "**Penetration Technology:** Με Ουρία.", "**Καταπραϋντική Δράση:** Τσιμπήματα & μυϊκοί πόνοι."],
-                howTo: "3-4 φορές ημερησίως.", cautions: "Περιέχει Άρνικα."
-            }),
-            science: `<h3>Μοριακή Αντιφλεγμονώδης Στόχευση</h3>${hcpTable([{ing: "Urea", moa: "Penetration Enhancer: Διασπά δεσμούς υδρογόνου κερατίνης."}, {ing: "Arnica (Helenalin)", moa: "NF-κB Inhibition: Καταστέλλει IL-1 & TNF-α."}, {ing: "Carvacrol", moa: "TRPV1 Agonist: Ταχεία απομάκρυνση οιδήματος."}])}`,
-            bibliography: biblioList(["Wohlrab J (2018).", "Lyss G (1998)."])
+            science: `
+                <h3>Μοριακός Μηχανισμός Αντιφλεγμονώδους Δράσης</h3>
+                <p><strong>Στόχος:</strong> Αναστολή της φλεγμονώδους εξαγγείωσης και επιτάχυνση της κάθαρσης της αιμοσφαιρίνης.</p>
+                
+                ${hcpTable([
+                    {
+                        ing: "Urea (Ουρία)",
+                        moa: "<strong>Penetration Enhancer:</strong> Λειτουργεί ως κερατολυτικός φορέας που διασπά τους δεσμούς υδρογόνου, αυξάνοντας τη διαδερμική βιοδιαθεσιμότητα των βοτανικών δραστικών."
+                    },
+                    {
+                        ing: "Arnica Montana (Helenalin)",
+                        moa: "<strong>NF-κB Inhibition:</strong> Η ελεναλίνη αναστέλλει τον μεταγραφικό παράγοντα NF-κB, καταστέλλοντας την έκφραση προ-φλεγμονωδών κυτταροκινών (IL-1, TNF-α)."
+                    },
+                    {
+                        ing: "Carvacrol",
+                        moa: "<strong>TRPV1 Modulation:</strong> Προκαλεί ελεγχόμενη τοπική υπεραιμία, η οποία επιταχύνει τη μεταβολική απομάκρυνση των προϊόντων της φλεγμονής και του οιδήματος."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Wohlrab J (2018). Urea in Dermatology. PubMed.",
+                "Lyss G, et al. (1998). Helenalin as a potent anti-inflammatory tool. Biol Chem.",
+                "EMA Assessment Report on Arnica montana L. (2014)."
+            ])
+
         }
     },
     {
         name: 'Z-boost 30 caps',
         description: {
             consumer: consumerBlock({
-                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού",
-                bullets: ["**Στοχευμένη Άμυνα:** Έναντι ιώσεων.", "**Αντιοξειδωτική Υπεροχή:** Με NAC & Ψευδάργυρο.", "**Ενεργειακή Τόνωση:** Με CoQ10."],
-                howTo: "1 κάψουλα μετά το γεύμα.", cautions: "Συμπλήρωμα διατροφής."
+                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού & Κυτταρική Ενέργεια",
+                bullets: [
+                    "**Στοχευμένη Άμυνα:** Ενισχύει το ανοσοποιητικό σύστημα έναντι ιώσεων και κρυολογήματος.",
+                    "**Αντιοξειδωτική Προστασία:** Με NAC και Ψευδάργυρο για την εξουδετέρωση ελευθέρων ριζών.",
+                    "**Μείωση Κόπωσης:** Περιέχει CoQ10 για την άμεση τόνωση της κυτταρικής ενέργειας.",
+                    "**Αναπνευστική Υποστήριξη:** Συμβάλλει στη διατήρηση της υγείας των αεραγωγών και στη μείωση των φλεγμονών."
+                ],
+                howTo: "1 κάψουλα ημερησίως μετά το γεύμα. Προτείνεται η λήψη κατά την αλλαγή των εποχών.",
+                cautions: "Συμπλήρωμα διατροφής. Συμβουλευτείτε τον ιατρό σας εάν λαμβάνετε φαρμακευτική αγωγή."
             }),
-            science: `<h3>Ανοσοφαρμακολογική Υποστήριξη</h3>${hcpTable([{ing: "Zinc", moa: "Viral Replication Inhibition: Αναστέλλει την RNA πολυμεράση."}, {ing: "NAC", moa: "GSH Precursor: Σύνθεση Γλουταθειόνης & βλεννόλυση."}, {ing: "Gingerols", moa: "Dual Path Inhibition: Αναστολή COX-2 & 5-LOX."}])}`,
-            bibliography: biblioList(["Hemilä H (2017).", "Grzanna R (2005)."])
+            science: `
+                <h3>Ανοσοφαρμακολογική Υποστήριξη</h3>
+                <p><strong>Στόχος:</strong> Βελτιστοποίηση της Τ-κυτταρικής απόκρισης και ενίσχυση του συστήματος της Γλουταθειόνης.</p>
+                
+                ${hcpTable([
+                    {
+                        ing: "Zinc (Ψευδάργυρος)",
+                        moa: "<strong>Viral Replication Inhibition:</strong> Αναστέλλει την RNA-εξαρτώμενη RNA πολυμεράση των ιών, εμποδίζοντας τον πολλαπλασιασμό τους στο ρινικό επιθήλιο."
+                    },
+                    {
+                        ing: "N-Acetylcysteine (NAC)",
+                        moa: "<strong>GSH Precursor:</strong> Παρέχει το απαραίτητο υπόστρωμα για τη σύνθεση της Γλουταθειόνης (ενδογενές αντιοξειδωτικό) και παρουσιάζει βλεννολυτική δράση."
+                    },
+                    {
+                        ing: "Gingerols (Ginger)",
+                        moa: "<strong>Dual Path Inhibition:</strong> Αναστέλλουν ταυτόχρονα τις οδούς COX-2 και 5-LOX, μειώνοντας την παραγωγή προ-φλεγμονωδών προσταγλανδινών."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Hemilä H (2017). Zinc and common cold meta-analysis. PubMed.",
+                "Grzanna R (2005). Ginger anti-inflammatory actions review.",
+                "Šalamon S (2019). Medical Uses of N-Acetylcysteine."
+            ])
+
         }
     },
     {
         name: 'Z-boost 12 caps',
         description: {
             consumer: consumerBlock({
-                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού",
-                bullets: ["**Στοχευμένη Άμυνα:** Έναντι ιώσεων.", "**Αντιοξειδωτική Υπεροχή:** Με NAC & Ψευδάργυρο.", "**Ενεργειακή Τόνωση:** Με CoQ10."],
-                howTo: "1 κάψουλα μετά το γεύμα.", cautions: "Συμπλήρωμα διατροφής."
+                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού & Κυτταρική Ενέργεια",
+                bullets: [
+                    "**Στοχευμένη Άμυνα:** Ενισχύει το ανοσοποιητικό σύστημα έναντι ιώσεων και κρυολογήματος.",
+                    "**Αντιοξειδωτική Προστασία:** Με NAC και Ψευδάργυρο για την εξουδετέρωση ελευθέρων ριζών.",
+                    "**Μείωση Κόπωσης:** Περιέχει CoQ10 για την άμεση τόνωση της κυτταρικής ενέργειας.",
+                    "**Αναπνευστική Υποστήριξη:** Συμβάλλει στη διατήρηση της υγείας των αεραγωγών και στη μείωση των φλεγμονών."
+                ],
+                howTo: "1 κάψουλα ημερησίως μετά το γεύμα. Προτείνεται η λήψη κατά την αλλαγή των εποχών.",
+                cautions: "Συμπλήρωμα διατροφής. Συμβουλευτείτε τον ιατρό σας εάν λαμβάνετε φαρμακευτική αγωγή."
             }),
-            science: `<h3>Ανοσοφαρμακολογική Υποστήριξη</h3>${hcpTable([{ing: "Zinc", moa: "Viral Replication Inhibition: Αναστέλλει την RNA πολυμεράση."}, {ing: "NAC", moa: "GSH Precursor: Σύνθεση Γλουταθειόνης & βλεννόλυση."}, {ing: "Gingerols", moa: "Dual Path Inhibition: Αναστολή COX-2 & 5-LOX."}])}`,
-            bibliography: biblioList(["Hemilä H (2017).", "Grzanna R (2005)."])
+            science: `
+                <h3>Ανοσοφαρμακολογική Υποστήριξη</h3>
+                <p><strong>Στόχος:</strong> Βελτιστοποίηση της Τ-κυτταρικής απόκρισης και ενίσχυση του συστήματος της Γλουταθειόνης.</p>
+                
+                ${hcpTable([
+                    {
+                        ing: "Zinc (Ψευδάργυρος)",
+                        moa: "<strong>Viral Replication Inhibition:</strong> Αναστέλλει την RNA-εξαρτώμενη RNA πολυμεράση των ιών, εμποδίζοντας τον πολλαπλασιασμό τους στο ρινικό επιθήλιο."
+                    },
+                    {
+                        ing: "N-Acetylcysteine (NAC)",
+                        moa: "<strong>GSH Precursor:</strong> Παρέχει το απαραίτητο υπόστρωμα για τη σύνθεση της Γλουταθειόνης (ενδογενές αντιοξειδωτικό) και παρουσιάζει βλεννολυτική δράση."
+                    },
+                    {
+                        ing: "Gingerols (Ginger)",
+                        moa: "<strong>Dual Path Inhibition:</strong> Αναστέλλουν ταυτόχρονα τις οδούς COX-2 και 5-LOX, μειώνοντας την παραγωγή προ-φλεγμονωδών προσταγλανδινών."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Hemilä H (2017). Zinc and common cold meta-analysis. PubMed.",
+                "Grzanna R (2005). Ginger anti-inflammatory actions review.",
+                "Šalamon S (2019). Medical Uses of N-Acetylcysteine."
+            ])
+
         }
     },
     {
@@ -391,51 +629,164 @@ const productDetails = [
         }
     },
     {
-        name: 'NUTRI MX MAGNESIUM 1 Τεμ',
+       name: 'NUTRI MX MAGNESIUM 30 tb',
         description: {
             consumer: consumerBlock({
-                title: "Μαγνήσιο & Β6",
-                bullets: ["**Μυϊκή Χαλάρωση:** Πρόληψη κραμπών.", "**Νευρικό Σύστημα:** Μείωση άγχους.", "**Ενέργεια:** Μείωση κόπωσης."],
-                howTo: "1 δισκίο το βράδυ.", cautions: "Συμπλήρωμα διατροφής."
+                title: "Μαγνήσιο & Β6 για Μυϊκή Χαλάρωση & Νευρική Ισορροπία",
+                bullets: [
+                    "**Κατά των Κραμπών:** Συμβάλλει στη φυσιολογική λειτουργία των μυών και την πρόληψη των μυϊκών σπασμών.",
+                    "**Νευρικό Σύστημα:** Βοηθά στη μείωση του άγχους, της ευερεθιστότητας και στη βελτίωση της ποιότητας του ύπνου.",
+                    "**Μείωση Κόπωσης:** Η βιταμίνη Β6 ενισχύει την απορρόφηση του μαγνησίου και τη μεταβολική ενέργεια.",
+                    "**Ηλεκτρολυτική Ισορροπία:** Απαραίτητο για τη διατήρηση της ομοιόστασης των μετάλλων στον οργανισμό."
+                ],
+                howTo: "Λαμβάνετε 1 δισκίο ημερησίως, κατά προτίμηση το βράδυ πριν τον ύπνο.",
+                cautions: "Συμπλήρωμα διατροφής. Σε περιπτώσεις νεφρικής ανεπάρκειας, η λήψη πρέπει να γίνεται κατόπιν ιατρικής συμβουλής."
             }),
-            science: `<h3>Νευρομυϊκή Φυσιολογία</h3>${hcpTable([{ing: "Magnesium", moa: "NMDA Antagonist: Ρύθμιση διεγερσιμότητας."}, {ing: "Vitamin B6", moa: "Chaperone: Είσοδος Mg στα κύτταρα."}, {ing: "Mg-ATP Complex", moa: "Παραγωγή μεταβολικής ενέργειας."}])}`,
-            bibliography: biblioList(["Prasad AS (2008).", "Pouteau E (2018)."])
+            science: `
+                <h3>Νευρομυϊκή Φυσιολογία & NMDA Modulation</h3>
+                <p><strong>Στόχος:</strong> Ρύθμιση του διαύλου ασβεστίου και υποστήριξη της μιτοχονδριακής παραγωγής ATP.</p>
+                ${hcpTable([
+                    {
+                        ing: "Magnesium (Citrate/Oxide)",
+                        moa: "<strong>NMDA Antagonist:</strong> Το μαγνήσιο λειτουργεί ως φυσικός αναστολέας στον υποδοχέα NMDA, αποτρέποντας την υπερδιέγερση των νευρώνων (excitotoxicity). Ρυθμίζει τη σύσπαση/χάλαση των μυϊκών ινών."
+                    },
+                    {
+                        ing: "Vitamin B6 (Pyridoxine)",
+                        moa: "<strong>Magnesium Chaperone:</strong> Ενεργεί ως φορέας που διευκολύνει την είσοδο του μαγνησίου στο εσωτερικό των κυττάρων. Συμμετέχει στη σύνθεση του GABA (κατασταλτικός νευροδιαβιβαστής)."
+                    },
+                    {
+                        ing: "ATP Biology",
+                        moa: "<strong>Energy Metabolism:</strong> Το Μαγνήσιο είναι απαραίτητος συμπαράγοντας για το σύμπλοκο Mg-ATP, την ενεργό μορφή της ενέργειας που χρησιμοποιείται σε όλες τις μεταβολικές διεργασίες."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "EFSA Journal (2010). Scientific Opinion on the substantiation of health claims related to Magnesium.",
+                "Prasad AS. (2008). Magnesium in Human Health. Molecular Medicine.",
+                "Pouteau E, et al. (2018). Is Magnesium plus Vitamin B6 better than Magnesium alone for severe stress? A randomized controlled trial. PLoS ONE."
+            ])
+
         }
     },
     {
-        name: 'NUTRI MX A-Z',
+        name: 'NUTRI MX A-Z 30 tb',
         description: {
             consumer: consumerBlock({
-                title: "Πλήρης Πολυβιταμίνη AZ",
-                bullets: ["**24 Συστατικά:** Πλήρης κάλυψη.", "**Ενέργεια:** Σύμπλεγμα Β.", "**Άμυνα:** C, D & Zinc."],
-                howTo: "1 δισκίο το πρωί.", cautions: "Συμπλήρωμα διατροφής."
+                title: "Πλήρης Πολυβιταμίνη για Τόνωση, Ενέργεια & Μεταβολισμό",
+                bullets: [
+                    "**24 Βασικά Θρεπτικά Συστατικά:** Πλήρης κάλυψη βιταμινών, μετάλλων και ιχνοστοιχείων για την καθημερινή υποστήριξη του οργανισμού.",
+                    "**Ενεργειακή Τόνωση:** Συμβάλλει στη μείωση της κούρασης και της κόπωσης χάρη στο σύμπλεγμα βιταμινών Β.",
+                    "**Ενίσχυση Ανοσοποιητικού:** Με βιταμίνες C, D και Ψευδάργυρο για την θωράκιση της φυσικής άμυνας.",
+                    "**Πνευματική Διαύγεια:** Υποστηρίζει τη φυσιολογική γνωσιακή λειτουργία και τη συγκέντρωση."
+                ],
+                howTo: "Λαμβάνετε 1 δισκίο ημερησίως, κατά προτίμηση μετά το πρωινό γεύμα.",
+                cautions: "Συμπλήρωμα διατροφής. Να μην υπερβαίνεται η συνιστώμενη δόση. Μακριά από μικρά παιδιά."
             }),
-            science: `<h3>Μεταβολική Ομοιόσταση</h3>${hcpTable([{ing: "B-Complex", moa: "Co-enzymatic Activity: Μεταβολισμός ATP."}, {ing: "Vitamin C & Zinc", moa: "Immune Support & DNA Stability."}])}`,
-            bibliography: biblioList(["Kennedy DO (2016).", "EFSA Journal (2010)."])
+            science: `
+                <h3>Μεταβολική Ομοιόσταση & Μικροθρεπτικά</h3>
+                <p><strong>Στόχος:</strong> Διασφάλιση των ενζυμικών συμπαραγόντων για τον κύκλο του Krebs και την αντιοξειδωτική άμυνα.</p>
+                ${hcpTable([
+                    {
+                        ing: "B-Complex (B1, B2, B6, B12)",
+                        moa: "<strong>Co-enzymatic Activity:</strong> Απαραίτητες για τη μετατροπή των μακροθρεπτικών σε ATP. Ρυθμίζουν τον μεταβολισμό της ομοκυστεΐνης και τη σύνθεση νευροδιαβιβαστών."
+                    },
+                    {
+                        ing: "Vitamin C & Zinc",
+                        moa: "<strong>Immune Support:</strong> Η βιταμίνη C ενισχύει τη φαγοκυττάρωση των ουδετεροφίλων. Ο ψευδάργυρος είναι κρίσιμος για τη σταθερότητα των 'zinc fingers' στις πρωτεΐνες μεταγραφής του DNA."
+                    },
+                    {
+                        ing: "Lutein & Trace Elements",
+                        moa: "<strong>Oxidative Stress Control:</strong> Η λουτεΐνη προστατεύει την ωχρά κηλίδα από τη φωτοοξείδωση. Το Μαγγάνιο και ο Χαλκός αποτελούν δομικά στοιχεία της υπεροξειδικής δισμουτάσης (SOD)."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Regulation (EU) 432/2012 on permitted health claims for vitamins and minerals.",
+                "Kennedy DO. (2016). B Vitamins and the Brain: Mechanisms, Dose and Efficacy. Nutrients.",
+                "EFSA Journal (2010). Scientific Opinion on the substantiation of health claims related to Vitamin C and Zinc."
+            ])
+
         }
     },
     {
-        name: 'NUTRI MX OMEGA 3',
+        name: 'NUTRI MX OMEGA 3 30 tb',
         description: {
             consumer: consumerBlock({
-                title: "Ωμέγα-3 Υψηλής Καθαρότητας",
-                bullets: ["**Καρδιά:** EPA/DHA.", "**Εγκέφαλος:** DHA.", "**Όραση:** Αμφιβληστροειδής."],
-                howTo: "1-2 κάψουλες.", cautions: "Αλλεργία στο ψάρι."
+                title: "Υψηλή Καθαρότητα Ωμέγα-3 για Καρδιά, Εγκέφαλο & Όραση",
+                bullets: [
+                    "**Καρδιαγγειακή Υγεία:** Το EPA και το DHA συμβάλλουν στη φυσιολογική λειτουργία της καρδιάς και τη διατήρηση των τριγλυκεριδίων.",
+                    "**Νευρική Υποστήριξη:** Το DHA αποτελεί βασικό δομικό στοιχείο του εγκεφάλου, ενισχύοντας τη μνήμη και τη γνωσιακή λειτουργία.",
+                    "**Υγεία των Ματιών:** Συμβάλλει στη διατήρηση της φυσιολογικής όρασης και της υγείας του αμφιβληστροειδούς.",
+                    "**Μοριακή Απόσταξη:** Εγγυημένη καθαρότητα από βαρέα μέταλλα και ρύπους."
+                ],
+                howTo: "Λαμβάνετε 1-2 μαλακές κάψουλες ημερησίως μαζί με το φαγητό για βέλτιστη απορρόφηση.",
+                cautions: "Συμπλήρωμα διατροφής. Προσοχή σε άτομα με αλλεργία στο ψάρι. Συμβουλευτείτε ιατρό αν λαμβάνετε αντιπηκτικά."
             }),
-            science: `<h3>Λιπιδική Βιολογία</h3>${hcpTable([{ing: "EPA", moa: "Anti-inflammatory: Ανταγωνιστής ΑΑ."}, {ing: "Resolvins", moa: "Resolution: Τερματισμός φλεγμονής."}])}`,
-            bibliography: biblioList(["Calder PC (2013).", "Mozaffarian D (2011)."])
+            science: `
+                <h3>Λιπιδική Βιολογία & Φλεγμονώδης Επίλυση</h3>
+                <p><strong>Στόχος:</strong> Ρύθμιση της ρευστότητας των κυτταρικών μεμβρανών και παραγωγή προ-επιλυτικών διαμεσολαβητών.</p>
+                ${hcpTable([
+                    {
+                        ing: "EPA (Eicosapentaenoic Acid)",
+                        moa: "<strong>Anti-inflammatory Substrate:</strong> Ανταγωνίζεται το αραχιδονικό οξύ (AA) για τα ένζυμα COX και LOX, οδηγώντας στην παραγωγή λιγότερο φλεγμονωδών προσταγλανδινών (σειρά 3) και λευκοτριενίων (σειρά 5)."
+                    },
+                    {
+                        ing: "DHA (Docosahexaenoic Acid)",
+                        moa: "<strong>Neuroprotection:</strong> Αποτελεί το 40% των πολυακόρεστων λιπαρών οξέων στον εγκέφαλο. Ρυθμίζει τη συναπτική διαβίβαση και τη λειτουργία των φωτοϋποδοχέων."
+                    },
+                    {
+                        ing: "Specialized Pro-resolving Mediators (SPMs)",
+                        moa: "<strong>Resolution of Inflammation:</strong> Το EPA και το DHA αποτελούν πρόδρομα μόρια για τις ρεσολβίνες (Resolvins), οι οποίες δίνουν το σήμα για τον ενεργό τερματισμό της φλεγμονής."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Calder PC. (2013). Omega-3 fatty acids and inflammatory processes. British Journal of Clinical Pharmacology.",
+                "Mozaffarian D & Wu JH. (2011). Omega-3 fatty acids and cardiovascular disease. Journal of the American College of Cardiology.",
+                "Swanson D, et al. (2012). Omega-3 Fatty Acids EPA and DHA: Health Benefits Throughout Life. Advances in Nutrition."
+            ])
+
         }
     },
     {
-        name: 'NUTRI MX JOINT',
+         name: 'NUTRI MX JOINT 30 tb',
         description: {
             consumer: consumerBlock({
-                title: "Δομική Υποστήριξη Αρθρώσεων",
-                bullets: ["**Θρέψη:** Γλυκοζαμίνη & Χονδροϊτίνη.", "**Ανάπλαση:** Κολλαγόνο ΙΙ & MSM.", "**Κινητικότητα:** Μείωση δυσκαμψίας."],
-                howTo: "1-2 δισκία.", cautions: "Περιέχει οστρακοειδή."
+                title: "Ολοκληρωμένη Δομική Υποστήριξη Αρθρώσεων & Χόνδρων",
+                bullets: [
+                    "**Στοχευμένη Θρέψη:** Συνδυάζει Γλυκοζαμίνη και Χονδροϊτίνη για τη διατήρηση της ακεραιότητας και της λίπανσης των αρθρώσεων.",
+                    "**Αναγεννητική Δράση:** Το MSM και το Κολλαγόνο Τύπου ΙΙ ενισχύουν τη σταθερότητα του συνδετικού ιστού και των τενόντων.",
+                    "**Μείωση Δυσκαμψίας:** Συμβάλλει στην ομαλή κίνηση και στην προστασία των αρθρώσεων από την καθημερινή καταπόνηση.",
+                    "**Ιδανικό για Αθλητές:** Απαραίτητο για άτομα με έντονη φυσική δραστηριότητα ή εκφυλιστικές αλλοιώσεις (οστεοαρθρίτιδα)."
+                ],
+                howTo: "Λαμβάνετε 1-2 δισκία ημερησίως, κατά προτίμηση μαζί με τα γεύματα. Συνιστάται η συστηματική λήψη για τουλάχιστον 3 μήνες.",
+                cautions: "Περιέχει συστατικά από οστρακοειδή (αλλεργιογόνο). Συμβουλευτείτε ιατρό εάν λαμβάνετε αντιπηκτική αγωγή."
             }),
-            science: `<h3>Chondroprotection</h3>${hcpTable([{ing: "GAG Precursors", moa: "Βιοσύνθεση αγρεκάνης."}, {ing: "Native Collagen II", moa: "Oral Tolerance: Καταστολή αυτοανοσίας."}])}`,
-            bibliography: biblioList(["Hochberg MC (2016).", "Lugo JP (2013)."])
+            science: `
+                <h3>Βιοχημεία του Χόνδρου & Chondroprotection</h3>
+                <p><strong>Στόχος:</strong> Αναστολή των καταβολικών ενζύμων και διέγερση της σύνθεσης της εξωκυττάριας ουσίας (ECM) του χόνδρου.</p>
+                ${hcpTable([
+                    {
+                        ing: "Glucosamine & Chondroitin Sulfate",
+                        moa: "<strong>GAG Precursors:</strong> Λειτουργούν ως υποστρώματα για τη βιοσύνθεση γλυκοζαμινογλυκανών και αγρεκάνης. Η χονδροϊτίνη αναστέλλει την ελαστάση και τη λευκοκυτταρική εστεράση, προστατεύοντας το αρθρικό υγρό."
+                    },
+                    {
+                        ing: "Native Collagen Type II",
+                        moa: "<strong>Oral Tolerance Mechanism:</strong> Αλληλεπιδρά με τις πλάκες Peyer στο έντερο, επάγοντας ρυθμιστικά Τ-κύτταρα (Tregs) που καταστέλλουν την αυτοάνοση φλεγμονώδη απόκριση στον αρθρικό χόνδρο."
+                    },
+                    {
+                        ing: "MSM (Methylsulfonylmethane)",
+                        moa: "<strong>Sulfur Bioavailability:</strong> Παρέχει οργανικό θείο για τη σταθεροποίηση των δισουλφιδικών δεσμών στις ίνες κολλαγόνου, ενώ μειώνει την παραγωγή ελευθέρων ριζών (ROS) στα χονδροκύτταρα."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Hochberg MC, et al. (2016). Combined chondroitin sulfate and glucosamine for painful knee osteoarthritis. Annals of the Rheumatic Diseases.",
+                "Lugo JP, et al. (2013). Undenatured type II collagen (UC-II®) for joint support. J Int Soc Sports Nutr.",
+                "Butawan M, et al. (2017). Methylsulfonylmethane: Applications and Safety. Nutrients.",
+                "EFSA Panel on Dietetic Products (NDA). Scientific Opinion on Glucosamine and joint health."
+            ])
+
         }
     },
     {
