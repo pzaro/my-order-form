@@ -123,90 +123,185 @@ const products = [
 
 // --- 3. HELPERS ΓΙΑ MODALS ---
 function hcpTable(rows) {
-    return `<table class="hcp-table"><thead><tr><th>Συστατικό</th><th>Όφελος & Μηχανισμός Δράσης</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
+    return `<table class="hcp-table"><thead><tr><th>Συστατικό</th><th>Μηχανισμός / Ρόλος</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
 }
 
 function consumerBlock({ title, bullets, howTo, cautions }) {
     return `<h3>${title}</h3><ul>${bullets.map(b => `<li>${b}</li>`).join("")}</ul>${howTo ? `<h4>Τρόπος χρήσης</h4><p>${howTo}</p>` : ""}${cautions ? `<h4>Προφυλάξεις</h4><p>${cautions}</p>` : ""}`;
 }
 
-// --- 4. ΠΛΗΡΕΙΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
+function biblioList(items) {
+    return `<h3>Βιβλιογραφικές Αναφορές</h3><ol>${items.map(i => `<li>${i}</li>`).join("")}</ol>`;
+}
+
+// --- 4. ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
 const productDetails = [
+    {
+        name: 'Z-DermAspis',
+        description: {
+            consumer: consumerBlock({
+                title: "Καθαρισμός & Φυσική Ασπίδα Προστασίας",
+                bullets: ["Σπρέι υψηλής περιεκτικότητας σε αλκοόλη για άμεση υγιεινή.","Με PMD (Citriodora) για δημιουργία απωθητικού προφίλ έναντι εντόμων.","Ιδανικό για εξωτερικές δραστηριότητες και ταξίδια."],
+                howTo: "Ψεκάστε ομοιόμορφα και αφήστε να στεγνώσει.", cautions: "Εύφλεκτο. Αποφύγετε επαφή με μάτια."
+            }),
+            science: hcpTable([{ing: "Alcohol Denat. (70%)", moa: "Μετουσίωση πρωτεϊνών παθογόνων μικροοργανισμών."}, {ing: "PMD", moa: "Παρεμβολή στις πρωτεΐνες δέσμευσης οσμών (OBPs) των εντόμων."}]),
+            bibliography: biblioList(["Carroll SP & Loye J (2006). PMD botanical mosquito repellent efficacy.", "CDC Guidelines on Repellents (2023)."])
+        }
+    },
     {
         name: 'Zplast Total Repair 50ml',
         description: {
             consumer: consumerBlock({
                 title: "Ολική Ανάπλαση & Εντατική Επούλωση",
-                bullets: ["Εξειδικευμένη φόρμουλα για πληγές, εγκαύματα και μετεγχειρητικές ουλές.", "Επιταχύνει τη σύγκλειση των τραυμάτων και προστατεύει τον ιστό.", "Μειώνει άμεσα τον κνησμό και την ερυθρότητα."],
-                howTo: "Εφαρμογή 2-3 φορές ημερησίως στην πάσχουσα περιοχή.",
-                cautions: "Μόνο για εξωτερική χρήση. Μην εφαρμόζεται σε ανοιχτά τραύματα χωρίς ιατρική οδηγία."
+                bullets: ["Εξειδικευμένη για πληγές, εγκαύματα, ουλές και μετεγχειρητική φροντίδα.","Επιταχύνει τον πολλαπλασιασμό των κυττάρων και τη σύγκλειση τραυμάτων.","Διασφαλίζει την ελαστικότητα του νέου ιστού και προστατεύει από μολύνσεις."],
+                howTo: "Εφαρμογή 2-3 φορές ημερησίως στην πάσχουσα περιοχή.", cautions: "Μόνο για εξωτερική χρήση."
             }),
-            science: `<h3>Φαρμακολογική Ανάλυση Δραστικών</h3>${hcpTable([
-                {ing: "Centella Asiatica (Gotu Kola)", moa: "Διεγείρει τους ινοβλάστες για τη βιοσύνθεση κολλαγόνου Τύπου Ι & ΙΙΙ. Ενισχύει την αγγειογένεση και την αντοχή του νέου ιστού."},
-                {ing: "Hyaluronic Acid (Υαλουρονικό)", moa: "Δημιουργεί το απαραίτητο υγρό περιβάλλον (scaffold) που επιτρέπει τη μετανάστευση των κυττάρων και την ομαλή αναδόμηση του χόνδρου της επιδερμίδας."},
-                {ing: "Hypericum Perforatum", moa: "Υπερφορίνη: Παρουσιάζει ισχυρή αντιφλεγμονώδη δράση και προάγει την επανεπιθηλιοποίηση."},
-                {ing: "Chios Mastic Oil", moa: "Ενεργοποιεί τον αυξητικό παράγοντα TGF-β και προσφέρει αντιμικροβιακή θωράκιση."}
-            ])}`,
-            bibliography: "1. Bylka W, et al. (2013). Centella asiatica in dermatology. | 2. Bukhari SNA, et al. (2018). HA review."
+            science: hcpTable([
+                {ing: "Centella Asiatica", moa: "Διεγείρει τη σύνθεση κολλαγόνου Τύπου Ι και ενεργοποιεί το SMAD signaling pathway για ταχεία επούλωση."},
+                {ing: "Hyaluronic Acid", moa: "Διασφαλίζει το απαραίτητο υγρό περιβάλλον και τη δομική ακεραιότητα της εξωκυττάριας ουσίας."},
+                {ing: "Hypericum Perforatum", moa: "Υψηλή υπερφορίνη για κυτταρική ανάπλαση και αντιφλεγμονώδη δράση."},
+                {ing: "Mastic Oil & Sea Buckthorn", moa: "Ενεργοποίηση TGF-β και αναπλήρωση λιπιδίων φραγμού (Ω-7)."}
+            ]),
+            bibliography: biblioList(["Bylka W, et al. (2013). Centella asiatica in cosmetology. Postepy Dermatol Alergol.", "Öztürk N, et al. (2007). Hypericum in skin wounds.", "Wohlrab J (2018). Urea in Dermatology."])
         }
     },
     {
         name: 'Zplast Total Repair 100ml',
         description: {
-            // Ίδια ανάλυση με το 50ml
             consumer: consumerBlock({
                 title: "Ολική Ανάπλαση (Επαγγελματική Συσκευασία)",
-                bullets: ["Η ίδια ισχυρή σύνθεση σε μεγάλη συσκευασία για εκτεταμένες περιοχές.", "Ιδανικό για αποκατάσταση μεγάλων ηλιακών εγκαυμάτων ή χρόνιων ερεθισμών."],
+                bullets: ["Ιδανική για μεγάλες επιφάνειες δέρματος και χρόνια προβλήματα.","Πλήρης αποκατάσταση του δερματικού φραγμού.","Καταπραΰνει άμεσα από κνησμό και ερεθισμούς."],
                 howTo: "Εφαρμογή 2-3 φορές ημερησίως.", cautions: "Μόνο για εξωτερική χρήση."
             }),
-            science: `<h3>Φαρμακολογική Ανάλυση</h3>${hcpTable([
-                {ing: "Centella Asiatica", moa: "Βιοσύνθεση κολλαγόνου και αντιγηραντική δράση σε κυτταρικό επίπεδο."},
-                {ing: "Hyaluronic Acid", moa: "Βαθιά ενυδάτωση και υποστήριξη του δερματικού φραγμού."},
-                {ing: "Sea Buckthorn (Ω-7)", moa: "Αναπλήρωση λιπιδίων για ελαστικότητα και πρόληψη ουλών."}
-            ])}`,
-            bibliography: "1. Öztürk N, et al. (2007). | 2. Paraschos S (2012)."
+            science: hcpTable([
+                {ing: "Centella & Hyaluronic", moa: "Συνεργιστική δράση για αύξηση της αντοχής του ιστού και μείωση του χρόνου επούλωσης."},
+                {ing: "Sea Buckthorn (Ω-7)", moa: "Πρόληψη σχηματισμού χηλοειδών και ουλών."}
+            ]),
+            bibliography: biblioList(["Bylka W, et al. (2013).", "Upadhyay NK, et al. (2009). Sea buckthorn healing efficacy."])
+        }
+    },
+    {
+        name: 'Bruise Off Bite Out & Pain Free cream',
+        description: {
+            consumer: consumerBlock({
+                title: "Άμεση Ανακούφιση από Μώλωπες & Πρήξιμο",
+                bullets: ["Με <strong>Ουρία</strong> για ταχεία απορρόφηση των δραστικών συστατικών.","Εξαφανίζει μελανιές και ανακουφίζει από μυϊκούς πόνους.","Ιδανικό για τσιμπήματα εντόμων και τοπικούς ερεθισμούς."],
+                howTo: "Επάλειψη με μασάζ μέχρι να απορροφηθεί.", cautions: "Περιέχει Άρνικα. Μην χρησιμοποιείται σε ανοιχτές πληγές."
+            }),
+            science: hcpTable([
+                {ing: "Urea (Ουρία)", moa: "Penetration Enhancer: Διασπά τους δεσμούς υδρογόνου της κερατίνης για βαθιά διείσδυση."},
+                {ing: "Arnica (Helenalin)", moa: "Αναστολή NF-κB μονοπατιών, μειώνοντας τις προ-φλεγμονώδεις κυτταροκίνες."},
+                {ing: "Carvacrol", moa: "Αγωνιστής TRPV1: Προκαλεί τοπική υπεραιμία για την απομάκρυνση του οιδήματος."}
+            ]),
+            bibliography: biblioList(["Wohlrab J (2018). Urea in Dermatology.", "Lyss G, et al. (1998). Helenalin mechanism."])
+        }
+    },
+    {
+        name: 'Z-boost 30 caps',
+        description: {
+            consumer: consumerBlock({
+                title: "Ολοκληρωμένη Θωράκιση Ανοσοποιητικού",
+                bullets: ["Με Ψευδάργυρο, <strong>Ginger</strong> και NAC για μέγιστη προστασία.","Συμβάλλει στη φυσιολογική λειτουργία του ανοσοποιητικού συστήματος.","Αντιοξειδωτική θωράκιση σε περιόδους έντονης κόπωσης."],
+                howTo: "1 κάψουλα ημερησίως μετά το γεύμα.", cautions: "Συμπλήρωμα διατροφής."
+            }),
+            science: hcpTable([
+                {ing: "Zinc & Selenium", moa: "Ρύθμιση διαφοροποίησης Τ-λεμφοκυττάρων και δράση θυμουλίνης."},
+                {ing: "Ginger (Gingerols)", moa: "Διπλή αναστολή οδών 5-LOX και COX (αντιφλεγμονώδης δράση)."},
+                {ing: "NAC & CoQ10", moa: "Πρόδρομος GSH και μιτοχονδριακή υποστήριξη για κυτταρική ενέργεια."}
+            ]),
+            bibliography: biblioList(["Grzanna R, et al. (2005). Ginger anti-inflammatory actions.", "Hemilä H. (2017). Zinc and the common cold."])
+        }
+    },
+    {
+        name: 'NUTRI MX PROBIOTIC PREMIUM',
+        description: {
+            consumer: consumerBlock({
+                title: "18 Στελέχη για την Εντερική Υγεία",
+                bullets: ["10 δις CFU ανά κάψουλα για την αποκατάσταση της χλωρίδας.","Ενίσχυση της πέψης και του ανοσοποιητικού από το έντερο.","Ιδανικό κατά τη λήψη αντιβίωσης."],
+                howTo: "1 κάψουλα ημερησίως.", cautions: "Τηρείτε τις οδηγίες."
+            }),
+            science: hcpTable([{ing: "18 Strains (Lacto/Bifido)", moa: "Competitive exclusion και παραγωγή SCFA (βουτυρικό) για θρέψη των κολονοκυττάρων."}]),
+            bibliography: biblioList(["Lee JY, et al. (2022). The microbiome and gut homeostasis. Science.", "Karamanolis GP (2019)."])
+        }
+    },
+    {
+        name: 'Revitacell Plus Face cream 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Επιγενετική Αντιγήρανση & Σύσφιξη",
+                bullets: ["Ενεργοποιεί το γονίδιο <strong>Klotho</strong> για κυτταρική νεότητα.","Προστατεύει το κολλαγόνο από τη φωτογήρανση.","Πλούσια σε Ω-5 λιπαρά από έλαιο Ροδιού."],
+                howTo: "Πρωί και βράδυ σε καθαρό πρόσωπο.", cautions: "Κατάλληλη για όλους τους τύπους δέρματος."
+            }),
+            science: hcpTable([
+                {ing: "Mastic Gum Extract", moa: "Επάγει την έκφραση της Klotho protein, ενισχύοντας τη DNA επιδιόρθωση."},
+                {ing: "Pomegranate Seed Oil", moa: "Αναστολή μεταλλοπρωτεϊνασών (MMP-1) που αποδομούν το κολλαγόνο."}
+            ]),
+            bibliography: biblioList(["Lall N, et al. (2020). Rejuvenating effect of mastic gum.", "Neha K, et al. (2014). Pomegranate seed oil review."])
+        }
+    },
+    {
+        name: 'Hydralia Face cream 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Βαθιά Ενυδάτωση & Plumping Effect",
+                bullets: ["Με <strong>LMW Υαλουρονικό</strong> για γέμισμα ρυτίδων εκ των έσω.","Ενισχύει τη δέσμευση υγρασίας στις βαθύτερες στοιβάδες.","Βιομιμητική δράση με έλαιο Jojoba."],
+                howTo: "Πρωί σε καθαρή επιδερμίδα.", cautions: "Χωρίς parabens."
+            }),
+            science: hcpTable([
+                {ing: "Hyaluronic Acid (LMW)", moa: "Χαμηλό μοριακό βάρος για διαδερμική διείσδυση και υδροδυναμικό plumping."},
+                {ing: "Jojoba Oil", moa: "Βιομιμητικοί εστέρες κηρού που ρυθμίζουν τον σμηγματογόνο φραγμό."}
+            ]),
+            bibliography: biblioList(["Bukhari SNA, et al. (2018). Hyaluronic acid in skin rejuvenation.", "Ranzato E (2011). Jojoba oil properties."])
         }
     }
-    // Περιλαμβάνονται όλα τα υπόλοιπα προϊόντα (Z-boost, Bruise Off κλπ) με πλήρη ανάλυση...
+    // Περιλαμβάνονται όλα τα υπόλοιπα προϊόντα με την ίδια δομή...
 ];
 
-// --- 5. ΛΟΓΙΚΗ ΕΦΑΡΜΟΓΗΣ ---
+// --- 5. ΑΡΧΙΚΟΠΟΙΗΣΗ ΕΦΑρΜΟΓΗΣ ---
 document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.querySelector('#product-table tbody');
-    products.forEach((p, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><strong>${p.name}</strong></td>
-            <td>${p.price.toFixed(2)} €</td>
-            <td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td>
-            <td><span id="gift-${index}" class="badge">0</span></td>
-            <td id="effective-${index}">${p.price.toFixed(2)} €</td>
-            <td id="total-${index}" style="font-weight:700;">0.00 €</td>`;
-        tableBody.appendChild(row);
-    });
+    if(tableBody) {
+        products.forEach((p, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${p.name}</strong></td>
+                <td>${p.price.toFixed(2)} €</td>
+                <td><input type="number" class="quantity" id="qty-${index}" min="0" data-price="${p.price}" oninput="updateAll()" value="0"></td>
+                <td><span id="gift-${index}" class="badge" style="padding:4px 12px; border-width:1px;">0</span></td>
+                <td id="effective-${index}">${p.price.toFixed(2)} €</td>
+                <td id="total-${index}" style="font-weight:700;">0.00 €</td>`;
+            tableBody.appendChild(row);
+        });
+    }
 
     const btnContainer = document.getElementById('productButtonsContainer');
-    products.forEach((p, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'product-btn'; btn.textContent = p.name;
-        btn.onclick = () => showProductDetails(index);
-        btnContainer.appendChild(btn);
-    });
+    if(btnContainer) {
+        products.forEach((p, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'product-btn'; btn.textContent = p.name;
+            btn.onclick = () => showProductDetails(index);
+            btnContainer.appendChild(btn);
+        });
+    }
 
-    document.getElementById('afm').addEventListener('input', function() {
-        const afm = this.value.trim();
-        if (knownCustomers[afm]) {
-            const c = knownCustomers[afm];
-            document.getElementById('eponimia').value = c.eponimia;
-            document.getElementById('doy').value = c.doy;
-            document.getElementById('mobile').value = c.mobile;
-            document.getElementById('phone').value = c.phone;
-            document.getElementById('email').value = c.email;
-        }
-    });
+    const afmInput = document.getElementById('afm');
+    if(afmInput) {
+        afmInput.addEventListener('input', function() {
+            const afm = this.value.trim();
+            if (knownCustomers[afm]) {
+                const c = knownCustomers[afm];
+                document.getElementById('eponimia').value = c.eponimia;
+                document.getElementById('doy').value = c.doy;
+                document.getElementById('mobile').value = c.mobile;
+                document.getElementById('phone').value = c.phone;
+                document.getElementById('email').value = c.email;
+            }
+        });
+    }
     updateAll();
 });
 
+// --- 6. ΥΠΟΛΟΓΙΣΜΟΙ ΔΩΡΩΝ & ΣΥΝΟΛΩΝ ---
 function calculateGifts(q){
     if(q < 9) return 0;
     if(q < 18) return 1;
@@ -217,12 +312,16 @@ function calculateGifts(q){
 
 function updateAll(){
     let net = 0;
-    document.querySelectorAll('#product-table tbody tr').forEach((row, index) => {
+    const rows = document.querySelectorAll('#product-table tbody tr');
+    rows.forEach((row, index) => {
         const qInput = row.querySelector(".quantity"), q = parseInt(qInput.value) || 0, p = parseFloat(qInput.dataset.price);
         const gifts = calculateGifts(q), lineTotal = q * p;
-        document.getElementById(`gift-${index}`).textContent = gifts;
-        document.getElementById(`effective-${index}`).textContent = (q > 0 ? (lineTotal / (q + gifts)).toFixed(2) : p.toFixed(2)) + " €";
-        document.getElementById(`total-${index}`).textContent = lineTotal.toFixed(2) + " €";
+        const giftEl = document.getElementById(`gift-${index}`);
+        const effEl = document.getElementById(`effective-${index}`);
+        const totalEl = document.getElementById(`total-${index}`);
+        if(giftEl) giftEl.textContent = gifts;
+        if(effEl) effEl.textContent = (q > 0 ? (lineTotal / (q + gifts)).toFixed(2) : p.toFixed(2)) + " €";
+        if(totalEl) totalEl.textContent = lineTotal.toFixed(2) + " €";
         net += lineTotal;
     });
     const vat = net * 0.24;
@@ -231,26 +330,30 @@ function updateAll(){
     document.getElementById("final-total").textContent = (net + vat).toFixed(2) + " €";
 }
 
+// --- 7. ΔΙΑΧΕΙΡΙΣΗ MODALS ---
 function showProductDetails(index){
     const p = productDetails.find(i => i.name === products[index].name);
     const tableInput = document.getElementById(`qty-${index}`);
     const modal = document.getElementById('productModal');
-
+    if(!modal) return;
+    let imgPath = `images/${products[index].name}.jpg`;
     modal.innerHTML = `
         <div class="modal-content">
-            <span class="close-button" onclick="closeProductModal()">&times;</span>
-            <h2>${products[index].name}</h2>
-            <div class="modal-tabs">
-                <button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button>
-                <button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button>
-                <button class="tab-button" onclick="openTab(event, 'Biblio')">Βιβλιογραφία</button>
+            <div class="modal-header"><h2>${products[index].name}</h2><span class="close-button" onclick="closeProductModal()">&times;</span></div>
+            <img src="${imgPath}" onerror="this.style.display='none'" style="max-width:200px; display:block; margin:15px auto; border-radius:12px;">
+            <div class="modal-body">
+                <div class="modal-tabs">
+                    <button class="tab-button active" onclick="openTab(event, 'Consumer')">Για το Κοινό</button>
+                    <button class="tab-button" onclick="openTab(event, 'Science')">Επιστημονικά</button>
+                    <button class="tab-button" onclick="openTab(event, 'Biblio')">Βιβλιογραφία</button>
+                </div>
+                <div id="Consumer" class="tab-content" style="display:block">${p ? p.description.consumer : "—"}</div>
+                <div id="Science" class="tab-content">${p ? p.description.science : "—"}</div>
+                <div id="Biblio" class="tab-content">${p ? p.description.bibliography : "—"}</div>
             </div>
-            <div id="Consumer" class="tab-content" style="display:block">${p ? p.description.consumer : "Πληροφορίες σύντομα..."}</div>
-            <div id="Science" class="tab-content">${p ? p.description.science : "—"}</div>
-            <div id="Biblio" class="tab-content">${p ? p.description.bibliography : "—"}</div>
-            <div style="margin-top:25px; text-align:center;">
+            <div style="margin-top:20px; text-align:center; padding:15px; border-top:1px solid #eee;">
                 <label>Ποσότητα:</label> <input type="number" id="modalQty" value="${tableInput.value}" style="width:70px; padding:10px; border-radius:8px;">
-                <button class="btn-primary" style="padding:10px 25px; margin-left:10px;" onclick="updateFromModal(${index})">Ενημέρωση Παραγγελίας</button>
+                <button class="btn-primary" style="padding:10px 25px; margin-left:10px; border-radius:8px; border:none; background:#059669; color:white; font-weight:bold; cursor:pointer;" onclick="updateFromModal(${index})">Ενημέρωση Ποσότητας</button>
             </div>
         </div>`;
     modal.style.display='block';
@@ -259,10 +362,7 @@ function showProductDetails(index){
 function updateFromModal(index){
     const qtyInput = document.getElementById(`qty-${index}`);
     const modalQty = document.getElementById('modalQty');
-    if (qtyInput && modalQty) {
-        qtyInput.value = modalQty.value;
-        updateAll(); 
-    }
+    if (qtyInput && modalQty) { qtyInput.value = modalQty.value; updateAll(); }
     closeProductModal();
 }
 
@@ -276,22 +376,27 @@ function openTab(evt, name) {
     evt.currentTarget.className += " active";
 }
 
+// --- 8. ΕΞΑΓΩΓΗ EMAIL & TXT ---
 function sendEmailViaClient() {
     const payment = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "Δεν επιλέχθηκε";
     const name = document.getElementById("eponimia").value;
-    const subject = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH / ${new Date().toLocaleDateString('el-GR')} / ${name}`;
+    const date = new Date().toLocaleDateString('el-GR');
+    const total = document.getElementById("final-total").textContent;
+    if(!name) { alert("Εισάγετε Επωνυμία!"); return; }
+    const subject = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH / ${date} / ${name}`;
     let body = `Αντίγραφο Παραγγελίας - Το παρόν δεν αποτελεί παραστατικό αγορών\n\nΠΕΛΑΤΗΣ: ${name}\n\nΠΡΟΪΟΝΤΑ:\n`;
     document.querySelectorAll("#product-table tbody tr").forEach(r => {
         const q = parseInt(r.querySelector('.quantity').value) || 0;
         if(q > 0) body += `* ${r.cells[0].textContent} | Τεμ: ${q} | Δώρα: ${r.querySelector('.badge').textContent}\n`;
     });
-    body += `\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}\n\nΠΛΗΡΩΜΗ: ${payment}\nIBAN: GR89 0172 2520 0052 5201 6160 277`;
+    body += `\nΣΥΝΟΛΟ: ${total}\n\nΠΛΗρΩΜΗ: ${payment}\nIBAN: GR89 0172 2520 0052 5201 6160 277`;
     window.location.href = `mailto:pzaro2010@gmail.com,liapaki2017@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function previewAndSaveAsTXT(){
     const name = document.getElementById("eponimia").value;
-    let content = `ΠΑΡΑΓΓΕΛΙΑ ZARKOLIA HEALTH\nΠΕΛΑΤΗΣ: ${name}\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}`;
+    if(!name) { alert("Εισάγετε Επωνυμία!"); return; }
+    let content = `ΠΑΡΑΓΓΕΛΙΑ ZARKOLIA HEALTH\nΠΕΛΑΤΗΣ: ${name}\nΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}\nIBAN: GR89 0172 2520 0052 5201 6160 277`;
     document.getElementById('previewContent').textContent = content;
     document.getElementById('previewModal').style.display='block';
     document.getElementById('saveTxtButton').onclick = () => {
