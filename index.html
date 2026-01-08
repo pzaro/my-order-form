@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Premium Scientific ERP</title>
+    <title>Zarkolia Health - Professional ERP</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,40 +17,39 @@
         </header>
         
         <section class="catalog-section">
-            <h2 class="section-title">Επιστημονικό Εγχειρίδιο Προϊόντων</h2>
+            <h2 class="section-title">Επιστημονικός Κατάλογος Προϊόντων</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
         
         <form id="orderForm" class="order-card" onsubmit="return false;">
             <h2 class="section-title">Στοιχεία Πελάτη</h2>
             <div class="form-grid">
-                <div class="form-group"><label for="afm">ΑΦΜ (Αναζήτηση)</label><input type="text" id="afm" placeholder="Εισάγετε ΑΦΜ..."></div>
-                <div class="form-group"><label for="eponimia">Επωνυμία</label><input type="text" id="eponimia" required></div>
-                <div class="form-group"><label for="doy">ΔΟΥ</label><input type="text" id="doy"></div>
-                <div class="form-group"><label for="mobile">Κινητό</label><input type="tel" id="mobile"></div>
-                <div class="form-group"><label for="phone">Σταθερό</label><input type="tel" id="phone"></div>
-                <div class="form-group"><label for="email">Email</label><input type="email" id="email"></div>
+                <div class="form-group"><label>ΑΦΜ</label><input type="text" id="afm" placeholder="Αναζήτηση..."></div>
+                <div class="form-group"><label>Επωνυμία</label><input type="text" id="eponimia"></div>
+                <div class="form-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
+                <div class="form-group"><label>Κινητό</label><input type="tel" id="mobile"></div>
+                <div class="form-group"><label>Σταθερό</label><input type="tel" id="phone"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="email"></div>
             </div>
 
             <div class="info-layout">
                 <div class="info-block">
-                    <h3>Τρόπος Πληρωμής</h3>
+                    <h3>Πληρωμή</h3>
                     <div class="payment-options">
-                        <label class="custom-check"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"><span class="checkmark"></span> Αντικαταβολή Μετρητά</label>
-                        <label class="custom-check"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"><span class="checkmark"></span> Επιταγή 60 Ημερών</label>
+                        <label><input type="checkbox" name="payment" value="Μετρητά" onclick="onlyOne(this)"> Μετρητά</label><br>
+                        <label><input type="checkbox" name="payment" value="Επιταγή 60" onclick="onlyOne(this)"> Επιταγή 60 ημ.</label>
                     </div>
                 </div>
                 <div class="info-block">
-                    <h3>Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="3" placeholder="Σημειώσεις παραγγελίας..."></textarea>
+                    <h3>Σημειώσεις</h3>
+                    <textarea id="remarks" rows="3" style="width:100%; border-radius:15px; padding:10px; border:1px solid #ddd;"></textarea>
                 </div>
             </div>
 
-            <h2 class="section-title">Πίνακας Παραγγελιοληψίας</h2>
             <div class="table-responsive">
                 <table id="product-table">
                     <thead>
-                        <tr><th>Προϊόν</th><th>Τιμή (€)</th><th>Ποσότητα</th><th>Δώρα</th><th>Τελική/Τεμ.</th><th>Σύνολο</th></tr>
+                        <tr><th>Προϊόν</th><th>Τιμή</th><th>Ποσότητα</th><th>Δώρα</th><th>Τελική/Τεμ</th><th>Σύνολο</th></tr>
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -60,33 +59,18 @@
                 <div class="totals-card">
                     <div class="total-line"><span>Καθαρή Αξία:</span> <span id="net-value">0.00 €</span></div>
                     <div class="total-line"><span>ΦΠΑ (24%):</span> <span id="vat-value">0.00 €</span></div>
-                    <div class="total-line grand-total"><span>ΤΕΛΙΚΟ ΠΟΣΟ:</span> <span id="final-total">0.00 €</span></div>
-                </div>
-            </div>
-
-            <div class="bank-card">
-                <h3>Στοιχεία Κατάθεσης</h3>
-                <p>Τράπεζα Πειραιώς</p>
-                <div class="iban-visual">
-                    IBAN: <span><strong>GR89</strong> 0172 <strong>2520</strong> 0052 <strong>5201</strong> 6160 <strong>277</strong></span>
+                    <div class="total-line grand-total"><span>ΣΥΝΟΛΟ:</span> <span id="final-total">0.00 €</span></div>
                 </div>
             </div>
 
             <div class="action-footer">
-                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Cloud Sync</button>
-                <button type="button" class="btn-secondary" onclick="sendEmailViaClient()">Email (Backup)</button>
+                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση Παραγγελίας</button>
+                <button type="button" class="btn-secondary" onclick="sendEmailViaClient()">Email Backup</button>
                 <button type="button" class="btn-danger" onclick="clearForm()">Καθαρισμός</button>
             </div>
         </form>
     </div>
-
     <div id="productModal" class="modal"></div>
     <script src="script.js"></script>
-    <script>
-        function onlyOne(checkbox) {
-            var checkboxes = document.getElementsByName('payment');
-            checkboxes.forEach((item) => { if (item !== checkbox) item.checked = false; });
-        }
-    </script>
 </body>
 </html>
