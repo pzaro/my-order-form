@@ -595,6 +595,211 @@ const productDetails = [
             ])
         }
     },
+    {
+        name: 'Z-boost 12 caps',
+        description: {
+            consumer: consumerBlock({
+                title: "Άμεση Θωράκιση & Τόνωση Ανοσοποιητικού (Acute Support)",
+                bullets: [
+                    "**Συσκευασία Ταχείας Δράσης:** Ιδανική για την άμεση υποστήριξη του οργανισμού με την εμφάνιση των πρώτων συμπτωμάτων ιώσεων ή κρυολογήματος.",
+                    "**Στοχευμένη Σύνθεση:** Συνδυάζει Ψευδάργυρο, Ginger (Τζίντζερ) και NAC για τη μέγιστη προστασία του ανώτερου αναπνευστικού συστήματος.",
+                    "**Κυτταρική Ενέργεια:** Περιέχει Συνένζυμο Q10 για την άμεση τόνωση και τη μείωση του αισθήματος κόπωσης που συνοδεύει τις εποχικές λοιμώξεις.",
+                    "**Travel Friendly:** Πρακτική συσκευασία 12 καψουλών, ιδανική για ταξίδια ή για τη διατήρηση της άμυνας σε περιόδους έντονης σωματικής πίεσης."
+                ],
+                howTo: "Λαμβάνετε 1 κάψουλα ημερησίως μετά το γεύμα. Σε περιόδους έντονης καταπόνησης, η λήψη μπορεί να ξεκινήσει αμέσως για την ταχύτερη ανάκαμψη του οργανισμού.",
+                cautions: "Συμπλήρωμα διατροφής. Να μην υπερβαίνεται η συνιστώμενη δόση. Δεν αντικαθιστά την ισορροπημένη διατροφή. Φυλάσσεται μακριά από παιδιά σε δροσερό και ξηρό μέρος."
+            }),
+            science: `
+                <h3>Ανοσοφαρμακολογικό Rationale & Κλινικά Οφέλη</h3>
+                <p><strong>Θεραπευτικός Στόχος:</strong> Ταχεία ενεργοποίηση των μηχανισμών μη-ειδικής ανοσίας και περιορισμός του οξειδωτικού φορτίου των ιστών.</p>
+                ${hcpTable([
+                    {
+                        ing: "Zinc (Ψευδάργυρος - Bioavailable Form)",
+                        moa: "<strong>Viral Replication Inhibition:</strong> Ο ελεύθερος ιοντικός ψευδάργυρος αναστέλλει την RNA-εξαρτώμενη RNA πολυμεράση των ιών. Ρυθμίζει τη δραστηριότητα της θυμουλίνης, προάγοντας την ωρίμανση και διαφοροποίηση των Τ-λεμφοκυττάρων (CD4+/CD8+)."
+                    },
+                    {
+                        ing: "Gingerols (Zingiber officinale)",
+                        moa: "<strong>Cytokine Regulation:</strong> Αναστέλλουν τη δράση των ενζύμων COX-1, COX-2 και 5-LOX. Αυτή η τριπλή αναστολή μειώνει τα επίπεδα προ-φλεγμονωδών προσταγλανδινών και λευκοτριενίων, προσφέροντας φυσική αποσυμφορητική και αναλγητική δράση."
+                    },
+                    {
+                        ing: "N-Acetylcysteine (NAC)",
+                        moa: "<strong>GSH & Mucolytic Action:</strong> Λειτουργεί ως το περιοριστικό υπόστρωμα για τη σύνθεση της Γλουταθειόνης (GSH). Ταυτόχρονα, διασπά τους δισουλφιδικούς δεσμούς των βλεννοπρωτεϊνών, διευκολύνοντας την κάθαρση των αεραγωγών."
+                    },
+                    {
+                        ing: "Selenium & CoQ10",
+                        moa: "<strong>Redox Homeostasis:</strong> Το Σελήνιο είναι απαραίτητο δομικό στοιχείο της υπεροξειδάσης της γλουταθειόνης (GPx). Το CoQ10 σταθεροποιεί τη μιτοχονδριακή μεμβράνη των ανοσοκυττάρων, διασφαλίζοντας την ενεργειακή τους επάρκεια (ATP) κατά την ανοσολογική απόκριση."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Hemilä H. (2017). Zinc intake and the common cold: a meta-analysis. Open Forum Infectious Diseases. PubMed: 28405611.",
+                "Grzanna R, et al. (2005). Ginger—An Herbal Medicinal Product with Broad Anti-Inflammatory Actions. Journal of Medicinal Food.",
+                "Prasad AS. (2008). Zinc in Human Health: Effect of Zinc on Immune Cells. Molecular Medicine.",
+                "Šalamon S, et al. (2019). Medical Uses of N-Acetylcysteine: From Molecular Mechanisms to Clinical Applications. ACS Chemical Neuroscience.",
+                "EFSA Panel on Dietetic Products (NDA). Scientific Opinion on the substantiation of health claims related to Selenium and function of the immune system.",
+                "Read SA, et al. (2019). The Role of Zinc in Antiviral Immunity. Advances in Nutrition."
+            ])
+        }
+    },
+    {
+        name: 'Hydralia Face cream 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Βαθιά Ενυδάτωση, Plumping Effect & Προστασία Φραγμού",
+                bullets: [
+                    "**Τεχνολογία Υαλουρονικού:** Συνδυάζει διαφορετικά μοριακά βάρη για άμεση επιφανειακή ενυδάτωση και εσωτερικό «γέμισμα» (plumping) των λεπτών γραμμών.",
+                    "**Βιομιμητική Δράση:** Το έλαιο Jojoba μιμείται το φυσικό σμήγμα του δέρματος, ενισχύοντας τον λιπιδικό φραγμό χωρίς να φράζει τους πόρους.",
+                    "**Μεταξένια Υφή:** Απορροφάται άμεσα, αποτελώντας την ιδανική βάση για μακιγιάζ και καθημερινή προστασία από την περιβαλλοντική ξηρότητα.",
+                    "**Αναζωογόνηση:** Επαναφέρει την ελαστικότητα και τη φυσική λάμψη στην αφυδατωμένη επιδερμίδα."
+                ],
+                howTo: "Εφαρμόστε πρωί και βράδυ σε καθαρό πρόσωπο και λαιμό με κυκλικές κινήσεις.",
+                cautions: "Δερματολογικά ελεγμένη. Χωρίς parabens. Κατάλληλη για όλους τους τύπους δέρματος, ιδανική για κανονικές και μεικτές επιδερμίδες."
+            }),
+            science: `
+                <h3>Μοριακή Υδροδυναμική & Barrier Optimization</h3>
+                <p><strong>Στόχος:</strong> Αποκατάσταση της διαδερμικής απώλειας ύδατος (TEWL) και ρύθμιση της ωσμωτικής ισορροπίας των κερατινοκυττάρων.</p>
+                ${hcpTable([
+                    {
+                        ing: "Hyaluronic Acid (LMW - Low Molecular Weight)",
+                        moa: "<strong>Deep Hydration:</strong> Λόγω του μικρού μοριακού μεγέθους, διεισδύει κάτω από την κεράτινη στοιβάδα. Δεσμεύει μόρια νερού στον χόριο ιστό, αυξάνοντας τον όγκο της εξωκυττάριας ουσίας (Plumping Effect)."
+                    },
+                    {
+                        ing: "Jojoba Oil (Simmondsia Chinensis)",
+                        moa: "<strong>Biomimetic Lipids:</strong> Πλούσιο σε εστέρες κηρού που προσομοιάζουν στο ανθρώπινο σμήγμα. Ενισχύει τη συνοχή των κερατινοκυττάρων και αποκαθιστά το υδρολιπιδικό φιλμ, μειώνοντας δραστικά το TEWL."
+                    },
+                    {
+                        ing: "Natural Moisturizing Factors (NMFs)",
+                        moa: "<strong>Osmotic Balance:</strong> Προσελκύουν και συγκρατούν την υγρασία στο εσωτερικό των κυττάρων, διατηρώντας την ενζυμική δραστηριότητα που είναι απαραίτητη για τη φυσιολογική απολέπιση."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Bukhari SNA, et al. (2018). Hyaluronic acid, a promising skin rejuvenating biomedicine: A review of recent updates and pre-clinical and clinical investigations on cosmetic and therapeutic effects.",
+                "Ranzato E, et al. (2011). Jojoba oil: An updated review of its pharmacological and cosmetic properties. Journal of Ethnopharmacology.",
+                "Papakonstantinou E, et al. (2012). Hyaluronic acid: A key molecule in skin aging. Dermato-Endocrinology.",
+                "Verdier-Sévrain S, et al. (2007). Skin hydration: a review on its molecular mechanisms. Journal of Cosmetic Dermatology."
+            ])
+        }
+    },
+    {
+        name: 'Revitacell Plus Face cream 50ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Επιγενετική Αντιγήρανση, Σύσφιξη & Ενεργοποίηση Νεότητας",
+                bullets: [
+                    "**Κυτταρική Επαναφορά:** Ενεργοποιεί την «πρωτεΐνη Klotho», η οποία είναι επιστημονικά αναγνωρισμένη ως η πρωτεΐνη της κυτταρικής μακροζωίας.",
+                    "**Αντιοξειδωτική Ασπίδα:** Το έλαιο Ροδιού (Ω-5) προστατεύει το δέρμα από τη φωτογήρανση και τις ελεύθερες ρίζες.",
+                    "**Ολική Αναδόμηση:** Βελτιώνει την πυκνότητα του δέρματος, λειαίνει τις βαθιές ρυτίδες και επαναφέρει το περίγραμμα του προσώπου.",
+                    "**Premium Φροντίδα:** Ενισχυμένη σύνθεση με Μαστιχέλαιο Χίου για μέγιστη αναπλαστική δράση."
+                ],
+                howTo: "Εφαρμόστε το βράδυ (ή πρωί και βράδυ για ώριμες επιδερμίδες) σε καθαρό δέρμα. Συνδυάζεται ιδανικά με το Revitace Eyes.",
+                cautions: "Ισχυρή αντιγηραντική δράση. Κατάλληλη για ηλικίες 35+ ή δέρματα με ορατά σημάδια κόπωσης και γήρανσης."
+            }),
+            science: `
+                <h3>Επιγενετική & Dermal Remodeling</h3>
+                <p><strong>Θεραπευτικό Rationale:</strong> Ρύθμιση της γονιδιακής έκφρασης των ινοβλαστών και προστασία του δομικού κολλαγόνου.</p>
+                ${hcpTable([
+                    {
+                        ing: "Chios Mastic Oil (Lentiscus fractions)",
+                        moa: "<strong>Klotho Gene Induction:</strong> Επάγει την έκφραση της πρωτεΐνης Klotho στους ινοβλάστες. Αυτό ενισχύει τους ενδογενείς μηχανισμούς επιδιόρθωσης του DNA και βελτιώνει την κυτταρική αποτοξίνωση (proteasome activity)."
+                    },
+                    {
+                        ing: "Pomegranate Seed Oil (Punicic Acid - Ω5)",
+                        moa: "<strong>MMP-1 Inhibition:</strong> Το πουνικικό οξύ αναστέλλει τις μεταλλοπρωτεϊνάσεις (MMPs), τα ένζυμα που αποδομούν το κολλαγόνο και την ελαστίνη κατά τη φωτογήρανση. Δρα ως πανίσχυρος αντιοξειδωτικός ρυθμιστής."
+                    },
+                    {
+                        ing: "Phytosterols & Tocopherols",
+                        moa: "<strong>Structural Support:</strong> Ενισχύουν τη βιοσύνθεση των λιπιδίων του μεσοκυττάριου χώρου, αυξάνοντας την πυκνότητα (density) του χορίου και την ελαστικότητα του ιστού."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Lall N, et al. (2020). Rejuvenating effect of mastic gum on human dermal fibroblasts: An epigenetic approach.",
+                "Neha K, et al. (2014). Pomegranate seed oil in dermatology: A comprehensive review. Journal of Cosmetic Dermatology.",
+                "Heber D, et al. (2007). Pomegranate Ellagitannins: Dermal support and photo-protection mechanisms.",
+                "Kuro-o M. (2009). Klotho and aging: Molecular mechanisms of the aging-suppressor gene. Nagoya Journal of Medical Science."
+            ])
+        }
+    },
+    {
+        name: 'Revitace Eyes cream Luce 30ml',
+        description: {
+            consumer: consumerBlock({
+                title: "Φωτεινό Βλέμμα, Αποσυμφόρηση & Κατά των Μαύρων Κύκλων",
+                bullets: [
+                    "**Στοχευμένη Δράση:** Μειώνει ορατά το πρήξιμο (σακούλες) και τη χρωματική ένταση των μαύρων κύκλων στην περικογχική περιοχή.",
+                    "**Άμεση Φωτεινότητα:** Η τεχνολογία 'Luce' αντανακλά το φως, προσφέροντας ξεκούραστη όψη από την πρώτη εφαρμογή.",
+                    "**Σύσφιξη Βλεφάρων:** Βελτιώνει την τονικότητα του λεπτού δέρματος γύρω από τα μάτια, προλαμβάνοντας τη χαλάρωση.",
+                    "**Καταπραϋντική Φροντίδα:** Με εκχύλισμα Άρνικας για τη μείωση της τοπικής συμφόρησης."
+                ],
+                howTo: "Εφαρμόστε μικρή ποσότητα πρωί και βράδυ. Τοποθετήστε ταμποναριστά με το παράμεσο δάχτυλο στο οστό της κόγχης του ματιού (από μέσα προς τα έξω).",
+                cautions: "Οφθαλμολογικά ελεγμένη. Αποφύγετε την άμεση επαφή με τον επιπεφυκότα."
+            }),
+            science: `
+                <h3>Μικροκυκλοφορία & Περικογχική Αποκατάσταση</h3>
+                <p><strong>Στόχος:</strong> Ενίσχυση του τριχοειδικού δικτύου και απορρόφηση των προϊόντων λύσης της αιμοσφαιρίνης.</p>
+                ${hcpTable([
+                    {
+                        ing: "Escin (Aesculus Hippocastanum)",
+                        moa: "<strong>Venotonic Profile:</strong> Η αισκίνη αυξάνει την τονικότητα των τοιχωμάτων των τριχοειδών αγγείων και μειώνει τον αριθμό και τη διάμετρο των πόρων της ενδοθηλιακής μεμβράνης, περιορίζοντας τη διαρροή υγρών (οίδημα)."
+                    },
+                    {
+                        ing: "Arnica Montana Extract",
+                        moa: "<strong>Heme Degradation Support:</strong> Βοηθά στην απορρόφηση των χρωστικών του αίματος (χολερυθρίνη) που ευθύνονται για το χαρακτηριστικό σκούρο χρώμα των μαύρων κύκλων."
+                    },
+                    {
+                        ing: "Peptide Complex",
+                        moa: "<strong>Drainage Activation:</strong> Ενεργοποιεί τη λεμφική παροχέτευση της περιοχής, μειώνοντας τη συσσώρευση υγρών που προκαλεί το 'puffiness' (πρήξιμο) των βλεφάρων."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Gallelli L. (2019). Escin: a review of its anti-edematous, anti-inflammatory, and venotonic properties. Drug Design, Development and Therapy.",
+                "Sirtori CR. (2001). Aescin: pharmacology, pharmacokinetics and therapeutic profile. Pharmacological Research.",
+                "MacKay D. (2001). Hemorrhoids and varicose veins: a review of treatment options. Alternative Medicine Review (Arnica/Escin analysis).",
+                "Rohdewald P. (2002). A review of the bio-availability and clinical efficacy of Aescin."
+            ])
+        }
+    },
+    {
+        name: 'Zarkolia Cosmetic pack',
+        description: {
+            consumer: consumerBlock({
+                title: "Ολοκληρωμένο Πρωτόκολλο Αντιγήρανσης & Αναδόμησης",
+                bullets: [
+                    "**Συνδυαστική Υπεροχή:** Περιλαμβάνει Hydralia Face, Revitacell Plus και Revitace Eyes για μια πλήρη 24ωρη ρουτίνα φροντίδας.",
+                    "**Στάδιο 1 (Hydralia):** Πρωινή ενυδάτωση, προστασία φραγμού και plumping effect για όλη την ημέρα.",
+                    "**Στάδιο 2 (Revitacell):** Βραδινή επιγενετική αναδόμηση, ενεργοποίηση του Klotho και λείανση ρυτίδων κατά τη διάρκεια του ύπνου.",
+                    "**Στάδιο 3 (Eyes Luce):** 24ωρη φροντίδα ματιών για φωτεινότητα, αποσυμφόρηση και καταπολέμηση μαύρων κύκλων."
+                ],
+                howTo: "**Πρωί:** Καθαρισμός ➜ Revitace Eyes ➜ Hydralia Face. **Βράδυ:** Καθαρισμός ➜ Revitace Eyes ➜ Revitacell Plus.",
+                cautions: "Το απόλυτο επιστημονικό δώρο για την υγεία της επιδερμίδας. Συνέργεια δραστικών για μέγιστο κλινικό αποτέλεσμα."
+            }),
+            science: `
+                <h3>Συνεργιστικό Μοντέλο Δερμοκοσμητικής Παρέμβασης</h3>
+                <p><strong>Rationale:</strong> Ο συνδυασμός των τριών σκευασμάτων εξασφαλίζει την κάλυψη όλων των αναγκών της εξωκυττάριας ουσίας και του κυτταρικού μεταβολισμού.</p>
+                ${hcpTable([
+                    {
+                        ing: "Hydration (Hydralia)",
+                        moa: "Ρύθμιση ωσμωτικής πίεσης και άμεση πλήρωση του υδρολιπιδικού φραγμού."
+                    },
+                    {
+                        ing: "Epigenetics (Revitacell)",
+                        moa: "Ενεργοποίηση γονιδιακών μονοπατιών επιδιόρθωσης (Klotho) και αναστολή ενζυμικής αποδόμησης (MMPs)."
+                    },
+                    {
+                        ing: "Microcirculation (Eyes Luce)",
+                        moa: "Βελτίωση της τριχοειδικής κυκλοφορίας και μείωση της περικογχικής κατακράτησης υγρών."
+                    }
+                ])}
+            `,
+            bibliography: biblioList([
+                "Συνδυασμένη βιβλιογραφία των μεμονωμένων προϊόντων (Lall N, Bukhari SNA, Gallelli L).",
+                "Farris PK. (2014). Cosmeceuticals and Cosmetic Practice: A multi-modal approach to skin aging.",
+                "Rinnerthaler M, et al. (2015). Oxidative stress in aging human skin. Biomolecules."
+            ])
+        }
+    },
 ];
 
 // --- 5. ΑΡΧΙΚΟΠΟΙΗΣΗ ΕΦΑΡΜΟΓΗΣ ---
