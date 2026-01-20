@@ -3,91 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - ERP Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Zarkolia Health - Premium ERP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-container">
         <header>
-            <h1>ZARKOLIA<span style="font-weight:300;">HEALTH</span></h1>
-            <p style="color: var(--text-light); font-weight: 600;">Εξειδικευμένο Σύστημα ERP & CRM</p>
+            <h1>ZARKOLIA<span>HEALTH</span></h1>
         </header>
 
         <form id="orderForm" onsubmit="return false;">
             <div class="card">
-                <h2 class="section-title">Στοιχεία Τιμολόγησης</h2>
-                <div class="form-grid">
-                    <div class="form-group" style="position: relative;">
-                        <label>ΑΦΜ ΠΕΛΑΤΗ (LIVE LOOKUP)</label>
-                        <input type="text" id="afm" maxlength="9" placeholder="Εισάγετε 9 ψηφία...">
-                        <span id="search-loader" class="hourglass-hidden">⏳</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2 style="margin:0;">Στοιχεία Τιμολόγησης</h2>
+                    <div id="search-loader" style="font-size:1.5rem; display:none;">⏳</div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:25px;">
+                    <div class="form-group">
+                        <label>ΑΦΜ</label>
+                        <input type="text" id="afm" maxlength="9" placeholder="Αναζήτηση...">
                     </div>
-                    <div class="form-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
-                    <div class="form-group full"><label>Επωνυμία Φαρμακείου / Επιχείρησης</label><input type="text" id="eponimia"></div>
-                    <div class="form-group"><label>Κινητό Τηλέφωνο</label><input type="tel" id="mobile"></div>
-                    <div class="form-group"><label>Σταθερό Τηλέφωνο</label><input type="tel" id="phone"></div>
-                    <div class="form-group full"><label>Email για Αντίγραφο Παραγγελίας</label><input type="email" id="email"></div>
+                    <div class="form-group">
+                        <label>ΔΟΥ</label>
+                        <input type="text" id="doy">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Επωνυμία</label>
+                        <input type="text" id="eponimia" style="width:100%;">
+                    </div>
+                    <div class="form-group">
+                        <label>Κινητό</label>
+                        <input type="tel" id="mobile">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email">
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <h2 class="section-title">Επιστημονική Τεκμηρίωση</h2>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Επιλέξτε προϊόν για να δείτε τον Μηχανισμό Δράσης (MoA)</p>
-                <div id="productButtonsContainer" class="product-grid-nav"></div>
+                <h2>Επιλογή Προϊόντων & MoA</h2>
+                <div id="productButtonsContainer" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:15px;"></div>
                 
-                <div class="table-responsive">
-                    <table id="product-table">
-                        <thead>
+                <div style="overflow-x:auto; margin-top:30px;">
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead style="background:#f1f5f9;">
                             <tr>
-                                <th>ΠΡΟΪΟΝ</th>
-                                <th>ΑΡΧΙΚΗ ΤΙΜΗ</th>
-                                <th>ΠΟΣΟΤΗΤΑ</th>
-                                <th>ΔΩΡΑ</th>
-                                <th>ΚΟΣΤΟΣ / ΤΕΜ</th>
-                                <th>ΣΥΝΟΛΟ</th>
+                                <th style="padding:15px; text-align:left;">Προϊόν</th>
+                                <th style="padding:15px;">Ποσότητα</th>
+                                <th style="padding:15px;">Δώρα</th>
+                                <th style="padding:15px; text-align:right;">Σύνολο</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody id="order-rows"></tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="policy-wrapper">
-                <div class="card policy-box">
-                    <h3 style="margin-top:0;">📦 Εμπορική Πολιτική</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                <div class="card" style="border-left: 8px solid var(--accent);">
+                    <h3>📦 Πολιτική</h3>
                     <p>9+1 | 18+3 | 24+6 [cite: 2025-06-19]</p>
-                    <p>Έκπτωση Τζίρου: 3% έως 10% [cite: 2025-06-19]</p>
-                    <p><strong>+2% Έκπτωση Μετρητών [cite: 2025-08-13]</strong></p>
+                    <p>Τζίρος: 3-10% [cite: 2025-06-19]</p>
+                    <p><strong>Μετρητά: +2% [cite: 2025-08-13]</strong></p>
                 </div>
-                <div class="card analysis-box">
-                    <h3 style="margin-top:0; color: var(--primary);">💰 Ανάλυση Οφέλους</h3>
-                    <div id="dynamicAnalysis">Περιμένω δεδομένα παραγγελίας...</div>
+                <div class="card" style="background:var(--primary); color:#fff;">
+                    <h3>💰 Ανάλυση Οφέλους</h3>
+                    <div id="dynamicAnalysis">Ξεκινήστε την παραγγελία...</div>
                 </div>
             </div>
 
             <div class="card">
-                <h3 style="margin-top:0;">Τρόπος Πληρωμής & Οδηγίες</h3>
-                <div style="display: flex; gap: 40px; margin-bottom: 25px;">
-                    <label style="cursor:pointer;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά (+2%)</label>
-                    <label style="cursor:pointer;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 ημερών</label>
-                </div>
-                <label>Ειδικές Παρατηρήσεις</label>
-                <textarea id="remarks" style="height:60px; resize:none;" placeholder="π.χ. Παράδοση πρωινές ώρες..."></textarea>
-            </div>
-
-            <div class="totals-card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <span>ΚΑΘΑΡΗ ΑΞΙΑ:</span>
-                    <span id="final-net">0.00 €</span>
-                </div>
-                <div class="grand-total-row" style="display:flex; justify-content:space-between;">
-                    <span>ΤΕΛΙΚΟ:</span>
-                    <span id="final-total">0.00 €</span>
+                <label>Παρατηρήσεις</label>
+                <textarea id="remarks" style="width:100%; height:50px; margin-top:10px;"></textarea>
+                <div style="display:flex; gap:20px; margin-top:20px;">
+                    <label><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2%)</label>
+                    <label><input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"> Επιταγή</label>
                 </div>
             </div>
 
-            <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
+            <div style="text-align:right; margin-bottom:40px;">
+                <h2 style="font-size:3rem; color:var(--primary);">ΣΥΝΟΛΟ: <span id="final-total">0.00 €</span></h2>
+            </div>
+
+            <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()" style="width:100%;">Ολοκλήρωση & Αποθήκευση</button>
         </form>
     </div>
 
@@ -95,11 +96,5 @@
 
     <script src="products.js"></script>
     <script src="script.js"></script>
-    <script>
-        function onlyOne(checkbox) {
-            document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; });
-            if (typeof updateTotals === "function") updateTotals();
-        }
-    </script>
 </body>
 </html>
