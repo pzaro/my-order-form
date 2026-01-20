@@ -1,10 +1,15 @@
 // ============================================================
-// ZARKOLIA HEALTH - THE DEFINITIVE SCIENTIFIC ERP v15.0
+// ZARKOLIA HEALTH - ULTIMATE SCIENTIFIC ERP & CRM v16.0
 // ============================================================
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwW3vZ9qZpReWXJpj3XplkaHm4yF4qlyk1aiMDPnEk51lvwz9osqHOET2KM1VsUWsWIag/exec";
 
-// --- 1. ΠΛΗΡΗΣ ΒΑΣΗ ΠΕΛΑΤΩΝ (88 ΕΓΓΡΑΦΕΣ) ---
+// --- 1. HELPERS ΓΙΑ ΕΠΙΣΤΗΜΟΝΙΚΗ ΤΕΚΜΗΡΙΩΣΗ ---
+function hcpTable(rows) {
+    return `<table class="hcp-table"><thead><tr style="background:#f9f9f9;"><th>Συστατικό</th><th>Μοριακός Μηχανισμός (MoA)</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
+}
+
+// --- 2. ΠΛΗΡΗΣ ΒΑΣΗ ΠΕΛΑΤΩΝ (88 ΕΓΓΡΑΦΕΣ) ---
 const knownCustomers = {
     "999746768": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΑΝΔΡΕΑΔΟΥ ΕΥΑΓΓΕΛΙΑ", doy: "ΕΔΕΣΣΑΣ", mobile: "6936515332", phone: "2384021001", email: "andreadoupharmacy@yahoo.com" },
     "025305198": { eponimia: "ΒΑΡΕΛΑΣ ΜΙΧΑΗΛ ΧΡΗΣΤΟ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6937457161", email: "mixalisvarelas@gmail.com" },
@@ -13,7 +18,7 @@ const knownCustomers = {
     "127276450": { eponimia: "ΚΙΟΣΗΣ ΙΩΑΝΝΗΣ ΑΘΑΝΑΣΙΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6976613377", email: "igiannis@yahoo.com" },
     "028058883": { eponimia: "ΤΡΙΑΝΤΑΦΥΛΛΙΔΗΣ ΛΑΖΑΡΟΣ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", email: "trilazar@otenet.gr" },
     "030796217": { eponimia: "ΚΥΡΙΑΚΟΥ ΑΓΛΑΙΑ ΝΙΚΟΛΑΟ", doy: "ΝΕΩΝ ΜΟΥΔΑΝΙΩΝ", phone: "2399021663", email: "kyriakou.agla@gmail.com" },
-    "041630585": { eponimia: "ΓΕΡΟΝΤΟΠΟΥΛΟΣ ΝΙΚΗΦΟΡΟΣ ΘΕΟΦΙΛΟ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6942207814", email: "nikigero1@hotmail.com" },
+    "041630585": { eponimia: "ΓΕΡΟΝΤΟΠΟΥΛΟΣ ΝΙΚΗΦΟΡΟΣ ΘΕΟΦΙΛΟ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", phone: "2551028764", email: "nikigero1@hotmail.com" },
     "042643289": { eponimia: "ΜΑΙΝΟΥ ΑΛΕΞΑΝΔΡΑ ΝΙΚΟΛΑΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6977591863", email: "mainoualex@gmail.com" },
     "043720722": { eponimia: "ΚΑΡΑΔΗΜΟΥ ΚΩΝΣΤΑΝΤΙΝΑ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", email: "karad12@otenet.gr" },
     "047359704": { eponimia: "ΦΑΡΑΚΛΙΩΤΗΣ ΔΗΜΗΤΡΙΟΣ ΘΩΜΑ", doy: "ΧΑΛΚΙΔΑΣ", mobile: "6973747981", email: "farmakeiokamares@gmail.com" },
@@ -25,8 +30,8 @@ const knownCustomers = {
     "079214571": { eponimia: "ΜΑΝΔΑΛΤΣΗ ΑΙΚΑΤΕΡΙΝΗ ΔΗΜΗΤΡΙΟ", doy: "ΓΙΑΝΝΙΤΣΩΝ", email: "farmakiomandaltsi@gmail.com" },
     "081095923": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΑΔΑΜΙΔΗ Α ΑΔΑΜΙΔΟΥ Μ Ο.Ε", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6976974411", email: "adamidou.mar@gmail.com" },
     "082988981": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΕΥΑΓΓΕΛΟΣ ΚΥΡΙΑΚΙΔΗΣ ΕΜΜΑΝΟΥ", doy: "ΓΙΑΝΝΙΤΣΩΝ", email: "vagemm@gmail.com" },
-    "084186015": { eponimia: "PROJECT ΚΑΣΑΠΑΚΗΣ Θ & ΣΙΑ Ο.Ε", doy: "Η ΘΕΣΣΑΛΟΝΙΚΗΣ", email: "info@projectk.gr" },
-    "094352564": { eponimia: "ΙΤΧ ΕΛΛΑΣ ΜΟΝΟΠΡΟΣΩΠΗ Α.Ε", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ" },
+    "084186015": { eponimia: "PROJECT ΚΑΣΑΠΑΚΗΣ Θ & ΣΙΑ Ο.Ε", doy: "Η ΘΕΣΣΑΛΟΝΙΚΗΣ", phone: "2310832124", email: "info@projectk.gr" },
+    "094352564": { eponimia: "ΙΤΧ ΕΛΛΑΣ ΜΟΝΟΠρΟΣΩΠΗ Α.Ε", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ" },
     "095141629": { eponimia: "ΔΟΜΙΚΗ Π ΠΑΥΛΙΔΗΣ Α.Ε", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6979794428", email: "g.apostolidis@domiki-pavlides.gr" },
     "096006210": { eponimia: "ΠΡΟΜΗΘΕΥΤΙΚΟΣ ΣΥΝΣΜΟΣ ΦΑΡΠΟΙΩΝ ΑΤΤΙΚΗΣ Π", doy: "ΠΕΡΙΣΤΕΡΙΟΥ", phone: "210 5709400", email: "asaxoni@prosyfape.gr" },
     "105965545": { eponimia: "ΚΑΛΑΙΤΖΙΔΗΣ ΕΥΣΤΑΘΙΟΣ ΦΩΤΙΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6947438490", email: "kalatzidis@gmail.com" },
@@ -60,7 +65,7 @@ const knownCustomers = {
     "151161020": { eponimia: "ΒΕΧΤΣΑΛΗΣ ΣΩΤΗΡΙΟΣ ΧΡΗΣΤΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6985799070", email: "sotirisvechtsalis@hotmail.com" },
     "151162495": { eponimia: "ΜΑΝΘΟΥ ΧΡΗΣΤΟΣ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", email: "christosmanthougr@gmail.com" },
     "152502387": { eponimia: "ΤΖΙΝΕΒΗ ΑΛΙΚΗ ΑΝΔΡΟΝΙΚΗ ΠΑΝΑΓΙΩΤΗ", doy: "ΝΕΩΝ ΜΟΥΔΑΝΙΩΝ", mobile: "6934165285", email: "alicetzi28@gmail.com" },
-    "153360643": { eponimia: "ΚΑΖΑΚΟΥ ΚΩΝΣΤΑΝΤΙΝΑ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", email: "kazakoukonstantina@gmail.com" },
+    "153360643": { eponimia: "ΚΑΖΑΚΟΥ ΚΩΝΣΤΑΝΤΙΝΑ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", phone: "+302551023378", email: "kazakoukonstantina@gmail.com" },
     "158040138": { eponimia: "ΠΑΠΑΟΡΦΑΝΟΣ ΚΩΝΣΤΑΝΤΙΝΟΣ ΑΝΤΩΝΙΟ", doy: "ΙΖ ΑΘΗΝΩΝ", email: "papamymarket@gmail.com" },
     "159693610": { eponimia: "ΧΡΥΣΟΣΤΟΜΙΔΗΣ ΑΝΤΩΝΙΟΣ ΠΑΡΑΣΚΕΥΑ", doy: "ΓΙΑΝΝΙΤΣΩΝ", email: "a.chrysostomidis@hotmail.com" },
     "165645258": { eponimia: "ΦΑΝΤΙΔΟΥ ΕΙΡΗΝΗ ΛΑΖΑΡΟ", doy: "ΕΔΕΣΣΑΣ", email: "fantidou.pharmacy@gmail.com" },
@@ -73,7 +78,7 @@ const knownCustomers = {
     "800472889": { eponimia: "ΦΑΡΜΑΚΕΙΑ ΣΠΥΡΙΔΗΣ Δ ΒΑΛΑΣΙΔΟΥ ΙΣ Ο", doy: "ΚΙΛΚΙΣ", email: "dimitris_sp@yahoo.com" },
     "800586973": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΦΑΡΜΑΚΗΣ ΙΩΑΝΝΗΣ ΚΑΙ ΣΙΑ Ο", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6984914098", email: "farmakisg21@hotmail.gr" },
     "800616945": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΨΥΧΟΓΥΟΥ ΑΙΚΑΤΕΡΙΝΗ Ο.Ε", doy: "ΕΔΕΣΣΑΣ", email: "anaspsi@gmail.com" },
-    "800699181": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ Κ ΓΕΩρΓΙΑΔΟΥ ΚΑΙ Κ ΚΑΤΣΙΑΝΟΣ Ο", doy: "ΚΙΛΚΙΣ", email: "katsianoskos@gmail.com" },
+    "800699181": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ Κ ΓΕΩΡΓΙΑΔΟΥ ΚΑΙ Κ ΚΑΤΣΙΑΝΟΣ Ο", doy: "ΚΙΛΚΙΣ", email: "katsianoskos@gmail.com" },
     "800732970": { eponimia: "ΦΡΟΥΤΑ ΜΟΥΤΣΟΓΙΑΝΝΗ", doy: "ΕΔΕΣΣΑΣ", email: "moutsogiannis23@gmail.com" },
     "800759157": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΧΡΗΣΤΟΥ ΠΕΛΑΓΙΑ Ο", doy: "ΕΔΕΣΣΑΣ", email: "orestis.sarigkiolis@gmail.com" },
     "800972362": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΤΟΠΟΥΖΙΔΗΣ Γ ΚΑΙ ΤΟΠΟΥΖΙΔΗΣ Κ Ο", doy: "ΚΙΛΚΙΣ", mobile: "6942717900", email: "e.topouzidou@yahoo.gr" },
@@ -103,7 +108,7 @@ const knownCustomers = {
     "999387480": { eponimia: "ΜΗΤΚΑΣ ΑΔΑΜΑΝΤΙΟΣ ΚΑΙ ΣΙΑ Ε", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6945411342", email: "farmakiomitkas@gmail.com" }
 };
 
-// --- 2. ΠΡΟΪΟΝΤΑ & ΤΙΜΕΣ ---
+// --- 3. ΠΛΗΡΗΣ ΛΙΣΤΑ ΠΡΟΪΟΝΤΩΝ & ΤΙΜΩΝ ---
 const products = [
     { name: 'Z-DermAspis', price: 5.03 },
     { name: 'Zplast Total Repair 50ml', price: 14.60 },
@@ -126,88 +131,95 @@ const products = [
     { name: 'Zarkolia Cosmetic pack', price: 23.89 }
 ];
 
-// --- 3. ΠΛΗΡΗΣ ΕΠΙΣΤΗΜΟΝΙΚΗ ΤΕΚΜΗΡΙΩΣΗ (ADVANCED MoA) ---
+// --- 4. ΠΛΗΡΕΣ ΕΠΙΣΤΗΜΟΝΙΚΟ COMPENDIUM (HCP MoA) ---
 const productDetails = {
-    "Z-DermAspis": {
-        moa: [
-            { ing: "Ethanol 70% v/v", moa: "Άμεση μετουσίωση πρωτεϊνών και λύση της λιπιδικής μεμβράνης παθογόνων." },
-            { ing: "PMD (Citriodora)", moa: "Ανταγωνιστής των OBPs εντόμων. Αποκλείει τον εντοπισμό του ξενιστή (άνθρωπος)." }
-        ],
-        cases: "Υγιεινή χεριών και προστασία από τσιμπήματα εντόμων (12h).",
-        rationale: "Διπλή δράση αντισηψίας και απώθησης σε ένα σκεύασμα.",
-        biblio: ["Carroll SP (2006). PubMed: 16492330"]
-    },
     "Zplast Total Repair": {
         moa: [
-            { ing: "Centella Asiatica", moa: "<strong>SMAD Signaling:</strong> Διεγείρει τη σύνθεση Κολλαγόνου Ι & III και ελαστίνης." },
-            { ing: "Υαλουρονικό Multi-MW", moa: "<strong>ECM Scaffold:</strong> Δημιουργεί τρισδιάστατο ικρίωμα για την ιστική μετανάστευση." },
-            { ing: "Ιπποφαές (Ω-7)", moa: "Ενσωματώνεται στα φωσφολιπίδια των κυττάρων για ταχεία επιθηλιοποίηση." }
+            { ing: "Centella Asiatica", moa: "<strong>SMAD Signaling:</strong> Διεγείρει τη μεταγραφή γονιδίων για Κολλαγόνο Ι & III." },
+            { ing: "Multi-MW Hyaluronic", moa: "<strong>ECM Scaffold:</strong> Τρισδιάστατο ικρίωμα για μετανάστευση ινοβλαστών." },
+            { ing: "Sea Buckthorn (Ω-7)", moa: "Ενσωματώνεται στα φωσφολιπίδια, σταθεροποιώντας τον νέο ιστό." }
         ],
-        cases: "Χειρουργικές τομές, διαβητικά έλκη, εγκαύματα 2ου βαθμού, βαθιές ουλές ακμής, ραγάδες.",
-        rationale: "Κλινική αναδόμηση του χορίου σε βάθος, εξασφαλίζοντας ελαστικότητα στον νέο ιστό.",
-        biblio: ["Bylka W (2013). PubMed: 24386321", "Wohlrab J (2018)."],
+        cases: "Χειρουργικές τομές, διαβητικά έλκη, εγκαύματα 2ου βαθμού, βαθιές ουλές, ραγάδες εγκυμοσύνης.",
+        rationale: "Κλινική αναδόμηση σε βάθος. Εξασφαλίζει ελαστικότητα και αποτρέπει τις χηλοειδείς ουλές.",
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Zplast%20Total%20Repair.jpeg?raw=true"
     },
     "ZplastCream": {
         moa: [
-            { ing: "Μαστίχα & Μέλι", moa: "<strong>TGF-β Induction:</strong> Φυσική διέγερση επούλωσης και αντισηπτική υγροσκοπία." },
-            { ing: "Καλαμίνη", moa: "<strong>Anti-pruritic:</strong> Άμεση καταστολή κνησμού και φλεγμονώδους ερεθισμού." },
-            { ing: "Σπαθόλαδο", moa: "Υπερφορίνη για αντιφλεγμονώδη δράση και καταπράυνση." }
+            { ing: "Μαστίχα & Μέλι", moa: "<strong>TGF-β Induction:</strong> Φυσική επούλωση και ισχυρή υγροσκοπική αντισηψία." },
+            { ing: "Καλαμίνη & Θυμάρι", moa: "<strong>Anti-pruritic:</strong> Άμεση καταστολή κνησμού και αντιμικροβιακό φράγμα." }
         ],
-        cases: "Συγκάματα βρεφών, ερεθισμοί από ήλιο, καθημερινή προστασία φραγμού, ήπια εγκαύματα.",
-        rationale: "100% φυτική ασπίδα προστασίας με αντιμικροβιακές ιδιότητες.",
-        biblio: ["Paraschos S (2012). PubMed: 17544358"]
+        cases: "Συγκάματα, ερεθισμοί από ήλιο/ξύρισμα, πρόληψη κατακλίσεων, ξηροδερμία, ήπια δερματίτιδα.",
+        rationale: "100% φυτική βάση προστασίας φραγμού. Ιδανική για το ευαίσθητο βρεφικό και γεροντικό δέρμα."
     },
     "Bruise Off": {
         moa: [
-            { ing: "Arnica (Helenalin)", moa: "<strong>NF-κB Inhibition:</strong> Διακοπή της φλεγμονής στη ρίζα της (κυτταροκίνες)." },
-            { ing: "Urea (Ουρία)", moa: "<strong>Penetration Enhancer:</strong> Διασπά τους δεσμούς κερατίνης για μέγιστη διείσδυση." },
-            { ing: "Carvacrol", moa: "TRPV1 Agonist για τοπική υπεραιμία και απορρόφηση οιδήματος." }
+            { ing: "Arnica (Helenalin)", moa: "<strong>NF-κB Inhibition:</strong> Διακόπτει τη φλεγμονώδη απόκριση (IL-1, TNF-α)." },
+            { ing: "Urea (Ουρία)", moa: "<strong>Keratolytic:</strong> Μαλακώνει την κερατίνη για μέγιστη διείσδυση ενεργών." }
         ],
-        cases: "Μελανιές μετά από Fillers/Botox, αιματώματα, οιδήματα, μυϊκοί πόνοι.",
-        rationale: "Επιταχύνει δραστικά τον μεταβολισμό του εγκλωβισμένου αίματος στον ιστό.",
-        biblio: ["Lyss G (1998). PubMed: 9531637"]
+        cases: "Μετά από Fillers/Botox, αιματώματα, οιδήματα, μυϊκές θλάσεις, αθλητικοί τραυματισμοί.",
+        rationale: "Επιταχύνει τη μεταβολική απορρόφηση του αίματος στον ιστό. Εξαφανίζει μελανιές σε χρόνο ρεκόρ."
     },
     "Z-boost": {
         moa: [
-            { ing: "Zinc & Gingerols", moa: "<strong>Viral Inhibition:</strong> Αναστολή RNA πολυμεράσης ιών και COX-2/5-LOX." },
-            { ing: "NAC", moa: "<strong>GSH Precursor:</strong> Άμεση σύνθεση ενδογενούς γλουταθειόνης (Redox)." }
+            { ing: "Zinc & Gingerols", moa: "<strong>Viral Inhibition:</strong> Αναστολή RNA πολυμεράσης και COX-2/5-LOX." },
+            { ing: "NAC", moa: "<strong>GSH Precursor:</strong> Άμεση σύνθεση ενδογενούς γλουταθειόνης για Redox ισορροπία." }
         ],
-        cases: "Πρόληψη ιώσεων, υποστήριξη αναπνευστικού, οξειδωτικό στρες, καπνιστές.",
-        rationale: "Ολική θωράκιση του ανοσοποιητικού μέσω μοριακών μονοπατιών Redox."
+        cases: "Πρόληψη γρίπης, ανάρρωση, οξειδωτικό στρες, υποστήριξη πνευμονικής λειτουργίας (NAC).",
+        rationale: "Στοχευμένη θωράκιση ανοσοποιητικού χωρίς περιττά πρόσθετα."
+    },
+    "Hydralia Face": {
+        moa: [
+            { ing: "LMW Hyaluronic", moa: "Δεσμεύει νερό στον χόριο ιστό, αυξάνοντας τον όγκο της ECM." },
+            { ing: "Jojoba Oil", moa: "Αποκατάσταση της λιπιδικής στοιβάδας για μείωση της TEWL." }
+        ],
+        cases: "Αφυδατωμένο δέρμα, θαμπή όψη, Plumping Effect, μετά από Peelings.",
+        rationale: "Ρύθμιση υδροδυναμικής δέρματος για άμεση σφριγηλότητα."
+    },
+    "Revitacell Plus": {
+        moa: [
+            { ing: "Mastic Oil", moa: "<strong>Klotho Gene Induction:</strong> Ενεργοποιεί την πρωτεΐνη της κυτταρικής νεότητας." },
+            { ing: "Ω-5 (Punicic Acid)", moa: "Ισχυρή αναστολή των MMPs που αποδομούν το κολλαγόνο." }
+        ],
+        cases: "Ώριμο δέρμα, φωτογήρανση, απώλεια οβάλ προσώπου, επιγενετική αντιγήρανση.",
+        rationale: "Επαναπρογραμματισμός των ινοβλαστών για νεανική λειτουργία."
+    },
+    "Alveolair Sir": {
+        moa: [
+            { ing: "Θυμάρι & Αλθέα", moa: "<strong>Secretolytic:</strong> Ρευστοποίηση βλέννας και προστατευτικό βιο-φιλμ." },
+            { ing: "Eucalyptus", moa: "Βρογχοδιασταλτική δράση και διευκόλυνση απόχρεμψης." }
+        ],
+        cases: "Παραγωγικός και ξηρός βήχας, ερεθισμένος λαιμός, βρογχική αποσυμφόρηση.",
+        rationale: "Φυτική λύση για την προστασία του ανώτερου αναπνευστικού."
     },
     "NUTRI MX Joint": {
         moa: [
-            { ing: "Collagen II & MSM", moa: "<strong>Chondroprotection:</strong> Δομική υποστήριξη του χόνδρινου ικριώματος." },
-            { ing: "Glucosamine", moa: "Διέγερση βιοσύνθεσης αγρεκάνης και λίπανση αρθρώσεων." }
+            { ing: "Collagen II & MSM", moa: "Δομική αναπλήρωση του αρθρικού χόνδρου και θειούχοι δεσμοί." },
+            { ing: "Glucosamine", moa: "Διεγείρει τη σύνθεση γλυκοζαμινογλυκανών για λίπανση." }
         ],
-        cases: "Οστεοαρθρίτιδα, αθλητές, δυσκαμψία, αποκατάσταση τραυματισμών.",
-        rationale: "Προστασία και αναδόμηση του συνδετικού ιστού των αρθρώσεων."
+        cases: "Οστεοαρθρίτιδα, αθλητές, δυσκαμψία, μετεγχειρητική αποκατάσταση αρθρώσεων.",
+        rationale: "Ολοκληρωμένη χονδροπροστασία και βελτίωση της κινητικότητας."
     },
-    "NUTRI MX Probiotic": {
+    "NUTRI MX Omega 3": {
         moa: [
-            { ing: "18 Strains (10B CFU)", moa: "<strong>Competitive Exclusion:</strong> Αποκλεισμός παθογόνων και Tregs induction." },
-            { ing: "SCFA Support", moa: "Ενίσχυση παραγωγής βουτυρικού οξέος για θρέψη επιθηλίου." }
+            { ing: "EPA/DHA", moa: "<strong>Resolvins:</strong> Ενεργή επίλυση της φλεγμονής και καρδιαγγειακή προστασία." }
         ],
-        cases: "Αντιβιοτικά, IBS, φουσκώματα, εντερική δυσβίωση.",
-        rationale: "Αποκατάσταση της μικροβιακής ομοιόστασης με το πληρέστερο φάσμα στελεχών."
+        cases: "Υπερλιπιδαιμία, καρδιαγγειακή υγεία, γνωστική λειτουργία, ξηροφθαλμία.",
+        rationale: "Υψηλή καθαρότητα και βέλτιστη αναλογία λιπαρών οξέων."
     }
 };
 
-// --- 4. CORE LOGIC (INITIALIZATION) ---
+// --- 5. INITIALIZATION & LOGIC ---
 document.addEventListener("DOMContentLoaded", () => {
     const tableBody = document.querySelector('#product-table tbody');
     const btnContainer = document.getElementById('productButtonsContainer');
 
     products.forEach((p, index) => {
-        // Κατάλογος Κουμπιών
         const btn = document.createElement('button');
         btn.className = 'product-btn';
         btn.innerHTML = `<strong>${p.name}</strong>`;
         btn.onclick = () => showInfo(p.name, index);
         btnContainer.appendChild(btn);
 
-        // Γραμμές Πίνακα
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${p.name}</td>
@@ -219,7 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
         tableBody.appendChild(row);
     });
 
-    // Lookup AFM
     document.getElementById('afm').addEventListener('input', function() {
         const val = this.value.trim();
         if (knownCustomers[val]) {
@@ -234,12 +245,12 @@ document.addEventListener("DOMContentLoaded", () => {
     updateTotals();
 });
 
-// --- 5. ΕΜΠΟΡΙΚΟΙ ΥΠΟΛΟΓΙΣΜΟΙ ---
+// Εμπορική Πολιτική
 function calculateGifts(q) {
     if (q >= 24) return 6; if (q >= 18) return 3; if (q >= 9) return 1; return 0;
 }
 
-function calculateVolumeDiscPerc(net) {
+function calculateVolumeDisc(net) {
     if (net < 300) return 0;
     if (net < 400) return 3;
     if (net < 500) return 4;
@@ -264,7 +275,7 @@ function updateTotals() {
     });
 
     const isCash = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value === "Αντικαταβολή Μετρητά";
-    const volPerc = calculateVolumeDiscPerc(initialNet);
+    const volPerc = calculateVolumeDisc(initialNet);
     const volVal = initialNet * (volPerc / 100);
     const cashVal = isCash ? (initialNet - volVal) * 0.02 : 0;
     const finalNet = initialNet - volVal - cashVal;
@@ -277,27 +288,21 @@ function updateTotals() {
     document.getElementById("vat-value").textContent = (finalNet * 0.24).toFixed(2) + " €";
     document.getElementById("final-total").textContent = (finalNet * 1.24).toFixed(2) + " €";
 
-    // LIVE ANALYSIS BOX (ΑΝΑΛΥΣΗ ΕΚΠΤΩΣΕΩΝ)
     const analysis = document.getElementById("dynamicAnalysis");
     if(initialNet > 0) {
         analysis.innerHTML = `
-            <div style="font-size:0.9rem;">
-                <p>🎁 <strong>Συνολικά Δώρα:</strong> ${totalGifts} τεμ.</p>
-                <p>📉 <strong>Έκπτωση Τζίρου:</strong> ${volPerc}% (-${volVal.toFixed(2)}€)</p>
-                ${isCash ? `<p>💰 <strong>Έκπτωση Μετρητών:</strong> 2% (-${cashVal.toFixed(2)}€)</p>` : ''}
-                <p style="color:#34d399; font-weight:800; font-size:1.1rem; border-top:1px solid #444; padding-top:10px;">
-                    🚀 Συνολικό Όφελος: ${(volVal + cashVal + (totalGifts * 8)).toFixed(2)} €
-                </p>
-            </div>
+            <p>🎁 <strong>Συνολικά Δώρα:</strong> ${totalGifts} τεμ.</p>
+            <p style="color:#34d399;">📉 <strong>Συνολική Έκπτωση:</strong> -${(volVal + cashVal).toFixed(2)} €</p>
+            <p style="font-size:0.8rem; opacity:0.8;">Μέσο κόστος ανά τεμάχιο: ${(finalNet / (totalItems + totalGifts)).toFixed(2)} €</p>
         `;
     } else {
         analysis.innerHTML = "Ξεκινήστε την παραγγελία...";
     }
 }
 
-// --- 6. MODAL SYSTEM (HCP KNOWLEDGE HUB) ---
+// --- 6. MODAL SYSTEM ---
 function showInfo(name, index) {
-    let lookup = name.includes("Total Repair") ? "Zplast Total Repair" : (name.includes("Cream") ? "ZplastCream" : (name.includes("Bruise Off") ? "Bruise Off" : (name.includes("Z-boost") ? "Z-boost" : (name.includes("Probiotic") ? "NUTRI MX PROBIOTIC" : (name.includes("Joint") ? "NUTRI MX JOINT" : name))))));
+    let lookup = Object.keys(productDetails).find(key => name.includes(key)) || name;
     const p = productDetails[lookup] || { moa: [], cases: "—", rationale: "—" };
     const modal = document.getElementById('productModal');
     let imgPath = p.img || `images/${name}.jpg`;
@@ -313,7 +318,7 @@ function showInfo(name, index) {
                 </div>
             </div>
             
-            <h4 style="margin-bottom:10px;">🧬 Μοριακός Μηχανισμός Δράσης</h4>
+            <h4>🧬 Μοριακός Μηχανισμός Δράσης</h4>
             ${hcpTable(p.moa || [])}
 
             <div style="background:#f8fafc; padding:20px; border-radius:15px; margin:20px 0; border:1px solid #eef2f6;">
@@ -341,25 +346,26 @@ function updateFromModal(index) {
 // --- 7. SYNC & EMAIL ---
 async function processOrder() {
     const epo = document.getElementById("eponimia").value;
+    const afm = document.getElementById("afm").value;
     if(!epo) { alert("Παρακαλώ επιλέξτε Πελάτη!"); return; }
 
     let itemsForSheet = [];
     let emailItems = "";
     products.forEach((p, i) => {
         const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
-        const g = document.getElementById(`gift-${i}`).textContent;
         if(q > 0) {
             itemsForSheet.push(`${p.name} (${q})`);
-            emailItems += `* ${p.name} | Τεμ: ${q} | Δώρα: ${g}%0D%0A`;
+            emailItems += `* ${p.name} | Τεμ: ${q} | Δώρα: ${document.getElementById(`gift-${i}`).textContent}%0D%0A`;
         }
     });
 
     const data = { 
-        customer: epo, afm: document.getElementById("afm").value, 
-        doy: document.getElementById("doy").value, mobile: document.getElementById("mobile").value, phone: document.getElementById("phone").value, email: document.getElementById("email").value,
+        customer: epo, afm: afm, doy: document.getElementById("doy").value,
+        mobile: document.getElementById("mobile").value, phone: document.getElementById("phone").value, email: document.getElementById("email").value,
         products: itemsForSheet.join(", "), netValue: document.getElementById("final-net").textContent, 
         vat: document.getElementById("vat-value").textContent, total: document.getElementById("final-total").textContent, 
-        payment: Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "—", remarks: document.getElementById("remarks").value 
+        payment: Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "—",
+        remarks: document.getElementById("remarks").value 
     };
 
     const submitBtn = document.getElementById("submitBtn");
@@ -367,10 +373,9 @@ async function processOrder() {
 
     try {
         await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-        alert("ΕΠΙΤΥΧΙΑ! Η παραγγελία καταχωρήθηκε και η βάση ενημερώθηκε.");
+        alert("Η παραγγελία καταχωρήθηκε επιτυχώς!");
         
-        const body = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ%0D%0A%0D%0AΠΕΛΑΤΗΣ: ${epo}%0D%0A%0D%0AΠΡΟΪΟΝΤΑ:%0D%0A${emailItems}%0D%0A------------------------%0D%0AΑΝΑΛΥΣΗ ΕΚΠΤΩΣΕΩΝ:%0D%0AΑρχική: ${document.getElementById("net-value").textContent}%0D%0AΈκπτωση Τζίρου: ${document.getElementById("disc-perc").textContent}% (-${document.getElementById("disc-val").textContent})%0D%0AΈκπτωση Μετρητών: 2% (-${document.getElementById("cash-disc-val").textContent})%0D%0AΚΑΘΑΡΗ ΑΞΙΑ: ${document.getElementById("final-net").textContent}%0D%0AΦΠΑ (24%): ${document.getElementById("vat-value").textContent}%0D%0AΤΕΛΙΚΟ ΠΟΣΟ: ${document.getElementById("final-total").textContent}%0D%0A------------------------%0D%0AΤΡΑΠΕΖΕΣ: EUROBANK / ΠΕΙΡΑΙΩΣ`;
-        
+        const body = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ%0D%0A%0D%0AΠΕΛΑΤΗΣ: ${epo}%0D%0A%0D%0AΠΡΟΪΟΝΤΑ:%0D%0A${emailItems}%0D%0A------------------------%0D%0AΑΝΑΛΥΣΗ:%0D%0AΑρχική: ${document.getElementById("net-value").textContent}%0D%0AΈκπτωση Τζίρου: ${document.getElementById("disc-perc").textContent}% (-${document.getElementById("disc-val").textContent})%0D%0AΈκπτωση Μετρητών: 2% (-${document.getElementById("cash-disc-val").textContent})%0D%0AΚΑΘΑΡΗ ΑΞΙΑ: ${document.getElementById("final-net").textContent}%0D%0AΦΠΑ (24%): ${document.getElementById("vat-value").textContent}%0D%0A------------------------%0D%0AΤΕΛΙΚΟ ΠΟΣΟ: ${document.getElementById("final-total").textContent}%0D%0A------------------------%0D%0AΤΡΑΠΕΖΕΣ: EUROBANK / ΠΕΙΡΑΙΩΣ`;
         window.location.href = `mailto:pzaro2010@gmail.com,liapaki2017@gmail.com?subject=Order_${encodeURIComponent(epo)}&body=${body}`;
     } catch(e) { alert("Σφάλμα σύνδεσης Cloud."); }
     finally { submitBtn.disabled = false; submitBtn.textContent = "Ολοκλήρωση & Αποθήκευση"; }
