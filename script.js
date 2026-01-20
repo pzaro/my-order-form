@@ -1,14 +1,16 @@
 // ============================================================
-// ZARKOLIA HEALTH - CORE ENGINE v54.0 Advanced Logic
+// ZARKOLIA HEALTH - CORE ENGINE v52.0 Master Logic
 // ============================================================
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
 
 // --- 1. INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
-    if (typeof products !== 'undefined') renderOrderSystem();
+    if (typeof products !== 'undefined') {
+        renderOrderSystem();
+    }
 
-    // CRM Lookup με σωστά μηνύματα [cite: 2026-01-20]
+    // Live CRM Search [cite: 2025-08-13]
     document.getElementById('afm').addEventListener('input', async function() {
         if (this.value.trim().length === 9) {
             const loader = document.getElementById('search-loader');
@@ -37,14 +39,15 @@ function renderOrderSystem() {
     container.innerHTML = '';
 
     products.forEach((p, index) => {
+        // Αντιστοίχιση φωτογραφίας και δεδομένων
+        const details = Object.entries(productDetails).find(([key]) => p.name.includes(key))?.[1] || {};
+        
         const item = document.createElement('div');
         item.className = 'order-item';
         item.innerHTML = `
+            <img src="${details.img || ''}" class="item-img" onerror="this.style.display='none'">
             <div class="item-info">
-                <h4>
-                    ${p.name} 
-                    <button type="button" class="info-btn" onclick="showInfo('${p.name}', ${index})">INFO</button>
-                </h4>
+                <h4>${p.name} <span onclick="showInfo('${p.name}', ${index})" style="cursor:pointer; font-size:1.2rem; filter: grayscale(1);">🧬</span></h4>
                 <small>${p.price.toFixed(2)} €</small>
             </div>
             <div class="qty-controls">
@@ -75,7 +78,7 @@ function updateTotals() {
         document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
     });
 
-    // Κλιμακωτή Έκπτωση: 200€(2%) έως 1000€(10%) [cite: 2026-01-20]
+    // Κλιμακωτή Έκπτωση: 200€(2%) -> 1000€(10%) [cite: 2026-01-20]
     let volPerc = 0;
     if (initialNet >= 1000) volPerc = 10;
     else if (initialNet >= 200) volPerc = Math.floor(initialNet / 100);
@@ -86,62 +89,46 @@ function updateTotals() {
     const finalTotal = (initialNet - volVal - cashVal) * 1.24;
 
     document.getElementById("final-total").textContent = finalTotal.toFixed(2) + " €";
-    
-    // Ανάλυση Οφέλους με αναγραφή ποσοστού [cite: 2026-01-20]
     document.getElementById("dynamicAnalysis").innerHTML = initialNet > 0 ? 
-        `🚀 <strong>Ανάλυση:</strong><br>
-         ✅ Συνολικά Δώρα: <strong>${gifts}</strong><br>
-         📉 Έκπτωση Τζίρου: <strong>${volPerc}%</strong> (-${volVal.toFixed(2)}€)<br>
-         💸 Μετρητά: <strong>${isCash ? "2%" : "0%"}</strong>` : "Περιμένω δεδομένα...";
+        `✅ Συνολικά Δώρα: <strong>${gifts}</strong> | Έκπτωση Τζίρου: <strong>${volPerc}%</strong>` : "—";
 }
 
 // --- 4. SCIENTIFIC MODAL (100% Συστατικά) ---
 function showInfo(name, index) {
     let key = Object.keys(productDetails).find(k => name.toLowerCase().includes(k.toLowerCase())) || name;
-    const p = productDetails[key];
-
-    if (!p) return;
-
+    const p = productDetails[key] || { moa: [], cases: "—", rationale: "—", img: "" };
     const modal = document.getElementById('productModal');
+    
     modal.innerHTML = `
         <div class="modal-content">
-            <span style="position:absolute; top:20px; right:30px; cursor:pointer; font-size:2rem; font-weight:bold; color:#94a3b8;" onclick="closeModal()">×</span>
-            <div style="display:flex; align-items:center; gap:30px; margin-bottom:30px; flex-wrap:wrap;">
-                <img src="${p.img}" style="width:120px; border-radius:15px; box-shadow:0 10px 15px rgba(0,0,0,0.1);">
+            <span style="position:absolute; top:25px; right:35px; cursor:pointer; font-size:2.5rem; color:#cbd5e1;" onclick="closeModal()">&times;</span>
+            <div style="display:flex; align-items:center; gap:40px; margin-bottom:40px; flex-wrap:wrap;">
+                <img src="${p.img}" style="width:160px; border-radius:28px; border:1px solid #eee; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                 <div>
-                    <h2 style="margin:0; color:var(--primary); font-size:1.8rem;">${name}</h2>
-                    <span style="color:var(--accent); font-weight:800; font-size:0.8rem; text-transform:uppercase;">Scientific Data Sheet</span>
+                    <h2 style="margin:0; color:var(--primary); font-size:2.2rem; letter-spacing:-1px;">${name}</h2>
+                    <p style="color:var(--accent); font-weight:800; text-transform:uppercase; letter-spacing:1px;">Scientific Compendium</p>
                 </div>
             </div>
-            <div style="background:#f8fafc; padding:25px; border-radius:20px; border:1px solid #e2e8f0; margin-bottom:20px;">
-                <h4 style="margin:0 0 15px 0; color:var(--primary); text-transform:uppercase; border-bottom:1px solid #cbd5e1; padding-bottom:8px;">🧬 Μοριακή Ανάλυση (MoA)</h4>
-                ${p.moa.map(m => `<p style="margin-bottom:10px; font-size:0.95rem;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
+            <div style="background:#f8fafc; padding:35px; border-radius:28px; border:1px solid #f1f5f9; margin-bottom:30px;">
+                <h4 style="margin-top:0; color:var(--primary); text-transform:uppercase; font-size:0.9rem;">🧬 Μοριακός Μηχανισμός (MoA)</h4>
+                ${p.moa.map(m => `<p style="margin-bottom:12px; font-size:1.05rem;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
             </div>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
-                <div style="background:#ecfdf5; padding:20px; border-radius:15px; border-left:5px solid var(--accent);">
-                    <strong style="font-size:0.75rem; color:var(--primary); text-transform:uppercase;">📍 Ενδείξεις</strong><br>
-                    <span style="font-size:0.9rem; font-weight:600;">${p.cases}</span>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:25px;">
+                <div style="background:#ecfdf5; padding:30px; border-radius:24px;">
+                    <strong style="color:var(--primary); text-transform:uppercase; font-size:0.75rem;">📍 Ενδείξεις</strong><br><span style="font-size:1.1rem; font-weight:600;">${p.cases}</span>
                 </div>
-                <div style="background:#f0f9ff; padding:20px; border-radius:15px; border-left:5px solid #0ea5e9;">
-                    <strong style="font-size:0.75rem; color:#0369a1; text-transform:uppercase;">📚 Βιβλιογραφία</strong><br>
-                    <span style="font-size:0.8rem; font-weight:500;">${p.biblio ? p.biblio.join("<br>") : "HCP Portal Only"}</span>
+                <div style="background:#f0f9ff; padding:30px; border-radius:24px;">
+                    <strong style="color:#0369a1; text-transform:uppercase; font-size:0.75rem;">💡 Rationale</strong><br><span style="font-size:1.1rem; font-weight:600;">Zarkolia Professional Care</span>
                 </div>
             </div>
         </div>`;
-    
-    modal.style.display = 'flex';
     modal.classList.add('active');
 }
 
-function closeModal() {
-    const modal = document.getElementById('productModal');
-    modal.style.display = 'none';
-    modal.classList.remove('active');
-}
-
+function closeModal() { document.getElementById('productModal').classList.remove('active'); }
 function onlyOne(checkbox) { document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); updateTotals(); }
 
-// --- 5. PROCESS ORDER ---
+// --- 5. SUBMIT ---
 async function processOrder() {
     const epo = document.getElementById("eponimia").value;
     if(!epo) { alert("Συμπληρώστε τα στοιχεία πελάτη!"); return; }
