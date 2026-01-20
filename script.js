@@ -1,43 +1,74 @@
 // ============================================================
-// ZARKOLIA HEALTH - LIVE CRM ENGINE v31.0
+// ZARKOLIA HEALTH - ENGINE v32.0 (LIVE CRM & HCP PORTAL)
 // ============================================================
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
 
-// --- 1. LIVE LOOKUP ---
-async function lookupCustomer(afm) {
-    try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?afm=${afm}`);
-        const data = await response.json();
-        return data.notfound ? null : data;
-    } catch (e) { return null; }
+// --- 1. HELPERS ΓΙΑ ΕΠΙΣΤΗΜΟΝΙΚΗ ΤΕΚΜΗΡΙΩΣΗ ---
+function hcpTable(rows) {
+    if (!rows || rows.length === 0) return "<p>Μη διαθέσιμα δεδομένα MoA.</p>";
+    return `<table class="hcp-table"><thead><tr style="background:#f9f9f9;"><th>Συστατικό</th><th>Μηχανισμός Δράσης (MoA)</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
 }
 
-// --- 2. INITIALIZATION ---
+function biblioList(items) {
+    if (!items || items.length === 0) return "";
+    return `<div style="margin-top:20px; padding:15px; background:#f0f9ff; border-radius:10px; border-left:4px solid #0284c7;">
+        <h4 style="margin:0 0 10px 0;">Επιστημονική Βιβλιογραφία (HCP Only)</h4>
+        <ul style="margin:0; padding-left:18px; font-size:0.85rem;">${items.map(i => `<li style="margin-bottom:5px;">${i}</li>`).join("")}</ul>
+    </div>`;
+}
+
+// --- 2. LIVE CRM LOOKUP LOGIC (ΑΥΤΟΜΑΤΗ ΑΝΤΛΗΣΗ ΣΤΟΙΧΕΙΩΝ) ---
+async function lookupCustomer(afm) {
+    try {
+        // Καλούμε το Google Script με παράμετρο ?af=...
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?afm=${afm.trim()}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        return data.notfound ? null : data;
+    } catch (e) {
+        console.error("Cloud Lookup Error:", e);
+        return null;
+    }
+}
+
+// --- 3. INITIALIZATION & ERP LOGIC ---
 document.addEventListener("DOMContentLoaded", () => {
     const tableBody = document.querySelector('#product-table tbody');
     const btnContainer = document.getElementById('productButtonsContainer');
 
-    // Χρήση της μεταβλητής 'products' από το products.js
-    products.forEach((p, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'product-btn';
-        btn.innerHTML = `<strong>${p.name}</strong>`;
-        btn.onclick = () => showInfo(p.name, index);
-        btnContainer.appendChild(btn);
+    // Γέμισμα Πίνακα και Κουμπιών από το products.js
+    if (typeof products !== 'undefined') {
+        products.forEach((p, index) => {
+            // Δημιουργία Κουμπιού για Πληροφορίες
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'product-btn';
+            btn.innerHTML = `<strong>${p.name}</strong>`;
+            btn.onclick = () => showInfo(p.name, index);
+            btnContainer.appendChild(btn);
 
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${p.name}</td><td>${p.price.toFixed(2)}</td><td><input type="number" id="qty-${index}" min="0" oninput="updateTotals()" value="0" style="width:55px;"></td><td><span id="gift-${index}">0</span></td><td id="eff-${index}">${p.price.toFixed(2)}</td><td id="total-${index}">0.00</td>`;
-        tableBody.appendChild(row);
-    });
+            // Δημιουργία Γραμμής Πίνακα Παραγγελίας
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${p.name}</td>
+                <td>${p.price.toFixed(2)}</td>
+                <td><input type="number" id="qty-${index}" min="0" oninput="updateTotals()" value="0" style="width:55px; border-radius:8px; border:1px solid #ddd; padding:5px;"></td>
+                <td><span id="gift-${index}">0</span></td>
+                <td id="eff-${index}">${p.price.toFixed(2)}</td>
+                <td id="total-${index}">0.00</td>`;
+            tableBody.appendChild(row);
+        });
+    }
 
+    // Event Listener για το ΑΦΜ (Image 2 - Live Lookup)
     document.getElementById('afm').addEventListener('input', async function() {
         const val = this.value.trim();
-        if (val.length === 9) {
+        if (val.length === 9) { // Όταν συμπληρωθούν 9 ψηφία
             const c = await lookupCustomer(val);
             if (c) {
                 document.getElementById('eponimia').value = c.eponimia || "";
-                document.getElementById('doy').value = c.doy || "";
+                document.getElementById('doy').value = c.doy || "ΕΔΕΣΣΑΣ";
                 document.getElementById('mobile').value = c.mobile || "";
                 document.getElementById('phone').value = c.phone || "";
                 document.getElementById('email').value = c.email || "";
@@ -46,15 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// --- 4. ΕΜΠΟΡΙΚΗ ΠΟΛΙΤΙΚΗ & ΥΠΟΛΟΓΙΣΜΟΙ ---
 function updateTotals() { 
     let initialNet = 0; let totalGifts = 0;
     products.forEach((p, i) => {
-        const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
+        const qInput = document.getElementById(`qty-${i}`);
+        const q = parseInt(qInput.value) || 0;
         let g = q >= 24 ? 6 : (q >= 18 ? 3 : (q >= 9 ? 1 : 0));
-        initialNet += q * p.price; totalGifts += g;
+        const line = q * p.price;
         document.getElementById(`gift-${i}`).textContent = g;
-        document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
-        document.getElementById(`eff-${i}`).textContent = q > 0 ? ((q * p.price)/(q+g)).toFixed(2) : p.price.toFixed(2);
+        document.getElementById(`total-${i}`).textContent = line.toFixed(2) + " €";
+        document.getElementById(`eff-${i}`).textContent = q > 0 ? (line/(q+g)).toFixed(2) : p.price.toFixed(2);
+        initialNet += line; totalGifts += g;
     });
 
     const isCash = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value === "Αντικαταβολή Μετρητά";
@@ -67,38 +101,73 @@ function updateTotals() {
     document.getElementById("final-total").textContent = (finalNet * 1.24).toFixed(2) + " €";
 
     const analysis = document.getElementById("dynamicAnalysis");
-    analysis.innerHTML = initialNet > 0 ? `<p>🎁 Δώρα: +${totalGifts} τεμ | 📉 Έκπτωση: ${(volVal+cashVal).toFixed(2)}€</p>` : "Επιλέξτε προϊόντα...";
+    analysis.innerHTML = initialNet > 0 ? `<p>🎁 Δώρα: +${totalGifts} τεμ | 📉 Έκπτωση: ${(volVal+cashVal).toFixed(2)}€ | 🚀 Όφελος: ~${(volVal+cashVal+(totalGifts*8)).toFixed(2)}€</p>` : "Επιλέξτε προϊόντα...";
 }
 
+// --- 5. MODAL SYSTEM (HCP HUB - ΠΡΟΒΟΛΗ ΠΛΗΡΟΦΟΡΙΩΝ) ---
+function showInfo(name, index) {
+    // Αναζήτηση στα productDetails (χρησιμοποιεί το όνομα ως κλειδί)
+    let p = productDetails[name];
+    
+    // Αν δεν βρει ακριβές όνομα, δοκιμάζει μερικό (π.χ. "Zplast Total Repair 50ml" -> "Zplast Total Repair")
+    if (!p) {
+        let key = Object.keys(productDetails).find(k => name.includes(k));
+        p = productDetails[key];
+    }
+
+    const modal = document.getElementById('productModal');
+    if (!p) {
+        modal.innerHTML = `<div class="modal-content"><p>Δεν βρέθηκαν πληροφορίες για το προϊόν ${name}.</p><button onclick="this.parentElement.parentElement.style.display='none'">ΚΛΕΙΣΙΜΟ</button></div>`;
+    } else {
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span style="position:absolute;top:20px;right:25px;cursor:pointer;font-size:2.5rem;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+                <div style="display:flex; align-items:center; gap:25px; margin-bottom:20px;">
+                    <img src="${p.img || 'https://via.placeholder.com/130'}" onerror="this.src='https://via.placeholder.com/130?text=ZARKOLIA'" style="width:130px; border-radius:15px; border:1px solid #eee;">
+                    <div><h2>${name}</h2><p style="color:var(--slate-light); font-weight:700;">HCP Scientific Compendium</p></div>
+                </div>
+                <h4>🧬 Μοριακός Μηχανισμός Δράσης</h4>
+                ${hcpTable(p.moa)}
+                <div style="background:#f8fafc; padding:20px; border-radius:15px; margin:20px 0; border:1px solid #eef2f6;">
+                    <p><strong>📍 Ενδείξεις Φαρμακείου:</strong> ${p.cases || "—"}</p>
+                    <p><strong>💡 Γιατί λειτουργεί:</strong> ${p.rationale || "—"}</p>
+                </div>
+                ${biblioList(p.biblio)}
+                <div style="display:flex; gap:10px; align-items:center; background:#ecfdf5; padding:15px; border-radius:15px; margin-top:20px;">
+                    Ποσότητα: <input type="number" id="modal-qty" value="${document.getElementById(`qty-${index}`).value}" style="width:70px; padding:10px; border-radius:8px;">
+                    <button onclick="updateFromModal(${index})" style="background:#059669; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">ΕΝΗΜΕΡΩΣΗ</button>
+                </div>
+            </div>`;
+    }
+    modal.style.display = 'block';
+}
+
+function updateFromModal(index) {
+    document.getElementById(`qty-${index}`).value = document.getElementById('modal-qty').value;
+    updateTotals();
+    document.getElementById('productModal').style.display = 'none';
+}
+
+// --- 6. SYNC & EMAIL ---
 async function processOrder() {
     const epo = document.getElementById("eponimia").value;
-    if(!epo) { alert("Επιλέξτε Πελάτη!"); return; }
-    
+    if(!epo) { alert("Παρακαλώ επιλέξτε Πελάτη!"); return; }
+
     const items = products.map((p, i) => {
         const q = document.getElementById(`qty-${i}`).value;
         return q > 0 ? `* ${p.name} (${q} τεμ + ${document.getElementById(`gift-${i}`).textContent} δώρο)` : null;
     }).filter(x => x).join("%0D%0A");
 
-    const analysis = `ΑΝΑΛΥΣΗ ΚΕΡΔΟΥΣ:%0D%0A- Καθαρή Αξία: ${document.getElementById("final-net").textContent}%0D%0A- Τελικό με ΦΠΑ: ${document.getElementById("final-total").textContent}%0D%0A- Πληρωμή: ${Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "—"}`;
-
-    const data = {
+    const data = { 
         customer: epo, afm: document.getElementById("afm").value, doy: document.getElementById("doy").value,
         mobile: document.getElementById("mobile").value, phone: document.getElementById("phone").value, email: document.getElementById("email").value,
-        products: items.replace(/%0D%0A/g, ", "), netValue: document.getElementById("final-net").textContent, total: document.getElementById("final-total").textContent,
-        payment: Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "—", remarks: document.getElementById("remarks").value
+        products: items.replace(/%0D%0A/g, ", "), netValue: document.getElementById("final-net").textContent, total: document.getElementById("final-total").textContent, 
+        payment: Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value || "—", remarks: document.getElementById("remarks").value 
     };
 
     try {
         await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-        alert("Επιτυχής καταχώρηση!");
-        window.location.href = `mailto:pzaro2010@gmail.com,liapaki2017@gmail.com?subject=Order_${encodeURIComponent(epo)}&body=ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ%0D%0A%0D%0A${items}%0D%0A%0D%0A${analysis}%0D%0A%0D%0AΠΑΡΑΤΗΡΗΣΕΙΣ: ${document.getElementById("remarks").value}`;
-    } catch(e) { alert("Σφάλμα σύνδεσης."); }
-}
-
-function showInfo(name, index) {
-    let lookup = Object.keys(productDetails).find(key => name.includes(key)) || name;
-    const p = productDetails[lookup] || { moa: [], cases: "—" };
-    const modal = document.getElementById('productModal');
-    modal.innerHTML = `<div class="modal-content"><h2>${name}</h2>${hcpTable(p.moa)}<p><strong>Ενδείξεις:</strong> ${p.cases}</p><button onclick="this.parentElement.parentElement.style.display='none'">ΚΛΕΙΣΙΜΟ</button></div>`;
-    modal.style.display = 'block';
+        alert("ΕΠΙΤΥΧΙΑ! Η παραγγελία και ο νέος πελάτης αποθηκεύτηκαν.");
+        window.location.href = `mailto:pzaro2010@gmail.com,liapaki2017@gmail.com?subject=Order_${encodeURIComponent(epo)}&body=ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ%0D%0A%0D%0A${items}%0D%0A%0D%0AΠΑΡΑΤΗΡΗΣΕΙΣ: ${document.getElementById("remarks").value}`;
+    } catch(e) { alert("Σφάλμα σύνδεσης Cloud."); }
 }
