@@ -1,5 +1,5 @@
 // ============================================================
-// ZARKOLIA HEALTH - ELITE MASTER LOGIC v62.0 [cite: 2026-01-20]
+// ZARKOLIA HEALTH - SUPREME SYNC ENGINE v63.0 [cite: 2026-01-20]
 // ============================================================
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
@@ -21,7 +21,7 @@ function initCRM() {
                     document.getElementById('address').value = d.address || "";
                     document.getElementById('city').value = d.city || "";
                     document.getElementById('email').value = d.email || "";
-                } else { alert("ΑΦΜ μη εγγεγραμμένο. Παρακαλώ συμπληρώστε τα στοιχεία [cite: 2026-01-20]"); }
+                } else { alert("ΑΦΜ μη καταχωρημένο. Παρακαλώ συμπληρώστε τα στοιχεία [cite: 2026-01-20]"); }
             } finally { document.getElementById('search-loader').style.display = 'none'; }
         }
     });
@@ -34,10 +34,10 @@ function renderOrderSystem() {
         const div = document.createElement('div');
         div.className = 'order-item';
         div.innerHTML = `
-            <div><h4>${p.name} <button class="info-btn" onclick="showInfo('${p.name}', ${i})">INFO</button></h4></div>
+            <div><h4>${p.name} <button class="info-btn" onclick="showInfo('${p.name}', ${i})" style="cursor:pointer; background:#ecfdf5; color:var(--accent); border:2px solid var(--accent); padding:5px 12px; border-radius:10px; font-weight:800; font-size:0.7rem;">INFO</button></h4></div>
             <div class="qty-controls"><button onclick="changeQty(${i},-1)">−</button><input type="number" id="qty-${i}" value="0" oninput="updateTotals()"><button onclick="changeQty(${i},1)">+</button></div>
-            <div id="gift-${i}" style="font-weight:900; color:var(--accent); text-align:center;">0</div>
-            <div id="total-${i}" style="font-weight:900; text-align:right;">0.00 €</div>`;
+            <div id="gift-${i}" style="font-weight:900; color:var(--accent); text-align:center; font-size:1.2rem;">0</div>
+            <div id="total-${i}" style="font-weight:900; text-align:right; font-size:1.1rem;">0.00 €</div>`;
         container.appendChild(div);
     });
 }
@@ -52,13 +52,11 @@ function updateTotals() {
         document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
     });
 
-    // ROI Logic: 1% per 100€ up to 10% [cite: 2026-01-20]
-    let volPerc = Math.min(10, Math.floor(net / 100));
+    let volPerc = Math.min(10, Math.floor(net / 100)); // 1% ανά 100€ [cite: 2026-01-20]
     const isCash = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value === "Αντικαταβολή Μετρητά";
     const cashVal = isCash ? (net * (1 - volPerc/100)) * 0.02 : 0; // [cite: 2025-08-13]
     const finalTotal = (net * (1 - volPerc/100) - cashVal) * 1.24;
 
-    // Visual Sync [cite: 2026-01-20]
     document.getElementById("final-total").textContent = finalTotal.toFixed(2) + " €";
     document.getElementById("volume-fill").style.width = (volPerc * 10) + "%";
     document.getElementById("stat-gifts").querySelector(".val").textContent = gifts;
@@ -71,14 +69,14 @@ function showInfo(name, index) {
     const q = document.getElementById(`qty-${index}`).value;
     document.getElementById('productModal').innerHTML = `
         <div class="modal-content">
-            <span style="position:absolute; top:20px; right:30px; cursor:pointer; font-size:2rem; color:#94a3b8;" onclick="closeModal()">×</span>
-            <h2 style="color:var(--primary)">${name}</h2>
-            <div style="background:#f8fafc; padding:20px; border-radius:20px; margin:20px 0; max-height:250px; overflow-y:auto;">
-                ${p.moa.map(m => `<p style="font-size:0.95rem;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
+            <span style="position:absolute; top:25px; right:35px; cursor:pointer; font-size:2.5rem; color:#94a3b8;" onclick="closeModal()">×</span>
+            <h2 style="color:var(--primary); font-size:2rem; margin-bottom:20px;">${name}</h2>
+            <div style="background:#f8fafc; padding:25px; border-radius:25px; margin:25px 0; max-height:280px; overflow-y:auto; border:1px solid #eef2f6;">
+                ${p.moa.map(m => `<p style="font-size:1rem; margin-bottom:12px; line-height:1.5;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eee; padding-top:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:25px;">
                 <div class="qty-controls"><button onclick="syncModal(${index},-1)">−</button><input type="number" id="m-qty-${index}" value="${q}" oninput="syncModal(${index},0)"><button onclick="syncModal(${index},1)">+</button></div>
-                <button class="btn-submit" style="width:auto; padding:15px 30px; margin:0; font-size:0.9rem;" onclick="closeModal()">ΚΛΕΙΣΙΜΟ</button>
+                <button class="btn-submit" style="width:auto; padding:18px 40px; margin:0; font-size:1rem;" onclick="closeModal()">ΠΡΟΣΘΗΚΗ & ΚΛΕΙΣΙΜΟ</button>
             </div>
         </div>`;
     document.getElementById('productModal').style.display = 'flex';
