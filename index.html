@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Professional Scientific ERP</title>
+    <title>Zarkolia Health - Professional ERP v28.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,26 +13,6 @@
             <h1>ZARKOLIA<span style="font-weight:300;">HEALTH</span></h1>
             <p>HCP Scientific Portal & Live CRM System</p>
         </header>
-
-        <div class="policy-wrapper">
-            <div class="policy-box">
-                <h3>📦 Εμπορική Πολιτική</h3>
-                <ul>
-                    <li><strong>Δώρα:</strong> 9+1 | 18+3 | 24+6</li>
-                    <li><strong>Έκπτωση Τζίρου:</strong> 300€(3%) | 400€(4%) | 500€(5%) | +1%/100€ (Max 10%)</li>
-                    <li><strong>Πληρωμή:</strong> +2% επιπλέον έκπτωση στα Μετρητά</li>
-                </ul>
-            </div>
-            <div class="analysis-box">
-                <h3>💰 Ανάλυση Οφέλους</h3>
-                <div id="dynamicAnalysis">Ξεκινήστε την παραγγελία...</div>
-            </div>
-        </div>
-
-        <section>
-            <h2 class="section-title">Επιστημονική Τεκμηρίωση & Μηχανισμοί Δράσης</h2>
-            <div id="productButtonsContainer" class="product-grid-nav"></div>
-        </section>
 
         <form id="orderForm" class="order-card" onsubmit="return false;">
             <h2>Στοιχεία Τιμολόγησης</h2>
@@ -45,21 +25,31 @@
                 <div class="form-group full"><label>Email Αποστολής</label><input type="email" id="email"></div>
             </div>
 
-            <div class="info-row">
-                <div class="info-block">
-                    <h3>Τρόπος Πληρωμής</h3>
-                    <label><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά (+2%)</label><br><br>
-                    <label><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 ημερών</label>
-                    <div class="bank-card">
-                        <strong>EUROBANK:</strong> GR03 0260 7310 0009 7010 0732 761<br>
-                        <strong>ΠΕΙΡΑΙΩΣ:</strong> GR89 0172 2520 0052 5201 6160 277
-                    </div>
+            <div class="policy-wrapper">
+                <div class="policy-box">
+                    <h3>📦 Εμπορική Πολιτική</h3>
+                    <ul style="font-size: 0.9rem; padding-left: 20px;">
+                        <li><strong>Δώρα:</strong> 9+1 | 18+3 | 24+6</li>
+                        <li><strong>Έκπτωση Τζίρου:</strong> 300€(3%) | 400€(4%) | 500€(5%) | +1%/100€ (Max 10%)</li>
+                        <li><strong>Πληρωμή:</strong> +2% επιπλέον έκπτωση στα Μετρητά</li>
+                    </ul>
                 </div>
-                <div class="info-block">
-                    <h3>Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="10" placeholder="Οδηγίες παράδοσης κ.λπ."></textarea>
+                <div class="analysis-box">
+                    <h3>💰 Ανάλυση Οφέλους</h3>
+                    <div id="dynamicAnalysis">Ξεκινήστε την παραγγελία...</div>
                 </div>
             </div>
+
+            <div class="form-group full">
+                <h3>Τρόπος Πληρωμής</h3>
+                <div style="display: flex; gap: 30px; margin-bottom: 20px;">
+                    <label><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά (+2%)</label>
+                    <label><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 ημερών</label>
+                </div>
+            </div>
+
+            <h2 class="section-title">Επιστημονική Τεκμηρίωση & Μηχανισμοί Δράσης</h2>
+            <div id="productButtonsContainer" class="product-grid-nav"></div>
 
             <div class="table-responsive">
                 <table id="product-table">
@@ -68,6 +58,11 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+            </div>
+
+            <div class="form-group full">
+                <label>Παρατηρήσεις Παραγγελίας</label>
+                <textarea id="remarks" class="remarks-mini" placeholder="Οδηγίες παράδοσης κ.λπ."></textarea>
             </div>
 
             <div class="summary-container">
