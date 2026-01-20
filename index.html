@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health ERP | Supreme Ordering</title>
+    <title>Zarkolia Health ERP | Supreme Comfort v63.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,18 +11,31 @@
 
     <div class="app-container">
         <header class="main-header">
-            <h1>Zarkolia <span class="accent">Health</span></h1>
-            <p>Scientific Innovation & Nature | Order System v63.0</p>
+            <div class="brand">
+                <h1>Zarkolia <span class="accent">Health</span></h1>
+                <p class="tagline">Scientific Innovation & Nature | ERP Generator v63.0</p>
+            </div>
         </header>
 
         <section class="roi-dashboard card">
             <div class="dashboard-header">
-                <h3>ROI Dashboard & Live Stats</h3>
+                <div>
+                    <h3 class="luxury-title">ROI Dashboard</h3>
+                    <p class="subtitle">Live ανάλυση οφέλους και προόδου παραγγελίας</p>
+                </div>
                 <div class="discount-badge" id="current-discount-badge">0% Έκπτωση</div>
             </div>
-            <div class="progress-container">
-                <div class="progress-bar" id="volume-progress"></div>
+            
+            <div class="progress-wrapper">
+                <div class="progress-info">
+                    <span>Πρόοδος για επόμενο κλιμάκιο έκπτωσης (ανά 100€)</span>
+                    <span id="progress-text">0 / 100€</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="volume-progress"></div>
+                </div>
             </div>
+
             <div class="stats-grid">
                 <div class="stat-item">
                     <span class="stat-label">Καθαρός Τζίρος</span>
@@ -33,38 +46,56 @@
                     <span class="stat-value" id="total-gifts">0</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">Συνολικό Κέρδος</span>
+                    <span class="stat-label">Συνολικό Κέρδος (ROI)</span>
                     <span class="stat-value highlight" id="total-benefit">0.00€</span>
                 </div>
             </div>
         </section>
 
-        <section class="billing-section card">
-            <h3>Elite Billing Info</h3>
-            <div class="form-grid">
-                <div class="input-group">
-                    <label>ΑΦΜ Πελάτη (9 ψηφία)</label>
-                    <input type="text" id="afm-input" maxlength="9" placeholder="π.χ. 123456789">
+        <section class="billing-section card elite-layout">
+            <div class="section-header">
+                <span class="badge">Billing & CRM</span>
+                <h3 class="luxury-title">Στοιχεία Τιμολόγησης</h3>
+                <p class="subtitle">Ευρύχωρος σχεδιασμός για μέγιστη άνεση κατά την καταχώρηση</p>
+            </div>
+
+            <div class="form-grid-supreme">
+                <div class="input-field-container">
+                    <label for="afm-input">ΑΦΜ Πελάτη (9 ψηφία)</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="afm-input" maxlength="9" placeholder="Εισάγετε ΑΦΜ..." autocomplete="off">
+                        <div class="input-icon">VAT</div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Τρόπος Πληρωμής</label>
-                    <select id="payment-method">
-                        <option value="credit">Πίστωση</option>
-                        <option value="cash">Μετρητά (+2% Έκπτωση)</option>
-                    </select>
+
+                <div class="input-field-container">
+                    <label for="payment-method">Τρόπος Πληρωμής</label>
+                    <div class="input-wrapper">
+                        <select id="payment-method">
+                            <option value="credit">Πίστωση (Standard)</option>
+                            <option value="cash">Μετρητά (+2% Έκπτωση)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <h3 class="section-title">Κατάλογος Προϊόντων</h3>
         <section class="product-grid" id="product-list">
             </section>
 
         <footer class="checkout-bar card">
             <div class="totals-summary">
-                <div class="total-row"><span>Μεταφορικά:</span> <span class="free-tag">ΔΩΡΕΑΝ</span></div>
-                <div class="total-row main-total"><span>Τελικό Πληρωτέο (με ΦΠΑ 24%):</span> <span id="final-payable">0.00€</span></div>
+                <div class="total-row">
+                    <span>Μεταφορικά:</span> 
+                    <span class="free-tag">ΔΩΡΕΑΝ</span>
+                </div>
+                <div class="total-row main-total">
+                    <span>Τελικό Πληρωτέο (με ΦΠΑ 24%):</span> 
+                    <span id="final-payable">0.00€</span>
+                </div>
             </div>
-            <button class="btn-submit" id="submit-order">Ολοκλήρωση & Αποστολή Παραγγελίας</button>
+            <button class="btn-submit" id="submit-order">Ολοκλήρωση & Αποστολή στο ERP</button>
         </footer>
     </div>
 
