@@ -2,22 +2,82 @@
 :root {
     --primary: #064e3b;
     --accent: #10b981;
-    --health-gray: #4b5563;
+    --health-gray: #4b5563; /* Σκούρο γκρι [cite: 2026-01-20] */
     --bg: #f8fafc;
     --border: #e2e8f0;
 }
 
-/* ΠΛΕΓΜΑ ΠΡΟΪΟΝΤΩΝ - Η ΛΥΣΗ ΣΤΟ "ΑΙΣΧΟΣ" */
-.order-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg);
+    margin: 0; padding: clamp(15px, 4vw, 40px);
+    -webkit-font-smoothing: antialiased;
 }
+
+.main-container { max-width: 1100px; margin: 0 auto; }
+
+/* BRANDING */
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    color: var(--primary);
+    text-align: center;
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+header h1 span {
+    color: var(--health-gray); /* HEALTH ΓΚΡΙ [cite: 2026-01-20] */
+    font-weight: 300;
+    margin-left: 10px;
+}
+
+/* CARDS */
+.billing-card {
+    background: #ffffff;
+    border-radius: 32px;
+    padding: clamp(20px, 5vw, 45px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.billing-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+}
+
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.section-title { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin: 0; }
+.badge { background: #ecfdf5; color: var(--accent); padding: 6px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+
+/* RESPONSIVE FORM GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.form-group.full-width { grid-column: 1 / -1; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase; }
+
+input {
+    width: 100%; padding: 16px; border-radius: 15px; border: 2px solid var(--border);
+    font-family: inherit; font-size: 1rem; font-weight: 600; box-sizing: border-box; transition: 0.3s;
+}
+
+input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+
+/* HYBRID ORDER GRID */
+.order-grid { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
 
 .order-item {
     display: grid;
-    grid-template-columns: 80px 1fr 140px 100px; /* PC Layout */
+    grid-template-columns: 80px 1fr 140px 120px;
     align-items: center;
     background: #fff;
     padding: 15px;
@@ -29,59 +89,50 @@
 .order-item:hover { border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
 .item-img { width: 60px; height: 60px; object-fit: contain; border-radius: 10px; }
-
 .item-info h4 { margin: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-.item-info small { color: #64748b; font-weight: 600; }
 
 /* STEPPER UI */
 .qty-controls {
-    display: flex;
-    align-items: center;
-    background: #f1f5f9;
-    border-radius: 12px;
-    padding: 4px;
-    justify-self: center;
+    display: flex; align-items: center; background: #f1f5f9;
+    border-radius: 12px; padding: 4px; justify-self: center;
 }
 
 .qty-controls button {
-    width: 35px; height: 35px;
-    border: none; background: #fff;
-    border-radius: 8px; cursor: pointer;
-    font-weight: 800; color: var(--primary);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    width: 35px; height: 35px; border: none; background: #fff;
+    border-radius: 8px; cursor: pointer; font-weight: 800; color: var(--primary);
 }
 
-.qty-controls input {
-    width: 45px; text-align: center; border: none;
-    background: transparent; font-weight: 700; font-size: 1.1rem;
-}
-
+.qty-controls input { width: 45px; text-align: center; border: none; background: transparent; font-weight: 700; font-size: 1.1rem; }
 .item-total { text-align: right; font-weight: 900; color: var(--primary); font-size: 1.1rem; }
+
+/* TOTALS BOX */
+.grand-total-box {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--primary); padding: 30px 45px; border-radius: 24px; color: #fff; margin: 30px 0;
+}
+
+.total-amount { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; }
+
+.btn-primary {
+    width: 100%; padding: 22px; background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff; border: none; border-radius: 20px; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; cursor: pointer;
+}
+
+/* MODAL & LOADER */
+.modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; }
+.modal.active { display: flex !important; }
+.modal-content { background: #fff; border-radius: 35px; padding: 40px; width: 90%; max-width: 800px; position: relative; max-height: 85vh; overflow-y: auto; border-top: 10px solid var(--primary); }
+
+#search-loader { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); display: none; font-size: 1.2rem; }
+.spin { display: block !important; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
 
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
-    .order-item {
-        grid-template-columns: 1fr 1fr; /* 2 στήλες σε κινητό */
-        gap: 15px;
-    }
-    .item-img { display: none; } /* Κρύβουμε την εικόνα στα πολύ μικρά για χώρο */
+    .order-item { grid-template-columns: 1fr 1fr; gap: 15px; }
+    .item-img { display: none; }
     .item-info { grid-column: span 2; }
     .qty-controls { justify-self: flex-start; }
-    .item-total { align-self: center; }
-}
-
-/* MODAL FIXES */
-.modal-content {
-    border-radius: 35px;
-    border-top: 10px solid var(--primary);
-}
-
-.science-badge {
-    background: #f0fdf4;
-    color: var(--accent);
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-transform: uppercase;
+    .grand-total-box { flex-direction: column; text-align: center; padding: 25px; }
+    .total-amount { font-size: 2.8rem; }
 }
