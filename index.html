@@ -21,7 +21,7 @@
             <div class="billing-card">
                 <div class="card-header">
                     <h2 class="section-title">👤 Στοιχεία Τιμολόγησης</h2>
-                    <span class="badge">Live CRM Sync</span>
+                    <span class="badge">Live CRM Sync [cite: 2025-08-13]</span>
                 </div>
                 <div class="form-grid">
                     <div class="form-group afm-container">
@@ -53,10 +53,10 @@
                 <div class="billing-card" style="border-left: 10px solid var(--accent); margin-bottom:0;">
                     <h3 style="margin-top:0; color:var(--primary);">📦 Εμπορική Πολιτική</h3>
                     <ul style="font-size:0.9rem; padding-left:20px; color:var(--health-gray);">
-                        <li>9 + 1 Δώρο (Κέρδος 50%)</li>
-                        <li>18 + 3 Δώρο (Κέρδος 57,5%)</li>
-                        <li>24 + 6 Δώρο (Κέρδος 68,79%)</li>
-                        <li style="font-weight:700; color:var(--accent); margin-top:10px;">+2% Έκπτωση στα Μετρητά</li>
+                        <li>9+1 Δώρο | 18+3 Δώρο | 24+6 Δώρο [cite: 2026-01-20]</li>
+                        <li style="font-weight:700;">Έκπτωση Τζίρου: 2% (στα 200€) έως 10% (στα 1000€)</li>
+                        <li>+1% για κάθε 100€ αύξησης [cite: 2026-01-20]</li>
+                        <li style="font-weight:700; color:var(--accent); margin-top:10px;">+2% Έκπτωση στα Μετρητά [cite: 2025-08-13]</li>
                     </ul>
                 </div>
                 <div class="billing-card" style="background:var(--primary); color:#fff; margin-bottom:0;">
@@ -69,7 +69,7 @@
                 <label for="remarks">ΠΑΡΑΤΗΡΗΣΕΙΣ ΠΑΡΑΓΓΕΛΙΑΣ</label>
                 <textarea id="remarks" style="width:100%; height:60px; border-radius:12px; border:2px solid var(--border); padding:12px; resize:none; font-family:inherit;"></textarea>
                 <div style="margin-top:20px; display:flex; gap:30px; flex-wrap:wrap;">
-                    <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2%)</label>
+                    <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2%) [cite: 2025-08-13]</label>
                     <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"> Επιταγή (60 Ημ.)</label>
                 </div>
             </div>
@@ -82,9 +82,7 @@
             <button type="button" class="btn-primary" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
         </form>
     </div>
-
     <div id="productModal" class="modal"></div>
-
     <script src="products.js"></script>
     <script src="script.js"></script>
 </body>

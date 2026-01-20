@@ -1,8 +1,15 @@
+// ============================================================
+// ZARKOLIA HEALTH - CORE ENGINE v52.0 Master Logic
+// ============================================================
+
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (typeof products !== 'undefined') renderOrderSystem();
+    if (typeof products !== 'undefined') {
+        renderOrderSystem();
+    }
 
+    // Live CRM Search [cite: 2025-08-13]
     document.getElementById('afm').addEventListener('input', async function() {
         if (this.value.trim().length === 9) {
             const loader = document.getElementById('search-loader');
@@ -11,9 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const response = await fetch(`${GOOGLE_SCRIPT_URL}?afm=${this.value}`);
                 const data = await response.json();
                 if (data && !data.notfound) {
-                    ['eponimia', 'address', 'city', 'tk', 'email', 'mobile'].forEach(field => {
-                        document.getElementById(field).value = data[field] || "";
-                    });
+                    document.getElementById('eponimia').value = data.eponimia || "";
+                    document.getElementById('address').value = data.address || "";
+                    document.getElementById('city').value = data.city || "";
+                    document.getElementById('tk').value = data.tk || "";
+                    document.getElementById('email').value = data.email || "";
+                    document.getElementById('mobile').value = data.mobile || "";
                 } else {
                     alert("Δεν βρέθηκε εγγραφή παρακαλώ συμπληρώστε τα στοιχεία σας [cite: 2026-01-20]");
                 }
@@ -25,14 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderOrderSystem() {
     const container = document.getElementById('orderGrid');
     container.innerHTML = '';
+
     products.forEach((p, index) => {
         const details = Object.entries(productDetails).find(([key]) => p.name.includes(key))?.[1] || {};
+        
         const item = document.createElement('div');
         item.className = 'order-item';
         item.innerHTML = `
             <img src="${details.img || ''}" class="item-img" onerror="this.style.display='none'">
             <div class="item-info">
-                <h4>${p.name} <span onclick="showInfo('${p.name}', ${index})" style="cursor:pointer; filter: grayscale(1);">🧬</span></h4>
+                <h4>${p.name} <span onclick="showInfo('${p.name}', ${index})" style="cursor:pointer; font-size:1.2rem; filter: grayscale(1);">🧬</span></h4>
                 <small>${p.price.toFixed(2)} €</small>
             </div>
             <div class="qty-controls">
@@ -54,15 +66,25 @@ function changeQty(index, delta) {
 }
 
 function updateTotals() {
-    let initialNet = 0; let gifts = 0;
+    let initialNet = 0; 
+    let gifts = 0;
+
     products.forEach((p, i) => {
         const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
         let g = q >= 24 ? 6 : (q >= 18 ? 3 : (q >= 9 ? 1 : 0));
-        initialNet += q * p.price; gifts += g;
+        initialNet += q * p.price; 
+        gifts += g;
         document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
     });
 
-    let volPerc = initialNet >= 1000 ? 10 : (initialNet >= 200 ? Math.floor(initialNet / 100) : 0);
+    // ΝΕΑ ΛΟΓΙΚΗ ΕΚΠΤΩΣΗΣ: 2% στα 200€ + 1% ανά 100€ [cite: 2026-01-20]
+    let volPerc = 0;
+    if (initialNet >= 1000) {
+        volPerc = 10;
+    } else if (initialNet >= 200) {
+        volPerc = 2 + Math.floor((initialNet - 200) / 100);
+    }
+
     const volVal = initialNet * (volPerc / 100);
     const isCash = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value === "Αντικαταβολή Μετρητά";
     const cashVal = isCash ? (initialNet - volVal) * 0.02 : 0;
@@ -70,18 +92,40 @@ function updateTotals() {
 
     document.getElementById("final-total").textContent = finalTotal.toFixed(2) + " €";
     document.getElementById("dynamicAnalysis").innerHTML = initialNet > 0 ? 
-        `✅ Δώρα: <strong>${gifts}</strong> | Έκπτωση: <strong>${volPerc}%</strong>` : "—";
+        `✅ Δώρα: <strong>${gifts}</strong> | Έκπτωση Τζίρου: <strong>${volPerc}%</strong>` : "Περιμένω δεδομένα...";
 }
 
-function onlyOne(checkbox) { 
-    document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); 
-    updateTotals(); 
+function showInfo(name, index) {
+    let key = Object.keys(productDetails).find(k => name.toLowerCase().includes(k.toLowerCase())) || name;
+    const p = productDetails[key] || { moa: [], cases: "—", rationale: "—", img: "" };
+    const modal = document.getElementById('productModal');
+    
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span style="position:absolute; top:25px; right:35px; cursor:pointer; font-size:2.5rem; color:#cbd5e1;" onclick="closeModal()">&times;</span>
+            <div style="display:flex; align-items:center; gap:40px; margin-bottom:40px; flex-wrap:wrap;">
+                <img src="${p.img}" style="width:160px; border-radius:28px; border:1px solid #eee; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                <div>
+                    <h2 style="margin:0; color:var(--primary); font-size:2.2rem; letter-spacing:-1px;">${name}</h2>
+                    <p style="color:var(--accent); font-weight:800; text-transform:uppercase; letter-spacing:1px;">Scientific Compendium</p>
+                </div>
+            </div>
+            <div style="background:#f8fafc; padding:35px; border-radius:28px; border:1px solid #f1f5f9; margin-bottom:30px;">
+                <h4 style="margin-top:0; color:var(--primary); text-transform:uppercase; font-size:0.9rem;">🧬 Μοριακός Μηχανισμός (MoA)</h4>
+                ${p.moa.map(m => `<p style="margin-bottom:12px; font-size:1.05rem;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
+            </div>
+            <div style="background:#ecfdf5; padding:30px; border-radius:24px;">
+                <strong style="color:var(--primary); text-transform:uppercase; font-size:0.75rem;">📍 Ενδείξεις</strong><br><span style="font-size:1.1rem; font-weight:600;">${p.cases}</span>
+            </div>
+        </div>`;
+    modal.classList.add('active');
 }
+
+function closeModal() { document.getElementById('productModal').classList.remove('active'); }
+function onlyOne(checkbox) { document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); updateTotals(); }
 
 async function processOrder() {
     if(!document.getElementById("eponimia").value) { alert("Συμπληρώστε τα στοιχεία πελάτη!"); return; }
     alert("Τα στοιχεία αποθηκεύτηκαν [cite: 2026-01-20]");
     location.reload();
 }
-
-function closeModal() { document.getElementById('productModal').classList.remove('active'); }
