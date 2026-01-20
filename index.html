@@ -37,47 +37,20 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="doy">ΔΟΥ</label>
-                        <input type="text" id="doy" placeholder="π.χ. Δ' Αθηνών">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tk">Τ.Κ.</label>
-                        <input type="text" id="tk" placeholder="123 45">
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="eponimia">Επωνυμία Επιχείρησης / Φαρμακείου</label>
-                        <input type="text" id="eponimia" placeholder="Όνομα επιχείρησης...">
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="address">Διεύθυνση Έδρας</label>
-                        <input type="text" id="address" placeholder="Οδός και Αριθμός">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city">Πόλη</label>
-                        <input type="text" id="city" placeholder="π.χ. Αθήνα">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mobile">Κινητό Τηλέφωνο</label>
-                        <input type="tel" id="mobile" placeholder="69XXXXXXXX">
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="email">Email για Αποστολή Αντιγράφου</label>
-                        <input type="email" id="email" placeholder="example@mail.com">
-                    </div>
+                    <div class="form-group"><label for="doy">ΔΟΥ</label><input type="text" id="doy" placeholder="π.χ. Δ' Αθηνών"></div>
+                    <div class="form-group"><label for="tk">Τ.Κ.</label><input type="text" id="tk" placeholder="123 45"></div>
+                    <div class="form-group full-width"><label for="eponimia">Επωνυμία Επιχείρησης / Φαρμακείου</label><input type="text" id="eponimia"></div>
+                    <div class="form-group full-width"><label for="address">Διεύθυνση Έδρας</label><input type="text" id="address"></div>
+                    <div class="form-group"><label for="city">Πόλη</label><input type="text" id="city"></div>
+                    <div class="form-group"><label for="mobile">Κινητό Τηλέφωνο</label><input type="tel" id="mobile"></div>
+                    <div class="form-group full-width"><label for="email">Email για Αποστολή Αντιγράφου</label><input type="email" id="email"></div>
                 </div>
             </div>
 
             <div class="billing-card">
                 <div class="card-header">
                     <h2 class="section-title">🧬 Επιστημονικό Compendium & Παραγγελία</h2>
-                    <span class="badge">v52.0 Master Pro</span>
+                    <span class="badge">Hybrid Layout v52.0</span>
                 </div>
                 
                 <div id="productButtonsContainer" class="product-grid-nav"></div>
@@ -93,30 +66,22 @@
                         <li>9 + 1 Δώρο (Κέρδος 50%)</li>
                         <li>18 + 3 Δώρο (Κέρδος 57,5%)</li>
                         <li>24 + 6 Δώρο (Κέρδος 68,79%)</li>
-                        <li style="font-weight:700; color:var(--accent); margin-top:10px;">+2% Έκπτωση στα Μετρητά [cite: 2025-08-13]</li>
+                        <li style="font-weight:700; color:var(--accent); margin-top:10px;">+2% Έκπτωση στα Μετρητά</li>
                     </ul>
                 </div>
                 <div class="billing-card" style="background:var(--primary); color:#fff; margin-bottom:0;">
                     <h3 style="margin-top:0; color:var(--accent);">💰 Ανάλυση Οφέλους</h3>
-                    <div id="dynamicAnalysis" style="font-weight:600; font-size:1.1rem;">
-                        Περιμένω δεδομένα παραγγελίας...
-                    </div>
+                    <div id="dynamicAnalysis" style="font-weight:600; font-size:1.1rem;">Περιμένω δεδομένα...</div>
                 </div>
             </div>
 
             <div class="billing-card">
                 <label for="remarks">ΠΑΡΑΤΗΡΗΣΕΙΣ ΠΑΡΑΓΓΕΛΙΑΣ</label>
-                <textarea id="remarks" placeholder="Ειδικές οδηγίες παράδοσης..." style="width:100%; height:60px; border-radius:12px; border:2px solid var(--border-soft); padding:12px; resize:none; font-family:inherit;"></textarea>
+                <textarea id="remarks" style="width:100%; height:60px; border-radius:12px; border:2px solid var(--border); padding:12px; resize:none; font-family:inherit;"></textarea>
                 
                 <div style="margin-top:20px; display:flex; gap:30px; flex-wrap:wrap;">
-                    <label style="cursor:pointer; display:flex; align-items:center; gap:10px;">
-                        <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:20px; height:20px;"> 
-                        Μετρητά (+2% επιπλέον έκπτωση) [cite: 2025-08-13]
-                    </label>
-                    <label style="cursor:pointer; display:flex; align-items:center; gap:10px;">
-                        <input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)" style="width:20px; height:20px;"> 
-                        Επιταγή (60 Ημέρες)
-                    </label>
+                    <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2%)</label>
+                    <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"> Επιταγή (60 Ημ.)</label>
                 </div>
             </div>
 
@@ -127,10 +92,6 @@
 
             <button type="button" class="btn-primary" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
         </form>
-        
-        <footer style="text-align:center; padding: 40px 0; color: #888; font-size: 14px;">
-            <strong>Zarkolia Health</strong> © 2026 | Professional ERP System
-        </footer>
     </div>
 
     <div id="productModal" class="modal"></div>
