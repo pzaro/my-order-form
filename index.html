@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="main-container">
-        <header style="text-align:center; margin-bottom:30px;">
-            <h1 style="font-size:2.8rem; color:var(--emerald-dark); margin:0;">ZARKOLIA<span style="color:var(--slate); font-weight:300;">HEALTH</span></h1>
-            <p style="color:var(--slate-light); font-weight:600;">HCP Scientific Portal & Order Management System</p>
+        <header>
+            <h1>ZARKOLIA<span style="font-weight:300;">HEALTH</span></h1>
+            <p>HCP Scientific Portal & Live CRM System</p>
         </header>
 
         <div class="policy-wrapper">
@@ -35,30 +35,29 @@
         </section>
 
         <form id="orderForm" class="order-card" onsubmit="return false;">
-            <h2 style="border-bottom:2px solid #f1f5f9; padding-bottom:15px;">Στοιχεία Τιμολόγησης</h2>
+            <h2>Στοιχεία Τιμολόγησης</h2>
             <div class="form-grid">
-                <div class="form-group"><label>ΑΦΜ (Lookup)</label><input type="text" id="afm" maxlength="9"></div>
+                <div class="form-group"><label>ΑΦΜ (Αυτόματη Αναζήτηση)</label><input type="text" id="afm" maxlength="9" placeholder="000000000"></div>
                 <div class="form-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
                 <div class="form-group full"><label>Επωνυμία Επιχείρησης</label><input type="text" id="eponimia"></div>
-                <div class="form-group"><label>Κινητό Τηλέφωνο</label><input type="tel" id="mobile"></div>
-                <div class="form-group"><label>Σταθερό Τηλέφωνο</label><input type="tel" id="phone"></div>
+                <div class="form-group"><label>Κινητό</label><input type="tel" id="mobile"></div>
+                <div class="form-group"><label>Σταθερό</label><input type="tel" id="phone"></div>
                 <div class="form-group full"><label>Email Αποστολής</label><input type="email" id="email"></div>
             </div>
 
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px; margin:30px 0;">
+            <div class="info-row">
                 <div class="info-block">
-                    <h3>Πληρωμή & Τράπεζες</h3>
+                    <h3>Τρόπος Πληρωμής</h3>
                     <label><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά (+2%)</label><br><br>
                     <label><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 ημερών</label>
-                    
                     <div class="bank-card">
-                        <p><strong>EUROBANK:</strong> <span class="iban">GR03 0260 7310 0009 7010 0732 761</span></p>
-                        <p><strong>ΠΕΙΡΑΙΩΣ:</strong> <span class="iban">GR89 0172 2520 0052 5201 6160 277</span></p>
+                        <strong>EUROBANK:</strong> GR03 0260 7310 0009 7010 0732 761<br>
+                        <strong>ΠΕΙΡΑΙΩΣ:</strong> GR89 0172 2520 0052 5201 6160 277
                     </div>
                 </div>
                 <div class="info-block">
-                    <h3>Παρατηρήσεις Παραγγελίας</h3>
-                    <textarea id="remarks" rows="10" placeholder="Σημειώστε εδώ οτιδήποτε αφορά την παράδοση, το ωράριο ή ειδικές οδηγίες τιμολόγησης..."></textarea>
+                    <h3>Παρατηρήσεις</h3>
+                    <textarea id="remarks" rows="10" placeholder="Οδηγίες παράδοσης κ.λπ."></textarea>
                 </div>
             </div>
 
@@ -73,26 +72,23 @@
 
             <div class="summary-container">
                 <div class="totals-card">
-                    <div class="total-row"><span>Αρχικό Σύνολο:</span> <span id="net-value">0.00 €</span></div>
+                    <div class="total-row"><span>Αρχική Αξία:</span> <span id="net-value">0.00 €</span></div>
                     <div class="total-row discount-line"><span>Έκπτωση Τζίρου (<span id="disc-perc">0</span>%):</span> <span id="disc-val">0.00 €</span></div>
                     <div class="total-row discount-line"><span>Έκπτωση Μετρητών (2%):</span> <span id="cash-disc-val">0.00 €</span></div>
                     <div class="total-row highlight"><span>Καθαρή Αξία:</span> <span id="final-net">0.00 €</span></div>
                     <div class="total-row"><span>ΦΠΑ (24%):</span> <span id="vat-value">0.00 €</span></div>
-                    <div class="grand-total-row"><span>ΤΕΛΙΚΟ ΠΟΣΟ:</span> <span id="final-total">0.00 €</span></div>
+                    <div class="grand-total-row"><span>ΤΕΛΙΚΟ:</span> <span id="final-total">0.00 €</span></div>
                 </div>
             </div>
 
-            <div class="action-footer">
-                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Αποστολή στο Cloud</button>
-            </div>
+            <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
         </form>
     </div>
     <div id="productModal" class="modal"></div>
     <script src="script.js"></script>
     <script>
         function onlyOne(checkbox) {
-            var checkboxes = document.getElementsByName('payment');
-            checkboxes.forEach((item) => { if (item !== checkbox) item.checked = false; });
+            document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; });
             if (typeof updateTotals === "function") updateTotals();
         }
     </script>
