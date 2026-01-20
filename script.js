@@ -1,10 +1,9 @@
 // ============================================================
-// ZARKOLIA HEALTH - CORE ENGINE v44.0
+// ZARKOLIA HEALTH - CORE ENGINE v45.0
 // ============================================================
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
 
-// --- 1. INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
     const tableBody = document.getElementById('product-rows');
     const btnContainer = document.getElementById('productButtonsContainer');
@@ -15,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const btn = document.createElement('button');
             btn.type = "button";
             btn.className = 'product-btn';
-            btn.innerHTML = `🧬 ${p.name}`;
+            btn.innerHTML = `🧬 <span>${p.name}</span>`;
             btn.onclick = () => showInfo(p.name, index);
             btnContainer.appendChild(btn);
 
-            // Γραμμές Πίνακα με Steppers
+            // Γραμμές Πίνακα
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td><strong>${p.name}</strong><br><small>${p.price.toFixed(2)} €</small></td>
@@ -58,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// --- 2. STEPPER LOGIC ---
 function changeQty(index, delta) {
     const input = document.getElementById(`qty-${index}`);
     let newVal = (parseInt(input.value) || 0) + delta;
@@ -66,7 +64,7 @@ function changeQty(index, delta) {
     updateTotals();
 }
 
-// --- 3. ADVANCED DISCOUNT ENGINE [cite: 2026-01-20] ---
+// ΝΕΑ ΚΛΙΜΑΚΑ ΕΚΠΤΩΣΕΩΝ [cite: 2026-01-20, 2025-08-13]
 function updateTotals() {
     let initialNet = 0; let gifts = 0;
     products.forEach((p, i) => {
@@ -77,7 +75,7 @@ function updateTotals() {
         document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
     });
 
-    // Κλιμακωτή Έκπτωση: 200€->2%, 300€->3% ... 1000€->10% [cite: 2026-01-20]
+    // 200€->2% | +1%/100€ -> 1000€->10% [cite: 2026-01-20]
     let volPerc = 0;
     if (initialNet >= 1000) volPerc = 10;
     else if (initialNet >= 200) volPerc = Math.floor(initialNet / 100);
@@ -93,7 +91,6 @@ function updateTotals() {
          🚀 Συνολικό Όφελος: <strong>${(volVal + cashVal + (gifts*8)).toFixed(2)}€</strong>` : "—";
 }
 
-// --- 4. CENTERED MODAL ---
 function showInfo(name, index) {
     let key = Object.keys(productDetails).find(k => name.includes(k)) || name;
     const p = productDetails[key] || { moa: [], cases: "—", rationale: "—", img: "" };
@@ -117,6 +114,9 @@ function showInfo(name, index) {
                 <div style="background:#ecfdf5; padding:20px; border-radius:18px;"><strong>📍 Ενδείξεις:</strong><br>${p.cases}</div>
                 <div style="background:#f0f9ff; padding:20px; border-radius:18px;"><strong>💡 Rationale:</strong><br>${p.rationale}</div>
             </div>
+            <div style="margin-top:20px; padding:15px; background:#f0f9ff; border-radius:10px;">
+                <strong>📚 Βιβλιογραφία:</strong> ${p.biblio ? p.biblio.join(", ") : "HCP Only"}
+            </div>
         </div>`;
     modal.classList.add('active');
 }
@@ -124,7 +124,7 @@ function showInfo(name, index) {
 function closeModal() { document.getElementById('productModal').classList.remove('active'); }
 
 async function processOrder() {
-    alert("Η παραγγελία καταχωρήθηκε! Αντίγραφο στάλθηκε στο email.");
+    alert("Η παραγγελία καταχωρήθηκε! Αντίγραφο στάλθηκε στο email [cite: 2025-08-13].");
     location.reload();
 }
 
