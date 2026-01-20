@@ -247,19 +247,14 @@ const productDetails = {
         biblio: ["EFSA Journal (2010). Magnesium and muscle function."]
     }
 };
-// --- 5. CRM LOOKUP LOGIC (LIVE AUTO-HYDRATION) ---
+// --- 5. CRM LOOKUP LOGIC (LIVE CRM) ---
 async function lookupCustomer(afm) {
-    // 1. Έλεγχος στη στατική λίστα (Ταχύτητα)
     if (knownCustomers[afm]) return knownCustomers[afm];
-    
-    // 2. Έλεγχος στο Google Sheet (Live CRM)
     try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?afm=${afm}`);
         const data = await response.json();
-        if (!data.notfound) return data;
-    } catch (e) { console.error("Cloud Lookup Error", e); }
-    
-    return null;
+        return data.notfound ? null : data;
+    } catch (e) { console.error("Cloud CRM Error", e); return null; }
 }
 
 // --- 6. INITIALIZATION & ERP LOGIC ---
@@ -278,20 +273,19 @@ document.addEventListener("DOMContentLoaded", () => {
         row.innerHTML = `
             <td>${p.name}</td>
             <td>${p.price.toFixed(2)}</td>
-            <td><input type="number" id="qty-${index}" min="0" oninput="updateTotals()" value="0" style="width:65px;"></td>
+            <td><input type="number" id="qty-${index}" min="0" oninput="updateTotals()" value="0" style="width:65px; border-radius:8px; border:1px solid #ddd; padding:5px;"></td>
             <td><span id="gift-${index}">0</span></td>
             <td id="eff-${index}">${p.price.toFixed(2)}</td>
             <td id="total-${index}">0.00</td>`;
         tableBody.appendChild(row);
     });
 
-    // Δυναμικό Lookup ΑΦΜ
     document.getElementById('afm').addEventListener('input', async function() {
         const val = this.value.trim();
         if (val.length >= 9) {
             const c = await lookupCustomer(val);
             if (c) {
-                document.getElementById('eponimia').value = c.eponimia;
+                document.getElementById('eponimia').value = c.eponimia || "";
                 document.getElementById('doy').value = c.doy || "ΕΔΕΣΣΑΣ";
                 document.getElementById('mobile').value = c.mobile || "";
                 document.getElementById('phone').value = c.phone || "";
@@ -307,15 +301,6 @@ function calculateGifts(q) {
     if (q >= 24) return 6; if (q >= 18) return 3; if (q >= 9) return 1; return 0;
 }
 
-// Υπολογισμός Έκπτωσης Τζίρου (3-10%)
-function calculateVolumeDiscountPerc(net) {
-    if (net < 300) return 0;
-    if (net < 400) return 3;
-    if (net < 500) return 4;
-    let extra = Math.floor((net - 500) / 100);
-    return Math.min(5 + extra, 10);
-}
-
 function updateTotals() { 
     let initialNet = 0; let totalGifts = 0; let totalItems = 0;
     products.forEach((p, i) => {
@@ -329,7 +314,7 @@ function updateTotals() {
     });
 
     const isCash = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value === "Αντικαταβολή Μετρητά";
-    const volPerc = calculateVolumeDiscountPerc(initialNet);
+    const volPerc = initialNet < 300 ? 0 : (initialNet < 400 ? 3 : (initialNet < 500 ? 4 : Math.min(5 + Math.floor((initialNet-500)/100), 10)));
     const volVal = initialNet * (volPerc / 100);
     const cashVal = isCash ? (initialNet - volVal) * 0.02 : 0;
     const finalNet = initialNet - volVal - cashVal;
@@ -342,17 +327,17 @@ function updateTotals() {
     document.getElementById("vat-value").textContent = (finalNet * 0.24).toFixed(2) + " €";
     document.getElementById("final-total").textContent = (finalNet * 1.24).toFixed(2) + " €";
 
-    // LIVE ANALYSIS BOX
     const analysis = document.getElementById("dynamicAnalysis");
     if(initialNet > 0) {
         analysis.innerHTML = `
-            <p>🎁 <strong>Συνολικά Δώρα:</strong> ${totalGifts} τεμ.</p>
-            <p>📉 <strong>Έκπτωση Τζίρου:</strong> ${volPerc}% (-${volVal.toFixed(2)}€)</p>
-            ${isCash ? `<p>💰 <strong>Έκπτωση Μετρητών:</strong> 2% (-${cashVal.toFixed(2)}€)</p>` : ''}
-            <p style="color:#34d399; font-weight:800; border-top:1px solid #444; padding-top:10px; font-size:1.1rem;">
-                🚀 Συνολικό Όφελος: ~${(volVal + cashVal + (totalGifts * 8)).toFixed(2)} €
-            </p>
-        `;
+            <div style="font-size:0.95rem;">
+                <p>🎁 <strong>Συνολικά Δώρα:</strong> ${totalGifts} τεμ.</p>
+                <p>📉 <strong>Έκπτωση Τζίρου:</strong> ${volPerc}% (-${volVal.toFixed(2)}€)</p>
+                ${isCash ? `<p>💰 <strong>Έκπτωση Μετρητών:</strong> 2% (-${cashVal.toFixed(2)}€)</p>` : ''}
+                <p style="color:#34d399; font-weight:800; border-top:1px solid #444; padding-top:10px; font-size:1.1rem;">
+                    🚀 Συνολικό Όφελος: ~${(volVal + cashVal + (totalGifts * 8)).toFixed(2)} €
+                </p>
+            </div>`;
     } else { analysis.innerHTML = "Ξεκινήστε την παραγγελία..."; }
 }
 
@@ -367,19 +352,19 @@ function showInfo(name, index) {
         <div class="modal-content">
             <span style="position:absolute;top:20px;right:25px;cursor:pointer;font-size:2.5rem;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
             <div style="display:flex; align-items:center; gap:25px; margin-bottom:20px;">
-                <img src="${imgPath}" onerror="this.src='https://via.placeholder.com/130?text=ZARKOLIA'" style="width:130px; border-radius:15px; border:1px solid #eee;">
+                <img src="${imgPath}" onerror="this.src='https://via.placeholder.com/130?text=ZARKOLIA'" style="width:130px; border-radius:15px; border:1px solid #eee; background:#fff;">
                 <div>
                     <h2 style="margin:0; color:var(--emerald-dark);">${name}</h2>
                     <p style="color:var(--slate-light); font-weight:700;">HCP Scientific Compendium</p>
                 </div>
             </div>
-            <h4>🧬 Μοριακός Μηχανισμός Δράσης</h4>
+            <h4>🧬 Μοριακός Μηχανισμός Δράσης (MoA)</h4>
             ${hcpTable(p.moa || [])}
             <div style="background:#f8fafc; padding:20px; border-radius:15px; margin:20px 0; border:1px solid #eef2f6;">
                 <p><strong>📍 Ενδείξεις:</strong> ${p.cases}</p>
                 <p><strong>💡 Γιατί λειτουργεί:</strong> ${p.rationale || "Εξειδικευμένη φόρμουλα Zarkolia Health"}</p>
             </div>
-            ${p.biblio ? biblioList(p.biblio) : ""}
+            ${biblioList(p.biblio)}
             <div style="margin-top:25px; padding:20px; border:2px solid var(--emerald-light); border-radius:18px; display:flex; justify-content:space-between; align-items:center; background:var(--emerald-light);">
                 <strong>Προσθήκη στην παραγγελία:</strong>
                 <div style="display:flex; align-items:center; gap:10px;">
@@ -406,10 +391,9 @@ async function processOrder() {
     let itemsForSheet = []; let emailItems = "";
     products.forEach((p, i) => {
         const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
-        const g = document.getElementById(`gift-${i}`).textContent;
         if(q > 0) {
             itemsForSheet.push(`${p.name} (${q})`);
-            emailItems += `* ${p.name} | Τεμ: ${q} | Δώρα: ${g}%0D%0A`;
+            emailItems += `* ${p.name} | Τεμ: ${q} | Δώρα: ${document.getElementById(`gift-${i}`).textContent}%0D%0A`;
         }
     });
 
