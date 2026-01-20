@@ -2,7 +2,7 @@
 // ZARKOLIA HEALTH - ULTIMATE SCIENTIFIC ERP & LIVE CRM v21.0
 // ============================================================
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhRjz4gwRHrsM-G7NIdf03fZMW4QfVvX8CFJn7DIMnkjZ9IxB-nEOe4g3xQ2fDaFHVkQ/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSTLGAsxmkhJpUcTqckAH1xN7Hb2aDJGCL_8pr-aBuMgB5joXusd6pslpSTC6rmhGJ7g/exec";
 
 // --- 1. HELPERS ΓΙΑ ΕΠΙΣΤΗΜΟΝΙΚΗ ΤΕΚΜΗΡΙΩΣΗ ---
 function hcpTable(rows) {
