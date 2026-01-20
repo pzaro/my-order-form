@@ -34,8 +34,8 @@ th { background: #f8fafc; padding: 15px; text-align: left; font-size: 0.8rem; co
 td { padding: 15px; border-top: 1px solid #f1f5f9; font-weight: 600; }
 
 .summary-container { display: flex; justify-content: flex-end; }
-.totals-card { background: var(--slate); color: #fff; padding: 35px; border-radius: 30px; min-width: 380px; }
-.total-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.totals-card { background: var(--slate); color: #fff; padding: 35px; border-radius: 30px; min-width: 400px; }
+.total-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 1.1rem; }
 .discount-line { color: #34d399; font-weight: 700; }
 .highlight { border-top: 1px solid #475569; padding-top: 10px; margin-top: 10px; font-weight: 800; }
 .grand-total-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 2.2rem; color: #34d399; font-weight: 800; }
