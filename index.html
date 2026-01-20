@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health - Visual ERP v56.0</title>
-    
+    <title>Zarkolia Health - Professional ERP v57.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,67 +21,44 @@
         <form id="orderForm" onsubmit="return false;">
             
             <div class="billing-card">
-                <div class="card-header">
-                    <h2 class="section-title">👤 Στοιχεία Τιμολόγησης</h2>
-                    <span class="badge">Live CRM Sync</span>
-                </div>
-                
+                <div class="card-header"><h2 class="section-title">👤 Στοιχεία Τιμολόγησης</h2></div>
                 <div class="form-grid">
-                    <div class="form-group afm-container">
-                        <label for="afm">ΑΦΜ (Αυτόματη Αναζήτηση)</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="afm" maxlength="9" placeholder="Εισάγετε ΑΦΜ...">
-                            <div id="search-loader">⏳</div>
-                        </div>
-                    </div>
-                    <div class="form-group"><label for="doy">ΔΟΥ</label><input type="text" id="doy"></div>
-                    <div class="form-group"><label for="tk">Τ.Κ.</label><input type="text" id="tk"></div>
-                    <div class="form-group full-width"><label for="eponimia">Επωνυμία Επιχείρησης / Φαρμακείου</label><input type="text" id="eponimia"></div>
-                    <div class="form-group full-width"><label for="address">Διεύθυνση Έδρας</label><input type="text" id="address"></div>
-                    <div class="form-group"><label for="city">Πόλη</label><input type="text" id="city"></div>
-                    <div class="form-group"><label for="mobile">Κινητό Τηλέφωνο</label><input type="tel" id="mobile"></div>
-                    <div class="form-group full-width"><label for="email">Email για Αποστολή Αντιγράφου</label><input type="email" id="email"></div>
+                    <div class="form-group"><label>ΑΦΜ</label><div class="input-wrapper"><input type="text" id="afm" maxlength="9"><div id="search-loader">⏳</div></div></div>
+                    <div class="form-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
+                    <div class="form-group"><label>Τ.Κ.</label><input type="text" id="tk"></div>
+                    <div class="form-group full-width"><label>Επωνυμία</label><input type="text" id="eponimia"></div>
+                    <div class="form-group full-width"><label>Διεύθυνση</label><input type="text" id="address"></div>
+                    <div class="form-group"><label>Πόλη</label><input type="text" id="city"></div>
+                    <div class="form-group"><label>Κινητό</label><input type="tel" id="mobile"></div>
+                    <div class="form-group full-width"><label>Email</label><input type="email" id="email"></div>
                 </div>
             </div>
 
             <div class="billing-card">
-                <div class="card-header">
-                    <h2 class="section-title">🧬 Επιστημονικό Compendium & Παραγγελία</h2>
-                    <span class="badge">4-Column Hybrid Layout</span>
-                </div>
-                
-                <div id="orderGrid" class="order-grid">
-                    </div>
+                <div class="card-header"><h2 class="section-title">🧬 Παραγγελία & Επιστήμη</h2></div>
+                <div id="orderGrid" class="order-grid"></div>
             </div>
 
-            [Image of a responsive ERP dashboard UI layout]
+            [Image of a tiered business discount visualization dashboard]
             <div class="billing-card">
-                <h2 class="section-title" style="margin-bottom:20px;">📊 Κατάσταση Στόχων Έκπτωσης</h2>
-                
+                <h2 class="section-title" style="margin-bottom:20px;">📊 Οπτική Επιβεβαίωση Στόχων</h2>
                 <div class="status-section">
                     <label>Προϊοντική Έκπτωση (Δώρα 9+1, 18+3, 24+6):</label>
                     <div id="status-gift" class="status-box inactive">🎁 Δώρα Ενεργά</div>
                 </div>
-
                 <div class="status-section">
-                    <label>Έκπτωση Τζίρου (1% ανά 100€ - Έως 1000€):</label>
+                    <label>Έκπτωση Τζίρου (1% ανά 100€ - Έως 10%):</label>
                     <div class="status-grid" id="volume-status-grid">
-                        <div class="status-square inactive">100</div>
-                        <div class="status-square inactive">200</div>
-                        <div class="status-square inactive">300</div>
-                        <div class="status-square inactive">400</div>
-                        <div class="status-square inactive">500</div>
-                        <div class="status-square inactive">600</div>
-                        <div class="status-square inactive">700</div>
-                        <div class="status-square inactive">800</div>
-                        <div class="status-square inactive">900</div>
-                        <div class="status-square inactive">1000</div>
+                        <div class="status-square inactive">100</div><div class="status-square inactive">200</div>
+                        <div class="status-square inactive">300</div><div class="status-square inactive">400</div>
+                        <div class="status-square inactive">500</div><div class="status-square inactive">600</div>
+                        <div class="status-square inactive">700</div><div class="status-square inactive">800</div>
+                        <div class="status-square inactive">900</div><div class="status-square inactive">1000</div>
                     </div>
                 </div>
-
                 <div class="status-section">
                     <label>Έκπτωση Μετρητών (+2%):</label>
-                    <div id="status-cash" class="status-box inactive">💰 Έκπτωση Μετρητών</div>
+                    <div id="status-cash" class="status-box inactive">💰 Μετρητά</div>
                 </div>
             </div>
 
@@ -94,10 +69,10 @@
                 </div>
                 <div class="billing-card" style="margin-bottom:0;">
                     <label>ΠΑΡΑΤΗΡΗΣΕΙΣ</label>
-                    <textarea id="remarks" style="width:100%; height:60px; border-radius:12px; border:2px solid var(--border); padding:12px; resize:none;"></textarea>
+                    <textarea id="remarks" style="width:100%; height:60px; border-radius:12px; border:2px solid var(--border); padding:12px; resize:none; font-family:inherit;"></textarea>
                     <div style="margin-top:20px; display:flex; gap:20px; flex-wrap:wrap;">
                         <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2%)</label>
-                        <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"> Επιταγή</label>
+                        <label style="cursor:pointer; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"> Επιταγή (60 Ημ.)</label>
                     </div>
                 </div>
             </div>
@@ -110,9 +85,7 @@
             <button type="button" class="btn-primary" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
         </form>
     </div>
-
     <div id="productModal" class="modal"></div>
-
     <script src="products.js"></script>
     <script src="script.js"></script>
 </body>
