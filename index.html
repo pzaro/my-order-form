@@ -8,26 +8,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="main-container">
         <header class="luxury-header">
             <h1>ZARKOLIA<span>HEALTH</span></h1>
-            <div class="header-divider"></div>
             <p class="scientific-tagline">Scientific Innovation & Nature</p>
         </header>
 
         <form id="orderForm" onsubmit="return false;">
-            
             <div class="elite-billing-card">
                 <div class="card-title-box">
                     <span class="title-icon">👤</span>
                     <h2 class="section-title">Στοιχεία Τιμολόγησης</h2>
                 </div>
-                
                 <div class="elite-grid">
-                    <div class="elite-input-group afm-focus">
-                        <label>ΑΦΜ (Sync)</label>
-                        <input type="text" id="afm" maxlength="9" placeholder="Εισάγετε 9 ψηφία">
+                    <div class="elite-input-group">
+                        <label>ΑΦΜ (Αυτόματη Αναζήτηση)</label>
+                        <input type="text" id="afm" maxlength="9" placeholder="000000000">
                         <div id="search-loader" class="loader-spinner"></div>
                     </div>
                     <div class="elite-input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
@@ -41,61 +37,35 @@
             </div>
 
             <div class="elite-billing-card">
-                <div class="card-title-box">
-                    <span class="title-icon">🧬</span>
-                    <h2 class="section-title">Επιστημονική Παραγγελία</h2>
-                </div>
+                <div class="card-title-box"><span class="title-icon">🧬</span><h2 class="section-title">Επιστημονική Παραγγελία</h2></div>
                 <div id="orderGrid" class="elite-order-grid"></div>
             </div>
 
             <div class="elite-billing-card reward-glow">
-                <div class="card-title-box">
-                    <span class="title-icon">📊</span>
-                    <h2 class="section-title">Ανάλυση Οφέλους & ROI</h2>
-                </div>
-                
+                <div class="card-title-box"><span class="title-icon">📊</span><h2 class="section-title">Ανάλυση Οφέλους & ROI</h2></div>
                 <div class="reward-container">
                     <div class="reward-step-container">
-                        <label class="reward-label">Επιπρόσθετη Έκπτωση Τζίρου (1% ανά 100€)</label>
-                        <div class="progress-track" id="volume-track">
-                            <div class="progress-fill" id="volume-fill"></div>
-                            <div class="progress-markers" id="volume-markers"></div>
-                        </div>
+                        <label class="reward-label">Πρόοδος Έκπτωσης Τζίρου (1% ανά 100€)</label>
+                        <div class="progress-track"><div class="progress-fill" id="volume-fill"></div></div>
                     </div>
-
                     <div class="reward-summary-grid">
-                        <div class="reward-stat" id="stat-gifts">
-                            <span class="stat-value">0</span>
-                            <span class="stat-desc">Δώρα (9+1, 18+3, 24+6)</span>
-                        </div>
-                        <div class="reward-stat" id="stat-cash">
-                            <span class="stat-value">0%</span>
-                            <span class="stat-desc">Έκπτωση Μετρητών</span>
-                        </div>
-                        <div class="reward-stat highlight" id="stat-savings">
-                            <span class="stat-value">0.00 €</span>
-                            <span class="stat-desc">Συνολικό Κέρδος</span>
-                        </div>
+                        <div class="reward-stat" id="stat-gifts"><span class="stat-value">0</span><span class="stat-desc">Δώρα (9+1, 18+3, 24+6)</span></div>
+                        <div class="reward-stat" id="stat-cash"><span class="stat-value">0%</span><span class="stat-desc">Έκπτωση Μετρητών</span></div>
+                        <div class="reward-stat highlight" id="stat-savings"><span class="stat-value">0.00 €</span><span class="stat-desc">Συνολικό Κέρδος</span></div>
                     </div>
                 </div>
             </div>
 
             <div class="billing-card">
-                <div style="display:flex; gap:30px; margin-bottom:20px;">
-                    <label class="check-container">Μετρητά (+2%)
-                        <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="check-container">Επιταγή (60 Ημ.)
-                        <input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)">
-                        <span class="checkmark"></span>
-                    </label>
+                <div style="display:flex; gap:30px; margin-bottom:20px; flex-wrap:wrap;">
+                    <label class="check-container">Μετρητά (+2%)<input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"><span class="checkmark"></span></label>
+                    <label class="check-container">Επιταγή (60 Ημ.)<input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"><span class="checkmark"></span></label>
                 </div>
                 <textarea id="remarks" placeholder="Παρατηρήσεις παράδοσης..."></textarea>
             </div>
 
             <div class="grand-total-box">
-                <span class="total-label">ΤΕΛΙΚΟ ΠΟΣΟ (ΜΕ ΦΠΑ)</span>
+                <span class="total-label">ΤΕΛΙΚΟ ΠΟΣΟ ΜΕ ΦΠΑ</span>
                 <span id="final-total" class="total-amount">0.00 €</span>
             </div>
 
@@ -103,6 +73,7 @@
         </form>
     </div>
     <div id="productModal" class="modal"></div>
-    <script src="products.js"></script><script src="script.js"></script>
+    <script src="products.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
