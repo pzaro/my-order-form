@@ -1,58 +1,95 @@
+/* ZARKOLIA HEALTH - ELITE PRO UI v58.0 Master */
 :root {
     --primary: #064e3b;
-    --accent: #10b981;
-    --error: #ef4444;
-    --health-gray: #4b5563; /* HEALTH ΓΚΡΙ [cite: 2026-01-20] */
-    --bg: #f8fafc;
-    --border: #cbd5e1;
+    --accent: #10b981; /* Success Green */
+    --error: #ef4444;  /* Target Pending */
+    --health-gray: #4b5563; /* Branding Gray */
+    --bg: #f3f4f6;
+    --white: #ffffff;
+    --border: #e2e8f0;
 }
 
-body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); margin: 0; padding: clamp(15px, 4vw, 40px); }
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg);
+    margin: 0; padding: clamp(15px, 4vw, 40px);
+    -webkit-font-smoothing: antialiased;
+}
+
 .main-container { max-width: 1100px; margin: 0 auto; }
 
 /* BRANDING */
-header h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2.2rem, 6vw, 3.5rem); color: var(--primary); text-align: center; text-transform: uppercase; }
+header h1 {
+    font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 3.5rem); color: var(--primary);
+    text-align: center; letter-spacing: -2px; margin-bottom: 40px; text-transform: uppercase;
+}
 header h1 span { color: var(--health-gray); font-weight: 300; margin-left: 10px; }
 
-/* SPINNER REMOVAL & QTY INPUT [cite: 2026-01-20] */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+/* ELITE BILLING SECTION */
+.billing-section { background: var(--white); border-radius: 28px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px; }
+.billing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.input-box { position: relative; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; transition: 0.3s; }
+.input-box:focus-within { border-color: var(--accent); }
+.input-box label { display: block; font-size: 0.65rem; font-weight: 800; color: var(--health-gray); text-transform: uppercase; margin-bottom: 5px; }
+.input-box input { width: 100%; border: none; background: transparent; font-size: 1.05rem; font-weight: 600; color: var(--primary); padding: 5px 0; }
+.input-box input:focus { outline: none; }
+
+/* SPINNER REMOVAL & QTY INPUT */
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { -moz-appearance: textfield; }
 
+.qty-controls { display: flex; align-items: center; background: #f1f5f9; border-radius: 14px; padding: 5px; gap: 6px; }
+.qty-controls button { width: 36px; height: 36px; border: none; background: #fff; border-radius: 10px; cursor: pointer; font-weight: 800; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 .qty-controls input {
-    width: 65px !important; height: 40px; text-align: center;
-    border: 2px solid var(--primary) !important; background: #fff !important;
-    font-weight: 800 !important; font-size: 1.3rem !important; color: var(--primary) !important;
-    border-radius: 8px; padding: 0;
+    width: 60px !important; height: 38px; text-align: center; border: 2px solid var(--primary) !important;
+    background: #fff !important; font-weight: 800 !important; font-size: 1.2rem !important;
+    color: var(--primary) !important; border-radius: 8px;
 }
 
-/* ORDER GRID */
-.order-item {
-    display: grid; grid-template-columns: 1fr 180px 80px 110px; align-items: center;
-    background: #fff; padding: 15px; border-radius: 18px; border: 1px solid #e2e8f0; margin-bottom: 10px;
-}
+/* CARDS & GRID */
+.billing-card { background: #ffffff; border-radius: 32px; padding: clamp(20px, 5vw, 40px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 30px; position: relative; overflow: hidden; }
+.billing-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(to bottom, var(--primary), var(--accent)); }
+.section-title { font-size: 1.3rem; font-weight: 800; color: var(--primary); margin: 0; }
+.badge { background: #ecfdf5; color: var(--accent); padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
 
-.item-gift { text-align: center; font-weight: 800; color: var(--accent); background: #f0fdf4; border-radius: 10px; padding: 5px; }
-.item-total { text-align: right; font-weight: 900; color: var(--primary); }
+.order-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.order-item { display: grid; grid-template-columns: 1fr 180px 80px 110px; align-items: center; background: #fff; padding: 18px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
+.order-item:hover { border-color: var(--accent); background: #fcfdfc; }
 
-/* VISUAL DASHBOARD STYLES [cite: 2026-01-20] */
+.item-info h4 { margin: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+.info-btn { background: #ecfdf5; color: var(--accent); border: 1px solid var(--accent); padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+
+/* VISUAL STATUS */
 .status-section { margin-bottom: 25px; }
-.status-box { display: inline-block; padding: 10px 20px; border-radius: 12px; font-weight: 800; color: #fff; text-transform: uppercase; font-size: 0.8rem; transition: 0.4s; }
-.status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(55px, 1fr)); gap: 10px; }
+.status-box { display: inline-block; padding: 10px 20px; border-radius: 12px; font-weight: 800; color: #fff; text-transform: uppercase; font-size: 0.8rem; }
+.status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(55px, 1fr)); gap: 10px; margin-top: 10px; }
 .status-square { height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 800; color: #fff; transition: 0.4s; }
 
 .inactive { background-color: var(--error) !important; opacity: 0.3; }
 .active { background-color: var(--accent) !important; opacity: 1; transform: scale(1.05); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
 
-/* UI ELEMENTS */
-.billing-card { background: #fff; border-radius: 32px; padding: clamp(20px, 5vw, 40px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 30px; position: relative; overflow: hidden; }
-.billing-card::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(to bottom, var(--primary), var(--accent)); }
-.grand-total-box { display: flex; justify-content: space-between; align-items: center; background: var(--primary); padding: 30px 45px; border-radius: 24px; color: #fff; }
+/* CENTERED MODAL */
+.modal {
+    display: none; position: fixed; z-index: 999999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);
+    align-items: center; justify-content: center;
+}
+.modal-content {
+    background: var(--white); width: 90%; max-width: 650px; border-radius: 40px; padding: 40px;
+    position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border-top: 12px solid var(--primary);
+}
+.close-modal { position: absolute; top: 20px; right: 30px; cursor: pointer; font-size: 2.5rem; font-weight: bold; color: #94a3b8; transition: 0.2s; }
+.close-modal:hover { color: var(--error); }
+
+/* TOTALS & BUTTONS */
+.grand-total-box { display: flex; justify-content: space-between; align-items: center; background: var(--primary); padding: 30px 45px; border-radius: 24px; color: #fff; margin: 30px 0; }
 .total-amount { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; }
 .btn-primary { width: 100%; padding: 22px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border: none; border-radius: 20px; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; cursor: pointer; }
 
 @media (max-width: 768px) {
-    .order-item { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .order-item { grid-template-columns: 1fr 1fr; gap: 15px; }
     .item-info { grid-column: span 2; }
-    .grand-total-box { flex-direction: column; text-align: center; }
+    .grand-total-box { flex-direction: column; text-align: center; gap: 15px; }
 }
