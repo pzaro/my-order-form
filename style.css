@@ -1,8 +1,8 @@
-/* ZARKOLIA HEALTH - SUPREME COMFORT v63.0 */
+/* ZARKOLIA HEALTH - SUPREME COMFORT v63.0 [cite: 2026-01-20] */
 :root {
     --primary: #064e3b;
     --accent: #10b981;
-    --health-gray: #4b5563; /* */
+    --health-gray: #4b5563;
     --bg: #f8fafc;
     --white: #ffffff;
     --border: #cbd5e1;
@@ -10,8 +10,7 @@
 
 body { 
     font-family: 'Plus Jakarta Sans', sans-serif; 
-    background: var(--bg); 
-    color: #1e293b; 
+    background: var(--bg); color: #1e293b; 
     margin: 0; padding: clamp(20px, 5vw, 50px); 
     -webkit-font-smoothing: antialiased; 
 }
@@ -23,57 +22,41 @@ body {
 .luxury-header h1 span { color: var(--health-gray); font-weight: 300; margin-left: 10px; }
 .scientific-tagline { text-align: center; color: #7c9a64; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; margin-bottom: 50px; }
 
-/* COMFORT CARDS */
-.comfort-card { 
-    background: var(--white); 
-    border-radius: 35px; 
-    padding: 50px; 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.04); 
-    margin-bottom: 35px; 
-    border: 1px solid #eef2f6; 
-}
-.card-header { display: flex; align-items: center; gap: 20px; margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9; }
-.card-header h3 { margin: 0; font-size: 1.4rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
-
-/* INPUT SYSTEM - NO SPINNERS */
+/* SPINNER REMOVAL & QTY [cite: 2026-01-20] */
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { -moz-appearance: textfield; }
 
+/* COMFORT CARDS */
+.comfort-card { background: var(--white); border-radius: 35px; padding: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.04); margin-bottom: 35px; border: 1px solid #eef2f6; }
+.card-header { display: flex; align-items: center; gap: 20px; margin-bottom: 35px; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; }
+.card-header h3 { margin: 0; font-size: 1.4rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
 .comfort-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 .full-width { grid-column: 1 / -1; }
-.input-field label { display: block; font-size: 0.8rem; font-weight: 800; color: var(--health-gray); text-transform: uppercase; margin-bottom: 10px; }
-.input-field input { 
-    width: 100%; border: none; border-bottom: 3px solid #e2e8f0; 
-    font-size: 1.4rem; font-weight: 700; color: var(--primary); 
-    padding: 10px 0; transition: 0.3s; background: transparent; 
-}
+.input-field label { display: block; font-size: 0.85rem; font-weight: 800; color: var(--health-gray); text-transform: uppercase; margin-bottom: 10px; }
+.input-field input { width: 100%; border: none; border-bottom: 3px solid #e2e8f0; font-size: 1.5rem; font-weight: 700; color: var(--primary); padding: 10px 0; transition: 0.3s; background: transparent; }
 .input-field input:focus { outline: none; border-color: var(--accent); }
 
 /* ORDER LIST */
-.order-list { display: flex; flex-direction: column; gap: 15px; }
-.order-item { display: grid; grid-template-columns: 1fr 200px 80px 130px; align-items: center; background: #fff; padding: 20px; border-radius: 20px; border: 1px solid #f1f5f9; transition: 0.3s; }
-.order-item:hover { border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-
-/* QTY CONTROLS */
+.order-item { display: grid; grid-template-columns: 1fr 200px 80px 130px; align-items: center; background: #fff; padding: 20px; border-radius: 20px; border: 1px solid #f1f5f9; margin-bottom: 12px; }
 .qty-controls { display: flex; align-items: center; background: #f1f5f9; border-radius: 15px; padding: 6px; gap: 8px; }
-.qty-controls button { width: 40px; height: 40px; border: none; background: #fff; border-radius: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-.qty-controls input { width: 70px; text-align: center; border: 2.5px solid var(--primary); font-size: 1.4rem; font-weight: 800; border-radius: 8px; color: var(--primary); }
+.qty-controls button { width: 40px; height: 40px; border: none; background: #fff; border-radius: 10px; font-weight: 800; cursor: pointer; }
+.qty-controls input { width: 70px; text-align: center; border: 2.5px solid var(--primary); font-size: 1.5rem; font-weight: 800; border-radius: 8px; color: var(--primary); }
 
 /* ROI & TOTALS */
 .roi-highlight { border: 2px solid var(--accent); }
-.roi-track { height: 18px; background: #e2e8f0; border-radius: 50px; overflow: hidden; margin-top: 15px; }
-.roi-fill { height: 100%; background: var(--accent); width: 0%; transition: 1s ease-in-out; }
+.track { height: 18px; background: #e2e8f0; border-radius: 50px; overflow: hidden; margin-top: 15px; }
+.fill { height: 100%; background: var(--accent); width: 0%; transition: 0.8s ease-out; }
 .roi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 35px; }
 .roi-box { background: #f8fafc; padding: 25px; border-radius: 25px; text-align: center; }
 .roi-box.prime { background: var(--primary); color: #fff; }
 .roi-box .val { display: block; font-size: 2.3rem; font-weight: 900; }
-.roi-box .lbl { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
 
 .total-summary { background: var(--primary); color: #fff; padding: 50px; border-radius: 35px; display: flex; justify-content: space-between; align-items: center; margin-top: 40px; }
-.sum-value { font-size: 4rem; font-weight: 900; letter-spacing: -2px; }
-.btn-submit { width: 100%; padding: 30px; background: var(--accent); color: #fff; border: none; border-radius: 25px; font-size: 1.7rem; font-weight: 900; cursor: pointer; margin-top: 25px; }
+.sum-value { font-size: 4.5rem; font-weight: 900; letter-spacing: -2px; }
+.btn-submit { width: 100%; padding: 30px; background: var(--accent); color: #fff; border: none; border-radius: 25px; font-size: 1.8rem; font-weight: 900; cursor: pointer; margin-top: 25px; }
 
-/* MODAL */
+/* MODAL [cite: 2026-01-20] */
 .modal { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; }
-.modal-content { background: #fff; width: 90%; max-width: 650px; border-radius: 45px; padding: 45px; position: relative; border-top: 15px solid var(--primary); }
+.modal-content { background: #fff; width: 90%; max-width: 650px; border-radius: 45px; padding: 45px; position: relative; border-top: 15px solid var(--primary); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
