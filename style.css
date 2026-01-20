@@ -6,11 +6,13 @@
     --bg: #f8fafc;
     --card: #ffffff;
     --border: #e2e8f0;
+    --text: #0f172a;
 }
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg);
+    color: var(--text);
     margin: 0; padding: 20px;
     -webkit-font-smoothing: antialiased;
 }
@@ -45,25 +47,21 @@ header h1 {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
 
-/* RESPONSIVE INPUTS */
 input {
     width: 100%; padding: 16px;
     border-radius: 14px; border: 2px solid var(--border);
     font-family: inherit; font-size: 1rem;
     transition: 0.3s; box-sizing: border-box;
+    font-weight: 600;
 }
 
-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08);
-    outline: none;
-}
+input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
 
-/* HORIZONTAL SCIENTIFIC PILLS [cite: 2026-01-20] */
+/* HORIZONTAL PILLS */
 .product-grid-nav {
     display: flex; flex-wrap: wrap; gap: 10px; margin: 25px 0;
 }
@@ -76,55 +74,48 @@ input:focus {
     white-space: nowrap;
 }
 
-.product-btn:hover {
-    border-color: var(--accent); background: #f0fdf4; transform: translateY(-2px);
-}
+.product-btn:hover { border-color: var(--accent); background: #f0fdf4; transform: translateY(-2px); }
 
-/* MODERN TABLE RESPONSIVE */
-.table-container {
-    overflow-x: auto; border-radius: 20px; border: 1px solid var(--border);
-}
-
-table { width: 100%; border-collapse: collapse; background: #fff; }
+/* TABLE RESPONSIVE */
+.table-container { overflow-x: auto; border-radius: 20px; border: 1px solid var(--border); background: #fff; }
+table { width: 100%; border-collapse: collapse; }
 th { background: #f8fafc; padding: 15px; text-align: left; font-size: 0.75rem; color: #64748b; }
 td { padding: 15px; border-top: 1px solid var(--border); }
 
 /* STEPPER */
-.stepper {
-    display: flex; align-items: center; background: #f1f5f9;
-    border-radius: 12px; padding: 4px; width: fit-content;
-}
+.stepper { display: flex; align-items: center; background: #f1f5f9; border-radius: 12px; padding: 4px; width: fit-content; }
+.stepper button { background: #fff; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-weight: 800; color: var(--primary); }
+.stepper input { width: 40px; text-align: center; border: none; background: transparent; font-weight: 700; }
 
-.stepper button {
-    background: #fff; border: 1px solid var(--border);
-    width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
-    font-weight: 800; color: var(--primary);
-}
-
-/* CENTERED MODAL */
+/* MODAL CENTERED */
 .modal {
     display: none; position: fixed; z-index: 10000;
     left: 0; top: 0; width: 100%; height: 100%;
     background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);
     align-items: center; justify-content: center;
 }
-
 .modal.active { display: flex !important; }
-
 .modal-content {
     background: #fff; width: 95%; max-width: 800px;
     border-radius: 32px; padding: clamp(20px, 5vw, 45px);
     position: relative; max-height: 90vh; overflow-y: auto;
 }
 
-/* TOTALS LUXURY */
+/* TOTALS BOX */
 .grand-total-box {
     display: flex; justify-content: space-between; align-items: center;
-    background: var(--primary); padding: 30px 40px;
+    background: var(--primary); padding: 30px 50px;
     border-radius: 24px; color: #fff; margin: 30px 0;
 }
 
-@media (max-width: 600px) {
-    .grand-total-box { flex-direction: column; text-align: center; gap: 10px; }
-    header h1 { font-size: 2.2rem; }
+#search-loader { position: absolute; right: 20px; top: 44px; font-size: 1.6rem; display: none; }
+.spin { display: block !important; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.btn-primary {
+    width: 100%; padding: 25px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff; border: none; border-radius: 22px;
+    font-size: 1.3rem; font-weight: 800; text-transform: uppercase;
+    cursor: pointer; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
 }
