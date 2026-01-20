@@ -1,36 +1,46 @@
+/* Import Modern Font */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap');
+
 :root {
-    --primary: #064e3b; /* Deep Medical Green */
-    --accent: #10b981;  /* Emerald */
-    --bg-main: #f1f5f9;
+    --primary: #064e3b;
+    --accent: #10b981;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
     --text-dark: #0f172a;
+    --text-muted: #64748b;
     --border: #e2e8f0;
+    --radius-lg: 24px;
+    --radius-md: 12px;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg-main);
     color: var(--text-dark);
     margin: 0;
     padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
 }
 
-.main-container { max-width: 1200px; margin: 0 auto; }
+.main-container { max-width: 1240px; margin: 0 auto; }
 
 header h1 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 3rem;
+    font-weight: 900;
+    font-size: 3.2rem;
     color: var(--primary);
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    letter-spacing: -2px;
+    text-transform: uppercase;
 }
 
 .card {
-    background: #ffffff;
-    border-radius: 24px;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
     padding: 40px;
-    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-    margin-bottom: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+    margin-bottom: 35px;
     border: 1px solid var(--border);
 }
 
@@ -41,8 +51,8 @@ header h1 {
     z-index: 10000;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
     align-items: center; 
     justify-content: center;
 }
@@ -52,51 +62,89 @@ header h1 {
 .modal-content {
     background: #fff;
     width: 90%;
-    max-width: 800px;
-    border-radius: 30px;
-    padding: 40px;
+    max-width: 850px;
+    border-radius: 32px;
+    padding: 50px;
     position: relative;
     max-height: 85vh;
     overflow-y: auto;
     box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
 }
 
-/* LOADER VISIBILITY [cite: 2026-01-20] */
-.afm-container { position: relative; }
-
-#search-loader {
-    position: absolute;
-    right: 20px;
-    top: 42px;
-    font-size: 1.8rem;
-    color: var(--accent);
+/* QUANTITY STEPPER STYLE */
+.stepper {
+    display: flex;
+    align-items: center;
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 4px;
+    width: fit-content;
 }
 
-.hourglass-visible {
-    display: block !important;
-    animation: spin 1.5s linear infinite;
+.stepper button {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--primary);
+    transition: 0.2s;
 }
 
-.hourglass-hidden { display: none; }
+.stepper button:hover { background: var(--accent); color: white; }
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
+.stepper input {
+    width: 45px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
 
-/* FORM ELEMENTS */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+/* PRODUCT DETAIL BUTTONS */
+.product-btn {
+    background: #fff;
+    border: 2px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.product-btn:hover {
+    border-color: var(--accent);
+    background: #f0fdf4;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1);
+}
+
+/* FORM & INPUTS */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 .form-group.full { grid-column: span 2; }
-label { display: block; font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 8px; }
-input { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; }
-.remarks-box { width: 100%; height: 60px; border: 2px solid #e2e8f0; border-radius: 12px; resize: none; padding: 15px; font-family: inherit; }
+label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+input { width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 14px; box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s; }
+input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08); }
 
-/* POLICY BOXES */
-.policy-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+/* SUMMARY BOXES */
+.policy-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 35px; }
 .analysis-box { background: var(--primary); color: #fff; border: none; }
-
-/* TOTALS */
-.final-price-box { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 600; color: #64748b; margin-bottom: 10px; }
-.grand-total-box { display: flex; justify-content: space-between; font-size: 3rem; font-weight: 900; color: var(--primary); border-top: 2px solid var(--border); padding-top: 15px; margin-bottom: 30px; }
+.grand-total-box { display: flex; justify-content: space-between; font-size: 3.5rem; font-weight: 900; color: var(--primary); border-top: 3px solid var(--primary); padding-top: 20px; margin-bottom: 40px; letter-spacing: -2px; }
 
 .btn-primary {
     width: 100%; padding: 25px; background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #fff; border: none; border-radius: 20px; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+    color: #fff; border: none; border-radius: 24px; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.4s;
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
 }
+.btn-primary:hover { transform: scale(1.01); filter: brightness(1.1); }
