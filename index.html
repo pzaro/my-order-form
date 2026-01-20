@@ -15,49 +15,50 @@
         </header>
 
         <div class="policy-wrapper">
-            <div class="policy-box" id="policyDisplay">
+            <div class="policy-box">
                 <h3>📦 Εμπορική Πολιτική</h3>
                 <ul>
-                    <li><strong>Δώρα ανα κωδικό:</strong> 9+1 | 18+3 | 24+6</li>
-                    <li><strong>Έκπτωση Τζίρου:</strong> 300€ (3%) | 400€ (4%) | 500€ (5%)</li>
-                    <li><strong>Κλιμάκωση:</strong> +1% ανα 100€ (Max 10% στα 1000€)</li>
-                    <li><strong>Μετρητά:</strong> Επιπλέον +2% έκπτωση</li>
+                    <li><strong>Δώρα:</strong> 9+1 | 18+3 | 24+6</li>
+                    <li><strong>Έκπτωση Τζίρου:</strong> 300€(3%) | 400€(4%) | 500€(5%) | +1%/100€ (Max 10%)</li>
+                    <li><strong>Πληρωμή:</strong> +2% επιπλέον έκπτωση στα Μετρητά</li>
                 </ul>
             </div>
-            <div class="analysis-box" id="analysisDisplay">
+            <div class="analysis-box">
                 <h3>💰 Ανάλυση Οφέλους</h3>
-                <div id="dynamicAnalysis">Ξεκινήστε την παραγγελία για ανάλυση...</div>
+                <div id="dynamicAnalysis">Ξεκινήστε την παραγγελία...</div>
             </div>
         </div>
 
         <section>
-            <h2 class="section-title">Επιστημονική Τεκμηρίωση Προϊόντων</h2>
+            <h2 class="section-title">Επιστημονική Τεκμηρίωση & Μηχανισμοί Δράσης</h2>
             <div id="productButtonsContainer" class="product-grid-nav"></div>
         </section>
 
         <form id="orderForm" class="order-card" onsubmit="return false;">
             <h2 style="border-bottom:2px solid #f1f5f9; padding-bottom:15px;">Στοιχεία Τιμολόγησης</h2>
             <div class="form-grid">
-                <div class="form-group"><label>ΑΦΜ</label><input type="text" id="afm" maxlength="9"></div>
+                <div class="form-group"><label>ΑΦΜ (Lookup)</label><input type="text" id="afm" maxlength="9"></div>
                 <div class="form-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
-                <div class="form-group full"><label>Επωνυμία</label><input type="text" id="eponimia"></div>
-                <div class="form-group"><label>Κινητό</label><input type="tel" id="mobile"></div>
-                <div class="form-group"><label>Email</label><input type="email" id="email"></div>
+                <div class="form-group full"><label>Επωνυμία Επιχείρησης</label><input type="text" id="eponimia"></div>
+                <div class="form-group"><label>Κινητό Τηλέφωνο</label><input type="tel" id="mobile"></div>
+                <div class="form-group"><label>Σταθερό Τηλέφωνο</label><input type="tel" id="phone"></div>
+                <div class="form-group full"><label>Email Αποστολής</label><input type="email" id="email"></div>
             </div>
 
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px; margin:30px 0;">
                 <div class="info-block">
-                    <h3>Πληρωμή & Λογαριασμοί</h3>
+                    <h3>Πληρωμή & Τράπεζες</h3>
                     <label><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Αντικαταβολή Μετρητά (+2%)</label><br><br>
                     <label><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 ημερών</label>
-                    <div class="bank-info">
-                        EURO: GR0302607310000970100732761<br>
-                        PIR: GR8901722520005252016160277
+                    
+                    <div class="bank-card">
+                        <p><strong>EUROBANK:</strong> <span class="iban">GR03 0260 7310 0009 7010 0732 761</span></p>
+                        <p><strong>ΠΕΙΡΑΙΩΣ:</strong> <span class="iban">GR89 0172 2520 0052 5201 6160 277</span></p>
                     </div>
                 </div>
                 <div class="info-block">
-                    <h3>Παρατηρήσεις</h3>
-                    <textarea id="remarks" rows="5"></textarea>
+                    <h3>Παρατηρήσεις Παραγγελίας</h3>
+                    <textarea id="remarks" rows="10" placeholder="Σημειώστε εδώ οτιδήποτε αφορά την παράδοση, το ωράριο ή ειδικές οδηγίες τιμολόγησης..."></textarea>
                 </div>
             </div>
 
@@ -73,16 +74,16 @@
             <div class="summary-container">
                 <div class="totals-card">
                     <div class="total-row"><span>Αρχικό Σύνολο:</span> <span id="net-value">0.00 €</span></div>
-                    <div class="total-row discount-line"><span>Εκπτ. Τζίρου (<span id="disc-perc">0</span>%):</span> <span id="disc-val">0.00 €</span></div>
-                    <div class="total-row discount-line"><span>Εκπτ. Μετρητών:</span> <span id="cash-disc-val">0.00 €</span></div>
+                    <div class="total-row discount-line"><span>Έκπτωση Τζίρου (<span id="disc-perc">0</span>%):</span> <span id="disc-val">0.00 €</span></div>
+                    <div class="total-row discount-line"><span>Έκπτωση Μετρητών (2%):</span> <span id="cash-disc-val">0.00 €</span></div>
                     <div class="total-row highlight"><span>Καθαρή Αξία:</span> <span id="final-net">0.00 €</span></div>
                     <div class="total-row"><span>ΦΠΑ (24%):</span> <span id="vat-value">0.00 €</span></div>
-                    <div class="grand-total-row"><span>ΠΛΗΡΩΤΕΟ:</span> <span id="final-total">0.00 €</span></div>
+                    <div class="grand-total-row"><span>ΤΕΛΙΚΟ ΠΟΣΟ:</span> <span id="final-total">0.00 €</span></div>
                 </div>
             </div>
 
             <div class="action-footer">
-                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
+                <button type="button" class="btn-primary" id="submitBtn" onclick="processOrder()">Ολοκλήρωση & Αποστολή στο Cloud</button>
             </div>
         </form>
     </div>
