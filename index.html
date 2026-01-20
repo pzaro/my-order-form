@@ -3,59 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health ERP</title>
+    <title>Zarkolia Health - Professional Elite ERP</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; --text-muted: #4b5563; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); padding: 30px 20px; }
-        .main-container { max-width: 1200px; margin: 0 auto; }
-        header h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--primary); text-align: center; text-transform: uppercase; }
-        header h1 span { color: var(--text-muted); font-weight: 300; margin-left: 10px; }
-        .billing-card { background: #fff; border-radius: 32px; padding: 40px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; margin-bottom: 35px; position: relative; overflow: hidden; }
-        .billing-card::before { content: ''; position: absolute; top: 0; left: 0; width: 8px; height: 100%; background: linear-gradient(to bottom, var(--primary), var(--accent)); }
-        .product-grid-nav { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
-        .product-btn { background: #fff; border: 1.5px solid #e2e8f0; padding: 12px 24px; border-radius: 50px; font-weight: 700; cursor: pointer; color: var(--primary); }
-        .grand-total-box { display: flex; justify-content: space-between; align-items: center; background: var(--primary); padding: 40px 60px; border-radius: 32px; color: #fff; margin: 40px 0; }
-        .btn-primary { width: 100%; padding: 25px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border: none; border-radius: 24px; font-size: 1.4rem; font-weight: 800; cursor: pointer; }
-        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); align-items: center; justify-content: center; }
-        .modal.active { display: flex !important; }
-        .modal-content { background: #fff; border-radius: 40px; padding: 50px; width: 90%; max-width: 850px; position: relative; max-height: 85vh; overflow-y: auto; }
-        #search-loader { position: absolute; right: 20px; top: 48px; display: none; }
-        .spin { display: block !important; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-container">
-        <header><h1>ZARKOLIA<span>HEALTH</span></h1></header>
+        <header class="luxury-header">
+            <h1>ZARKOLIA<span>HEALTH</span></h1>
+            <p class="scientific-tagline">Scientific Innovation & Nature</p>
+        </header>
+
         <form id="orderForm" onsubmit="return false;">
-            <div class="billing-card">
-                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:25px;">
-                    <div style="position:relative;"><label>ΑΦΜ</label><input type="text" id="afm" maxlength="9"><div id="search-loader">⏳</div></div>
-                    <div><label>ΔΟΥ</label><input type="text" id="doy"></div>
-                    <div><label>Τ.Κ.</label><input type="text" id="tk"></div>
-                    <div style="grid-column: 1/-1;"><label>ΕΠΩΝΥΜΙΑ</label><input type="text" id="eponimia"></div>
-                    <div style="grid-column: 1/-1;"><label>ΔΙΕΥΘΥΝΣΗ</label><input type="text" id="address"></div>
-                    <div><label>ΠΟΛΗ</label><input type="text" id="city"></div>
-                    <div><label>ΚΙΝΗΤΟ</label><input type="tel" id="mobile"></div>
-                    <div style="grid-column: 1/-1;"><label>EMAIL ΑΠΟΣΤΟΛΗΣ</label><input type="email" id="email"></div>
+            <section class="elite-card">
+                <div class="card-header">
+                    <span class="icon">👤</span>
+                    <h3>Στοιχεία Τιμολόγησης</h3>
                 </div>
-            </div>
-            <div class="billing-card">
-                <h2 style="color:var(--primary);">🧬 Επιστημονικό Compendium</h2>
-                <div id="productButtonsContainer" class="product-grid-nav"></div>
-                <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse;"><tbody id="product-rows"></tbody></table></div>
-            </div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px; margin-bottom:40px;">
-                <div class="billing-card" style="border-left: 10px solid var(--accent); margin-bottom:0;">
-                    <h3>📦 Πολιτική</h3><p>9+1 | 18+3 | 24+6</p><p>200€(2%) -> 1000€(10%)</p>
+                <div class="elite-grid">
+                    <div class="elite-input-group">
+                        <label>ΑΦΜ (Auto-Sync)</label>
+                        <input type="text" id="afm" maxlength="9" placeholder="000000000">
+                        <div id="search-loader" class="loader"></div>
+                    </div>
+                    <div class="elite-input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
+                    <div class="elite-input-group"><label>Τ.Κ.</label><input type="text" id="tk"></div>
+                    <div class="elite-input-group full-width"><label>Επωνυμία Επιχείρησης</label><input type="text" id="eponimia"></div>
+                    <div class="elite-input-group full-width"><label>Διεύθυνση Έδρας</label><input type="text" id="address"></div>
+                    <div class="elite-input-group"><label>Πόλη</label><input type="text" id="city"></div>
+                    <div class="elite-input-group"><label>Κινητό</label><input type="tel" id="mobile"></div>
+                    <div class="elite-input-group full-width"><label>Email Παραστατικού</label><input type="email" id="email"></div>
                 </div>
-                <div class="billing-card" style="background:var(--primary); color:#fff; margin-bottom:0;">
-                    <h3>💰 Ανάλυση</h3><div id="dynamicAnalysis">Περιμένω...</div>
+            </section>
+
+            <section class="elite-card">
+                <div class="card-header"><span class="icon">🧬</span><h3>Παραγγελία & Compendium</h3></div>
+                <div id="orderGrid" class="elite-order-grid"></div>
+            </section>
+
+            <section class="elite-card roi-glow">
+                <div class="card-header"><span class="icon">📊</span><h3>Ανάλυση Οφέλους & Στόχοι</h3></div>
+                <div class="roi-container">
+                    <div class="roi-visual">
+                        <label>Πρόοδος Έκπτωσης Τζίρου (1% ανά 100€)</label>
+                        <div class="roi-track"><div class="roi-fill" id="volume-fill"></div></div>
+                    </div>
+                    <div class="roi-stats">
+                        <div class="roi-stat-box" id="stat-gifts">
+                            <span class="val">0</span>
+                            <span class="desc">Δώρα (9+1, 18+3, 24+6)</span>
+                        </div>
+                        <div class="roi-stat-box" id="stat-cash">
+                            <span class="val">0%</span>
+                            <span class="desc">Έκπτωση Μετρητών</span>
+                        </div>
+                        <div class="roi-stat-box highlight" id="stat-roi">
+                            <span class="val">0.00 €</span>
+                            <span class="desc">Συνολικό Κέρδος</span>
+                        </div>
+                    </div>
                 </div>
+            </section>
+
+            <div class="final-actions">
+                <div class="payment-row">
+                    <label class="check-ui">Μετρητά (+2%)<input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"><span class="mark"></span></label>
+                    <label class="check-ui">Επιταγή (60 Ημ.)<input type="checkbox" name="payment" value="Επιταγή" onclick="onlyOne(this)"><span class="mark"></span></label>
+                </div>
+                <textarea id="remarks" placeholder="Παρατηρήσεις παραγγελίας..."></textarea>
+                
+                <div class="total-display">
+                    <div class="total-label">ΤΕΛΙΚΟ ΠΟΣΟ ΜΕ ΦΠΑ</div>
+                    <div id="final-total" class="total-val">0.00 €</div>
+                </div>
+
+                <button type="button" class="btn-submit" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
             </div>
-            <div class="grand-total-box"><span style="font-size:1.2rem; font-weight:600;">ΤΕΛΙΚΟ ΣΥΝΟΛΟ</span><span id="final-total" style="font-size:4rem; font-weight:900;">0.00 €</span></div>
-            <button type="button" class="btn-primary" onclick="processOrder()">Ολοκλήρωση & Αποθήκευση</button>
         </form>
     </div>
     <div id="productModal" class="modal"></div>
