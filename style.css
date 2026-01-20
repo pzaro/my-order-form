@@ -1,186 +1,135 @@
+/* ZARKOLIA HEALTH - PROFESSIONAL UI v54.0 */
 :root {
-    --primary-green: #064e3b;
-    --accent-emerald: #10b981;
-    --health-gray: #4b5563;
-    --bg-color: #f8fafc;
-    --white: #ffffff;
-    --glass: rgba(255, 255, 255, 0.9);
+    --primary: #064e3b;
+    --accent: #10b981;
+    --health-gray: #4b5563; /* Σκούρο γκρι για το HEALTH [cite: 2026-01-20] */
+    --bg: #f8fafc;
+    --border: #e2e8f0;
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--primary-green);
-    font-size: 1.2rem;
-    line-height: 1.6;
+    background-color: var(--bg);
+    margin: 0; padding: clamp(15px, 4vw, 40px);
+    -webkit-font-smoothing: antialiased;
 }
 
-.app-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 20px;
+.main-container { max-width: 1100px; margin: 0 auto; }
+
+/* BRANDING */
+header h1 {
+    font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 3.5rem); color: var(--primary);
+    text-align: center; letter-spacing: -2px; margin-bottom: 40px; text-transform: uppercase;
 }
 
-/* Card Definition */
-.card {
-    background: var(--white);
-    border-radius: 30px;
-    padding: 50px; /* Spacious Padding */
-    margin-bottom: 40px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-    border: 1px solid rgba(0,0,0,0.02);
+header h1 span {
+    color: var(--health-gray); /* HEALTH ΓΚΡΙ [cite: 2026-01-20] */
+    font-weight: 300; margin-left: 10px;
 }
 
-/* Titles & Text */
-.luxury-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; color: var(--primary-green); }
-.subtitle { color: var(--health-gray); font-size: 1.1rem; margin-bottom: 30px; }
-.accent { color: var(--accent-emerald); }
-
-/* ROI Dashboard */
-.progress-container {
-    background: #e2e8f0;
-    height: 16px;
-    border-radius: 10px;
-    margin: 15px 0 30px 0;
-    overflow: hidden;
+/* CARDS */
+.billing-card {
+    background: #ffffff; border-radius: 32px; padding: clamp(20px, 5vw, 45px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid var(--border);
+    margin-bottom: 30px; position: relative; overflow: hidden;
 }
 
-.progress-bar {
-    background: linear-gradient(90deg, var(--accent-emerald), #34d399);
-    height: 100%;
-    width: 0%;
-    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+.billing-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
 }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+.section-title { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin: 0; }
+.badge { background: #ecfdf5; color: var(--accent); padding: 6px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+
+/* GRID */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.form-group.full-width { grid-column: 1 / -1; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase; }
+
+input {
+    width: 100%; padding: 16px; border-radius: 15px; border: 2px solid var(--border);
+    font-family: inherit; font-size: 1rem; font-weight: 600; box-sizing: border-box; transition: 0.3s;
 }
 
-.stat-item { border-left: 4px solid #f1f5f9; padding-left: 20px; }
-.stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--health-gray); }
-.stat-value { font-size: 2rem; font-weight: 800; display: block; }
-.stat-value.highlight { color: var(--accent-emerald); }
+input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
 
-/* Elite Billing Styles */
-.form-grid-supreme {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+/* ORDER GRID */
+.order-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+
+.order-item {
+    display: grid; grid-template-columns: 1fr 165px 125px; align-items: center;
+    background: #fff; padding: 18px; border-radius: 20px; border: 1px solid var(--border);
 }
 
-.input-field-container label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 15px;
-    padding-left: 5px;
+.order-item:hover { border-color: var(--accent); background: #fcfdfc; }
+
+.item-info h4 { margin: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+
+/* INFO BUTTON [cite: 2026-01-20] */
+.info-btn {
+    background: #ecfdf5; color: var(--accent); border: 1px solid var(--accent);
+    padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; font-weight: 800;
+    cursor: pointer; text-transform: uppercase; transition: 0.2s;
+}
+.info-btn:hover { background: var(--accent); color: #fff; }
+
+/* STEPPER UI [cite: 2026-01-20] */
+.qty-controls {
+    display: flex; align-items: center; background: #f1f5f9;
+    border-radius: 14px; padding: 6px; gap: 6px;
 }
 
-.input-wrapper input, .input-wrapper select {
-    width: 100%;
-    padding: 25px 30px;
-    font-size: 1.4rem;
-    font-family: inherit;
-    border-radius: 20px;
-    border: 2px solid #e2e8f0;
-    transition: all 0.3s;
+.qty-controls button {
+    width: 36px; height: 36px; border: 1px solid var(--border); background: #fff;
+    border-radius: 10px; cursor: pointer; font-weight: 800; color: var(--primary);
 }
 
-.input-wrapper input:focus {
-    outline: none;
-    border-color: var(--accent-emerald);
-    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.1);
+.qty-controls input {
+    width: 55px; text-align: center; border: 2px solid #e2e8f0;
+    background: #fff; font-weight: 800; font-size: 1.2rem;
+    border-radius: 8px; padding: 4px; color: var(--primary);
 }
 
-/* Product Cards */
-.product-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--white);
-    padding: 35px 50px;
-    border-radius: 25px;
-    margin-bottom: 20px;
-    transition: transform 0.3s;
+.item-total { text-align: right; font-weight: 900; color: var(--primary); font-size: 1.1rem; }
+
+/* TOTALS BOX */
+.grand-total-box {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--primary); padding: 30px 45px; border-radius: 24px; color: #fff; margin: 30px 0;
 }
 
-.product-card:hover { transform: scale(1.01); }
+.total-amount { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; }
 
-/* Quantity Controls (No Arrows) */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-
-.qty-controls { display: flex; align-items: center; gap: 20px; }
-
-.btn-qty {
-    width: 60px;
-    height: 60px;
-    border-radius: 20px;
-    border: none;
-    background: var(--primary-green);
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
+.btn-primary {
+    width: 100%; padding: 22px; background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff; border: none; border-radius: 20px; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; cursor: pointer;
 }
 
-.qty-input {
-    width: 80px;
-    text-align: center;
-    font-size: 1.6rem;
-    font-weight: 800;
-    border: none;
-    color: var(--primary-green);
+/* MODAL SYSTEM [cite: 2026-01-20] */
+.modal {
+    display: none; position: fixed; z-index: 99999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
 }
 
-/* Modal Glassmorphism */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(6, 78, 59, 0.2);
-    backdrop-filter: blur(15px);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
+.modal.active { display: flex !important; }
+
+.modal-content {
+    background: #fff; border-radius: 35px; padding: clamp(20px, 5vw, 40px);
+    width: 90%; max-width: 800px; position: relative; max-height: 85vh;
+    overflow-y: auto; border-top: 10px solid var(--primary);
 }
 
-.modal-content.glass {
-    background: var(--glass);
-    padding: 60px;
-    border-radius: 40px;
-    max-width: 900px;
-    width: 90%;
-    position: relative;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-}
+#search-loader { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); display: none; }
+.spin { display: block !important; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* Checkout Bar */
-.checkout-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    bottom: 20px;
-    background: var(--primary-green);
-    color: white;
-}
-
-.main-total { font-size: 1.8rem; font-weight: 800; color: var(--accent-emerald); }
-
-.btn-submit {
-    background: var(--accent-emerald);
-    color: var(--primary-green);
-    padding: 25px 50px;
-    border: none;
-    border-radius: 20px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-@media (max-width: 992px) {
-    .form-grid-supreme, .product-card { grid-template-columns: 1fr; flex-direction: column; text-align: center; gap: 30px; }
+@media (max-width: 768px) {
+    .order-item { grid-template-columns: 1fr; gap: 15px; text-align: center; }
+    .qty-controls { justify-content: center; }
+    .item-total { text-align: center; }
+    .grand-total-box { flex-direction: column; gap: 10px; padding: 25px; }
 }
