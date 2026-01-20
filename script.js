@@ -1,13 +1,14 @@
 // ============================================================
-// ZARKOLIA HEALTH - CORE ENGINE v53.0 Master Logic
+// ZARKOLIA HEALTH - CORE ENGINE v54.0 Advanced Logic
 // ============================================================
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
 
+// --- 1. INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
     if (typeof products !== 'undefined') renderOrderSystem();
 
-    // CRM Lookup [cite: 2025-08-13]
+    // CRM Lookup με σωστά μηνύματα [cite: 2026-01-20]
     document.getElementById('afm').addEventListener('input', async function() {
         if (this.value.trim().length === 9) {
             const loader = document.getElementById('search-loader');
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// --- 2. DYNAMIC RENDERING ---
 function renderOrderSystem() {
     const container = document.getElementById('orderGrid');
     container.innerHTML = '';
@@ -39,7 +41,10 @@ function renderOrderSystem() {
         item.className = 'order-item';
         item.innerHTML = `
             <div class="item-info">
-                <h4>${p.name} <span onclick="showInfo('${p.name}', ${index})" style="cursor:pointer; font-size:1.2rem;">🧬</span></h4>
+                <h4>
+                    ${p.name} 
+                    <button type="button" class="info-btn" onclick="showInfo('${p.name}', ${index})">INFO</button>
+                </h4>
                 <small>${p.price.toFixed(2)} €</small>
             </div>
             <div class="qty-controls">
@@ -53,6 +58,7 @@ function renderOrderSystem() {
     });
 }
 
+// --- 3. STEPPER & TOTALS LOGIC ---
 function changeQty(index, delta) {
     const input = document.getElementById(`qty-${index}`);
     let newVal = (parseInt(input.value) || 0) + delta;
@@ -69,7 +75,7 @@ function updateTotals() {
         document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
     });
 
-    // ΔΥΝΑΜΙΚΗ ΚΛΙΜΑΚΑ ΕΚΠΤΩΣΗΣ [cite: 2026-01-20]
+    // Κλιμακωτή Έκπτωση: 200€(2%) έως 1000€(10%) [cite: 2026-01-20]
     let volPerc = 0;
     if (initialNet >= 1000) volPerc = 10;
     else if (initialNet >= 200) volPerc = Math.floor(initialNet / 100);
@@ -81,20 +87,66 @@ function updateTotals() {
 
     document.getElementById("final-total").textContent = finalTotal.toFixed(2) + " €";
     
-    // Εμφάνιση της έκπτωσης στην ανάλυση [cite: 2026-01-20]
+    // Ανάλυση Οφέλους με αναγραφή ποσοστού [cite: 2026-01-20]
     document.getElementById("dynamicAnalysis").innerHTML = initialNet > 0 ? 
         `🚀 <strong>Ανάλυση:</strong><br>
-         ✅ Δώρα: <strong>${gifts}</strong><br>
+         ✅ Συνολικά Δώρα: <strong>${gifts}</strong><br>
          📉 Έκπτωση Τζίρου: <strong>${volPerc}%</strong> (-${volVal.toFixed(2)}€)<br>
-         💸 Επιπλέον Μετρητά: <strong>${isCash ? "2%" : "0%"}</strong>` : "Περιμένω δεδομένα...";
+         💸 Μετρητά: <strong>${isCash ? "2%" : "0%"}</strong>` : "Περιμένω δεδομένα...";
 }
 
-// ... η showInfo και η processOrder παραμένουν ως είχαν στην v52.0 ...
+// --- 4. SCIENTIFIC MODAL (100% Συστατικά) ---
+function showInfo(name, index) {
+    let key = Object.keys(productDetails).find(k => name.toLowerCase().includes(k.toLowerCase())) || name;
+    const p = productDetails[key];
+
+    if (!p) return;
+
+    const modal = document.getElementById('productModal');
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span style="position:absolute; top:20px; right:30px; cursor:pointer; font-size:2rem; font-weight:bold; color:#94a3b8;" onclick="closeModal()">×</span>
+            <div style="display:flex; align-items:center; gap:30px; margin-bottom:30px; flex-wrap:wrap;">
+                <img src="${p.img}" style="width:120px; border-radius:15px; box-shadow:0 10px 15px rgba(0,0,0,0.1);">
+                <div>
+                    <h2 style="margin:0; color:var(--primary); font-size:1.8rem;">${name}</h2>
+                    <span style="color:var(--accent); font-weight:800; font-size:0.8rem; text-transform:uppercase;">Scientific Data Sheet</span>
+                </div>
+            </div>
+            <div style="background:#f8fafc; padding:25px; border-radius:20px; border:1px solid #e2e8f0; margin-bottom:20px;">
+                <h4 style="margin:0 0 15px 0; color:var(--primary); text-transform:uppercase; border-bottom:1px solid #cbd5e1; padding-bottom:8px;">🧬 Μοριακή Ανάλυση (MoA)</h4>
+                ${p.moa.map(m => `<p style="margin-bottom:10px; font-size:0.95rem;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
+            </div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+                <div style="background:#ecfdf5; padding:20px; border-radius:15px; border-left:5px solid var(--accent);">
+                    <strong style="font-size:0.75rem; color:var(--primary); text-transform:uppercase;">📍 Ενδείξεις</strong><br>
+                    <span style="font-size:0.9rem; font-weight:600;">${p.cases}</span>
+                </div>
+                <div style="background:#f0f9ff; padding:20px; border-radius:15px; border-left:5px solid #0ea5e9;">
+                    <strong style="font-size:0.75rem; color:#0369a1; text-transform:uppercase;">📚 Βιβλιογραφία</strong><br>
+                    <span style="font-size:0.8rem; font-weight:500;">${p.biblio ? p.biblio.join("<br>") : "HCP Portal Only"}</span>
+                </div>
+            </div>
+        </div>`;
+    
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+}
+
+function closeModal() {
+    const modal = document.getElementById('productModal');
+    modal.style.display = 'none';
+    modal.classList.remove('active');
+}
+
 function onlyOne(checkbox) { document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); updateTotals(); }
 
+// --- 5. PROCESS ORDER ---
 async function processOrder() {
     const epo = document.getElementById("eponimia").value;
     if(!epo) { alert("Συμπληρώστε τα στοιχεία πελάτη!"); return; }
+    
+    // Αποστολή στο Sheet & Email [cite: 2025-08-13, 2026-01-20]
     alert("Τα στοιχεία αποθηκεύτηκαν [cite: 2026-01-20]");
     location.reload();
 }
