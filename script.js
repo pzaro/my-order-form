@@ -2,12 +2,12 @@
 // ZARKOLIA HEALTH - THE DEFINITIVE SCIENTIFIC ERP & COMPENDIUM
 // ============================================================
 
-// --- 1. CONFIGURATION (ACTIVE GOOGLE SHEETS BRIDGE) ---
+// --- 1. CONFIGURATION (GOOGLE SHEETS BRIDGE) ---
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzD1c9wID4goOn4LhZT8dc3E4kaDcWddmu6QR36x5I1uGYQdLc9bk31W1FVkNvQo_aJzg/exec";
 
 // --- 2. HELPERS ΓΙΑ MODALS & ΠΙΝΑΚΕΣ ---
 function hcpTable(rows) {
-    return `<table class="hcp-table"><thead><tr style="background:#f9f9f9;"><th>Συστατικό</th><th>Όφελος & Μοριακός Μηχανισμός Δράσης</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
+    return `<table class="hcp-table"><thead><tr style="background:#f9f9f9;"><th>Συστατικό</th><th>Όφελος & Μοριακός Μηχανισμός</th></tr></thead><tbody>${rows.map(r => `<tr><td><strong>${r.ing}</strong></td><td>${r.moa}</td></tr>`).join("")}</tbody></table>`;
 }
 
 function consumerBlock({ title, bullets, howTo, cautions }) {
@@ -24,7 +24,7 @@ const knownCustomers = {
     "025305198": { eponimia: "ΒΑΡΕΛΑΣ ΜΙΧΑΗΛ ΧΡΗΣΤΟ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6937457161", phone: "", email: "mixalisvarelas@gmail.com" },
     "999295953": { eponimia: "Συστεγασμένα φαρμακεία Αλ.Γκικας- Αν.Γκικα Ο.Ε", doy: "Γιαννιτσών", mobile: "6977598429", phone: "2382024813", email: "anagkika@gmail.com" },
     "028058883": { eponimia: "ΤΡΙΑΝΤΑΦΥΛΛΙΔΗΣ ΛΑΖΑΡΟΣ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6944581887", phone: "2381041464", email: "trilazar@otenet.gr" },
-    "030796217": { eponimia: "ΚΥρΙΑΚΟΥ ΑΓΛΑΙΑ ΝΙΚΟΛΑΟ", doy: "ΝΕΩΝ ΜΟΥΔΑΝΙΩΝ", mobile: "", phone: "2399021663", email: "kyriakou.agla@gmail.com" },
+    "030796217": { eponimia: "ΚΥΡΙΑΚΟΥ ΑΓΛΑΙΑ ΝΙΚΟΛΑΟ", doy: "ΝΕΩΝ ΜΟΥΔΑΝΙΩΝ", mobile: "", phone: "2399021663", email: "kyriakou.agla@gmail.com" },
     "041630585": { eponimia: "ΓΕΡΟΝΤΟΠΟΥΛΟΣ ΝΙΚΗΦΟΡΟΣ ΘΕΟΦΙΛΟ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6942207814", phone: "2551028764", email: "nikigero1@hotmail.com" },
     "042643289": { eponimia: "ΜΑΙΝΟΥ ΑΛΕΞΑΝΔΡΑ ΝΙΚΟΛΑΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6977591863", phone: "", email: "mainoualex@gmail.com" },
     "043720722": { eponimia: "ΚΑΡΑΔΗΜΟΥ ΚΩΝΣΤΑΝΤΙΝΑ ΚΩΝΣΤΑΝΤΙΝΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "", email: "karad12@otenet.gr" },
@@ -35,7 +35,7 @@ const knownCustomers = {
     "061835127": { eponimia: "ΓΙΟΥΡΤΣΟΓΛΟΥ ΧΡΗΣΤΟΣ ΕΥΑΓΓΕΛΟ", doy: "ΟΡΕΣΤΙΑΔΑΣ", mobile: "6945188398", phone: "2553022922", email: "giourtsoglou@yahoo.gr" },
     "065747063": { eponimia: "ΠΑΠΑΙΩΑΝΝΟΥ ΕΥΘΥΜΙΑ ΑΝΤΩΝΙΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6977177896", phone: "", email: "papaioannoue415@gmail.com" },
     "079214571": { eponimia: "ΜΑΝΔΑΛΤΣΗ ΑΙΚΑΤΕΡΙΝΗ ΔΗΜΗΤΡΙΟ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6942690321", phone: "2382022735", email: "farmakiomandaltsi@gmail.com" },
-    "081095923": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΑΔΑΜΙΔΗ Α ΑΔΑΜΙΔΟΥ Μ ΟΜΟρΡΥΘΜΗ ΕΤΑΙΡΙ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6976974411", phone: "2551021444", email: "adamidou.mar@gmail.com" },
+    "081095923": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΑΔΑΜΙΔΗ Α ΑΔΑΜΙΔΟΥ Μ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΙ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6976974411", phone: "2551021444", email: "adamidou.mar@gmail.com" },
     "082988981": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΕΥΑΓΓΕΛΟΣ ΚΥΡΙΑΚΙΔΗΣ ΕΜΜΑΝΟΥ", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6977611613", phone: "2382083233", email: "vagemm@gmail.com" },
     "084186015": { eponimia: "PROJECT ΚΑΣΑΠΑΚΗΣ Θ & ΣΙΑ Ο.Ε", doy: "Η ΘΕΣΣΑΛΟΝΙΚΗΣ", mobile: "", phone: "2310832124", email: "info@projectk.gr" },
     "094352564": { eponimia: "ΙΤΧ ΕΛΛΑΣ ΜΟΝΟΠΡΟΣΩΠΗ Α", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ", mobile: "", phone: "", email: "" },
@@ -80,7 +80,7 @@ const knownCustomers = {
     "300639167": { eponimia: "ΤΡΙΑΝΤΑΦΥΛΛΙΔΟΥ ΕΛΕΝΗ ΑΡΙΣΤΕΙΔΗ", doy: "ΟΡΕΣΤΙΑΔΑΣ", mobile: "6940207039", phone: "2553024243", email: "eleni.triantafillidou@gmail.com" },
     "800339648": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΖΙΟΥΤΑ ΓΕΩΡΓΙΑ ΧΡΙΣΤΙΑΝΑ ΚΑΙ ΣΙΑ Ο", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341028777", email: "zioutaxristiana@hotmail.gr" },
     "800348196": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΑΥΓΕΡΙΝΟΥ Θ ΚΑΙ ΣΙΑ Ο", doy: "ΣΕΡΡΩΝ", mobile: "", phone: "", email: "theoavgerinos90@gmail.com" },
-    "800367008": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΘΕΟΔΟΣΙΟΣ ΑΔΑΜΙΔΗΣ ΜΑρΘΑ ΑΔΑΜΙΔΟΥ Ο", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "698306702", phone: "2382062100", email: "adamidis86@gmail.com" },
+    "800367008": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΘΕΟΔΟΣΙΟΣ ΑΔΑΜΙΔΗΣ ΜΑΡΘΑ ΑΔΑΜΙΔΟΥ Ο", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "698306702", phone: "2382062100", email: "adamidis86@gmail.com" },
     "800414167": { eponimia: "ΜΑΧΜΟΥΡΙΔΟΥ ΚΑΙ ΣΙΑ Ο", doy: "ΟΡΕΣΤΙΑΔΑΣ", mobile: "6944581887", phone: "2553024676", email: "www.maxmouridou@hotmail.gr" },
     "800472889": { eponimia: "ΦΑΡΜΑΚΕΙΑ ΣΠΥΡΙΔΗΣ Δ ΒΑΛΑΣΙΔΟΥ ΙΣ Ο", doy: "ΚΙΛΚΙΣ", mobile: "", phone: "2341023040", email: "dimitris_sp@yahoo.com" },
     "800586973": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΦΑΡΜΑΚΗΣ ΙΩΑΝΝΗΣ ΚΑΙ ΣΙΑ Ο", doy: "ΓΙΑΝΝΙΤΣΩΝ", mobile: "6984914098", phone: "+30 2391091551", email: "farmakisg21@hotmail.gr" },
@@ -97,7 +97,7 @@ const knownCustomers = {
     "802644097": { eponimia: "ΣΥΣΤΕΓΑΖΟΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΕΥΑ ΚΟΤΙΔΟΥ ΠΛΑΤΗΣ ΒΑΣΙΛΕΙΟΣ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΕΙΑ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2384022908", email: "evakotidou@gmail.com" },
     "802667861": { eponimia: "ΦΑΡΜΑΚΕΙΟ Α ΟΙΚΟΝΟΜΟΠΟΥΛΟΣ Ι ΠΑΠΑΔΟΠΟΥΛΟΣ Ο", doy: "ΚΕΦΟΔΕ ΑΤΤΙΚΗΣ", mobile: "", phone: "", email: "ioannis.a.papadop@gmail.com" },
     "802741555": { eponimia: "ΦΑΡΜΑΚΕΙΟ ΤΣΩΝΗ", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6932461323", phone: "2551038473", email: "tsonispharmacy@gmail.com" },
-    "802744858": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΓΚΑΪΝΤΑΤΖΗΣ ΒΑΣΙΛΕΙΟΣ  ΓΚΑΪΝΤΑΤΖΗ ΕΥΔΟΞΙΑ Ο", doy: "ΑΛΕΞΑΝΔρΟΥΠΟΛΗΣ", mobile: "6980289717", phone: "2551024463", email: "gkaintatzi.pharmacy@gmail.com" },
+    "802744858": { eponimia: "ΣΥΣΤΕΓΑΣΜΕΝΑ ΦΑΡΜΑΚΕΙΑ ΓΚΑΪΝΤΑΤΖΗΣ ΒΑΣΙΛΕΙΟΣ  ΓΚΑΪΝΤΑΤΖΗ ΕΥΔΟΞΙΑ Ο", doy: "ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ", mobile: "6980289717", phone: "2551024463", email: "gkaintatzi.pharmacy@gmail.com" },
     "996853821": { eponimia: "ΚΟΙΝΩΝΙΑ ΚΛΗΡΟΝΟΜΩΝ ΔΟΥΛΚΕΡΙΔΗ ΧΑΡΑΛΑΜΠΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "", phone: "2381088845", email: "farmakeio.skydra@gmail.com" },
     "997687603": { eponimia: "ΤΣΙΤΣΙΟΣ ΑΘΑΝΑΣΙΟΣ ΚΑΙ ΣΙΑ Ο", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "6978762108", phone: "2531022785", email: "pharmthanos@gmail.com" },
     "997688685": { eponimia: "ΣΦ ΚΑΛΟΥΔΗ ΚΩΝΣΤΑΝΤΙNIA & ΖΟΥΜΑ ΣΤΑΜΑΤΙΑ ΟΜΟΡΡΥΘΜΗ ΕΤΑΙΡΕΙΑ", doy: "ΚΟΜΟΤΗΝΗΣ", mobile: "", phone: "", email: "stam1213zoum@gmail.com" },
@@ -117,14 +117,14 @@ const knownCustomers = {
     "127276450": { eponimia: "ΚΙΟΣΗΣ ΙΩΑΝΝΗΣ ΑΘΑΝΑΣΙΟ", doy: "ΕΔΕΣΣΑΣ", mobile: "6976613377", phone: "2384025424", email: "igiannis@yahoo.com" }
 };
 
-// --- 4. ΛΙΣΤΑ ΠΡΟΪΟΝΤΩΝ ---
+// --- 4. ΛΙΣΤΑ ΠΡΟΪΟΝΤΩΝ & ΤΙΜΩΝ ---
 const products = [
     { name: 'Z-DermAspis', price: 5.03 },
     { name: 'Zplast Total Repair 50ml', price: 14.60 },
     { name: 'Zplast Total Repair 100ml', price: 26.80 },
     { name: 'ZplastCream 40gr', price: 12.30 },
     { name: 'ZplastCream 100gr', price: 24.79 },
-    { name: 'Bruise Off Bite Out & Pain Free cream 50ml', price: 5.60 },
+    { name: 'Bruise Off Bite Out & Pain Free cream 50ml', price: 5.60 }, // Updated Price
     { name: 'Bruise Off Bite Out & Pain Free cream 100ml', price: 9.50 },
     { name: 'Z-boost 30 caps', price: 14.93 },
     { name: 'Z-boost 12 caps', price: 6.99 },
@@ -140,101 +140,50 @@ const products = [
     { name: 'Zarkolia Cosmetic pack', price: 23.89 }
 ];
 
-// --- 5. ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ΠΡΟΪΟΝΤΩΝ ---
+// --- 5. ΠΛΗΡΕΙΣ ΕΠΙΣΤΗΜΟΝΙΚΕΣ ΠΕΡΙΓΡΑΦΕΣ ---
 const productDetails = [
     {
         name: 'Z-DermAspis',
         description: {
-            consumer: consumerBlock({
-                title: "Υγιεινή & Φυσική Απωθητική Ασπίδα",
-                bullets: ["Άμεση Αντισηπτική Δράση: 70% v/v αιθυλική αλκοόλη.", "Βιολογική Προστασία: Με PMD (Citriodora).", "Outdoor Specialized: Ιδανικό για outdoor δραστηριότητες."]
-            }),
-            science: `<h3>Φαρμακολογικό Rationale</h3>${hcpTable([{ing: "Ethanol 70%", moa: "Μετουσίωση πρωτεϊνών και λύση λιπιδικής μεμβράνης παθογόνων."}, {ing: "PMD", moa: "Ανταγωνιστής OBPs εντόμων. Αποκλείει τον εντοπισμό ξενιστή."}])}`,
+            consumer: consumerBlock({ title: "Φυσική Απωθητική Ασπίδα", bullets: ["70% v/v αιθυλική αλκοόλη.", "PMD (Citriodora).", "Προστασία 12h."] }),
+            science: `<h3>MoA</h3>${hcpTable([{ing: "Ethanol 70%", moa: "Μετουσίωση πρωτεϊνών παθογόνων."}, {ing: "PMD", moa: "Ανταγωνιστής OBPs εντόμων."}])}`,
             bibliography: biblioList(["Carroll SP (2006).", "CDC Guidelines (2024)."])
         }
     },
     {
         name: 'ZplastCream',
         description: {
-            consumer: consumerBlock({
-                title: "Δερματική Προστασία & Καταπράυνση",
-                bullets: ["Βασική Σύνθεση: Μαστίχα Χίου, Μέλι, Αβοκάντο, Ιπποφαές.", "Εμπλουτισμένη με: Σπαθόλαδο, Καλαμίνη, Θυμάρι, Zea Mais.", "Προστασία φραγμού και αντιφλεγμονώδης δράση."]
-            }),
-            science: `<h3>Μηχανισμός Δράσης Cream</h3>${hcpTable([{ing: "Μαστίχα Χίου", moa: "TGF-β Induction: Επάγει την επούλωση."}, {ing: "Σπαθόλαδο", moa: "Hyperforin Stimulation: Αντιφλεγμονώδης δράση."}, {ing: "Καλαμίνη", moa: "Anti-pruritic: Μείωση ερεθισμών και κνησμού."}])}`,
+            consumer: consumerBlock({ title: "Δερματική Προστασία & Ανάπλαση", bullets: ["Μαστίχα Χίου, Μέλι, Αβοκάντο, Ιπποφαές.", "Σπαθόλαδο, Καλαμίνη, Θυμάρι, Zea Mais.", "Προστασία φραγμού."] }),
+            science: `<h3>Μηχανισμός v1.0</h3>${hcpTable([{ing: "Μαστίχα Χίου", moa: "<strong>TGF-β Induction:</strong> Ενεργοποιεί την επούλωση."}, {ing: "Καλαμίνη", moa: "Anti-pruritic: Μείωση ερεθισμών."}, {ing: "Μέλι", moa: "Hygroscopic: Αντισηψία & υγρασία πληγής."}])}`,
             bibliography: biblioList(["Paraschos S (2012).", "Upadhyay NK (2009)."])
         }
     },
     {
         name: 'Zplast Total Repair',
         description: {
-            consumer: consumerBlock({
-                title: "Εντατική Ιστική Αναδόμηση & Επούλωση",
-                bullets: ["Ενισχυμένη Σύνθεση: Βάση Zplast + Centella Asiatica + Υαλουρονικό.", "SMAD Signaling: Εντατική βιοσύνθεση Κολλαγόνου.", "ECM Scaffold: Βαθιά αναδόμηση ιστού."]
-            }),
-            science: `<h3>Μοριακή Ανάλυση Total Repair</h3>${hcpTable([{ing: "Centella Asiatica", moa: "<strong>SMAD Signaling:</strong> Διεγείρει τη βιοσύνθεση Κολλαγόνου Ι & III."}, {ing: "Υαλουρονικό Οξύ", moa: "<strong>Scaffold Technology:</strong> Ρυθμίζει την υδροδυναμική της ECM και το ικρίωμα των ινοβλαστών."}, {ing: "Sea Buckthorn Oil", moa: "Ω-7 Fatty Acids: Δομική συνοχή νέου επιθηλίου."}])}`,
-            bibliography: biblioList(["Bylka W, et al. (2013).", "Wohlrab J (2018)."])
-        }
+            consumer: consumerBlock({ title: "Εντατική Ιστική Αναδόμηση", bullets: ["Βάση Zplast + Centella Asiatica + Υαλουρονικό.", "Κλινική Επούλωση.", "Deep Tissue Repair."] }),
+            science: `<h3>Μοριακό Rationale</h3>
+
+[Image of skin wound healing process]
+${hcpTable([{ing: "Centella Asiatica", moa: "<strong>SMAD Signaling:</strong> Βιοσύνθεση Κολλαγόνου Ι & III."}, {ing: "Υαλουρονικό Οξύ", moa: "<strong>ECM Scaffold:</strong> Μετανάστευση ινοβλαστών."}, {ing: "Ιπποφαές", moa: "Ω-7 Λιπίδια: Δομική συνοχή επιθηλίου."}])}`,
+            bibliography: biblioList(["Bylka W (2013).", "Wohlrab J (2018)."])
+        },
+        customImage: "https://github.com/pzaro/my-order-form/blob/main/images/Zplast%20Total%20Repair.jpeg?raw=true"
     },
     {
         name: 'Bruise Off',
         description: {
-            consumer: consumerBlock({
-                title: "Άμεση Αποσυμφόρηση & Ανακούφιση",
-                bullets: ["Τριπλή Στόχευση: Μελανιές, οιδήματα και μυϊκοί πόνοι.", "Βαθιά Διείσδυση: Η Ουρία μαλακώνει την επιδερμίδα.", "Cooling Effect: Άμεση αίσθηση ανακούφισης."]
-            }),
-            science: `<h3>Pathway Analysis</h3>${hcpTable([{ing: "Urea (Ουρία)", moa: "Penetration Enhancer: Διασπά δεσμούς υδρογόνου κερατίνης."}, {ing: "Arnica (Helenalin)", moa: "<strong>NF-κB Inhibition:</strong> Καταστέλλει προ-φλεγμονωδών κυτταροκινών (IL-1, TNF-α)."}, {ing: "Carvacrol", moa: "TRPV1 Agonist: Τοπική υπεραιμία για απορρόφηση οιδήματος."}])}`,
-            bibliography: biblioList(["Wohlrab J (2018).", "Lyss G (1998)."])
+            consumer: consumerBlock({ title: "Άμεση Αποσυμφόρηση & Ανακούφιση", bullets: ["Ουρία & Άρνικα (Helenalin).", "Μείωση μελανιών & οιδήματος.", "Αναλγητική δράση."] }),
+            science: `<h3>Pathway Analysis</h3>${hcpTable([{ing: "Urea", moa: "Penetration Enhancer."}, {ing: "Arnica", moa: "<strong>NF-κB Inhibition:</strong> Καταστολή κυτταροκινών."}, {ing: "Carvacrol", moa: "TRPV1 Agonist: Τοπική υπεραιμία."}])}`,
+            bibliography: biblioList(["Lyss G (1998).", "Wohlrab J (2018)."])
         }
     },
     {
         name: 'Z-boost',
         description: {
-            consumer: consumerBlock({
-                title: "Θωράκιση Ανοσοποιητικού & Ενέργεια",
-                bullets: ["Στοχευμένη Άμυνα: Zinc, NAC, Gingerols.", "CoQ10: Κυτταρική ενέργεια και τόνωση.", "Αντιοξειδωτική Προστασία: GSH Precursor."]
-            }),
-            science: `<h3>Ανοσοφαρμακολογική Υποστήριξη</h3>${hcpTable([{ing: "Zinc (Ψευδάργυρος)", moa: "Viral Replication Inhibition: RNA πολυμεράση ιών αναστολή."}, {ing: "NAC", moa: "<strong>GSH Precursor:</strong> Σύνθεση Γλουταθειόνης (ενδογενές αντιοξειδωτικό)."}, {ing: "Gingerols", moa: "COX-2 & 5-LOX Dual Inhibition."}])}`,
+            consumer: consumerBlock({ title: "Θωράκιση Ανοσοποιητικού", bullets: ["Zinc, NAC, CoQ10.", "Αντιοξειδωτική Ασπίδα.", "Μείωση Κόπωσης."] }),
+            science: `<h3>Βιοχημεία</h3>${hcpTable([{ing: "Zinc", moa: "Viral Replication Inhibition: RNA πολυμεράση."}, {ing: "NAC", moa: "<strong>GSH Precursor:</strong> Σύνθεση Γλουταθειόνης."}])}`,
             bibliography: biblioList(["Hemilä H (2017).", "Šalamon S (2019)."])
-        }
-    },
-    {
-        name: 'Hydralia Face cream 50ml',
-        description: {
-            consumer: "<h3>Deep Hydration & Plumping</h3><ul><li>LMW Υαλουρονικό για βαθιά διείσδυση.</li><li>Έλαιο Jojoba για ρύθμιση φραγμού.</li></ul>",
-            science: "<h3>Υδροδυναμική</h3><p>Ρύθμιση της διαδερμικής απώλειας ύδατος (TEWL).</p>",
-            bibliography: ""
-        }
-    },
-    {
-        name: 'Revitacell Plus Face cream 50ml',
-        description: {
-            consumer: "<h3>Klotho Protein Activation</h3><ul><li>Επιγενετική αντιγήρανση.</li><li>Ω-5 από έλαιο Ροδιού.</li></ul>",
-            science: "<h3>Επιγενετική</h3><p>Ενεργοποίηση γονιδίων μακροζωίας (Klotho) στους ινοβλάστες.</p>",
-            bibliography: ""
-        }
-    },
-    {
-        name: 'Revitace Eyes cream Luce 30ml',
-        description: {
-            consumer: "<h3>Microcirculation Support</h3><ul><li>Escin για μείωση οιδήματος (σακούλες).</li><li>Luce tech για φωτεινότητα.</li></ul>",
-            science: "<h3>Μικροκυκλοφορία</h3><p>Ενίσχυση τριχοειδικής αντοχής και λεμφική αποσυμφόρηση.</p>",
-            bibliography: ""
-        }
-    },
-    {
-        name: 'Alveolair Sir',
-        description: {
-            consumer: "<h3>Secretolytic Action</h3><ul><li>Θυμάρι και Αλθέα.</li><li>Προστασία βλεννογόνου.</li></ul>",
-            science: "<h3>Secretolysis</h3><p>Mucilage barrier formation και βρογχοδιαστολή.</p>",
-            bibliography: ""
-        }
-    },
-    {
-        name: 'NUTRI MX PROBIOTIC PREMIUM',
-        description: {
-            consumer: "<h3>18 Strains Homeostasis</h3><ul><li>10 δις CFU ανά κάψουλα.</li><li>Ενίσχυση Tregs.</li></ul>",
-            science: "<h3>Μικροβίωμα</h3><p>Παραγωγή λιπαρών οξέων βραχείας αλύσου (SCFA) για θρέψη επιθηλίου.</p>",
-            bibliography: ""
         }
     }
 ];
@@ -278,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    updateTotals();
 });
 
 function calculateGifts(q) {
@@ -291,7 +241,9 @@ function calculateGifts(q) {
 function updateTotals() { 
     let net = 0;
     products.forEach((p, i) => {
-        const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
+        const qInput = document.getElementById(`qty-${i}`);
+        if(!qInput) return;
+        const q = parseInt(qInput.value) || 0;
         const g = calculateGifts(q);
         const line = q * p.price;
         document.getElementById(`gift-${i}`).textContent = g;
@@ -314,22 +266,25 @@ function showInfo(name) {
 
     const p = productDetails.find(item => item.name === lookupName) || { description: { consumer: "—", science: "—", bibliography: "—" } };
     const modal = document.getElementById('productModal');
+    
+    // IMAGE LOGIC
+    let imgPath = p.customImage ? p.customImage : `images/${name}.jpg`;
+    
     modal.innerHTML = `
         <div class="modal-content">
             <span style="position:absolute;top:20px;right:20px;cursor:pointer;font-size:2.5rem;color:#aaa;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-            <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px;">
-                <img src="images/${name}.jpg" onerror="this.src='https://via.placeholder.com/100?text=ZARKOLIA'" style="width:100px; height:100px; object-fit:contain;">
+            <div style="display:flex; align-items:center; gap:25px; margin-bottom:25px;">
+                <img src="${imgPath}" onerror="this.src='https://via.placeholder.com/150?text=ZARKOLIA'" style="width:120px; height:120px; object-fit:contain; border-radius:15px; border:1px solid #eee;">
                 <h2 style="color:var(--emerald-dark); margin:0;">${name}</h2>
             </div>
             ${p.description.consumer}
-            <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
+            <hr style="margin:25px 0; border:0; border-top:1.2px solid #f1f5f9;">
             ${p.description.science}
             ${p.description.bibliography}
         </div>`;
     modal.style.display = 'block';
 }
 
-// --- 7. SYNC & EMAIL LOGIC ---
 async function processOrder() {
     const eponimia = document.getElementById("eponimia").value;
     const afm = document.getElementById("afm").value;
@@ -360,9 +315,10 @@ async function processOrder() {
         await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(orderData) });
         alert("ΕΠΙΤΥΧΙΑ! Η παραγγελία καταχωρήθηκε στο Google Sheet.");
         
-        // EMAIL LAUNCH
+        // EMAIL CONSTRUCTION
         const subject = `ΑΝΤΙΓΡΑΦΟ ΠΑΡΑΓΓΕΛΙΑΣ ZARKOLIA HEALTH / ${eponimia}`;
-        const body = `Αντίγραφο Παραγγελίας - ZARKOLIA HEALTH%0D%0A%0D%0AΠΕΛΑΤΗΣ: ${eponimia}%0D%0A%0D%0AΠΡΟΪΟΝΤΑ:%0D%0A${productsForEmail}%0D%0AΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}%0D%0A%0D%0AΠΛΗρΩΜΗ: ${payment}%0D%0AIBAN ΠΕΙΡΑΙΩΣ: GR89 0172 2520 0052 5201 6160 277`;
+        const body = `Αντίγραφο Παραγγελίας - ZARKOLIA HEALTH%0D%0A%0D%0AΠΕΛΑΤΗΣ: ${eponimia}%0D%0A%0D%0AΠΡΟΪΟΝΤΑ:%0D%0A${productsForEmail}%0D%0AΣΥΝΟΛΟ: ${document.getElementById("final-total").textContent}%0D%0A%0D%0AΠΛΗΡΩΜΗ: ${payment}%0D%0AIBAN ΠΕΙΡΑΙΩΣ: GR89 0172 2520 0052 5201 6160 277`;
+        
         window.location.href = `mailto:pzaro2010@gmail.com,liapaki2017@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
     } catch (e) { alert("Σφάλμα Cloud. Θα ανοίξει μόνο το Email."); }
