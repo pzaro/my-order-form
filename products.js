@@ -1,5 +1,5 @@
 // ============================================================
-// ZARKOLIA HEALTH - SUPREME PRODUCT DATABASE v44.0
+// ZARKOLIA HEALTH - SUPREME SCIENTIFIC DATABASE v45.0
 // ============================================================
 
 const products = [
@@ -26,89 +26,110 @@ const products = [
 
 const productDetails = {
     "Z-DermAspis": {
-        moa: [{ ing: "Ethanol 70% v/v", moa: "Μετουσίωση πρωτεϊνών & λύση λιπιδικής μεμβράνης παθογόνων." }, { ing: "PMD (Citriodora)", moa: "Φυσικός ανταγωνιστής OBPs. Αποκλείει τον εντοπισμό ξενιστή για 12h." }],
-        cases: "Υγιεινή χεριών & προστασία από έντομα (σκνίπες, κουνούπια, τσιμπούρια).",
-        rationale: "Dual-Action αντισηψία και απώθηση σε μία εφαρμογή.",
+        moa: [
+            { ing: "Ethanol 70% v/v", moa: "Άμεση μετουσίωση πρωτεϊνών του καψιδίου των ιών και λύση της λιπιδικής μεμβράνης των βακτηρίων." },
+            { ing: "PMD (Citriodora)", moa: "Φυσικός ανταγωνιστής των πρωτεϊνών δέσμευσης οσμών (OBPs) των εντόμων. Αποκλείει τον εντοπισμό του ξενιστή (άνθρωπος) για 12 ώρες." }
+        ],
+        cases: "Υγιεινή χεριών σε εξωτερικούς χώρους, προστασία από κουνούπια, σκνίπες και έντομα που μεταφέρουν παθογόνα.",
+        rationale: "Μοναδικό σκεύασμα Dual-Action. Παρέχει ταυτόχρονη αντισηψία και απώθηση.",
+        biblio: ["Carroll SP (2006). <a href='https://pubmed.ncbi.nlm.nih.gov/16492330/' target='_blank'>PubMed:16492330</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Z-boost%2012%20caps.jpg?raw=true"
     },
     "TOTAL REPAIR CREAM": {
         moa: [
-            { ing: "Centella Asiatica", moa: "<strong>SMAD Signaling:</strong> Διεγείρει τη βιοσύνθεση Κολλαγόνου Ι & III μέσω TGF-β." },
-            { ing: "Multi-MW Hyaluronic", moa: "<strong>ECM Scaffold:</strong> Τρισδιάστατο ικρίωμα για ταχεία ιστική αναγέννηση." },
-            { ing: "Sea Buckthorn Oil", moa: "Υψηλή συγκέντρωση Ω-7 για δομική σταθεροποίηση νέων κυτταρικών μεμβρανών." }
+            { ing: "Centella Asiatica", moa: "<strong>SMAD Signaling:</strong> Ενεργοποιεί το μονοπάτι TGF-β/SMAD, αυξάνοντας την παραγωγή Κολλαγόνου Ι & III και ελαστίνης κατά 40%." },
+            { ing: "Multi-MW Hyaluronic", moa: "<strong>ECM Scaffold:</strong> Δημιουργεί τρισδιάστατο ικρίωμα (Matrix) που διευκολύνει τη μετανάστευση των ινοβλαστών στην πληγή." },
+            { ing: "Sea Buckthorn Oil", moa: "Υψηλή συγκέντρωση Ω-7 (Παλμιτολεϊκό οξύ) για τη δομική σταθεροποίηση των νέων κυτταρικών μεμβρανών." }
         ],
-        cases: "Μετεγχειρητικές τομές, διαβητικά έλκη, εγκαύματα 2ου βαθμού, ουλές ακμής.",
-        rationale: "Κλινική αναδόμηση του χορίου σε βάθος. Αποτροπή χηλοειδών.",
-        img: "https://github.com/pzaro/my-order-form/blob/main/images/Zplast%20Total%20Repair.jpeg?raw=true",
-        biblio: ["Bylka W (2013). PubMed:24386321"]
+        cases: "Μετεγχειρητικές τομές, διαβητικά έλκη, εγκαύματα 2ου βαθμού, βαθιές ραγάδες, ουλές ακμής.",
+        rationale: "Δεν προσφέρει απλή επούλωση, αλλά <strong>ιστική αναδόμηση</strong>. Αποτρέπει το σχηματισμό χηλοειδών.",
+        biblio: ["Bylka W (2013). <a href='https://pubmed.ncbi.nlm.nih.gov/24386321/' target='_blank'>PubMed:24386321</a>"],
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Zplast%20Total%20Repair.jpeg?raw=true"
     },
     "ZPLAST CREAM": {
-        moa: [{ ing: "Μαστίχα & Μέλι", moa: "<strong>TGF-β Induction:</strong> Φυσική διέγερση επούλωσης & αντισηψία."}, { ing: "Καλαμίνη", moa: "<strong>Anti-pruritic:</strong> Καταστολή κνησμού & φλεγμονής." }],
-        cases: "Συγκάματα βρεφών, ηλιακά εγκαύματα, προστασία από κατακλίσεις.",
-        rationale: "100% φυτική προστασία φραγμού για ευαίσθητα δέρματα.",
+        moa: [
+            { ing: "Μαστίχα Χίου & Μέλι", moa: "<strong>TGF-β Induction:</strong> Φυσική διέγερση της ανάπλασης και δημιουργία υγροσκοπικού αντισηπτικού φιλμ." },
+            { ing: "Καλαμίνη", moa: "<strong>Anti-pruritic:</strong> Άμεση καταστολή του κνησμού μέσω μείωσης της ισταμινικής απόκρισης στο χόριο." }
+        ],
+        cases: "Συγκάματα βρεφών, ερεθισμοί μετά από έκθεση στον ήλιο, πρόληψη κατακλίσεων, ξηροδερμία.",
+        rationale: "100% φυτική ασπίδα προστασίας φραγμού. Ιδανικό για καθημερινή χρήση σε ευαίσθητα δέρματα.",
+        biblio: ["Paraschos S (2012). <a href='https://pubmed.ncbi.nlm.nih.gov/17544358/' target='_blank'>PubMed:17544358</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/ZplastCream%2040gr.jpg?raw=true"
     },
     "Bruise Off": {
-        moa: [{ ing: "Arnica (Helenalin)", moa: "<strong>NF-κB Inhibition:</strong> Διακοπή μεταγραφής προ-φλεγμονωδών κυτταροκινών." }, { ing: "Urea", moa: "<strong>Penetration Enhancer:</strong> Διασφάλιση βαθιάς διείσδυσης στο αιμάτωμα." }],
-        cases: "Μελανιές (Botox/Fillers), αιματώματα, οιδήματα, μυϊκοί πόνοι.",
-        rationale: "Επιταχύνει τον μεταβολισμό του αίματος στον ιστό κατά 3 φορές.",
-        img: "https://github.com/pzaro/my-order-form/blob/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg?raw=true",
-        biblio: ["Lyss G (1998). PubMed:9531637"]
+        moa: [
+            { ing: "Arnica (Helenalin)", moa: "<strong>NF-κB Inhibition:</strong> Διακόπτει τη φλεγμονή στη ρίζα της, αναστέλλοντας τη μεταγραφή προ-φλεγμονωδών κυτταροκινών." },
+            { ing: "Urea (Ουρία)", moa: "<strong>Penetration Enhancer:</strong> Διασπά τους δεσμούς κερατίνης, επιτρέποντας στα δραστικά να φτάσουν άμεσα στο αιμάτωμα." }
+        ],
+        cases: "Μελανιές μετά από Fillers/Botox, μετατραυματικά αιματώματα, οιδήματα, μυϊκοί πόνοι.",
+        rationale: "Η Helenalin επιταχύνει τον μεταβολισμό του αίματος στον ιστό κατά 3 φορές.",
+        biblio: ["Lyss G (1998). <a href='https://pubmed.ncbi.nlm.nih.gov/9531637/' target='_blank'>PubMed:9531637</a>"],
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg?raw=true"
     },
     "Z-BOOST": {
-        moa: [{ ing: "Zinc", moa: "Άμεση αναστολή της <strong>RNA πολυμεράσης</strong> των ιών." }, { ing: "NAC", moa: "<strong>GSH Precursor:</strong> Σύνθεση ενδογενούς Γλουταθειόνης (Redox)." }],
-        cases: "Πρόληψη γρίπης, ανάρρωση, οξειδωτικό στρες.",
-        rationale: "Ολιστική Redox θωράκιση ανοσοποιητικού.",
+        moa: [
+            { ing: "Zinc (Ψευδάργυρος)", moa: "Άμεση αναστολή της <strong>RNA πολυμεράσης</strong>, εμποδίζοντας τον πολλαπλασιασμό των ιών." },
+            { ing: "NAC (N-Acetyl-Cysteine)", moa: "<strong>GSH Precursor:</strong> Παρέχει κυστεΐνη για τη σύνθεση της Γλουταθειόνης, του ισχυρότερου ενδογενούς αντιοξειδωτικού." }
+        ],
+        cases: "Πρόληψη γρίπης/ιώσεων, ανάρρωση από Covid-19, οξειδωτικό στρες, υποστήριξη καπνιστών.",
+        biblio: ["Hemilä H (2017). <a href='https://pubmed.ncbi.nlm.nih.gov/28515951/' target='_blank'>PubMed:28515951</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Z-boost%2030%20caps.jpg?raw=true"
     },
     "Hydralia": {
-        moa: [{ ing: "LMW Hyaluronic", moa: "Διείσδυση στη βασική στοιβάδα για βαθιά ενυδάτωση." }, { ing: "Jojoba Oil", moa: "Βιομιμητικά λιπίδια που μειώνουν το TEWL." }],
+        moa: [{ ing: "LMW Hyaluronic", moa: "Χαμηλού μοριακού βάρους υαλουρονικό που συγκρατεί την υγρασία στον χόριο ιστό." }],
         cases: "Αφυδατωμένο δέρμα, θαμπή όψη, Plumping Effect.",
+        biblio: ["Bukhari SNA (2018). <a href='https://pubmed.ncbi.nlm.nih.gov/30287358/' target='_blank'>PubMed:30287358</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Hydralia%20Face%20Cream%2050ml.jpg?raw=true"
     },
     "REVITACELL PLUS": {
-        moa: [{ ing: "Mastic Oil", moa: "<strong>Klotho Gene Induction:</strong> Ενεργοποίηση πρωτεΐνης μακροζωίας." }, { ing: "Ω-5", moa: "MMP-1 inhibition για προστασία κολλαγόνου." }],
-        cases: "Ώριμο δέρμα (45+), επιγενετική αντιγήρανση.",
+        moa: [{ ing: "Mastic Oil", moa: "<strong>Klotho Gene Induction:</strong> Ενεργοποιεί το γονίδιο Klotho (πρωτεΐνη μακροζωίας)." }],
+        cases: "Ώριμο δέρμα (45+), απώλεια ελαστικότητας, επιγενετική αντιγήρανση.",
+        biblio: ["Lall N (2020). <a href='https://pubmed.ncbi.nlm.nih.gov/32415148/' target='_blank'>PubMed:32415148</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg?raw=true"
     },
     "EYES LUCE": {
-        moa: [{ ing: "Escin", moa: "Μείωση διαπερατότητας τριχοειδών (μείωση οιδήματος)." }, { ing: "Arnica Extract", moa: "Αποδόμηση αίμης για εξαφάνιση μαύρων κύκλων." }],
+        moa: [{ ing: "Escin (Εσκίνη)", moa: "Ενίσχυση φλεβικού τόνου και μείωση διαπερατότητας τριχοειδών (μείωση οιδήματος)." }],
         cases: "Μαύροι κύκλοι, σακούλες, κουρασμένο βλέμμα.",
+        biblio: ["Gallelli L (2019). <a href='https://pubmed.ncbi.nlm.nih.gov/31562234/' target='_blank'>PubMed:31562234</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg?raw=true"
     },
     "PROBIOTIC PREMIUM": {
-        moa: [{ ing: "18 Strains (10B CFU)", moa: "<strong>Competitive Exclusion:</strong> Αποκλεισμός παθογόνων στο επιθήλιο." }, { ing: "Butyrate Synthesis", moa: "Θρέψη κολονοκυττάρων μέσω SCFA." }],
-        cases: "Αντιβιοτικά, IBS, φουσκώματα, εντερική δυσβίωση.",
+        moa: [{ ing: "18 Strains (10B CFU)", moa: "<strong>Competitive Exclusion:</strong> Αποκλεισμός παθογόνων στο εντερικό επιθήλιο." }],
+        cases: "Αντιβιοτικά, IBS, φουσκώματα, δυσβίωση.",
         img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg?raw=true"
     },
     "MAGNESIUM +B6": {
-        moa: [{ ing: "Magnesium & B6", moa: "<strong>NMDA Modulation:</strong> Ρύθμιση νευρομυϊκής διεγερσιμότητας." }],
-        cases: "Κράμπες, άγχος, αϋπνία, PMS.",
+        moa: [{ ing: "Magnesium & B6", moa: "<strong>NMDA Modulation:</strong> Ρύθμιση νευρομυϊκής διεγερσιμότητας (μυϊκή χαλάρωση)." }],
+        cases: "Κράμπες, έντονο άγχος, αϋπνία, ημικρανίες, PMS.",
+        biblio: ["EFSA Journal (2010). Magnesium and muscle function"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg?raw=true"
     },
+    "JOINT": {
+        moa: [{ ing: "Collagen II & MSM", moa: "Δομική αναπλήρωση του χόνδρινου ικριώματος και θειούχοι δεσμοί." }],
+        cases: "Οστεοαρθρίτιδα, αθλητές, δυσκαμψία αρθρώσεων.",
+        biblio: ["Lugo JP (2013). <a href='https://pubmed.ncbi.nlm.nih.gov/24153020/' target='_blank'>PubMed:24153020</a>"],
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20JOINT.jpg?raw=true"
+    },
     "Alveolair Sir": {
-        moa: [{ ing: "Thymus & Althaea", moa: "Secretolytic & προστατευτικό βιο-φίλμ στο λαιμό." }, { ing: "Eucalyptus", moa: "Bronchospasmolysis & απόχρεμψη." }],
-        cases: "Παραγωγικός/ξηρός βήχος, πονόλαιμος.",
+        moa: [{ ing: "Thymus & Althaea", moa: "<strong>Secretolytic:</strong> Ρευστοποίηση βλέννας και προστατευτικό βιο-φιλμ στο λαιμό." }],
+        cases: "Παραγωγικός και ξηρός βήχος, βρογχική αποσυμφόρηση, πονόλαιμος.",
+        biblio: ["EMA Herbal Monograph on Thymus vulgaris"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Alveolair%20Sir.jpg?raw=true"
     },
     "A to Z": {
-        moa: [{ ing: "24 Nutrients", moa: "Διατήρηση μεταβολικής ομοιόστασης." }],
-        cases: "Κόπωση, ενίσχυση μεταβολισμού.",
+        moa: [{ ing: "24 Nutrients", moa: "Metabolic homeostasis και co-enzymatic activity." }],
+        cases: "Αδυναμία, ελλιπής διατροφή, ενίσχυση μεταβολισμού.",
         img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20A-Z.jpg?raw=true"
     },
     "omega 3": {
-        moa: [{ ing: "EPA/DHA", moa: "<strong>Resolvins:</strong> Επίλυση φλεγμονής στο καρδιαγγειακό." }],
-        cases: "Υπερτριγλυκεριδαιμία, καρδιαγγειακή προστασία.",
+        moa: [{ ing: "EPA/DHA", moa: "<strong>Resolvins:</strong> Ενεργή επίλυση της φλεγμονής στο καρδιαγγειακό." }],
+        cases: "Υπερτριγλυκεριδαιμία, καρδιαγγειακή προστασία, γνωστική λειτουργία.",
+        biblio: ["Calder PC (2013). <a href='https://pubmed.ncbi.nlm.nih.gov/23011457/' target='_blank'>PubMed:23011457</a>"],
         img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20OMEGA%203.jpg?raw=true"
     },
-    "JOINT": {
-        moa: [{ ing: "Col II & MSM", moa: "Δομική αναπλήρωση χόνδρου & θειούχοι δεσμοί." }, { ing: "Glucosamine", moa: "Βιοσύνθεση αγρεκάνης για λίπανση." }],
-        cases: "Οστεοαρθρίτιδα, αθλητές.",
-        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20JOINT.jpg?raw=true"
-    },
     "Cosmetic Pack": {
-        moa: [{ ing: "Synergy", moa: "Συνδυασμένη δράση Hydralia & Revitacell." }],
-        cases: "Ολοκληρωμένη αντιγήρανση & ενυδάτωση.",
+        moa: [{ ing: "Synergy", moa: "Συνδυασμένη δράση Hydralia και Revitacell για ολική ανάπλαση." }],
+        cases: "Ολοκληρωμένη φροντίδα προσώπου, δώρο ομορφιάς.",
         img: "https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Cosmetic%20pack.jpg?raw=true"
     }
 };
