@@ -8,7 +8,7 @@
     --border: #e2e8f0;
 }
 
-body { font-family: 'Inter', sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: var(--slate); line-height: 1.5; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: var(--slate); }
 h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
 .main-container { max-width: 1100px; margin: auto; }
 .section-title { font-size: 1.4rem; border-left: 6px solid var(--emerald); padding-left: 15px; margin: 40px 0 20px; }
@@ -25,29 +25,25 @@ h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 .form-group.full { grid-column: span 2; }
 .form-group label { font-size: 0.8rem; font-weight: 800; color: var(--slate-light); margin-bottom: 8px; display: block; text-transform: uppercase; }
-.form-group input { width: 100%; padding: 18px; border: 2px solid #f1f5f9; border-radius: 16px; font-size: 1.1rem; background: #f8fafc; box-sizing: border-box; transition: 0.3s; }
-.form-group input:focus { border-color: var(--emerald); outline: none; background: #fff; box-shadow: 0 0 0 5px var(--emerald-light); }
+.form-group input { width: 100%; padding: 18px; border: 2px solid #f1f5f9; border-radius: 16px; font-size: 1.1rem; background: #f8fafc; box-sizing: border-box; }
 
-.info-block { background:#f8fafc; padding:25px; border-radius:20px; border:1px solid var(--border); position: relative; }
-.bank-accounts { margin-top: 20px; font-size: 0.8rem; color: var(--slate); background: #fff; padding: 15px; border-radius: 12px; border: 1px dashed var(--emerald); }
-
+.info-block { background:#f8fafc; padding:25px; border-radius:20px; border:1px solid var(--border); }
 .table-responsive { border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin: 30px 0; }
 table { width: 100%; border-collapse: collapse; }
-th { background: #f8fafc; padding: 15px; text-align: left; font-size: 0.8rem; color: var(--slate-light); text-transform: uppercase; }
+th { background: #f8fafc; padding: 15px; text-align: left; font-size: 0.8rem; color: var(--slate-light); }
 td { padding: 15px; border-top: 1px solid #f1f5f9; font-weight: 600; }
 
 .summary-container { display: flex; justify-content: flex-end; }
 .totals-card { background: var(--slate); color: #fff; padding: 35px; border-radius: 30px; min-width: 380px; }
-.total-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 1.1rem; }
+.total-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
 .discount-line { color: #34d399; font-weight: 700; }
 .highlight { border-top: 1px solid #475569; padding-top: 10px; margin-top: 10px; font-weight: 800; }
 .grand-total-row { display: flex; justify-content: space-between; margin-top: 15px; font-size: 2.2rem; color: #34d399; font-weight: 800; }
 
-.action-footer { display: flex; gap: 15px; margin-top: 30px; }
-.btn-primary { background: var(--emerald); color: white; flex: 2; padding: 22px; border-radius: 18px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 1.1rem; }
+.btn-primary { background: var(--emerald); color: white; flex: 2; padding: 22px; border-radius: 18px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; }
 .btn-danger { background: #fee2e2; color: #ef4444; flex: 1; padding: 22px; border-radius: 18px; border: none; font-weight: 800; cursor: pointer; }
 
 .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
 .modal-content { background: #fff; width: 90%; max-width: 850px; margin: 5vh auto; border-radius: 30px; padding: 40px; overflow-y: auto; max-height: 85vh; position: relative; }
 .hcp-table { width: 100%; border: 1px solid #eee; border-collapse: collapse; margin: 15px 0; }
-.hcp-table th, .hcp-table td { padding: 12px; border: 1px solid #eee; text-align: left; font-size: 0.9rem; }
+.hcp-table th, .hcp-table td { padding: 12px; border: 1px solid #eee; text-align: left; }
