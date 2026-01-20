@@ -1,78 +1,55 @@
-/* ZARKOLIA HEALTH - ULTRA-ELITE v60.0 [cite: 2026-01-20] */
 :root {
     --primary: #064e3b;
     --accent: #10b981;
-    --gray-branding: #4b5563; /* [cite: 2026-01-20] */
-    --text-main: #111827;
+    --gray-branding: #4b5563;
     --bg: #f9fafb;
     --white: #ffffff;
 }
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--bg);
-    color: var(--text-main);
-    font-size: 18px; /* Μεγαλύτερη βασική γραμματοσειρά [cite: 2026-01-20] */
-    line-height: 1.6;
-}
+body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); font-size: 18px; color: #111827; margin: 0; padding: clamp(15px, 4vw, 40px); }
+.main-container { max-width: 1100px; margin: 0 auto; }
 
 /* BRANDING */
-.luxury-header h1 {
-    font-family: 'Montserrat', sans-serif; font-weight: 900;
-    font-size: 4rem; text-align: center; color: var(--primary); letter-spacing: -3px;
-}
+.luxury-header h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4rem; text-align: center; color: var(--primary); letter-spacing: -3px; margin: 0; }
 .luxury-header h1 span { color: var(--gray-branding); font-weight: 300; margin-left: 10px; }
+.scientific-tagline { text-align: center; color: #7C9A64; text-transform: uppercase; font-weight: 800; letter-spacing: 2px; font-size: 14px; margin-bottom: 40px; }
 
-/* ELITE BILLING SECTION */
-.elite-billing-card {
-    background: var(--white); border-radius: 40px; padding: 50px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.04); margin-bottom: 40px;
-    border: 1px solid #f3f4f6;
+/* SPINNER REMOVAL & QTY [cite: 2026-01-20] */
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+.qty-controls input {
+    width: 85px !important; height: 50px; font-size: 1.8rem !important;
+    border: 3px solid var(--primary) !important; border-radius: 12px; text-align: center; font-weight: 800;
 }
 
+/* ELITE BILLING [cite: 2026-01-20] */
+.elite-billing-card { background: var(--white); border-radius: 40px; padding: 45px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); margin-bottom: 30px; border: 1px solid #f3f4f6; }
 .elite-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 .full-width { grid-column: 1 / -1; }
-
-.elite-input-group label {
-    display: block; font-size: 0.8rem; font-weight: 800; color: var(--gray-branding);
-    text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px;
-}
-
-.elite-input-group input {
-    width: 100%; border: none; border-bottom: 3px solid #f3f4f6;
-    font-size: 1.4rem; font-weight: 700; color: var(--primary); padding: 10px 0;
-    transition: 0.3s; background: transparent;
-}
-
+.elite-input-group label { display: block; font-size: 0.85rem; font-weight: 800; color: var(--gray-branding); text-transform: uppercase; margin-bottom: 10px; }
+.elite-input-group input { width: 100%; border: none; border-bottom: 3px solid #f3f4f6; font-size: 1.5rem; font-weight: 700; color: var(--primary); padding: 10px 0; transition: 0.3s; }
 .elite-input-group input:focus { outline: none; border-color: var(--accent); }
 
 /* ROI DASHBOARD [cite: 2026-01-20] */
-.reward-glow { border: 2px solid var(--accent); box-shadow: 0 0 30px rgba(16, 185, 129, 0.1); }
-.reward-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-
+.reward-glow { border: 2px solid var(--accent); }
+.progress-track { height: 20px; background: #e5e7eb; border-radius: 50px; margin: 20px 0; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 1s ease-in-out; }
+.reward-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
 .reward-stat { background: #f9fafb; padding: 25px; border-radius: 24px; text-align: center; }
 .reward-stat.highlight { background: var(--primary); color: #fff; }
-.stat-value { display: block; font-size: 2.2rem; font-weight: 900; line-height: 1; }
-.stat-desc { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
+.stat-value { display: block; font-size: 2.5rem; font-weight: 900; }
 
-/* PROGRESS BAR */
-.progress-track { height: 20px; background: #e5e7eb; border-radius: 50px; position: relative; margin: 20px 0; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 1s cubic-bezier(0.4, 0, 0.2, 1); }
+/* ORDER GRID */
+.elite-order-grid { display: flex; flex-direction: column; gap: 15px; }
+.order-item { display: grid; grid-template-columns: 1fr 200px 80px 120px; align-items: center; background: #fff; padding: 20px; border-radius: 25px; border: 1px solid #eee; }
+.info-btn { background: #ecfdf5; color: var(--accent); border: 2px solid var(--accent); padding: 6px 12px; border-radius: 10px; font-weight: 800; cursor: pointer; }
 
-/* QTY CONTROLS [cite: 2026-01-20] */
-.qty-controls input {
-    width: 80px !important; height: 50px; font-size: 1.8rem !important;
-    border: 3px solid var(--primary) !important; border-radius: 12px; text-align: center;
-}
+/* MODAL [cite: 2026-01-20] */
+.modal { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.8); backdrop-filter: blur(15px); align-items: center; justify-content: center; }
+.modal-content { background: #fff; width: 90%; max-width: 650px; border-radius: 40px; padding: 40px; position: relative; border-top: 15px solid var(--primary); }
 
-/* FINAL BOX */
-.grand-total-box {
-    background: var(--primary); color: #fff; padding: 50px; border-radius: 35px;
-    display: flex; justify-content: space-between; align-items: center; margin: 50px 0;
-}
+/* TOTALS */
+.grand-total-box { background: var(--primary); color: #fff; padding: 45px; border-radius: 35px; display: flex; justify-content: space-between; align-items: center; margin-top: 40px; }
 .total-amount { font-size: 4.5rem; font-weight: 900; }
-
-.btn-primary {
-    width: 100%; padding: 30px; background: var(--accent); color: #fff;
-    border: none; border-radius: 25px; font-size: 1.8rem; font-weight: 900; cursor: pointer;
-}
+.btn-primary { width: 100%; padding: 25px; background: var(--accent); color: #fff; border: none; border-radius: 25px; font-size: 1.8rem; font-weight: 900; cursor: pointer; margin-top: 20px; }
