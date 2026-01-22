@@ -1,178 +1,125 @@
-/**
- * ZARKOLIA HEALTH - Επίσημος Κατάλογος Προϊόντων (v63.0)
- * Περιλαμβάνει 19 κωδικούς με πλήρη επιστημονική τεκμηρίωση.
- */
+// ============================================================
+// ZARKOLIA HEALTH - SUPREME PRODUCT DATABASE v50.0
+// ============================================================
 
-const PRODUCTS_DATA = [
-    {
-        id: "alveolair-sir",
-        name: "Alveolair Sir",
-        price: 18.50,
-        category: "Respiratory",
-        moa: "Βλεννολυτική δράση μέσω διάσπασης των δισουλφιδικών δεσμών των βλεννοπρωτεϊνών. Ενισχύει την κροσσωτή κάθαρση (mucociliary clearance) για την απομάκρυνση των εκκρίσεων.",
-        formula: "N-Acetylcysteine (NAC) 600mg, Hedera Helix extract, Thymus Vulgaris.",
-        innovation: "Τεχνολογία σταδιακής αποδέσμευσης για σταθερά επίπεδα NAC στο πλάσμα επί 12 ώρες."
-    },
-    {
-        id: "z-boost",
-        name: "Z-boost Immune",
-        price: 24.90,
-        category: "Immune",
-        moa: "Ενεργοποίηση των Τ-λεμφοκυττάρων και των NK-κυττάρων. Ρύθμιση της ανοσολογικής απόκρισης μέσω του άξονα Ψευδαργύρου-Βιταμίνης C.",
-        formula: "Liposomal Vitamin C 1000mg, Zinc Picolinate 15mg, Propolis Max.",
-        innovation: "Λιποσωμιακή σύνθεση για 400% αυξημένη βιοδιαθεσιμότητα δραστικών συστατικών."
-    },
-    {
-        id: "zplast",
-        name: "Zplast Hydrogel",
-        price: 12.00,
-        category: "Wound Care",
-        moa: "Δημιουργία υγρού μικροπεριβάλλοντος επούλωσης (Moist Wound Healing). Τα ιόντα αργύρου $Ag^{+}$ διασπούν το κυτταρικό τοίχωμα των παθογόνων βακτηρίων.",
-        formula: "Hydrocolloid Matrix, Ionic Silver $Ag^{+}$, Polyurethane Membrane.",
-        innovation: "Smart-pore Technology για επιλεκτική διαπνοή και απόλυτη προστασία από υγρασία."
-    },
-    {
-        id: "bruise-off",
-        name: "Bruise Off Gel",
-        price: 15.80,
-        category: "Topical",
-        moa: "Επιτάχυνση απορρόφησης εκχυμώσεων μέσω ενίσχυσης της μικροκυκλοφορίας. Η Εσκίνη μειώνει τη διαπερατότητα των τριχοειδών αγγείων.",
-        formula: "Arnica Montana 10%, Escin (Εσκίνη), Bromelain 2500 GDU.",
-        innovation: "Nano-emulsion base για άμεση διαδερμική απορρόφηση εντός 60 δευτερολέπτων."
-    },
-    {
-        id: "d-vit-5000",
-        name: "D-vit 5000iu Gold",
-        price: 19.20,
-        category: "Supplements",
-        moa: "Ρύθμιση της ομοιόστασης ασβεστίου-φωσφόρου μέσω του υποδοχέα VDR. Ενίσχυση της παραγωγής αντιμικροβιακών πεπτιδίων.",
-        formula: "Cholecalciferol $D_{3}$, Extra Virgin Olive Oil carrier, Vitamin $K_{2}$ MK7.",
-        innovation: "Micelle Technology για μέγιστη απορρόφηση ανεξάρτητα από τη λήψη τροφής."
-    },
-    {
-        id: "z-mag-triple",
-        name: "Z-Mag Triple",
-        price: 21.50,
-        category: "Muscle",
-        moa: "Συνδυαστική δράση 3 μορφών μαγνησίου για πλήρη κυτταρική κάλυψη: Bisglycinate (νευρικό), Citrate (μύες), Malate (ενέργεια).",
-        formula: "Magnesium Bisglycinate, Citrate, Malate + Vit-$B_{6}$ active form.",
-        innovation: "Chelated Amino Acid Complex για μηδενικές γαστρεντερικές διαταραχές."
-    },
-    {
-        id: "omega3-ultra",
-        name: "Omega-3 Ultra Pure",
-        price: 32.00,
-        category: "Cardio",
-        moa: "Μείωση των τριγλυκεριδίων και προστασία του ενδοθηλίου. Βελτίωση της ρευστότητας των κυτταρικών μεμβρανών.",
-        formula: "Fish Oil 1200mg (EPA 500 / DHA 250), Vitamin E.",
-        innovation: "Μοριακή απόσταξη για αφαίρεση βαρέων μετάλλων και τοξινών."
-    },
-    {
-        id: "probio-max",
-        name: "Probio-Max 50B",
-        price: 28.50,
-        category: "Digestive",
-        moa: "Αποκατάσταση του εντερικού μικροβιώματος και ενίσχυση του εντερικού φραγμού έναντι παθογόνων.",
-        formula: "12 Προβιοτικά στελέχη, 50 Billion CFU, Inulin Prebiotic.",
-        innovation: "Acid-resistant DRcaps για ασφαλή διέλευση από το γαστρικό οξύ του στομάχου."
-    },
-    {
-        id: "joint-fix",
-        name: "Joint-Fix Collagen",
-        price: 35.00,
-        category: "Joints",
-        moa: "Διέγερση της ενδογενούς παραγωγής κολλαγόνου τύπου ΙΙ. Μείωση της φλεγμονής του αρθρικού χόνδρου.",
-        formula: "Hydrolyzed Collagen peptides, Glucosamine, Chondroitin, MSM.",
-        innovation: "Bioactive Collagen Peptides για άμεση ενσωμάτωση στον συνδετικό ιστό των αρθρώσεων."
-    },
-    {
-        id: "sleep-well",
-        name: "Sleep-Well Melatonin",
-        price: 14.50,
-        category: "CNS",
-        moa: "Ρύθμιση του κιρκάδιου ρυθμού. Μείωση του χρόνου έλευσης του ύπνου μέσω του άξονα Μελατονίνης-Βαλεριάνας.",
-        formula: "Melatonin 1mg, Valeriana Officinalis, Passiflora, Vit-$B_{6}$.",
-        innovation: "Sublingual Micro-tablets για ταχύτατη απορρόφηση σε μόλις 5 λεπτά."
-    },
-    {
-        id: "iron-fe",
-        name: "Iron-Fe Bisglycinate",
-        price: 17.00,
-        category: "Blood",
-        moa: "Αύξηση των επιπέδων φερριτίνης και αιμοσφαιρίνης χωρίς οξείδωση του γαστρεντερικού βλεννογόνου.",
-        formula: "Ferrous Bisglycinate 25mg, Vit-C, Folic Acid.",
-        innovation: "Gentle Iron formula που προλαμβάνει τη δυσκοιλιότητα και τη ναυτία."
-    },
-    {
-        id: "b-complex-act",
-        name: "B-Complex Active",
-        price: 22.00,
-        category: "Energy",
-        moa: "Υποστήριξη του μεταβολισμού της ενέργειας (ATP) και της λειτουργίας των νευροδιαβιβαστών.",
-        formula: "Πλήρες σύμπλεγμα Β σε ενεργές μεθυλιωμένες μορφές.",
-        innovation: "Methyl-form $B_{12}$ & Folate για άμεση κυτταρική χρήση χωρίς μετατροπή."
-    },
-    {
-        id: "eye-protect",
-        name: "Eye-Protect Lutein",
-        price: 26.00,
-        category: "Vision",
-        moa: "Προστασία της ωχράς κηλίδας από το μπλε φως και την οξειδωτική καταπόνηση των φωτοϋποδοχέων.",
-        formula: "Lutein 20mg, Zeaxanthin 4mg, Astaxanthin, Vit-A.",
-        innovation: "Blue-Light Filtration Technology μέσω υψηλής συγκέντρωσης καροτενοειδών."
-    },
-    {
-        id: "hepa-clean",
-        name: "Hepa-Clean Silymarin",
-        price: 23.50,
-        category: "Liver",
-        moa: "Αποτοξίνωση των ηπατοκυττάρων και προστασία από τη λιπώδη διήθηση και τις τοξίνες.",
-        formula: "Milk Thistle (80% Silymarin), Artichoke, Turmeric.",
-        innovation: "Phytosome technology για 10πλάσια απορρόφηση σιλυμαρίνης."
-    },
-    {
-        id: "hair-skin",
-        name: "Hair-Skin-Nails",
-        price: 19.80,
-        category: "Beauty",
-        moa: "Ενίσχυση της δομής της κερατίνης και του κολλαγόνου. Βελτίωση της μικροκυκλοφορίας του τριχωτού.",
-        formula: "Biotin 10000mcg, Zinc, Selenium, L-Cysteine.",
-        innovation: "Synergistic Keratin-Boost Complex για ορατά αποτελέσματα σε 30 ημέρες."
-    },
-    {
-        id: "antiox-coq10",
-        name: "Antiox-CoQ10",
-        price: 29.00,
-        category: "Energy",
-        moa: "Βελτίωση της μιτοχονδριακής παραγωγής ενέργειας. Ισχυρή καρδιοπροστατευτική και αντιοξειδωτική δράση.",
-        formula: "Coenzyme $Q_{10}$ 200mg, Φυσική Βιταμίνη E.",
-        innovation: "Micro-crystalline Coenzyme $Q_{10}$ για βέλτιστη σταθερότητα και απορρόφηση."
-    },
-    {
-        id: "calm-ashwa",
-        name: "Calm-Ashwagandha",
-        price: 21.00,
-        category: "CNS",
-        moa: "Προσαρμογόνος δράση (adaptogen) που μειώνει τα επίπεδα κορτιζόλης και το ψυχολογικό στρες.",
-        formula: "KSM-66 Ashwagandha extract, Magnesium, Vit-$B_{12}$.",
-        innovation: "Full-spectrum extract με τη μέγιστη συγκέντρωση withanolides παγκοσμίως."
-    },
-    {
-        id: "vit-k2-mk7",
-        name: "Vitamin $K_{2}$-MK7",
-        price: 18.00,
-        category: "Bone",
-        moa: "Ενεργοποίηση οστεοκαλσίνης. Κατεύθυνση του ασβεστίου στα οστά και εμπόδιση της ασβεστοποίησης των αρτηριών.",
-        formula: "Vitamin $K_{2}$ as MK-7 100mcg, Pharmaceutical Grade.",
-        innovation: "Bone-Artery Axis Protection: Ταυτόχρονη προστασία σκελετού και καρδιαγγειακού."
-    },
-    {
-        id: "kids-multi",
-        name: "Kids-Multi Jelly",
-        price: 16.50,
-        category: "Pediatric",
-        moa: "Κάλυψη διατροφικών κενών για την υγιή σωματική και γνωστική ανάπτυξη των παιδιών.",
-        formula: "Multi-vitamins, Iodine, Zinc (Sugar-Free).",
-        innovation: "Pectin-based Soft Jellies χωρίς ζελατίνη ζωικής προέλευσης, ιδανικά για παιδιά."
-    }
+const products = [
+    { name: 'Z-DermAspis', price: 5.03 },
+    { name: 'Zplast Total Repair 50ml', price: 14.60 },
+    { name: 'Zplast Total Repair 100ml', price: 26.80 },
+    { name: 'ZplastCream 40gr', price: 12.30 },
+    { name: 'ZplastCream 100gr', price: 24.79 },
+    { name: 'Bruise Off cream 50ml', price: 5.60 },
+    { name: 'Bruise Off cream 100ml', price: 9.50 },
+    { name: 'Z-boost 30 caps', price: 14.93 },
+    { name: 'Z-boost 12 caps', price: 6.99 },
+    { name: 'Hydralia Face cream 50ml', price: 8.90 },
+    { name: 'Revitacell Plus Face cream 50ml', price: 10.69 },
+    { name: 'Revitace Eyes cream Luce 30ml', price: 10.10 },
+    { name: 'Alveolair Sir', price: 7.65 },
+    { name: 'NUTRI MX PROBIOTIC PREMIUM', price: 8.96 },
+    { name: 'NUTRI MX MAGNESIUM +B6', price: 5.98 },
+    { name: 'NUTRI MX A-Z', price: 6.51 },
+    { name: 'NUTRI MX OMEGA 3', price: 6.87 },
+    { name: 'NUTRI MX JOINT', price: 10.16 },
+    { name: 'Zarkolia Cosmetic pack', price: 23.89 }
 ];
+
+const productDetails = {
+    "Z-DermAspis": {
+        moa: [{ ing: "Ethanol 70%", moa: "Μετουσίωση πρωτεϊνών ιών." }, { ing: "PMD", moa: "Αποκλεισμός OBPs εντόμων (12h)." }],
+        cases: "Αντισηψία & 12ωρη απώθηση.", img: "https://github.com/pzaro/my-order-form/blob/main/images/Graphone.PNG?raw=true",
+        biblio: ["Carroll SP (2006). <a href='https://pubmed.ncbi.nlm.nih.gov/16492330/'>PubMed:16492330</a>"]
+    },
+    "Zplast Total Repair": {
+        moa: [{ ing: "Centella Asiatica", moa: "SMAD Signaling: Διέγερση Κολλαγόνου Ι & III." }, { ing: "Multi-MW Hyaluronic", moa: "ECM Scaffold για ιστική αναγέννηση." }],
+        cases: "Τομές, διαβητικά έλκη, ουλές.", img: "https://github.com/pzaro/my-order-form/blob/main/images/Zplast%20Total%20Repair.jpeg?raw=true",
+        biblio: ["Bylka W (2013). <a href='https://pubmed.ncbi.nlm.nih.gov/24386321/'>PubMed:24386321</a>"]
+    },
+    "ZplastCream": {
+        moa: [
+            { ing: "Μαστίχα & Μέλι", moa: "Αντιμικροβιακή προστασία (Gram+/-) & υγροσκοπική επούλωση." },
+            { ing: "Hypericum (Βαλσαμόχορτο)", moa: "Επιτάχυνση κοκκιοποίησης." },
+            { ing: "Καλαμίνη", moa: "Άμεση ανακούφιση από κνησμό." },
+            { ing: "Ιπποφαές (Ω-7) & Αβοκάντο", moa: "Ανάπλαση λιπιδίων φραγμού." }
+        ],
+        cases: "Συγκάματα, ξηροδερμία, ηλιακά ερυθήματα.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/ZplastCream%2040gr.jpg?raw=true",
+        biblio: ["Paraschos S (2007). <a href='https://pubmed.ncbi.nlm.nih.gov/17544358/'>PubMed:17544358</a>"]
+    },
+    "Bruise Off": {
+        moa: [
+            { ing: "Ουρία 10%", moa: "Penetration Enhancer: Βαθιά διείσδυση δραστικών." },
+            { ing: "Άρνικα 10%", moa: "Αντιοιδηματική δράση & απορρόφηση εκχυμώσεων." },
+            { ing: "Ριγανέλαιο", moa: "Warming effect & τοπική υπεραιμία." }
+        ],
+        cases: "Μώλωπες, οιδήματα, μελανιές (Botox/Fillers).",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg?raw=true",
+        biblio: ["Lyss G (1998). <a href='https://pubmed.ncbi.nlm.nih.gov/9531637/'>PubMed:9531637</a>"]
+    },
+    "Z-boost": {
+        moa: [
+            { ing: "NAC (300mg)", moa: "Πρόδρομος Γλουταθειόνης & βλεννολυτική δράση." },
+            { ing: "ALA (Άλφα Λιποϊκό)", moa: "Universal Antioxidant: Αναγέννηση Vit C & E." },
+            { ing: "CoQ10", moa: "Μιτοχονδριακή παραγωγή ATP." },
+            { ing: "Ψευδάργυρος & Σελήνιο", moa: "Φυσιολογική λειτουργία ανοσοποιητικού." }
+        ],
+        cases: "Αποκατάσταση, ενίσχυση άμυνας.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Z-boost%2030%20caps.jpg?raw=true",
+        biblio: ["Hemilä H (2017). <a href='https://pubmed.ncbi.nlm.nih.gov/28515951/'>PubMed:28515951</a>"]
+    },
+    "Alveolair Sir": {
+        moa: [
+            { ing: "Αλθέα (Βάμμα)", moa: "Πλούσια σε βλεννώδεις ουσίες: Προστατευτικό φιλμ βλεννογόνου." },
+            { ing: "Ευκάλυπτος", moa: "Μαλακτική δράση σε λαιμό & φωνητικές χορδές." },
+            { ing: "Θυμάρι", moa: "Ρευστοποίηση εκκρίσεων (απόχρεμψη)." },
+            { ing: "Κράνι (Cornus Mas)", moa: "Στυπτική δράση: Μείωση οιδήματος βλεννογόνου." }
+        ],
+        cases: "Βήχας, πονόλαιμος, προστασία αναπνευστικού.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Alveolair%20Sir.jpg?raw=true"
+    },
+    "Hydralia": {
+        moa: [{ ing: "Υαλουρονικό Οξύ", moa: "Συγκράτηση 1000x βάρους σε νερό." }, { ing: "Έλαιο Jojoba", moa: "Βιομιμητικό λιπίδιο όμοιο με ανθρώπινο σμήγμα." }],
+        cases: "Αφυδάτωση, υδατικό ισοζύγιο.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Hydralia%20Face%20Cream%2050ml.jpg?raw=true"
+    },
+    "Revitacell Plus": {
+        moa: [{ ing: "Μαστίχα Χίου", moa: "Επαγωγή πρωτεΐνης Klotho στους ινοβλάστες." }, { ing: "Έλαιο Ροδιού", moa: "Προστασία κολλαγόνου." }],
+        cases: "Αντιγήρανση, κυτταρική μακροζωία.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg?raw=true"
+    },
+    "Revitace Eyes": {
+        moa: [{ ing: "Escin", moa: "Βελτίωση μικροκυκλοφορίας." }, { ing: "Άρνικα", moa: "Αποσυμφόρηση οιδήματος." }],
+        cases: "Μαύροι κύκλοι, σακούλες.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg?raw=true"
+    },
+    "PROBIOTIC PREMIUM": {
+        moa: [{ ing: "18 Strains", moa: "Ανταγωνιστικός αποκλεισμός παθογόνων." }],
+        cases: "IBS, χλωρίδα.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg?raw=true"
+    },
+    "MAGNESIUM +B6": {
+        moa: [{ ing: "Magnesium", moa: "Ρύθμιση νευρομυϊκής διεγερσιμότητας." }],
+        cases: "Κράμπες, αϋπνία.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg?raw=true"
+    },
+    "A-Z": {
+        moa: [{ ing: "24 Nutrients", moa: "Μεταβολική ομοιόσταση." }],
+        cases: "Κόπωση.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20A-Z.jpg?raw=true"
+    },
+    "OMEGA 3": {
+        moa: [{ ing: "EPA/DHA", moa: "Resolvins: Επίλυση φλεγμονής." }],
+        cases: "Καρδιαγγειακή υγεία.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20OMEGA%203.jpg?raw=true"
+    },
+    "JOINT": {
+        moa: [{ ing: "Collagen & MSM", moa: "Δομική υποστήριξη αρθρώσεων." }],
+        cases: "Οστεοαρθρίτιδα.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/NUTRI%20MX%20JOINT.jpg?raw=true"
+    },
+    "Cosmetic pack": {
+        moa: [{ ing: "Synergy", moa: "Revitacell + Hydralia." }],
+        cases: "Ολοκληρωμένη φροντίδα.",
+        img: "https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Cosmetic%20pack.jpg?raw=true"
+    }
+};
