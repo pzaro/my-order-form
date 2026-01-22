@@ -2,38 +2,43 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbxMCnrKJzOHxADBVMw1gH6w
 let cart = {};
 let currentCustomer = null;
 
+// Initialization
 PRODUCTS_DATA.forEach(p => cart[p.id] = 0);
 
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
-    setupListeners();
+    setupEventListeners();
 });
 
 function renderProducts() {
     const container = document.getElementById('product-list');
     container.innerHTML = PRODUCTS_DATA.map(p => `
-        <div class="product-card">
-            <div>
-                <h4 style="font-size:1.4rem">${p.name}</h4>
-                <p style="color:var(--health-gray)">${p.price.toFixed(2)}€</p>
-                <button class="accent" style="background:none; border:none; cursor:pointer; font-weight:700" onclick="openModal('${p.id}')">INFO</button>
+        <div class="product-card" id="card-${p.id}">
+            <div class="product-info-col">
+                <span class="badge" style="margin-bottom:10px">${p.category}</span>
+                <h4 style="font-size:1.7rem; font-weight:800">${p.name}</h4>
+                <p style="color:var(--health-gray); font-weight:600">${p.price.toFixed(2)}€ / μονάδα</p>
+                <button class="btn-info-link" style="background:none; border:none; color:var(--accent-emerald); font-weight:700; cursor:pointer; padding:0; margin-top:15px; text-decoration:underline; font-size:1.1rem" onclick="openModal('${p.id}')">SCIENTIFIC INFO</button>
             </div>
-            <div style="text-align:center">
-                <span class="badge" id="gift-${p.id}" style="font-size:0.9rem; color:var(--accent-emerald)">Δώρα: 0</span>
+            
+            <div class="gift-col" style="text-align:center">
+                <span id="gift-${p.id}" style="font-weight:800; color:var(--accent-emerald); background:#ecfdf5; padding:10px 20px; border-radius:15px">Δώρα: 0</span>
             </div>
+
             <div class="qty-controls">
-                <button class="btn-qty" onclick="updateQty('${p.id}', -1)">-</button>
+                <button class="btn-qty" onclick="changeQty('${p.id}', -1)">-</button>
                 <input type="number" class="qty-input" id="qty-${p.id}" value="0" readonly>
-                <button class="btn-qty" onclick="updateQty('${p.id}', 1)">+</button>
+                <button class="btn-qty" onclick="changeQty('${p.id}', 1)">+</button>
             </div>
         </div>
     `).join('');
 }
 
-function updateQty(id, delta) {
+function changeQty(id, delta) {
     cart[id] = Math.max(0, cart[id] + delta);
     document.getElementById(`qty-${id}`).value = cart[id];
     
+    // Gift Tier Logic: 9+1, 18+3, 24+6
     let gifts = 0;
     if (cart[id] >= 24) gifts = 6;
     else if (cart[id] >= 18) gifts = 3;
@@ -45,92 +50,108 @@ function updateQty(id, delta) {
 
 function calculateTotals() {
     let subtotal = 0;
-    let totalGifts = 0;
+    let totalGiftsCount = 0;
+
     PRODUCTS_DATA.forEach(p => {
         subtotal += cart[p.id] * p.price;
-        if (cart[p.id] >= 24) totalGifts += 6;
-        else if (cart[p.id] >= 18) totalGifts += 3;
-        else if (cart[p.id] >= 9) totalGifts += 1;
+        if (cart[p.id] >= 24) totalGiftsCount += 6;
+        else if (cart[p.id] >= 18) totalGiftsCount += 3;
+        else if (cart[p.id] >= 9) totalGiftsCount += 1;
     });
 
-    let volDisc = Math.min(Math.floor(subtotal / 100), 10);
-    let afterVol = subtotal * (1 - volDisc/100);
-    
-    const isCash = document.getElementById('payment-method').value === 'cash';
-    let net = isCash ? afterVol * 0.98 : afterVol;
-    let final = net * 1.24;
+    // 1. Tiered Volume Discount: 1% per 100€ (max 10%)
+    let volumeDiscountPercent = Math.min(Math.floor(subtotal / 100), 10);
+    let afterVolumeDiscount = subtotal * (1 - volumeDiscountPercent / 100);
 
-    document.getElementById('net-total').innerText = subtotal.toFixed(2) + "€";
-    document.getElementById('total-gifts').innerText = totalGifts;
-    document.getElementById('current-discount-badge').innerText = volDisc + "% Έκπτωση";
-    document.getElementById('final-payable').innerText = final.toFixed(2) + "€";
+    // 2. Cash Discount: +2% on the result of step 1
+    const isCash = document.getElementById('payment-method').value === 'cash';
+    let cashDiscountAmount = isCash ? afterVolumeDiscount * 0.02 : 0;
+    let finalNetValue = afterVolumeDiscount - cashDiscountAmount;
+
+    // 3. VAT 24%
+    let vatAmount = finalNetValue * 0.24;
+    let totalPayable = finalNetValue + vatAmount;
+
+    // Update ROI Dashboard UI
+    document.getElementById('net-total').innerText = `${subtotal.toFixed(2)}€`;
+    document.getElementById('total-gifts').innerText = totalGiftsCount;
+    document.getElementById('current-discount-badge').innerText = `${volumeDiscountPercent}% Έκπτωση Τζίρου`;
     
-    let prog = (subtotal % 100);
-    document.getElementById('volume-progress').style.width = prog + "%";
-    document.getElementById('progress-text').innerText = prog.toFixed(0) + " / 100€";
-    document.getElementById('total-benefit').innerText = ((subtotal - net) + (totalGifts * 15)).toFixed(2) + "€";
+    // Progress Bar Logic (Progress toward next 100€)
+    let progressPercent = (subtotal % 100); 
+    document.getElementById('volume-progress').style.width = (subtotal >= 1000 ? 100 : (subtotal/1000)*100) + "%";
+    document.getElementById('progress-text').innerText = `${progressPercent.toFixed(0)} / 100€ για επόμενο κλιμάκιο`;
+
+    // Benefit Calculation: (Savings from discounts) + (Value of gifts estimated at 15€ each)
+    let totalBenefit = (subtotal - finalNetValue) + (totalGiftsCount * 15);
+    document.getElementById('total-benefit').innerText = `${totalBenefit.toFixed(2)}€`;
+    document.getElementById('final-payable').innerText = `${totalPayable.toFixed(2)}€`;
 }
 
-function setupListeners() {
+function openModal(id) {
+    const p = PRODUCTS_DATA.find(x => x.id === id);
+    const modal = document.getElementById('info-modal');
+    const body = document.getElementById('modal-body');
+
+    body.innerHTML = `
+        <h2 class="luxury-title" style="margin-bottom:10px">${p.name}</h2>
+        <h4 style="color:var(--accent-emerald); margin-bottom:30px">${p.category} | Scientific Innovation</h4>
+        
+        <div class="modal-section" style="margin-bottom:30px">
+            <h5 style="font-weight:800; border-bottom:2px solid #f1f5f9; padding-bottom:10px">Μηχανισμός Δράσης (MoA)</h5>
+            <p style="margin-top:15px; font-size:1.2rem; line-height:1.8">${p.moa}</p>
+        </div>
+
+        <div class="modal-section" style="margin-bottom:30px">
+            <h5 style="font-weight:800; border-bottom:2px solid #f1f5f9; padding-bottom:10px">Φόρμουλα Συστατικών</h5>
+            <p style="margin-top:15px; font-size:1.2rem; line-height:1.8">${p.formula}</p>
+        </div>
+
+        <div class="modal-section" style="background:#f0fdf4; padding:30px; border-radius:25px; border:1px dashed var(--accent-emerald)">
+            <h5 style="font-weight:800; color:var(--primary-green)">Innovation & Technology</h5>
+            <p style="margin-top:10px; font-size:1.1rem">${p.innovation}</p>
+        </div>
+
+        <div class="qty-controls" style="margin-top:50px; justify-content:center; background:#f8fafc; padding:30px; border-radius:30px">
+            <span style="font-weight:800; margin-right:20px">Ποσότητα Παραγγελίας:</span>
+            <button class="btn-qty" onclick="changeQty('${p.id}', -1); syncModal('${p.id}')">-</button>
+            <input type="number" class="qty-input" id="modal-qty-${p.id}" value="${cart[p.id]}" readonly>
+            <button class="btn-qty" onclick="changeQty('${p.id}', 1); syncModal('${p.id}')">+</button>
+        </div>
+    `;
+    modal.style.display = 'flex';
+}
+
+function syncModal(id) {
+    document.getElementById(`modal-qty-${id}`).value = cart[id];
+}
+
+function setupEventListeners() {
+    // CRM Lookup logic
     document.getElementById('afm-input').addEventListener('input', async (e) => {
-        if (e.target.value.length === 9) {
-            const res = await fetch(`${GAS_URL}?afm=${e.target.value}`);
-            const data = await res.json();
-            if (data.status === "found" || data.eponimia) {
-                currentCustomer = data;
-                document.getElementById('customer-name-display').innerText = "Πελάτης: " + (data.eponimia || "Βρέθηκε");
-            } else {
-                currentCustomer = null;
-                document.getElementById('customer-name-display').innerText = "Νέος Πελάτης";
+        const afm = e.target.value;
+        if (afm.length === 9) {
+            const box = document.getElementById('customer-info-box');
+            box.style.display = 'block';
+            box.innerText = "Αναζήτηση στη βάση δεδομένων...";
+            
+            try {
+                const response = await fetch(`${GAS_URL}?afm=${afm}`);
+                const result = await response.json();
+                
+                if (result.status === "found" || result.eponimia) {
+                    currentCustomer = result;
+                    box.innerHTML = `<span style="color:var(--accent-emerald)">✓ ΠΕΛΑΤΗΣ:</span> ${result.eponimia} <br> <span style="font-size:0.9rem; opacity:0.8">ΔΟΥ: ${result.doy}</span>`;
+                } else {
+                    currentCustomer = null;
+                    box.innerHTML = `<span style="color:var(--health-gray)">! ΝΕΟΣ ΠΕΛΑΤΗΣ:</span> Θα γίνει αυτόματη καταχώρηση στο ERP.`;
+                }
+            } catch (err) {
+                box.innerText = "Σφάλμα σύνδεσης με το CRM.";
             }
         }
     });
 
     document.getElementById('payment-method').onchange = calculateTotals;
 
-    document.getElementById('submit-order').onclick = async () => {
-        const afm = document.getElementById('afm-input').value;
-        if (afm.length < 9) return alert("Εισάγετε έγκυρο ΑΦΜ");
-
-        let itemsText = "";
-        PRODUCTS_DATA.forEach(p => { if(cart[p.id] > 0) itemsText += `${p.name}: ${cart[p.id]} τεμ.\n`; });
-
-        const payload = {
-            customer: currentCustomer ? currentCustomer.eponimia : "ΝΕΟΣ ΠΕΛΑΤΗΣ",
-            afm: afm,
-            doy: currentCustomer ? currentCustomer.doy : "-",
-            email: currentCustomer ? currentCustomer.email : "info@zarkolia.gr",
-            products: itemsText,
-            netValue: document.getElementById('net-total').innerText,
-            vat: "24%",
-            total: document.getElementById('final-payable').innerText,
-            payment: document.getElementById('payment-method').value,
-            remarks: "Web Order"
-        };
-
-        const btn = document.getElementById('submit-order');
-        btn.disabled = true;
-        btn.innerText = "ΑΠΟΣΤΟΛΗ...";
-
-        try {
-            await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
-            alert("Η παραγγελία καταχωρήθηκε!");
-            location.reload();
-        } catch (e) {
-            alert("Σφάλμα σύνδεσης.");
-            btn.disabled = false;
-        }
-    };
-}
-
-function openModal(id) {
-    const p = PRODUCTS_DATA.find(x => x.id === id);
-    document.getElementById('modal-body').innerHTML = `
-        <h2 class="luxury-title">${p.name}</h2>
-        <p style="margin:20px 0"><strong>MoA:</strong> ${p.moa}</p>
-        <p><strong>Συστατικά:</strong> ${p.ingredients}</p>
-    `;
-    document.getElementById('info-modal').style.display = 'flex';
-}
-
-document.querySelector('.close-modal').onclick = () => document.getElementById('info-modal').style.display = 'none';
+    document.querySelector('.close-modal').onclick =
