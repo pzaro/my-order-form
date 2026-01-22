@@ -3,87 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarkolia Health ERP v67.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Zarkolia Health - Supreme Sync Pro v68.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); padding: 20px; }
-        .main-container { max-width: 1000px; margin: 0 auto; padding-bottom: 150px; }
+        :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; --white: #ffffff; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; padding: 20px; -webkit-font-smoothing: antialiased; }
+        .main-container { max-width: 1000px; margin: 0 auto; padding-bottom: 140px; }
         
         /* HOURGLASS ANIMATION */
-        #hourglass { display: none; font-size: 1.2rem; animation: flip 2s infinite; }
+        #hourglass { display: none; font-size: 1.5rem; margin-left: 10px; animation: flip 2s linear infinite; }
         @keyframes flip { 0% { transform: rotate(0); } 50% { transform: rotate(180deg); } 100% { transform: rotate(180deg); } }
 
-        .elite-card { background: white; border-radius: 25px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 20px; }
-        .order-item { display: grid; grid-template-columns: 100px 1fr 220px 120px; align-items: center; background: white; padding: 15px; border-radius: 20px; margin-bottom: 10px; border: 1px solid #f1f5f9; }
-        .product-img { width: 70px; height: 70px; object-fit: contain; border-radius: 10px; }
+        /* STICKY PROGRESS BAR */
+        .sticky-rewards { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: white; padding: 25px; box-shadow: 0 -5px 25px rgba(0,0,0,0.15); z-index: 1000; border-top: 5px solid var(--accent); }
+        .progress-track { height: 14px; background: rgba(255,255,255,0.2); border-radius: 10px; margin-top: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* PRODUCT CARDS */
+        .order-item { display: grid; grid-template-columns: 100px 1fr 200px 120px; align-items: center; background: white; padding: 20px; border-radius: 25px; margin-bottom: 15px; border: 1px solid #f1f5f9; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .product-img { width: 80px; height: 80px; object-fit: contain; border-radius: 10px; }
+        .quick-btns { display: flex; gap: 8px; margin-top: 12px; }
+        .q-btn { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-weight: 800; color: var(--primary); transition: 0.2s; }
+        .q-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* ELITE UI */
+        .elite-card { background: white; border-radius: 35px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid #eef2f6; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+        .input-group input { width: 100%; border: none; border-bottom: 3px solid #e2e8f0; font-size: 1.3rem; font-weight: 700; color: var(--primary); padding: 10px 0; outline: none; transition: 0.3s; background: transparent; }
+        .input-group input:focus { border-color: var(--accent); }
         
-        /* QUICK GIFT BUTTONS */
-        .gift-btns { display: flex; gap: 5px; margin-top: 8px; }
-        .g-btn { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; cursor: pointer; font-weight: 800; color: var(--primary); }
-        .g-btn:hover { background: var(--accent); color: white; }
+        .btn-submit { width: 100%; padding: 25px; background: var(--accent); color: white; border: none; border-radius: 22px; font-size: 1.6rem; font-weight: 900; cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+        
+        /* NO SPINNERS */
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
 
-        /* STICKY ROI BAR */
-        .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: white; padding: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); z-index: 1000; }
-        .progress-track { height: 10px; background: rgba(255,255,255,0.2); border-radius: 10px; margin-top: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.5s; }
-
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
-        .input-group input { width: 100%; border: none; border-bottom: 2px solid #e2e8f0; font-size: 1.1rem; font-weight: 700; padding: 5px 0; outline: none; }
+        @media (max-width: 768px) { .order-item { grid-template-columns: 1fr; text-align: center; gap: 15px; } .product-img { margin: 0 auto; } .quick-btns { justify-content: center; } }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <header style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: var(--primary); margin: 0;">ZARKOLIA<span style="color: #4b5563; font-weight: 300;">HEALTH</span></h1>
+        <header style="text-align: center; margin-bottom: 50px;">
+            <h1 style="color: var(--primary); font-family: 'Montserrat'; font-size: 3.5rem; margin: 0; letter-spacing: -3px;">ZARKOLIA<span style="color: #4b5563; font-weight: 300;">HEALTH</span></h1>
+            <p style="text-transform: uppercase; letter-spacing: 3px; font-weight: 800; color: #7c9a64; font-size: 14px; margin-top: 5px;">Scientific Innovation & Nature</p>
         </header>
 
-        <form id="orderForm">
+        <form id="orderForm" onsubmit="return false;">
             <section class="elite-card">
-                <h3>👤 Στοιχεία Πελάτη <span id="hourglass">⏳</span></h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                    <div class="input-group"><label>ΑΦΜ</label><input type="number" id="afm" required></div>
-                    <div class="input-group"><label>Επωνυμία</label><input type="text" id="eponimia" required></div>
+                <h3 style="margin-top:0; color: var(--primary); text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px;">
+                    👤 Στοιχεία Πελάτη <span id="hourglass">⏳</span>
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div class="input-group"><label>ΑΦΜ</label><input type="number" id="afm" placeholder="Εισάγετε ΑΦΜ..."></div>
+                    <div class="input-group"><label>Επωνυμία / Φαρμακείο</label><input type="text" id="eponimia"></div>
                     <div class="input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
-                    <div class="input-group"><label>Email</label><input type="email" id="email" required></div>
+                    <div class="input-group"><label>Email Παραστατικού</label><input type="email" id="email" placeholder="email@example.com"></div>
                 </div>
             </section>
 
             <section class="elite-card">
-                <h3>🧬 Παραγγελία</h3>
+                <h3 style="margin-top:0; color: var(--primary); text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; margin-bottom: 25px;">🧬 Επιστημονική Παραγγελία</h3>
                 <div id="orderGrid"></div>
             </section>
 
             <section class="elite-card">
-                <div style="display:flex; gap:30px;">
-                    <label style="font-weight:700;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2% Έκπτωση)</label>
-                    <label style="font-weight:700;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 Ημερών</label>
+                <h3 style="margin-top:0; color: var(--primary); text-transform: uppercase; font-size: 0.9rem; margin-bottom: 20px;">💳 Τρόπος Πληρωμής</h3>
+                <div style="display:flex; gap:40px; flex-wrap:wrap;">
+                    <label style="cursor:pointer; font-weight:700; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:20px; height:20px;"> Αντικαταβολή Μετρητά (+2% Έκπτωση)</label>
+                    <label style="cursor:pointer; font-weight:700; display:flex; align-items:center; gap:10px;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:20px; height:20px;"> Επιταγή 60 Ημερών</label>
                 </div>
+                <textarea id="remarks" style="width:100%; height:70px; border-radius:15px; border:2px solid #e2e8f0; padding:15px; margin-top:25px; font-family:inherit;" placeholder="Σημειώσεις / Παρατηρήσεις..."></textarea>
             </section>
 
-            <button type="button" style="width:100%; padding:20px; background:var(--accent); color:white; border:none; border-radius:15px; font-size:1.3rem; font-weight:900; cursor:pointer;" onclick="processOrder()">Καταχώρηση Παραγγελίας</button>
+            <button type="button" class="btn-submit" onclick="processOrder()">Καταχώρηση Παραγγελίας</button>
         </form>
     </div>
 
-    <div class="sticky-bar">
-        <div style="max-width:1000px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
-            <div style="flex:1; max-width:400px;">
-                <strong>Πρόοδος Έκπτωσης: <span id="disc-perc">0</span>%</strong>
+    <div class="sticky-rewards">
+        <div class="main-container" style="padding:0; display:flex; justify-content:space-between; align-items:center;">
+            <div style="flex:1; max-width: 400px;">
+                <strong style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Έκπτωση Τζίρου: <span id="disc-val" style="color:var(--accent); font-size:1.4rem;">0</span>%</strong>
                 <div class="progress-track"><div class="progress-fill" id="vol-fill"></div></div>
             </div>
             <div style="text-align:right;">
-                <small>ΣΥΝΟΛΟ ΜΕ ΦΠΑ</small><br>
-                <span id="final-total" style="font-size: 2.2rem; font-weight: 900;">0.00 €</span>
+                <small style="opacity: 0.8; font-weight: 700; text-transform: uppercase;">Τελικό Ποσό με ΦΠΑ</small><br>
+                <span id="final-total" style="font-size: 2.8rem; font-weight: 900; letter-spacing: -2px;">0.00 €</span>
             </div>
         </div>
     </div>
 
     <script src="products.js"></script>
     <script>
+        // INTEGRATED BACKEND URL
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3P3wPTi3u7Vmmo5VxQiSbrByC_DaUg545oBYuOqJM6w8tcy--1AwjQqR2ddbjt0eEEA/exec";
 
         document.addEventListener("DOMContentLoaded", () => {
-            renderProducts();
+            if (typeof products !== 'undefined') renderProducts();
             document.getElementById('afm').addEventListener('input', lookupCustomer);
         });
 
@@ -93,21 +108,22 @@
                 const div = document.createElement('div');
                 div.className = 'order-item';
                 div.innerHTML = `
-                    <img src="${p.img || 'https://via.placeholder.com/70'}" class="product-img">
+                    <img src="${p.img || 'https://via.placeholder.com/80'}" class="product-img">
                     <div>
-                        <strong>${p.name}</strong><br><small>${p.price.toFixed(2)} €</small>
-                        <div class="gift-btns">
-                            <button class="g-btn" onclick="setQty(${i}, 9)">9+1</button>
-                            <button class="g-btn" onclick="setQty(${i}, 18)">18+3</button>
-                            <button class="g-btn" onclick="setQty(${i}, 24)">24+6</button>
+                        <strong style="font-size: 1.1rem; color: var(--primary);">${p.name}</strong><br>
+                        <small style="font-weight: 700; color: #64748b;">${p.price.toFixed(2)} €</small>
+                        <div class="quick-btns">
+                            <button class="q-btn" onclick="setQty(${i}, 9)">9+1</button>
+                            <button class="q-btn" onclick="setQty(${i}, 18)">18+3</button>
+                            <button class="q-btn" onclick="setQty(${i}, 24)">24+6</button>
                         </div>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <button type="button" onclick="changeQty(${i},-1)">-</button>
-                        <input type="number" id="qty-${i}" value="0" min="0" style="width:50px; text-align:center;" oninput="updateTotals()">
-                        <button type="button" onclick="changeQty(${i},1)">+</button>
+                    <div style="display:flex; align-items:center; background:#f8fafc; padding:8px; border-radius:12px; gap:10px; justify-self: center;">
+                        <button onclick="changeQty(${i},-1)" style="width:35px; height:35px; border:none; background:white; border-radius:8px; font-weight:900; cursor:pointer;">-</button>
+                        <input type="number" id="qty-${i}" value="0" min="0" style="width:60px; text-align:center; border:2px solid var(--primary); border-radius:8px; font-weight:800; font-size:1.2rem;" oninput="updateTotals()">
+                        <button onclick="changeQty(${i},1)" style="width:35px; height:35px; border:none; background:white; border-radius:8px; font-weight:900; cursor:pointer;">+</button>
                     </div>
-                    <div id="total-${i}" style="font-weight:900; text-align:right;">0.00 €</div>`;
+                    <div id="total-${i}" style="font-weight:900; text-align:right; font-size:1.2rem; color: var(--primary);">0.00 €</div>`;
                 container.appendChild(div);
             });
         }
@@ -116,14 +132,16 @@
             const afm = document.getElementById('afm').value;
             if (afm.length === 9) {
                 document.getElementById('hourglass').style.display = 'inline-block';
-                const r = await fetch(`${SCRIPT_URL}?action=lookup&afm=${afm}`);
-                const d = await r.json();
+                try {
+                    const r = await fetch(`${SCRIPT_URL}?action=lookup&afm=${afm}`);
+                    const d = await r.json();
+                    if (d.success) {
+                        document.getElementById('eponimia').value = d.data.eponimia;
+                        document.getElementById('doy').value = d.data.doy;
+                        document.getElementById('email').value = d.data.email;
+                    }
+                } catch(e) { console.error("Lookup error"); }
                 document.getElementById('hourglass').style.display = 'none';
-                if (d.success) {
-                    document.getElementById('eponimia').value = d.data.eponimia;
-                    document.getElementById('doy').value = d.data.doy;
-                    document.getElementById('email').value = d.data.email;
-                }
             }
         }
 
@@ -135,7 +153,7 @@
                 document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
             });
 
-            // LOGIC: 2% at 200€ + 1% per 100€ [cite: 2026-01-20]
+            // LOGIC: 2% at 200€ + 1% per 100€ up to 10%
             let volPerc = 0;
             if (net >= 200) {
                 volPerc = 2 + Math.floor((net - 200) / 100);
@@ -143,39 +161,48 @@
             }
 
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
-            const finalPerc = volPerc + (isCash ? 2 : 0);
-            const finalTotal = (net * (1 - finalPerc/100)) * 1.24;
+            const cashDisc = isCash ? 2 : 0;
+            const finalNet = net * (1 - volPerc/100) * (1 - cashDisc/100);
+            const total = finalNet * 1.24;
 
-            document.getElementById("final-total").textContent = finalTotal.toFixed(2) + " €";
+            document.getElementById("final-total").textContent = total.toFixed(2) + " €";
             document.getElementById("vol-fill").style.width = (volPerc * 10) + "%";
-            document.getElementById("disc-perc").textContent = finalPerc;
+            document.getElementById("disc-val").textContent = volPerc;
         }
 
-        function setQty(i, v) { document.getElementById(`qty-${i}`).value = v; updateTotals(); }
+        function setQty(i, val) { document.getElementById(`qty-${i}`).value = val; updateTotals(); }
         function changeQty(i, d) { const el = document.getElementById(`qty-${i}`); el.value = Math.max(0, (parseInt(el.value)||0)+d); updateTotals(); }
         function onlyOne(c) { document.getElementsByName('payment').forEach(b => { if(b !== c) b.checked = false; }); updateTotals(); }
 
         async function processOrder() {
+            const email = document.getElementById('email').value;
             const data = {
                 action: "submitOrder",
                 afm: document.getElementById('afm').value,
                 eponimia: document.getElementById('eponimia').value,
                 doy: document.getElementById('doy').value,
-                email: document.getElementById('email').value,
+                email: email,
                 total: document.getElementById('final-total').textContent,
                 payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή",
+                remarks: document.getElementById('remarks').value,
                 items: products.map((p, i) => {
                     const q = document.getElementById(`qty-${i}`).value;
                     return q > 0 ? `${p.name} (${q})` : null;
                 }).filter(x => x).join(", ")
             };
             
-            const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
-            const res = await r.json();
-            if (res.success) {
-                alert(`Η Παραγγελία καταχωρήθηκε και σας έχει αποσταλεί αντίγραφο στο ${data.email}. ${res.newCust ? "\nΤα στοιχεία κατοχυρώθηκαν!" : ""}`);
-                location.reload();
-            }
+            if (!data.items) { alert("Η παραγγελία είναι κενή!"); return; }
+
+            document.body.style.opacity = "0.5";
+            try {
+                const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) });
+                const res = await r.json();
+                if (res.success) {
+                    alert(`Η Παραγγελία καταχωρήθηκε! Αντίγραφο απεστάλη στο ${email}. ${res.newCust ? "\nΤα στοιχεία του νέου πελάτη κατοχυρώθηκαν!" : ""}`);
+                    location.reload();
+                }
+            } catch(e) { alert("Σφάλμα δικτύου."); }
+            document.body.style.opacity = "1";
         }
     </script>
 </body>
