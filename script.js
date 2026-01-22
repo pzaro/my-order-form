@@ -1,131 +1,136 @@
-// ============================================================
-// ZARKOLIA HEALTH - CORE ENGINE v52.0 Master Logic
-// ============================================================
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxMCnrKJzOHxADBVMw1gH6wZPaieD8YNlkyyS4KBT8RkSKQnfS00LPADkJiezRuga8ScQ/exec";
+let cart = {};
+let currentCustomer = null;
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMnMtsH8EihoSI4-U2cqz4x3pF6dUqT_WkSWo__WqQFP6D5q8_KCrGWySBaFnqy8dj4w/exec";
+PRODUCTS_DATA.forEach(p => cart[p.id] = 0);
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (typeof products !== 'undefined') {
-        renderOrderSystem();
-    }
-
-    // Live CRM Search [cite: 2025-08-13]
-    document.getElementById('afm').addEventListener('input', async function() {
-        if (this.value.trim().length === 9) {
-            const loader = document.getElementById('search-loader');
-            loader.className = 'spin';
-            try {
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?afm=${this.value}`);
-                const data = await response.json();
-                if (data && !data.notfound) {
-                    document.getElementById('eponimia').value = data.eponimia || "";
-                    document.getElementById('address').value = data.address || "";
-                    document.getElementById('city').value = data.city || "";
-                    document.getElementById('tk').value = data.tk || "";
-                    document.getElementById('email').value = data.email || "";
-                    document.getElementById('mobile').value = data.mobile || "";
-                } else {
-                    alert("Δεν βρέθηκε εγγραφή παρακαλώ συμπληρώστε τα στοιχεία σας [cite: 2026-01-20]");
-                }
-            } finally { loader.className = ''; }
-        }
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    setupListeners();
 });
 
-function renderOrderSystem() {
-    const container = document.getElementById('orderGrid');
-    container.innerHTML = '';
-
-    products.forEach((p, index) => {
-        const details = Object.entries(productDetails).find(([key]) => p.name.includes(key))?.[1] || {};
-        
-        const item = document.createElement('div');
-        item.className = 'order-item';
-        item.innerHTML = `
-            <img src="${details.img || ''}" class="item-img" onerror="this.style.display='none'">
-            <div class="item-info">
-                <h4>${p.name} <span onclick="showInfo('${p.name}', ${index})" style="cursor:pointer; font-size:1.2rem; filter: grayscale(1);">🧬</span></h4>
-                <small>${p.price.toFixed(2)} €</small>
+function renderProducts() {
+    const container = document.getElementById('product-list');
+    container.innerHTML = PRODUCTS_DATA.map(p => `
+        <div class="product-card">
+            <div>
+                <h4 style="font-size:1.4rem">${p.name}</h4>
+                <p style="color:var(--health-gray)">${p.price.toFixed(2)}€</p>
+                <button class="accent" style="background:none; border:none; cursor:pointer; font-weight:700" onclick="openModal('${p.id}')">INFO</button>
+            </div>
+            <div style="text-align:center">
+                <span class="badge" id="gift-${p.id}" style="font-size:0.9rem; color:var(--accent-emerald)">Δώρα: 0</span>
             </div>
             <div class="qty-controls">
-                <button type="button" onclick="changeQty(${index}, -1)">−</button>
-                <input type="number" id="qty-${index}" value="0" min="0" oninput="updateTotals()">
-                <button type="button" onclick="changeQty(${index}, 1)">+</button>
+                <button class="btn-qty" onclick="updateQty('${p.id}', -1)">-</button>
+                <input type="number" class="qty-input" id="qty-${p.id}" value="0" readonly>
+                <button class="btn-qty" onclick="updateQty('${p.id}', 1)">+</button>
             </div>
-            <div class="item-total" id="total-${index}">0.00 €</div>
-        `;
-        container.appendChild(item);
-    });
+        </div>
+    `).join('');
 }
 
-function changeQty(index, delta) {
-    const input = document.getElementById(`qty-${index}`);
-    let newVal = (parseInt(input.value) || 0) + delta;
-    input.value = newVal < 0 ? 0 : newVal;
-    updateTotals();
-}
-
-function updateTotals() {
-    let initialNet = 0; 
-    let gifts = 0;
-
-    products.forEach((p, i) => {
-        const q = parseInt(document.getElementById(`qty-${i}`).value) || 0;
-        let g = q >= 24 ? 6 : (q >= 18 ? 3 : (q >= 9 ? 1 : 0));
-        initialNet += q * p.price; 
-        gifts += g;
-        document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €";
-    });
-
-    // ΝΕΑ ΛΟΓΙΚΗ ΕΚΠΤΩΣΗΣ: 2% στα 200€ + 1% ανά 100€ [cite: 2026-01-20]
-    let volPerc = 0;
-    if (initialNet >= 1000) {
-        volPerc = 10;
-    } else if (initialNet >= 200) {
-        volPerc = 2 + Math.floor((initialNet - 200) / 100);
-    }
-
-    const volVal = initialNet * (volPerc / 100);
-    const isCash = Array.from(document.getElementsByName('payment')).find(c => c.checked)?.value === "Αντικαταβολή Μετρητά";
-    const cashVal = isCash ? (initialNet - volVal) * 0.02 : 0;
-    const finalTotal = (initialNet - volVal - cashVal) * 1.24;
-
-    document.getElementById("final-total").textContent = finalTotal.toFixed(2) + " €";
-    document.getElementById("dynamicAnalysis").innerHTML = initialNet > 0 ? 
-        `✅ Δώρα: <strong>${gifts}</strong> | Έκπτωση Τζίρου: <strong>${volPerc}%</strong>` : "Περιμένω δεδομένα...";
-}
-
-function showInfo(name, index) {
-    let key = Object.keys(productDetails).find(k => name.toLowerCase().includes(k.toLowerCase())) || name;
-    const p = productDetails[key] || { moa: [], cases: "—", rationale: "—", img: "" };
-    const modal = document.getElementById('productModal');
+function updateQty(id, delta) {
+    cart[id] = Math.max(0, cart[id] + delta);
+    document.getElementById(`qty-${id}`).value = cart[id];
     
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span style="position:absolute; top:25px; right:35px; cursor:pointer; font-size:2.5rem; color:#cbd5e1;" onclick="closeModal()">&times;</span>
-            <div style="display:flex; align-items:center; gap:40px; margin-bottom:40px; flex-wrap:wrap;">
-                <img src="${p.img}" style="width:160px; border-radius:28px; border:1px solid #eee; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
-                <div>
-                    <h2 style="margin:0; color:var(--primary); font-size:2.2rem; letter-spacing:-1px;">${name}</h2>
-                    <p style="color:var(--accent); font-weight:800; text-transform:uppercase; letter-spacing:1px;">Scientific Compendium</p>
-                </div>
-            </div>
-            <div style="background:#f8fafc; padding:35px; border-radius:28px; border:1px solid #f1f5f9; margin-bottom:30px;">
-                <h4 style="margin-top:0; color:var(--primary); text-transform:uppercase; font-size:0.9rem;">🧬 Μοριακός Μηχανισμός (MoA)</h4>
-                ${p.moa.map(m => `<p style="margin-bottom:12px; font-size:1.05rem;"><strong>${m.ing}:</strong> ${m.moa}</p>`).join("")}
-            </div>
-            <div style="background:#ecfdf5; padding:30px; border-radius:24px;">
-                <strong style="color:var(--primary); text-transform:uppercase; font-size:0.75rem;">📍 Ενδείξεις</strong><br><span style="font-size:1.1rem; font-weight:600;">${p.cases}</span>
-            </div>
-        </div>`;
-    modal.classList.add('active');
+    let gifts = 0;
+    if (cart[id] >= 24) gifts = 6;
+    else if (cart[id] >= 18) gifts = 3;
+    else if (cart[id] >= 9) gifts = 1;
+    
+    document.getElementById(`gift-${id}`).innerText = `Δώρα: ${gifts}`;
+    calculateTotals();
 }
 
-function closeModal() { document.getElementById('productModal').classList.remove('active'); }
-function onlyOne(checkbox) { document.getElementsByName('payment').forEach(b => { if(b !== checkbox) b.checked = false; }); updateTotals(); }
+function calculateTotals() {
+    let subtotal = 0;
+    let totalGifts = 0;
+    PRODUCTS_DATA.forEach(p => {
+        subtotal += cart[p.id] * p.price;
+        if (cart[p.id] >= 24) totalGifts += 6;
+        else if (cart[p.id] >= 18) totalGifts += 3;
+        else if (cart[p.id] >= 9) totalGifts += 1;
+    });
 
-async function processOrder() {
-    if(!document.getElementById("eponimia").value) { alert("Συμπληρώστε τα στοιχεία πελάτη!"); return; }
-    alert("Τα στοιχεία αποθηκεύτηκαν [cite: 2026-01-20]");
-    location.reload();
+    let volDisc = Math.min(Math.floor(subtotal / 100), 10);
+    let afterVol = subtotal * (1 - volDisc/100);
+    
+    const isCash = document.getElementById('payment-method').value === 'cash';
+    let net = isCash ? afterVol * 0.98 : afterVol;
+    let final = net * 1.24;
+
+    document.getElementById('net-total').innerText = subtotal.toFixed(2) + "€";
+    document.getElementById('total-gifts').innerText = totalGifts;
+    document.getElementById('current-discount-badge').innerText = volDisc + "% Έκπτωση";
+    document.getElementById('final-payable').innerText = final.toFixed(2) + "€";
+    
+    let prog = (subtotal % 100);
+    document.getElementById('volume-progress').style.width = prog + "%";
+    document.getElementById('progress-text').innerText = prog.toFixed(0) + " / 100€";
+    document.getElementById('total-benefit').innerText = ((subtotal - net) + (totalGifts * 15)).toFixed(2) + "€";
 }
+
+function setupListeners() {
+    document.getElementById('afm-input').addEventListener('input', async (e) => {
+        if (e.target.value.length === 9) {
+            const res = await fetch(`${GAS_URL}?afm=${e.target.value}`);
+            const data = await res.json();
+            if (data.status === "found" || data.eponimia) {
+                currentCustomer = data;
+                document.getElementById('customer-name-display').innerText = "Πελάτης: " + (data.eponimia || "Βρέθηκε");
+            } else {
+                currentCustomer = null;
+                document.getElementById('customer-name-display').innerText = "Νέος Πελάτης";
+            }
+        }
+    });
+
+    document.getElementById('payment-method').onchange = calculateTotals;
+
+    document.getElementById('submit-order').onclick = async () => {
+        const afm = document.getElementById('afm-input').value;
+        if (afm.length < 9) return alert("Εισάγετε έγκυρο ΑΦΜ");
+
+        let itemsText = "";
+        PRODUCTS_DATA.forEach(p => { if(cart[p.id] > 0) itemsText += `${p.name}: ${cart[p.id]} τεμ.\n`; });
+
+        const payload = {
+            customer: currentCustomer ? currentCustomer.eponimia : "ΝΕΟΣ ΠΕΛΑΤΗΣ",
+            afm: afm,
+            doy: currentCustomer ? currentCustomer.doy : "-",
+            email: currentCustomer ? currentCustomer.email : "info@zarkolia.gr",
+            products: itemsText,
+            netValue: document.getElementById('net-total').innerText,
+            vat: "24%",
+            total: document.getElementById('final-payable').innerText,
+            payment: document.getElementById('payment-method').value,
+            remarks: "Web Order"
+        };
+
+        const btn = document.getElementById('submit-order');
+        btn.disabled = true;
+        btn.innerText = "ΑΠΟΣΤΟΛΗ...";
+
+        try {
+            await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
+            alert("Η παραγγελία καταχωρήθηκε!");
+            location.reload();
+        } catch (e) {
+            alert("Σφάλμα σύνδεσης.");
+            btn.disabled = false;
+        }
+    };
+}
+
+function openModal(id) {
+    const p = PRODUCTS_DATA.find(x => x.id === id);
+    document.getElementById('modal-body').innerHTML = `
+        <h2 class="luxury-title">${p.name}</h2>
+        <p style="margin:20px 0"><strong>MoA:</strong> ${p.moa}</p>
+        <p><strong>Συστατικά:</strong> ${p.ingredients}</p>
+    `;
+    document.getElementById('info-modal').style.display = 'flex';
+}
+
+document.querySelector('.close-modal').onclick = () => document.getElementById('info-modal').style.display = 'none';
