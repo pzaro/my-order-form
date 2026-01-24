@@ -12,10 +12,10 @@ const products = [
     { name: 'Revitacell Plus Face cream 50ml', price: 10.69, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg" },
     { name: 'Revitace Eyes cream Luce 30ml', price: 10.10, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg" },
     { name: 'Alveolair Sir', price: 7.65, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Alveolair%20Sir.jpg" },
-    { name: 'NUTRI MX PROBIOTIC PREMIUM', price: 8.96, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg" },
-    { name: 'NUTRI MX MAGNESIUM +B6', price: 5.98, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg" },
-    { name: 'NUTRI MX A-Z', price: 6.51, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg" },
-    { name: 'NUTRI MX OMEGA 3', price: 6.87, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg" },
-    { name: 'NUTRI MX JOINT', price: 10.16, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" },
+    { name: 'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps', price: 11.11, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg" },
+    { name: 'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab', price: 7.42, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg" },
+    { name: 'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB', price: 8.07, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg" },
+    { name: 'NUTRI MX OMEGA 3 30 Softgel Caps', price: 8.52, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg" },
+    { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 12.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" },
     { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" }
 ];
