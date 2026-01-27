@@ -3,41 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zarkolia Health - Ultra Sync v87.0</title>
+    <title>Zarkolia Health - Ultra Sync v88.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; --white: #ffffff; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; color: #1e293b; }
         .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 15px; padding-bottom: 250px; }
-        
-        /* GREEN CUSTOMER HEADER [cite: 2026-01-22] */
-        .customer-header { 
-            background: var(--white); border-radius: 25px; padding: 25px; border: 2px solid var(--accent);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.1); margin-bottom: 25px;
-            background-image: linear-gradient(to right, #ffffff, #f0fff4);
-        }
+        .customer-header { background: var(--white); border-radius: 25px; padding: 25px; border: 2px solid var(--accent); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.1); margin-bottom: 25px; background-image: linear-gradient(to right, #ffffff, #f0fff4); }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
         .input-group label { display: block; font-size: 0.65rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; }
         .input-group input { width: 100%; padding: 12px; border-radius: 12px; border: 2.5px solid #e2e8f0; font-weight: 600; outline: none; }
-
         .order-item { display: grid; grid-template-columns: 70px 1fr auto; grid-template-areas: "img info total" "btns btns btns" "qty qty qty"; align-items: center; padding: 15px; background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; margin-bottom: 12px; gap: 10px; }
         .p-img { grid-area: img; width: 60px; height: 60px; object-fit: contain; }
         .quick-btns { grid-area: btns; display: flex; gap: 5px; }
         .q-btn { flex: 1; padding: 8px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #f8fafc; font-size: 0.7rem; font-weight: 800; cursor: pointer; color: var(--primary); }
-        .q-btn:hover { background: var(--accent); color: white; }
-
         .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f8fafc; padding: 8px; border-radius: 12px; }
         .qty-btn { width: 38px; height: 38px; border: none; background: #fff; border-radius: 10px; font-weight: 900; cursor: pointer; }
-
-        .billing-card { background: var(--white); border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .total-row { font-size: 1.8rem; font-weight: 900; color: var(--primary); border-top: 2px solid #f1f5f9; padding-top: 15px; margin-top: 15px; display: flex; justify-content: space-between; }
-
-        /* PROGRESS BAR & REMAINING [cite: 2026-01-22] */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 20px; z-index: 1000; border-top: 5px solid var(--accent); }
         .progress-track { height: 12px; background: rgba(255,255,255,0.15); border-radius: 20px; margin: 12px 0; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.8s ease-out; }
-        .progress-info { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; }
-
         .btn-confirm { width: 100%; padding: 20px; background: var(--accent); color: white; border: none; border-radius: 18px; font-size: 1.3rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
         #hourglass { display: none; animation: spin 2s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -51,7 +35,7 @@
                 <div style="font-size:0.75rem; font-weight:800; color:var(--primary); margin-bottom:15px;">👤 ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ <span id="hourglass">⏳</span></div>
                 <div class="customer-grid">
                     <div class="input-group"><label>ΑΦΜ</label><input type="number" id="afm" placeholder="000000000"></div>
-                    <div class="input-group"><label>Επωνυμία / Φαρμακείο</label><input type="text" id="eponimia"></div>
+                    <div class="input-group"><label>Επωνυμία</label><input type="text" id="eponimia"></div>
                     <div class="input-group"><label>Email</label><input type="email" id="email" placeholder="email@example.com"></div>
                     <div class="input-group"><label>Κινητό</label><input type="tel" id="kinito"></div>
                     <div class="input-group"><label>Σταθερό</label><input type="tel" id="stathero"></div>
@@ -61,11 +45,10 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
                 <div id="orderGrid"></div>
                 <div class="sidebar">
-                    <section class="billing-card">
+                    <section style="background:#fff; border-radius:25px; padding:25px; box-shadow:0 10px 30px rgba(0,0,0,0.03);">
                         <label style="display:block; margin-bottom:12px; cursor:pointer; font-weight:700;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)"> Μετρητά (+2% Έκπτωση)</label>
                         <label style="display:block; margin-bottom:20px; cursor:pointer; font-weight:700;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)"> Επιταγή 60 Ημερών</label>
-                        <div style="display:flex; justify-content:space-between;"><span>Καθαρή Αξία</span><span id="init-net">0.00 €</span></div>
-                        <div class="total-row"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
+                        <div style="font-size:1.8rem; font-weight:900; color:var(--primary); display:flex; justify-content:space-between;"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
                         <button type="button" class="btn-confirm" onclick="processOrder()">Καταχώρηση</button>
                     </section>
                 </div>
@@ -79,7 +62,7 @@
                 <div id="sticky-perc" style="background:white; color:var(--primary); padding:4px 12px; border-radius:8px; font-weight:900;">0% DISCOUNT</div>
             </div>
             <div class="progress-track"><div class="progress-fill" id="vol-fill"></div></div>
-            <div class="progress-info">
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:800;">
                 <span id="remaining-text">Υπολείπονται 200.00 € για την πρώτη έκπτωση</span>
                 <span id="target-perc">Στόχος: 2%</span>
             </div>
@@ -87,7 +70,7 @@
     </div>
     <script src="products.js"></script>
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbys2jfJmwhHLBRZxPykNI38M2wF4S3gKFYJTCRL2-GxS7ETlzuzQY8Lexm5aJBo94W00w/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP6Q0kM0IRsHJFtpM9owXMXSlkdiLhPQId44gS-cZZs7-YKc1BzmxuBnDnPbApc353qA/exec";
         document.addEventListener("DOMContentLoaded", () => { if (typeof products !== 'undefined') renderProducts(); document.getElementById('afm').addEventListener('input', lookupCustomer); });
         function renderProducts() {
             const container = document.getElementById('orderGrid');
@@ -114,13 +97,9 @@
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
             let netFinal = isCash ? netAfterVol * 0.98 : netAfterVol;
             const total = netFinal * 1.24;
-            
-            document.getElementById("init-net").textContent = net.toFixed(2) + " €";
             document.getElementById("total-val").textContent = total.toFixed(2) + " €";
             document.getElementById("sticky-total").textContent = total.toFixed(2) + " €";
             document.getElementById("sticky-perc").textContent = (volPerc + (isCash ? 2 : 0)) + "% DISCOUNT";
-            
-            // PROGRESS BAR LOGIC [cite: 2026-01-22]
             let nextThreshold = net < 200 ? 200 : (Math.floor(net / 100) + 1) * 100;
             if (volPerc >= 10) nextThreshold = 1000;
             const progress = Math.min(100, (net / nextThreshold) * 100);
@@ -140,4 +119,3 @@
     </script>
 </body>
 </html>
-
