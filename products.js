@@ -16,6 +16,6 @@ const products = [
     { name: 'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab', price: 7.42, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg" },
     { name: 'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB', price: 8.07, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg" },
     { name: 'NUTRI MX OMEGA 3 30 Softgel Caps', price: 8.52, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg" },
-    { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 12.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" },
+    { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 10.16, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" },
     { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" }
 ];
