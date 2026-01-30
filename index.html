@@ -3,107 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zarkolia Health - Supreme v114.0</title>
+    <title>Zarkolia Health - Supreme v115.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; --white: #ffffff; --grey: #808080; --text: #1e293b; --border: #e2e8f0; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; color: var(--text); line-height: 1.6; overflow-x: hidden; }
-        .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 20px; padding-bottom: 400px; }
         
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            color: var(--text); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 20px; padding-bottom: 420px; }
+        
+        /* HEADER & REFINED LOGO */
         header { text-align: center; padding: 30px 0; }
-        header h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 2.8rem); color: var(--primary); margin: 0; cursor: pointer; user-select: none; letter-spacing: -1px; }
+        header h1 { 
+            font-family: 'Montserrat'; 
+            font-size: clamp(2rem, 6vw, 2.8rem); 
+            color: var(--primary); 
+            margin: 0; 
+            cursor: pointer; 
+            user-select: none;
+            letter-spacing: -1px;
+        }
         header h1 span { color: var(--grey); font-weight: 300; margin-left: 8px; }
         
-        .admin-notify { display: none; color: #f59e0b; font-size: 0.75rem; font-weight: 800; text-align: center; margin-top: 8px; letter-spacing: 2px; text-transform: uppercase; }
+        .admin-notify { 
+            display: none; color: #f59e0b; font-size: 0.75rem; font-weight: 800; 
+            text-align: center; margin-top: 8px; letter-spacing: 2px; text-transform: uppercase;
+        }
         .admin-mode .admin-notify { display: block; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-        .customer-header { background: var(--white); border-radius: 30px; padding: clamp(20px, 4vw, 35px); border: 2px solid var(--accent); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08); margin-bottom: 30px; background-image: linear-gradient(135deg, #ffffff, #f0fff4); }
+        /* CUSTOMER CARD */
+        .customer-header { 
+            background: var(--white); border-radius: 30px; padding: clamp(20px, 4vw, 35px); 
+            border: 2px solid var(--accent); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08); 
+            margin-bottom: 30px; background-image: linear-gradient(135deg, #ffffff, #f0fff4);
+        }
+        .card-label { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--primary); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
         .input-group label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
-        .input-group input { width: 100%; padding: 14px; border-radius: 14px; border: 2.5px solid var(--border); font-weight: 600; font-size: 1rem; outline: none; transition: 0.3s; background: #fff; }
+        .input-group input { 
+            width: 100%; padding: 14px; border-radius: 14px; border: 2.5px solid var(--border); 
+            font-weight: 600; font-size: 1rem; outline: none; transition: 0.3s; background: #fff;
+        }
         .input-group input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
 
+        /* PRODUCT LISTING */
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
         @media (min-width: 1024px) { .dashboard-grid { grid-template-columns: 1.7fr 1fr; align-items: start; } }
 
-        .order-item { display: grid; grid-template-columns: 80px 1fr auto; grid-template-areas: "img info total" "btns btns btns" "qty qty qty"; align-items: center; padding: 20px; background: #fff; border-radius: 30px; border: 1px solid var(--border); margin-bottom: 18px; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .order-item { 
+            display: grid; grid-template-columns: 80px 1fr auto; 
+            grid-template-areas: "img info total" "btns btns btns" "qty qty qty"; 
+            align-items: center; padding: 20px; background: #fff; border-radius: 30px; 
+            border: 1px solid var(--border); margin-bottom: 18px; gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
         .p-img { grid-area: img; width: 70px; height: 70px; object-fit: contain; }
         .p-total { grid-area: total; font-weight: 900; color: var(--primary); font-size: 1.2rem; }
-        .stock-tag { display: none; font-size: 0.65rem; font-weight: 800; color: #f59e0b; background: #fef3c7; padding: 4px 12px; border-radius: 10px; margin-top: 6px; }
+        .stock-tag { 
+            display: none; font-size: 0.65rem; font-weight: 800; color: #f59e0b; 
+            background: #fef3c7; padding: 4px 12px; border-radius: 10px; margin-top: 6px; 
+        }
         .admin-mode .stock-tag { display: inline-block; }
 
+        /* 3D QUICK ACTION BUTTONS */
         .quick-btns { grid-area: btns; display: flex; gap: 10px; margin-top: 8px; }
-        .q-btn { flex: 1; padding: 14px 5px; border: 1px solid #e2e8f0; border-radius: 16px; background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); font-size: 0.85rem; font-weight: 800; cursor: pointer; color: var(--primary); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; }
+        .q-btn { 
+            flex: 1; padding: 14px 5px; border: 1px solid #e2e8f0; border-radius: 16px; 
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); 
+            font-size: 0.85rem; font-weight: 800; cursor: pointer; color: var(--primary); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: center;
+        }
         .q-btn:hover { background: var(--accent); color: white; border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
 
+        /* QUANTITY CONTROLS */
         .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 12px; border-radius: 20px; }
         .qty-btn { width: 48px; height: 48px; border: none; background: #fff; border-radius: 15px; font-weight: 900; font-size: 1.6rem; cursor: pointer; color: var(--primary); box-shadow: 0 3px 6px rgba(0,0,0,0.06); }
         .qty-input { width: 70px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 1.4rem; color: var(--primary); }
 
-        .billing-card { background: var(--white); border-radius: 35px; padding: 30px; border: 1px solid #c6f6d5; box-shadow: 0 20px 40px rgba(0,0,0,0.04); background-image: linear-gradient(180deg, #ffffff, #f0fff4); position: sticky; top: 20px; }
+        /* BILLING SIDEBAR */
+        .billing-card { 
+            background: var(--white); border-radius: 35px; padding: 30px; border: 1px solid #c6f6d5; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04); background-image: linear-gradient(180deg, #ffffff, #f0fff4); 
+            position: sticky; top: 20px;
+        }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; font-size: 1rem; }
-        .summary-row.total { font-size: clamp(1.8rem, 4vw, 2.2rem); font-weight: 900; color: var(--primary); border-top: 4px solid var(--accent); padding-top: 20px; margin-top: 20px; }
+        .summary-row.total { 
+            font-size: clamp(1.8rem, 4vw, 2.2rem); font-weight: 900; color: var(--primary); 
+            border-top: 4px solid var(--accent); padding-top: 20px; margin-top: 20px; 
+        }
 
-        .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 25px clamp(15px, 5vw, 40px); z-index: 1000; border-top: 6px solid var(--accent); box-shadow: 0 -15px 40px rgba(0,0,0,0.3); }
-        .disc-analysis { font-size: 0.9rem; font-weight: 800; color: #fff; background: rgba(255,255,255,0.12); padding: 12px 20px; border-radius: 14px; margin-bottom: 15px; display: inline-block; border: 1px solid rgba(255,255,255,0.15); }
-        .progress-track { height: 16px; background: rgba(255,255,255,0.15); border-radius: 20px; margin: 12px 0; overflow: hidden; }
+        /* STICKY FOOTER & ANALYTICS */
+        .sticky-bar { 
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); 
+            color: #fff; padding: 25px clamp(15px, 5vw, 40px); z-index: 1000; border-top: 6px solid var(--accent); 
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.3);
+        }
+        .disc-analysis { 
+            font-size: 0.9rem; font-weight: 800; color: #fff; background: rgba(255,255,255,0.12); 
+            padding: 12px 20px; border-radius: 14px; margin-bottom: 15px; display: inline-block; 
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .progress-track { height: 16px; background: rgba(255,255,255,0.15); border-radius: 20px; margin: 15px 0; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .progress-info { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; }
 
-        .btn-confirm { width: 100%; padding: 24px; background: var(--accent); color: white; border: none; border-radius: 24px; font-size: 1.5rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 25px; box-shadow: 0 12px 25px rgba(16, 185, 129, 0.3); }
+        .btn-confirm { 
+            width: 100%; padding: 24px; background: var(--accent); color: white; border: none; 
+            border-radius: 24px; font-size: 1.5rem; font-weight: 900; cursor: pointer; 
+            text-transform: uppercase; margin-top: 25px; box-shadow: 0 12px 25px rgba(16, 185, 129, 0.3); 
+        }
+
         #hourglass { display: none; animation: spin 2s linear infinite; margin-left: 10px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body id="mainBody">
     <div class="main-wrapper">
-        <header><h1 ondblclick="toggleAdminMode()">ZARKOLIA<span>HEALTH</span></h1><div id="adminNotify">ADMIN: WAREHOUSE SYNC ACTIVE</div></header>
+        <header>
+            <h1 ondblclick="toggleAdminMode()">ZARKOLIA<span>HEALTH</span></h1>
+            <div id="adminNotify" class="admin-notify">ADMIN: WAREHOUSE SYNC ACTIVE</div>
+        </header>
+        
         <form id="orderForm" onsubmit="return false;">
             <section class="customer-header">
-                <div style="font-size:0.8rem; font-weight:800; color:var(--primary); margin-bottom:15px; text-transform:uppercase;">👤 ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ <span id="hourglass">⏳</span></div>
+                <div style="font-size:0.85rem; font-weight:800; color:var(--primary); margin-bottom:20px; display:flex; align-items:center; gap:8px;">👤 ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ <span id="hourglass">⏳</span></div>
                 <div class="customer-grid">
-                    <div class="input-group"><label>ΑΦΜ</label><input type="number" id="afm" placeholder="Εισάγετε 9 ψηφία"></div>
+                    <div class="input-group"><label>ΑΦΜ</label><input type="number" id="afm" placeholder="9 ψηφία"></div>
                     <div class="input-group"><label>Επωνυμία / Φαρμακείο</label><input type="text" id="eponimia"></div>
-                    <div class="input-group"><label>Email</label><input type="email" id="email"></div>
+                    <div class="input-group"><label>Email</label><input type="email" id="email" placeholder="mail@example.com"></div>
                     <div class="input-group"><label>Κινητό</label><input type="tel" id="kinito"></div>
                     <div class="input-group"><label>Σταθερό</label><input type="tel" id="stathero"></div>
                     <div class="input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
                 </div>
             </section>
+            
             <div class="dashboard-grid">
-                <div id="orderGrid"></div>
+                <div class="main-content"><div id="orderGrid"></div></div>
+
                 <div class="sidebar">
                     <section class="billing-card">
-                        <div style="font-size:0.8rem; font-weight:800; color:var(--primary); margin-bottom:15px; text-transform:uppercase;">💳 ΤΡΟΠΟΣ ΠΛΗΡΩΜΗΣ</div>
-                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:18px; cursor:pointer; font-weight:700; font-size:1.05rem;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:24px; height:24px;"> Μετρητά (+2% Έκπτωση)</label>
-                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700; font-size:1.05rem;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:24px; height:24px;"> Επιταγή 60 Ημερών</label>
+                        <div style="font-size:0.85rem; font-weight:800; color:var(--primary); margin-bottom:20px;">💳 ΤΡΟΠΟΣ ΠΛΗΡΩΜΗΣ</div>
+                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:18px; cursor:pointer; font-weight:700; font-size:1.1rem;">
+                            <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:24px; height:24px;"> Μετρητά (+2% Έκπτωση)
+                        </label>
+                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700; font-size:1.1rem;">
+                            <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:24px; height:24px;"> Επιταγή 60 Ημερών
+                        </label>
+                        
                         <div class="summary-row"><span>Καθαρή Αξία Τιμολόγησης:</span><span id="net-invoice">0.00 €</span></div>
                         <div class="summary-row total"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
-                        <textarea id="remarks" style="width:100%; height:100px; border-radius:20px; border:2.5px solid var(--border); padding:18px; margin-top:20px; font-family:inherit; font-size:1rem;" placeholder="Σημειώσεις..."></textarea>
+                        
+                        <textarea id="remarks" style="width:100%; height:100px; border-radius:20px; border:2.5px solid var(--border); padding:18px; margin-top:20px; font-family:inherit; font-size:1rem;" placeholder="Σημειώσεις παραγγελίας..."></textarea>
                         <button type="button" class="btn-confirm" onclick="processOrder()">Καταχώρηση</button>
                     </section>
                 </div>
             </div>
         </form>
     </div>
-    <div class="sticky-bar"><div style="max-width:1200px; margin:0 auto;">
+
+    <div class="sticky-bar">
+        <div style="max-width:1200px; margin:0 auto;">
             <div id="analysis-ui" class="disc-analysis">Ανάλυση: Έκπτωση Τζίρου 0% + Μετρητά 0% = 0% Σύνολο</div>
             <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-                <div><small style="opacity:0.85; font-weight:800; font-size:0.75rem; text-transform:uppercase;">Τελικό Ποσό Με ΦΠΑ</small><div id="sticky-total" style="font-size: clamp(1.8rem, 5vw, 2.3rem); font-weight: 900; line-height:1;">0.00 €</div></div>
+                <div>
+                    <small style="opacity:0.85; font-weight:800; font-size:0.75rem; text-transform:uppercase;">Τελικό Ποσό Με ΦΠΑ</small>
+                    <div id="sticky-total" style="font-size: clamp(1.8rem, 5vw, 2.3rem); font-weight: 900; line-height:1;">0.00 €</div>
+                </div>
                 <span id="sticky-badge" style="background:white; color:var(--primary); padding:8px 18px; border-radius:12px; font-weight:900; font-size:0.95rem;">0% DISC.</span>
             </div>
             <div class="progress-track"><div class="progress-fill" id="vol-fill"></div></div>
-            <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:800;"><span id="remaining-text">Υπολείπονται 200.00 € για την πρώτη έκπτωση</span><span id="target-perc">Στόχος: 2%</span></div>
-    </div></div>
+            <div class="progress-info">
+                <span id="remaining-text">Υπολείπονται 200.00 € για την πρώτη έκπτωση</span>
+                <span id="target-perc" style="background:rgba(255,255,255,0.2); padding:4px 12px; border-radius:8px;">Στόχος: 2%</span>
+            </div>
+        </div>
+    </div>
+
     <script src="products.js"></script>
     <script>
-        const _0xU = "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6eFBoVnZLWFlGbkRMd2VfWTh1UmpnbE9nN3VCbkJmUXE4U1E2bS10eFpCck1ZTU8xdVBoZFlzcFhVTzU1ZGVSeHcvZXhlYw==";
-        const SCRIPT_URL = atob(_0xU);
+        /************************************************************/
+        /* ΕΔΩ ΚΑΝΕΤΕ ΕΠΙΚΟΛΛΗΣΗ ΤΟ LINK ΣΑΣ ΑΠΟ ΤΟ GOOGLE SCRIPT   */
+        /************************************************************/
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOQGmhvOr5dHfL1UvoOslBZyCG_gizdjMrCUYndh6U2wBIY6QJPZ9sWvy4iR-FamEcLw/exec";
+        /************************************************************/
+
         let adminMode = false;
-        document.addEventListener("DOMContentLoaded", () => { if (typeof products !== 'undefined') renderProducts(); document.getElementById('afm').addEventListener('input', lookupCustomer); });
-        
+
+        document.addEventListener("DOMContentLoaded", () => { 
+            if (typeof products !== 'undefined') renderProducts(); 
+            document.getElementById('afm').addEventListener('input', lookupCustomer); 
+        });
+
         async function lookupCustomer() {
             const afm = document.getElementById('afm').value.trim();
             if (afm.length === 9) {
@@ -118,49 +219,90 @@
                         document.getElementById('stathero').value = d.data.stathero || "";
                         document.getElementById('doy').value = d.data.doy || "";
                     }
-                } catch(e) {} document.getElementById('hourglass').style.display = 'none';
+                } catch(e) { console.error("Lookup connection failed"); }
+                document.getElementById('hourglass').style.display = 'none';
             }
         }
 
         async function toggleAdminMode() {
             if (!adminMode) {
-                const userPin = prompt("PIN Αποθήκης:"); if (!userPin) return;
+                const userPin = prompt("Κωδικός Ασφαλείας Αποθήκης:"); if (!userPin) return;
                 try {
                     const r = await fetch(`${SCRIPT_URL}?action=getStock&pin=${userPin}`);
                     const d = await r.json();
-                    if (d.success) { adminMode = true; document.getElementById('mainBody').classList.add('admin-mode'); products.forEach((p, i) => { document.getElementById(`stock-${i}`).textContent = `STOCK: ${d.inventory[p.name] || 0} ΤΕΜ.`; }); }
-                } catch(e) { alert("Σφάλμα σύνδεσης."); }
-            } else { adminMode = false; document.getElementById('mainBody').classList.remove('admin-mode'); }
+                    if (d.success) {
+                        adminMode = true; document.getElementById('mainBody').classList.add('admin-mode');
+                        products.forEach((p, i) => { 
+                            const tag = document.getElementById(`stock-${i}`);
+                            if (tag) tag.textContent = `STOCK: ${d.inventory[p.name] || 0} ΤΕΜ.`; 
+                        });
+                    } else { alert("Λάθος PIN!"); }
+                } catch(e) { alert("Αποτυχία σύνδεσης με το Sheet."); }
+            } else {
+                adminMode = false;
+                document.getElementById('mainBody').classList.remove('admin-mode');
+            }
         }
 
         function renderProducts() {
             const container = document.getElementById('orderGrid');
             products.forEach((p, i) => {
                 const div = document.createElement('div'); div.className = 'order-item';
-                div.innerHTML = `<img src="${p.img}" class="p-img"><div class="p-info"><strong>${p.name}</strong><small style="display:block; font-weight:700; color:#64748b;">${p.price.toFixed(2)} €</small><span class="stock-tag" id="stock-${i}">...</span></div><div class="p-total" id="total-${i}">0.00 €</div><div class="quick-btns"><button class="q-btn" onclick="setQty(${i}, 9)">9+1</button><button class="q-btn" onclick="setQty(${i}, 18)">18+3</button><button class="q-btn" onclick="setQty(${i}, 24)">24+6</button></div><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><input type="number" id="qty-${i}" value="0" class="qty-input" oninput="updateTotals()"><button class="qty-btn" onclick="changeQty(${i},1)">+</button></div>`;
+                div.innerHTML = `
+                    <img src="${p.img}" class="p-img">
+                    <div class="p-info">
+                        <strong>${p.name}</strong>
+                        <small style="display:block; font-weight:700; color:#64748b;">${p.price.toFixed(2)} €</small>
+                        <span class="stock-tag" id="stock-${i}">...</span>
+                    </div>
+                    <div class="p-total" id="total-${i}">0.00 €</div>
+                    <div class="quick-btns">
+                        <button class="q-btn" onclick="setQty(${i}, 9)">9+1</button>
+                        <button class="q-btn" onclick="setQty(${i}, 18)">18+3</button>
+                        <button class="q-btn" onclick="setQty(${i}, 24)">24+6</button>
+                    </div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty(${i},-1)">-</button>
+                        <input type="number" id="qty-${i}" value="0" class="qty-input" oninput="updateTotals()">
+                        <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+                    </div>`;
                 container.appendChild(div);
             });
         }
 
         function updateTotals() {
-            let net = 0; products.forEach((p, i) => { const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; net += q * p.price; document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €"; });
+            let net = 0; 
+            products.forEach((p, i) => { 
+                const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; 
+                net += q * p.price; 
+                document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €"; 
+            });
+
             let volPerc = net >= 200 ? Math.min(10, Math.floor(net / 100)) : 0;
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
             let cashPerc = isCash ? 2 : 0;
+            let totalDisc = volPerc + cashPerc;
             let netAfterVol = net * (1 - volPerc / 100);
             let netFinal = isCash ? netAfterVol * 0.98 : netAfterVol;
 
             document.getElementById("net-invoice").textContent = netFinal.toFixed(2) + " €";
             document.getElementById("total-val").textContent = (netFinal * 1.24).toFixed(2) + " €";
             document.getElementById("sticky-total").textContent = (netFinal * 1.24).toFixed(2) + " €";
-            document.getElementById("sticky-badge").textContent = (volPerc + cashPerc) + "% DISC.";
-            document.getElementById("analysis-ui").textContent = `Ανάλυση: Έκπτωση Τζίρου ${volPerc}% + Μετρητά ${cashPerc}% = ${volPerc + cashPerc}% Σύνολο`;
+            document.getElementById("sticky-badge").textContent = totalDisc + "% DISC.";
+            document.getElementById("analysis-ui").textContent = `Ανάλυση: Έκπτωση Τζίρου ${volPerc}% + Μετρητά ${cashPerc}% = ${totalDisc}% Σύνολο`;
 
             let nextT = net < 200 ? 200 : (Math.floor(net / 100) + 1) * 100;
             if (volPerc >= 10) nextT = 1000;
-            document.getElementById("vol-fill").style.width = Math.min(100, (net / nextT) * 100) + "%";
-            document.getElementById("remaining-text").textContent = net >= 1000 ? "Μέγιστη έκπτωση τζίρου!" : `Υπολείπονται ${(nextT - net).toFixed(2)} € για επόμενο %`;
-            document.getElementById("target-perc").textContent = net >= 1000 ? "MAX 10%" : `Στόχος: ${Math.floor(nextT / 100)}%`;
+            const progress = Math.min(100, (net / nextT) * 100);
+            document.getElementById("vol-fill").style.width = progress + "%";
+            
+            if (net >= 1000) {
+                document.getElementById("remaining-text").textContent = "Μέγιστη έκπτωση τζίρου!";
+                document.getElementById("target-perc").textContent = "MAX 10%";
+            } else {
+                document.getElementById("remaining-text").textContent = `Υπολείπονται ${(nextT - net).toFixed(2)} € για επόμενο %`;
+                document.getElementById("target-perc").textContent = `Στόχος: ${Math.floor(nextT / 100)}%`;
+            }
         }
 
         function setQty(i, v) { document.getElementById(`qty-${i}`).value = v; updateTotals(); }
@@ -168,9 +310,27 @@
         function onlyOne(c) { document.getElementsByName('payment').forEach(b => { if(b !== c) b.checked = false; }); updateTotals(); }
 
         async function processOrder() {
-            const cart = products.map((p, i) => { const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; return q > 0 ? { name: p.name, qty: q, price: p.price } : null; }).filter(x => x);
+            const cart = products.map((p, i) => { 
+                const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; 
+                return q > 0 ? { name: p.name, qty: q, price: p.price } : null; 
+            }).filter(x => x);
+
             if (cart.length === 0) return alert("Η παραγγελία είναι κενή!");
-            const data = { action: "submitOrder", afm: document.getElementById('afm').value, eponimia: document.getElementById('eponimia').value, email: document.getElementById('email').value, kinito: document.getElementById('kinito').value, stathero: document.getElementById('stathero').value, doy: document.getElementById('doy').value, total: document.getElementById("total-val").textContent, payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή", remarks: document.getElementById('remarks').value, cart: cart, items: cart.map(x => `${x.name} (${x.qty})`).join(", ") };
+            
+            const data = { 
+                action: "submitOrder", 
+                afm: document.getElementById('afm').value, 
+                eponimia: document.getElementById('eponimia').value, 
+                email: document.getElementById('email').value, 
+                kinito: document.getElementById('kinito').value, 
+                stathero: document.getElementById('stathero').value, 
+                doy: document.getElementById('doy').value,
+                payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή", 
+                remarks: document.getElementById('remarks').value,
+                cart: cart, 
+                items: cart.map(x => `${x.name} (${x.qty})`).join(", ") 
+            };
+
             document.body.style.opacity = "0.5";
             try { 
                 const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) }); 
