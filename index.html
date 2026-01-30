@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zarkolia Health - Supreme v123.0</title>
+    <title>Zarkolia Health - Supreme v124.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; --white: #ffffff; --text: #1a202c; --border: #e2e8f0; }
@@ -25,11 +25,11 @@
         .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 14px; border-radius: 25px; }
         .qty-btn { width: 48px; height: 48px; border: none; background: #fff; border-radius: 15px; font-weight: 900; font-size: 1.8rem; cursor: pointer; }
         .qty-input { width: 80px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 1.6rem; color: var(--primary); }
+        
         .billing-card { background: #fff; border-radius: 45px; padding: 35px; border: 1.5px solid #c6f6d5; box-shadow: 0 25px 50px rgba(0,0,0,0.05); position: sticky; top: 20px; }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 600; font-size: 1.1rem; }
         .summary-row.total { font-size: 2.2rem; font-weight: 900; color: var(--primary); border-top: 6px solid var(--accent); padding-top: 20px; margin-top: 20px; }
 
-        /* INTELLIGENT COMPACT STICKY BAR */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 10px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); box-shadow: 0 -15px 35px rgba(0,0,0,0.3); }
         .sticky-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; max-width: 1200px; margin: 0 auto; }
         .sticky-price-block { display: flex; flex-direction: column; }
@@ -64,7 +64,11 @@
                 <div class="sidebar"><section class="billing-card">
                         <label style="display:flex; align-items:center; gap:14px; margin-bottom:18px; cursor:pointer; font-weight:700; font-size:1.15rem;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:24px; height:24px;"> Μετρητά (+2%)</label>
                         <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700; font-size:1.15rem;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:24px; height:24px;"> Επιταγή 60 Ημερών</label>
-                        <div class="summary-row"><span>Καθαρή Αξία:</span><span id="net-invoice">0.00 €</span></div>
+                        
+                        <div class="summary-row"><span>Αρχική Αξία:</span><span id="init-net" style="color:#718096">0.00 €</span></div>
+                        <div class="summary-row"><span>Καθαρή Αξία:</span><span id="net-invoice" style="font-weight:800">0.00 €</span></div>
+                        <div class="summary-row"><span>ΦΠΑ (24%):</span><span id="vat-val">0.00 €</span></div>
+                        
                         <div class="summary-row total"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
                         <textarea id="remarks" style="width:100%; height:110px; border-radius:25px; border:2.5px solid var(--border); padding:18px; margin-top:20px; font-family:inherit;" placeholder="Σημειώσεις..."></textarea>
                         <button type="button" class="btn-confirm" onclick="processOrder()">Καταχώρηση</button>
@@ -90,7 +94,7 @@
 
     <script src="products.js"></script>
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxppnxpZUb79dW9XkTtNLvw3QHxxtwIBRdbge2SW--wbvK2wsxUavSs3gRYI7d2XoooQ/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoakqAgBiJmL_Xm04mcGULY2TcO-XQK5ev4QB35zE9l2Yqy8oXCf-ENiP9XwzWlro4XA/exec";
         let adminMode = false;
         document.addEventListener("DOMContentLoaded", () => { if (typeof products !== 'undefined') renderProducts(); document.getElementById('afm').addEventListener('input', lookupCustomer); });
         
@@ -123,18 +127,20 @@
             let net = 0; products.forEach((p, i) => { const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; net += q * p.price; document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €"; });
             let volPerc = net >= 200 ? Math.min(10, Math.floor(net / 100)) : 0;
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
-            let totalDisc = volPerc + (isCash ? 2 : 0);
-            let netFinal = (net * (1 - volPerc / 100)) * (isCash ? 0.98 : 1);
-            document.getElementById("total-val").textContent = (netFinal * 1.24).toFixed(2) + " €";
-            document.getElementById("sticky-total").textContent = (netFinal * 1.24).toFixed(2) + " €";
-            document.getElementById("sticky-badge").textContent = totalDisc + "% DISC.";
+            let netAfterVol = net * (1 - volPerc / 100);
+            let netFinal = isCash ? netAfterVol * 0.98 : netAfterVol;
+            let vatAmount = netFinal * 0.24;
+
+            // UPDATING DISPLAYS
+            document.getElementById("init-net").textContent = net.toFixed(2) + " €";
+            document.getElementById("net-invoice").textContent = netFinal.toFixed(2) + " €";
+            document.getElementById("vat-val").textContent = vatAmount.toFixed(2) + " €";
+            document.getElementById("total-val").textContent = (netFinal + vatAmount).toFixed(2) + " €";
+            document.getElementById("sticky-total").textContent = (netFinal + vatAmount).toFixed(2) + " €";
+            document.getElementById("sticky-badge").textContent = (volPerc + (isCash?2:0)) + "% DISC.";
             
             let nextT = net < 200 ? 200 : (Math.floor(net / 100) + 1) * 100;
-            if (volPerc >= 10) {
-                document.getElementById("progress-text").textContent = "MAX ΕΚΠΤΩΣΗ!";
-            } else {
-                document.getElementById("progress-text").textContent = `+${Math.floor(nextT/100)}% σε ${(nextT - net).toFixed(0)}€`;
-            }
+            document.getElementById("progress-text").textContent = volPerc >= 10 ? "MAX ΕΚΠΤΩΣΗ!" : `+${Math.floor(nextT/100)}% σε ${(nextT - net).toFixed(0)}€`;
             document.getElementById("vol-fill").style.width = Math.min(100, (net / nextT) * 100) + "%";
         }
         function setQty(i, v) { document.getElementById(`qty-${i}`).value = v; updateTotals(); }
@@ -154,7 +160,7 @@
             const cart = products.map((p, i) => { const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; return q > 0 ? { name: p.name, qty: q, price: p.price } : null; }).filter(x => x);
             if (cart.length === 0) return alert("Κενή παραγγελία!");
             const data = { action: "submitOrder", afm: document.getElementById('afm').value, eponimia: document.getElementById('eponimia').value, email: document.getElementById('email').value, kinito: document.getElementById('kinito').value, stathero: document.getElementById('stathero').value, doy: document.getElementById('doy').value, payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή", remarks: document.getElementById('remarks').value, cart: cart, items: cart.map(x => `${x.name} (${x.qty})`).join(", ") };
-            try { const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) }); if (r.ok) { alert("Η παραγγελία καταχωρήθηκε & ο πελάτης ενημερώθηκε!"); location.reload(); } } catch(e) { alert("Σφάλμα σύνδεσης."); }
+            try { const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) }); if (r.ok) { alert("Η παραγγελία καταχωρήθηκε & ο πελάτης ενημερώθηκε!"); location.reload(); } } catch(e) {}
         }
     </script>
 </body>
