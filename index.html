@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zarkolia Health - Supreme v126.0</title>
+    <title>Zarkolia Health - Supreme v127.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #064e3b; --accent: #10b981; --bg: #f8fafc; --white: #ffffff; --text: #1a202c; --border: #e2e8f0; }
@@ -13,29 +13,26 @@
         header { text-align: center; padding: 30px 0; }
         header h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 7vw, 3rem); color: var(--primary); margin: 0; cursor: pointer; }
         #hourglass { display: none; font-size: 1.5rem; animation: sand-flow 2s infinite linear; color: var(--accent); margin-left: 10px; vertical-align: middle; }
-        @keyframes sand-flow { 0% { transform: rotate(0deg); opacity: 1; } 50% { transform: rotate(180deg); opacity: 0.5; } 100% { transform: rotate(360deg); opacity: 1; } }
+        @keyframes sand-flow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .customer-header { background: var(--white); border-radius: 35px; padding: clamp(20px, 4vw, 35px); border: 3px solid var(--accent); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08); margin-bottom: 35px; background-image: linear-gradient(135deg, #ffffff, #f0fff4); }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
         .input-group input { width: 100%; padding: 14px; border-radius: 14px; border: 2.5px solid var(--border); font-weight: 600; font-size: 1rem; outline: none; }
-        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
-        @media (min-width: 1024px) { .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; align-items: start; } }
         .order-item { display: grid; grid-template-columns: 80px 1fr auto; grid-template-areas: "img info total" "btns btns btns" "qty qty qty"; align-items: center; padding: 25px; background: #fff; border-radius: 35px; border: 1px solid var(--border); margin-bottom: 20px; gap: 15px; }
         .p-img { grid-area: img; width: 75px; height: 75px; object-fit: contain; }
         .quick-btns { grid-area: btns; display: flex; gap: 12px; margin: 10px 0; }
-        .q-btn { flex: 1; padding: 16px 5px; border: none; border-radius: 18px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); font-size: 1rem; font-weight: 800; cursor: pointer; color: var(--primary); transition: 0.4s; box-shadow: 0 4px 8px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; }
+        .q-btn { flex: 1; padding: 16px 5px; border: none; border-radius: 18px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); font-size: 1rem; font-weight: 800; cursor: pointer; color: var(--primary); transition: 0.4s; display: flex; align-items: center; justify-content: center; }
         .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 14px; border-radius: 25px; }
         .qty-btn { width: 48px; height: 48px; border: none; background: #fff; border-radius: 15px; font-weight: 900; font-size: 1.8rem; cursor: pointer; }
         .qty-input { width: 80px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 1.6rem; color: var(--primary); }
         .billing-card { background: #fff; border-radius: 45px; padding: 35px; border: 1.5px solid #c6f6d5; box-shadow: 0 25px 50px rgba(0,0,0,0.05); position: sticky; top: 20px; }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; font-size: 1rem; }
-        .summary-row.disc { color: var(--accent); font-size: 0.95rem; }
         .summary-row.total { font-size: 2.2rem; font-weight: 900; color: var(--primary); border-top: 6px solid var(--accent); padding-top: 20px; margin-top: 20px; }
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 12px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); box-shadow: 0 -15px 35px rgba(0,0,0,0.3); }
         .sticky-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; max-width: 1200px; margin: 0 auto; }
         .sticky-price-val { font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight: 900; line-height: 1; }
         .sticky-progress-text { font-size: 0.8rem; font-weight: 700; color: #f0fff4; text-align: center; flex-grow: 1; }
-        .sticky-badge { background: white; color: var(--primary); padding: 5px 12px; border-radius: 8px; font-weight: 900; font-size: 0.85rem; white-space: nowrap; }
+        .sticky-badge { background: white; color: var(--primary); padding: 5px 12px; border-radius: 8px; font-weight: 900; font-size: 0.85rem; }
         .btn-confirm { width: 100%; padding: 25px; background: var(--accent); color: white; border: none; border-radius: 25px; font-size: 1.5rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 30px; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
     </style>
 </head>
@@ -49,21 +46,22 @@
                     <div class="input-group"><label>ΑΦΜ</label><input type="number" id="afm" placeholder="9 ψηφία"></div>
                     <div class="input-group"><label>Επωνυμία / Φαρμακείο</label><input type="text" id="eponimia"></div>
                     <div class="input-group"><label>Email</label><input type="email" id="email"></div>
-                    <div class="input-group"><label>Κινητό</label><input type="tel" id="kinito"></div>
-                    <div class="input-group"><label>Σταθερό</label><input type="tel" id="stathero"></div>
+                    <div class="input-group"><label>Κινητό (Col D)</label><input type="tel" id="kinito"></div>
+                    <div class="input-group"><label>Σταθερό (Col E)</label><input type="tel" id="stathero"></div>
                     <div class="input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
                 </div>
             </section>
-            <div class="dashboard-grid"><div id="orderGrid"></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+                <div id="orderGrid"></div>
                 <div class="sidebar"><section class="billing-card">
                         <label style="display:flex; align-items:center; gap:14px; margin-bottom:18px; cursor:pointer; font-weight:700;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:24px; height:24px;"> Μετρητά (+2%)</label>
                         <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:24px; height:24px;"> Επιταγή 60 Ημερών</label>
                         <div class="summary-row"><span>Αρχική Αξία:</span><span id="init-net">0.00 €</span></div>
-                        <div class="summary-row disc"><span>Έκπτωση Τζίρου:</span><span id="vol-disc">- 0.00 €</span></div>
-                        <div class="summary-row disc"><span>Έκπτωση Μετρητών:</span><span id="cash-disc">- 0.00 €</span></div>
+                        <div class="summary-row" style="color:var(--accent)"><span>Έκπτωση Τζίρου:</span><span id="vol-disc">- 0.00 €</span></div>
+                        <div class="summary-row" style="color:var(--accent)"><span>Έκπτωση Μετρητών:</span><span id="cash-disc">- 0.00 €</span></div>
                         <div class="summary-row" style="border-top:1px solid #edf2f7; padding-top:10px;"><span>Καθαρή Αξία:</span><span id="net-invoice" style="font-weight:800">0.00 €</span></div>
                         <div class="summary-row"><span>ΦΠΑ (24%):</span><span id="vat-val">0.00 €</span></div>
-                        <div class="summary-row total"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
+                        <div class="summary-row total"><span>ΣΥΝΟΛΟ</span><span id="total-val" style="margin-left:20px;">0.00 €</span></div>
                         <textarea id="remarks" style="width:100%; height:110px; border-radius:25px; border:2.5px solid var(--border); padding:18px; margin-top:20px; font-family:inherit;" placeholder="Σημειώσεις..."></textarea>
                         <button type="button" class="btn-confirm" onclick="processOrder()">Καταχώρηση</button>
                 </section></div>
@@ -77,8 +75,9 @@
     </div></div>
     <script src="products.js"></script>
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwuIMKYWLD9-mWqMrBN8kzDlZHaLdANT2bsQq2nRYoqLEtpukuFUjm_aVIR7iBvrG7V-Q/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvRo5pjQhpQ-ETjiuPZ3mU3JQURFrQzFKVunG9lTJu0DKWaNaoye2BZ_X8uM4GloTx3w/exec";
         document.addEventListener("DOMContentLoaded", () => { if (typeof products !== 'undefined') renderProducts(); document.getElementById('afm').addEventListener('input', lookupCustomer); });
+        
         async function lookupCustomer() {
             const afm = document.getElementById('afm').value.trim();
             if (afm.length === 9) {
@@ -109,9 +108,8 @@
             let volPerc = net >= 200 ? Math.min(10, Math.floor(net / 100)) : 0;
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
             let volDiscVal = net * (volPerc / 100);
-            let netAfterVol = net - volDiscVal;
-            let cashDiscVal = isCash ? netAfterVol * 0.02 : 0;
-            let netFinal = netAfterVol - cashDiscVal;
+            let cashDiscVal = (net - volDiscVal) * (isCash ? 0.02 : 0);
+            let netFinal = net - volDiscVal - cashDiscVal;
             let vatAmount = netFinal * 0.24;
             document.getElementById("init-net").textContent = net.toFixed(2) + " €";
             document.getElementById("vol-disc").textContent = "- " + volDiscVal.toFixed(2) + " € (" + volPerc + "%)";
@@ -122,8 +120,7 @@
             document.getElementById("sticky-total").textContent = (netFinal + vatAmount).toFixed(2) + " €";
             document.getElementById("sticky-badge").textContent = (volPerc + (isCash?2:0)) + "% DISC.";
             let nextT = net < 200 ? 200 : (Math.floor(net / 100) + 1) * 100;
-            let nextP = Math.floor(nextT / 100);
-            document.getElementById("progress-text").textContent = volPerc >= 10 ? "Κερδίσατε τη μέγιστη έκπτωση!" : `Προσθέστε ${(nextT - net).toFixed(0)} € για να κερδίσετε ${nextP}% έκπτωση`;
+            document.getElementById("progress-text").textContent = volPerc >= 10 ? "Κερδίσατε τη μέγιστη έκπτωση!" : `Προσθέστε ${(nextT - net).toFixed(0)} € για να κερδίσετε ${Math.floor(nextT/100)}% έκπτωση`;
         }
         function setQty(i, v) { document.getElementById(`qty-${i}`).value = v; updateTotals(); }
         function changeQty(i, d) { const el = document.getElementById(`qty-${i}`); el.value = Math.max(0, (parseInt(el.value)||0)+d); updateTotals(); }
