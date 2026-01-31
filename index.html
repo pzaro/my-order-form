@@ -10,6 +10,9 @@
     <meta name="apple-mobile-web-app-title" content="Zarkolia">
     <meta name="theme-color" content="#064e3b">
     <meta name="mobile-web-app-capable" content="yes">
+    
+    <link rel="apple-touch-icon" href="https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Health%20Order%20Form.jpg?raw=true">
+    <link rel="shortcut icon" href="https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Health%20Order%20Form.jpg?raw=true">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
@@ -39,9 +42,8 @@
         .customer-header { background: var(--white); border-radius: 35px; padding: clamp(25px, 5vw, 45px); border: 3px solid var(--accent); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.08); margin-bottom: 35px; background-image: linear-gradient(135deg, #ffffff, #f0fff4); }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
         .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; }
-        .input-group input { width: 100%; padding: 16px; border-radius: 16px; border: 2.5px solid var(--border); font-weight: 600; font-size: 1.1rem; outline: none; transition: 0.3s; background: #fff; }
+        .input-group input { width: 100%; padding: 16px; border-radius: 14px; border: 2.5px solid var(--border); font-weight: 600; font-size: 1.1rem; outline: none; transition: 0.3s; background: #fff; }
 
-        /* DASHBOARD GRID */
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
         @media (min-width: 1024px) { .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; align-items: start; } }
 
@@ -49,8 +51,7 @@
         .p-img { grid-area: img; width: 85px; height: 85px; object-fit: contain; }
         .p-total { grid-area: total; font-weight: 900; color: var(--primary); font-size: 1.4rem; }
         
-        /* HORIZONTAL QUICK BUTTONS */
-        .quick-btns { grid-area: btns; display: flex; gap: 15px; margin: 15px 0; }
+        .quick-btns { grid-area: btns; display: flex; gap: 12px; margin: 15px 0; }
         .q-btn { 
             flex: 1; padding: 18px 5px; border: none; border-radius: 20px; 
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); 
@@ -61,22 +62,20 @@
         .q-btn:hover { background: var(--accent); color: white; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.25); }
 
         .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 16px; border-radius: 25px; }
-        .qty-btn { width: 55px; height: 55px; border: none; background: #fff; border-radius: 18px; font-weight: 900; font-size: 2rem; cursor: pointer; box-shadow: 0 5px 10px rgba(0,0,0,0.08); }
+        .qty-btn { width: 55px; height: 55px; border: none; background: #fff; border-radius: 18px; font-weight: 900; font-size: 2rem; cursor: pointer; }
         .qty-input { width: 90px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 1.7rem; color: var(--primary); }
 
-        /* BILLING CARD WITH SPACED TOTALS */
         .billing-card { background: var(--white); border-radius: 45px; padding: 40px; border: 1px solid #c6f6d5; box-shadow: 0 30px 60px rgba(0,0,0,0.06); background-image: linear-gradient(180deg, #ffffff, #f0fff4); position: sticky; top: 20px; }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; font-size: 1.1rem; }
         .summary-row.disc { color: var(--accent); font-size: 0.95rem; }
         .summary-row.total { font-size: 2.2rem; font-weight: 900; color: var(--primary); border-top: 6px solid var(--accent); padding-top: 25px; margin-top: 25px; }
         .summary-row.total span:last-child { margin-left: 25px; }
 
-        /* COMPACT STICKY BAR */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 12px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); box-shadow: 0 -15px 35px rgba(0,0,0,0.3); }
         .sticky-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; max-width: 1200px; margin: 0 auto; }
         .sticky-price-val { font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight: 900; line-height: 1; }
         .sticky-progress-text { font-size: 0.8rem; font-weight: 700; color: #f0fff4; text-align: center; flex-grow: 1; }
-        .sticky-badge { background: white; color: var(--primary); padding: 5px 12px; border-radius: 8px; font-weight: 900; font-size: 0.85rem; white-space: nowrap; }
+        .sticky-badge { background: white; color: var(--primary); padding: 5px 12px; border-radius: 8px; font-weight: 900; font-size: 0.85rem; }
 
         .btn-confirm { width: 100%; padding: 28px; background: var(--accent); color: white; border: none; border-radius: 30px; font-size: 1.8rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 30px; box-shadow: 0 20px 40px rgba(16, 185, 129, 0.4); transition: 0.3s; }
     </style>
@@ -92,18 +91,17 @@
                     <div class="input-group"><label>ΑΦΜ</label><input type="text" id="afm" placeholder="9 ψηφία" inputmode="numeric"></div>
                     <div class="input-group"><label>Επωνυμία / Φαρμακείο</label><input type="text" id="eponimia"></div>
                     <div class="input-group"><label>Email</label><input type="email" id="email"></div>
-                    <div class="input-group"><label>Κινητό (Col D)</label><input type="tel" id="kinito"></div>
-                    <div class="input-group"><label>Σταθερό (Col E)</label><input type="tel" id="stathero"></div>
+                    <div class="input-group"><label>Κινητό</label><input type="tel" id="kinito"></div>
+                    <div class="input-group"><label>Σταθερό</label><input type="tel" id="stathero"></div>
                     <div class="input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
                 </div>
             </section>
             
             <div class="dashboard-grid">
                 <div id="orderGrid"></div>
-                
                 <div class="sidebar">
                     <section class="billing-card">
-                        <label style="display:flex; align-items:center; gap:16px; margin-bottom:20px; cursor:pointer; font-weight:700; font-size:1.2rem;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:28px; height:28px;"> Μετρητά (+2% Έκπτωση)</label>
+                        <label style="display:flex; align-items:center; gap:16px; margin-bottom:20px; cursor:pointer; font-weight:700; font-size:1.2rem;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:28px; height:28px;"> Μετρητά (+2%)</label>
                         <label style="display:flex; align-items:center; gap:16px; margin-bottom:35px; cursor:pointer; font-weight:700; font-size:1.2rem;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:28px; height:28px;"> Επιταγή 60 Ημερών</label>
                         
                         <div class="summary-row"><span>Αρχική Αξία:</span><span id="init-net">0.00 €</span></div>
@@ -111,7 +109,6 @@
                         <div class="summary-row disc"><span>Έκπτωση Μετρητών:</span><span id="cash-disc">- 0.00 €</span></div>
                         <div class="summary-row" style="border-top:1px solid #edf2f7; padding-top:15px;"><span>Καθαρή Αξία:</span><span id="net-invoice" style="font-weight:800">0.00 €</span></div>
                         <div class="summary-row"><span>ΦΠΑ (24%):</span><span id="vat-val">0.00 €</span></div>
-                        
                         <div class="summary-row total"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
                         
                         <textarea id="remarks" style="width:100%; height:120px; border-radius:25px; border:2.5px solid var(--border); padding:20px; margin-top:30px; font-family:inherit; font-size:1.1rem;" placeholder="Παρατηρήσεις..."></textarea>
@@ -139,7 +136,6 @@
             document.getElementById('afm').addEventListener('input', lookupCustomer); 
         });
 
-        // ROBUST LOOKUP FOR LEADING ZEROS
         async function lookupCustomer() {
             let afm = document.getElementById('afm').value.trim();
             if (afm.length === 9 || afm.length === 8) {
@@ -177,7 +173,6 @@
 
             let volPerc = net >= 200 ? Math.min(10, Math.floor(net / 100)) : 0;
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
-            
             let volDiscVal = net * (volPerc / 100);
             let netAfterVol = net - volDiscVal;
             let cashDiscVal = isCash ? netAfterVol * 0.02 : 0;
@@ -193,7 +188,6 @@
             document.getElementById("sticky-total").textContent = (netFinal + vatAmount).toFixed(2) + " €";
             document.getElementById("sticky-badge").textContent = (volPerc + (isCash?2:0)) + "% DISC.";
             
-            // DYNAMIC PROMPT LOGIC
             let nextT = net < 200 ? 200 : (Math.floor(net / 100) + 1) * 100;
             let nextP = Math.floor(nextT / 100);
             if (volPerc >= 10) {
