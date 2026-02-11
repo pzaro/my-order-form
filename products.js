@@ -1,21 +1,107 @@
+/**
+ * ZARKOLIA HEALTH - PRODUCT DATABASE v136.0
+ * Πλήρης κατάλογος: 20 Προϊόντα
+ */
+
 const products = [
-    { name: 'Z-DermAspis', price: 5.03, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG" },
-    { name: 'Zplast Total Repair 50ml', price: 14.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" },
-    { name: 'Zplast Total Repair 100ml', price: 26.80, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" },
-    { name: 'ZplastCream 40gr', price: 12.30, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg" },
-    { name: 'ZplastCream 100gr', price: 24.79, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg" },
-    { name: 'Bruise Off cream 50ml', price: 5.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg" },
-    { name: 'Bruise Off cream 100ml', price: 9.50, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg" },
-    { name: 'Z-boost 30 caps', price: 14.93, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg" },
-    { name: 'Z-boost 12 caps', price: 6.99, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg" },
-    { name: 'Hydralia Face cream 50ml', price: 8.90, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Hydralia%20Face%20Cream%2050ml.jpg" },
-    { name: 'Revitacell Plus Face cream 50ml', price: 10.69, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg" },
-    { name: 'Revitace Eyes cream Luce 30ml', price: 10.10, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg" },
-    { name: 'Alveolair Sir', price: 7.65, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Alveolair%20Sir.jpg" },
-    { name: 'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps', price: 8.96, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg" },
-    { name: 'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab', price: 5.98, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg" },
-    { name: 'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB', price: 6.51, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg" },
-    { name: 'NUTRI MX OMEGA 3 30 Softgel Caps', price: 6.87, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg" },
-    { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 10.16, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" },
-    { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" }
+    { 
+        name: 'Zplast Total Repair Cream 30ml', 
+        price: 10.21, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Health%20Order%20Form.jpg" 
+    },
+    { 
+        name: 'Z-DermAspis', 
+        price: 5.03, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG" 
+    },
+    { 
+        name: 'Zplast Total Repair 50ml', 
+        price: 14.60, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" 
+    },
+    { 
+        name: 'Zplast Total Repair 100ml', 
+        price: 26.80, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" 
+    },
+    { 
+        name: 'ZplastCream 40gr', 
+        price: 12.30, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg" 
+    },
+    { 
+        name: 'ZplastCream 100gr', 
+        price: 24.79, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg" 
+    },
+    { 
+        name: 'Bruise Off cream 50ml', 
+        price: 5.60, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg" 
+    },
+    { 
+        name: 'Bruise Off cream 100ml', 
+        price: 9.50, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg" 
+    },
+    { 
+        name: 'Z-boost 30 caps', 
+        price: 14.93, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg" 
+    },
+    { 
+        name: 'Z-boost 12 caps', 
+        price: 6.99, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg" 
+    },
+    { 
+        name: 'Hydralia Face cream 50ml', 
+        price: 8.90, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Hydralia%20Face%20Cream%2050ml.jpg" 
+    },
+    { 
+        name: 'Revitacell Plus Face cream 50ml', 
+        price: 10.69, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg" 
+    },
+    { 
+        name: 'Revitace Eyes cream Luce 30ml', 
+        price: 10.10, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg" 
+    },
+    { 
+        name: 'Alveolair Sir', 
+        price: 7.65, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Alveolair%20Sir.jpg" 
+    },
+    { 
+        name: 'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps', 
+        price: 8.96, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg" 
+    },
+    { 
+        name: 'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab', 
+        price: 5.98, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg" 
+    },
+    { 
+        name: 'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB', 
+        price: 6.51, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg" 
+    },
+    { 
+        name: 'NUTRI MX OMEGA 3 30 Softgel Caps', 
+        price: 6.87, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg" 
+    },
+    { 
+        name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', 
+        price: 10.16, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" 
+    },
+    { 
+        name: 'Zarkolia Cosmetic pack', 
+        price: 23.89, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" 
+    }
 ];
