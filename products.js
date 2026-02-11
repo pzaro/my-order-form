@@ -5,14 +5,14 @@
 
 const products = [
     { 
-        name: 'Zplast Total Repair Cream 30ml', 
-        price: 10.21, 
-        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Health%20Order%20Form.jpg" 
-    },
-    { 
         name: 'Z-DermAspis', 
         price: 5.03, 
         img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG" 
+            },
+    { 
+        name: 'Zplast Total Repair Cream 30ml', 
+        price: 10.21, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Health%20Order%20Form.jpg" 
     },
     { 
         name: 'Zplast Total Repair 50ml', 
