@@ -14,6 +14,11 @@ const products = [
         price: 14.60, 
         img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" 
     },
+      { 
+        name: 'Zplast Total Repair 30ml', 
+        price: 10.22, 
+        img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" 
+    },
     { 
         name: 'Zplast Total Repair 100ml', 
         price: 26.80, 
