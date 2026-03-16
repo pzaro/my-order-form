@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Zarkolia Health</title>
-    
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Zarkolia">
@@ -12,57 +12,220 @@
     <link rel="apple-touch-icon" href="https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Health%20Order%20Form.jpg?raw=true&v=final">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    
+
     <style>
-        :root { --primary: #4a5d4e; --accent: #10b981; --bg: #f4f6f4; --white: #ffffff; --text: #2d3748; --border: #cbd5e0; --gray: #718096; }
+        :root {
+            --primary: #4a5d4e;
+            --accent: #10b981;
+            --bg: #f4f6f4;
+            --white: #ffffff;
+            --text: #2d3748;
+            --border: #cbd5e0;
+            --gray: #718096;
+            --danger: #dc2626;
+        }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; color: var(--text); padding-bottom: 150px; }
         .main-wrapper { max-width: 1400px; margin: 0 auto; padding: clamp(10px, 3vw, 40px); }
-        
-        /* HEADER - GRAY HEALTH UPDATE */
+
         header { text-align: center; padding: 40px 0; }
         header h1 { font-family: 'Montserrat'; font-size: clamp(2.2rem, 8vw, 3.8rem); color: var(--primary); margin: 0; cursor: pointer; text-transform: uppercase; letter-spacing: -1px; }
         header h1 span { color: var(--gray); font-weight: 300; margin-left: 5px; }
-        
+
         #hourglass { display: none; animation: spin 2s infinite linear; color: var(--accent); margin-left: 10px; vertical-align: middle; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .customer-header { background: var(--white); border-radius: 35px; padding: clamp(20px, 5vw, 40px); border: 3px solid var(--primary); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .customer-header {
+            background: var(--white);
+            border-radius: 35px;
+            padding: clamp(20px, 5vw, 40px);
+            border: 3px solid var(--primary);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
         .input-group input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--border); font-weight: 600; font-size: 1.1rem; }
 
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
-        @media (min-width: 1100px) { .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; align-items: start; } }
+        @media (min-width: 1100px) {
+            .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; align-items: start; }
+        }
 
-        .order-item { display: grid; grid-template-columns: 85px 1fr auto; grid-template-areas: "img info total" "btns btns btns" "qty qty qty"; align-items: center; padding: 25px; background: #fff; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 25px; gap: 15px; }
+        .order-item {
+            display: grid;
+            grid-template-columns: 85px 1fr auto;
+            grid-template-areas:
+                "img info total"
+                "btns btns btns"
+                "qty qty qty";
+            align-items: center;
+            padding: 25px;
+            background: #fff;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
         .p-img { grid-area: img; width: 80px; height: 80px; object-fit: contain; }
         .stock-label { display: none; color: #f59e0b; font-weight: 800; font-size: 0.85rem; }
 
         .quick-btns { grid-area: btns; display: flex; gap: 10px; margin: 15px 0; }
-        .q-btn { flex: 1; padding: 18px 5px; border: none; border-radius: 20px; background: #eef2f0; font-size: 1rem; font-weight: 800; color: var(--primary); cursor: pointer; transition: 0.3s; }
+        .q-btn {
+            flex: 1;
+            padding: 18px 5px;
+            border: none;
+            border-radius: 20px;
+            background: #eef2f0;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--primary);
+            cursor: pointer;
+            transition: 0.3s;
+        }
         .q-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
 
-        .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f7faf9; padding: 15px; border-radius: 25px; border: 1px solid #e2e8f0; }
-        .qty-btn { width: 55px; height: 55px; border: none; background: #fff; border-radius: 18px; font-weight: 900; font-size: 2rem; cursor: pointer; color: var(--primary); }
-        .qty-input { width: 100px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 1.8rem; color: var(--primary); }
+        .qty-controls {
+            grid-area: qty;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f7faf9;
+            padding: 15px;
+            border-radius: 25px;
+            border: 1px solid #e2e8f0;
+        }
+        .qty-btn {
+            width: 55px;
+            height: 55px;
+            border: none;
+            background: #fff;
+            border-radius: 18px;
+            font-weight: 900;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        .qty-input {
+            width: 100px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
 
-        .billing-card { background: #fff; border-radius: 50px; padding: clamp(30px, 5vw, 50px); border: 3px solid var(--primary); position: sticky; top: 20px; }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; }
-        .summary-row.total { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; color: var(--primary); border-top: 5px solid var(--accent); padding-top: 25px; margin-top: 25px; }
+        .billing-card {
+            background: #fff;
+            border-radius: 50px;
+            padding: clamp(30px, 5vw, 50px);
+            border: 3px solid var(--primary);
+            position: sticky;
+            top: 20px;
+        }
 
-        .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 15px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); }
-        .sticky-content { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; gap: 15px; }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .summary-row.total {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 900;
+            color: var(--primary);
+            border-top: 5px solid var(--accent);
+            padding-top: 25px;
+            margin-top: 25px;
+        }
+
+        .mini-box {
+            margin-top: 18px;
+            padding: 14px 16px;
+            background: #f8faf8;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 0.95rem;
+        }
+
+        .mini-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
+
+        .mini-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+        }
+
+        .gift-line { color: var(--danger); font-weight: 800; }
+        .discount-line { color: var(--accent); font-weight: 800; }
+
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 15px clamp(15px, 4vw, 40px);
+            z-index: 1000;
+            border-top: 4px solid var(--accent);
+        }
+        .sticky-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 15px;
+        }
         .sticky-price-val { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; }
         .sticky-badge { background: var(--accent); color: white; padding: 6px 14px; border-radius: 10px; font-weight: 900; }
 
-        .btn-confirm { width: 100%; padding: 25px; background: var(--accent); color: white; border: none; border-radius: 25px; font-size: 1.6rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 35px; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
-        textarea { width: 100%; height: 110px; border-radius: 20px; border: 2px solid var(--border); padding: 15px; margin-top: 20px; font-family: inherit; resize: none; }
+        .btn-confirm {
+            width: 100%;
+            padding: 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 35px;
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        textarea {
+            width: 100%;
+            height: 110px;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            padding: 15px;
+            margin-top: 20px;
+            font-family: inherit;
+            resize: none;
+        }
     </style>
 </head>
 <body id="mainBody">
     <div class="main-wrapper">
-        <header><h1 onclick="toggleAdminMode()">ZARKOLIA<span>HEALTH</span> <span id="hourglass">⏳</span></h1></header>
+        <header>
+            <h1 onclick="toggleAdminMode()">ZARKOLIA<span>HEALTH</span> <span id="hourglass">⏳</span></h1>
+        </header>
+
         <form id="orderForm" onsubmit="return false;">
             <section class="customer-header">
                 <div class="customer-grid">
@@ -74,18 +237,40 @@
                     <div class="input-group"><label>ΔΟΥ</label><input type="text" id="doy"></div>
                 </div>
             </section>
+
             <div class="dashboard-grid">
                 <div id="orderGrid"></div>
+
                 <div class="sidebar">
                     <section class="billing-card">
-                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:20px; cursor:pointer; font-weight:700;"><input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:25px; height:25px;"> Μετρητά (+2%)</label>
-                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700;"><input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:25px; height:25px;"> Επιταγή 60 Ημερών</label>
+                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:20px; cursor:pointer; font-weight:700;">
+                            <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:25px; height:25px;">
+                            Μετρητά (+2%)
+                        </label>
+
+                        <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700;">
+                            <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:25px; height:25px;">
+                            Επιταγή 60 Ημερών
+                        </label>
+
                         <div class="summary-row"><span>Αρχική Αξία:</span><span id="init-net">0.00 €</span></div>
+                        <div class="summary-row" style="color:var(--accent)"><span>Mix Εκπτώσεις:</span><span id="mix-disc">- 0.00 €</span></div>
                         <div class="summary-row" style="color:var(--accent)"><span>Έκπτωση Τζίρου:</span><span id="vol-disc">- 0.00 €</span></div>
                         <div class="summary-row" style="color:var(--accent)"><span>Έκπτωση Μετρητών:</span><span id="cash-disc">- 0.00 €</span></div>
                         <div class="summary-row" style="border-top:1px solid #eee; padding-top:15px; margin-top:10px;"><span>Καθαρή Αξία:</span><span id="net-invoice" style="font-weight:800">0.00 €</span></div>
                         <div class="summary-row"><span>ΦΠΑ (24%):</span><span id="vat-val">0.00 €</span></div>
                         <div class="summary-row total"><span>ΣΥΝΟΛΟ</span><span id="total-val">0.00 €</span></div>
+
+                        <div class="mini-box">
+                            <h4>Δώρα</h4>
+                            <div id="gift-breakdown">Δεν υπάρχουν δώρα ακόμη.</div>
+                        </div>
+
+                        <div class="mini-box">
+                            <h4>Ανάλυση Εκπτώσεων</h4>
+                            <div id="discount-breakdown">Δεν υπάρχουν εκπτώσεις ακόμη.</div>
+                        </div>
+
                         <textarea id="remarks" placeholder="Σημειώσεις..."></textarea>
                         <button type="button" class="btn-confirm" onclick="processOrder()">Ολοκλήρωση</button>
                     </section>
@@ -93,7 +278,14 @@
             </div>
         </form>
     </div>
-    <div class="sticky-bar"><div class="sticky-content"><span id="sticky-total" class="sticky-price-val">0.00 €</span><span id="progress-text" class="sticky-progress-text"></span><span id="sticky-badge" class="sticky-badge">0% DISC.</span></div></div>
+
+    <div class="sticky-bar">
+        <div class="sticky-content">
+            <span id="sticky-total" class="sticky-price-val">0.00 €</span>
+            <span id="progress-text" class="sticky-progress-text"></span>
+            <span id="sticky-badge" class="sticky-badge">0% DISC.</span>
+        </div>
+    </div>
 
     <script>
         const products = [
@@ -120,65 +312,385 @@
         ];
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0lJ8vs1DX-kKvoyZNuQ9sK0Wq2wC5YqYoeSOo9mDOJPletc7qBw0BDSNquOezNOUT6Q/exec";
-        
-        document.addEventListener("DOMContentLoaded", () => { renderProducts(); document.getElementById('afm').addEventListener('input', lookupCustomer); });
+
+        const MIX_GROUPS = [
+            {
+                code: "ZPLAST_CLASSIC",
+                title: "ZplastCream mix",
+                products: ['ZplastCream 40gr', 'ZplastCream 100gr'],
+                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+            },
+            {
+                code: "ZPLAST_TR",
+                title: "Zplast Total Repair mix",
+                products: ['Zplast Total Repair Cream 30ml', 'Zplast Total Repair 50ml', 'Zplast Total Repair 100ml'],
+                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+            },
+            {
+                code: "ZBOOST",
+                title: "Z-boost mix",
+                products: ['Z-boost 30 caps', 'Z-boost 12 caps'],
+                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+            },
+            {
+                code: "BRUISE_OFF",
+                title: "Bruise Off mix",
+                products: ['Bruise Off cream 50ml', 'Bruise Off cream 100ml'],
+                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+            },
+            {
+                code: "NUTRI_MX",
+                title: "NUTRI MX mix",
+                products: [
+                    'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps',
+                    'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab',
+                    'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB',
+                    'NUTRI MX OMEGA 3 30 Softgel Caps',
+                    'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB'
+                ],
+                tiers: [{ minQty: 15, pct: 10 }]
+            }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderProducts();
+            document.getElementById('afm').addEventListener('input', lookupCustomer);
+            updateTotals();
+        });
 
         async function lookupCustomer() {
             let afm = document.getElementById('afm').value.trim();
             if (afm.length >= 8) {
                 document.getElementById('hourglass').style.display = 'inline-block';
                 try {
-                    const r = await fetch(`${SCRIPT_URL}?action=lookup&afm=${afm}`);
+                    const r = await fetch(`${SCRIPT_URL}?action=lookup&afm=${encodeURIComponent(afm)}`);
                     const d = await r.json();
                     if (d.success) {
-                        document.getElementById('eponimia').value = d.data.eponimia;
+                        document.getElementById('eponimia').value = d.data.eponimia || "";
                         document.getElementById('email').value = d.data.email || "";
                         document.getElementById('kinito').value = d.data.kinito || "";
                         document.getElementById('stathero').value = d.data.stathero || "";
                         document.getElementById('doy').value = d.data.doy || "";
                     }
-                } catch(e) {} document.getElementById('hourglass').style.display = 'none';
+                } catch (e) {
+                    console.error("lookupCustomer error:", e);
+                }
+                document.getElementById('hourglass').style.display = 'none';
             }
         }
 
         function renderProducts() {
             const container = document.getElementById('orderGrid');
             products.forEach((p, i) => {
-                const div = document.createElement('div'); div.className = 'order-item';
-                div.innerHTML = `<img src="${p.img}" class="p-img"><div class="p-info"><strong>${p.name}</strong><small style="display:block; font-weight:700; color:#718096;">${p.price.toFixed(2)} €</small><div id="stock-${i}" class="stock-label">...</div></div><div style="font-weight:900; color:var(--primary); font-size:1.4rem;" id="total-${i}">0.00 €</div><div class="quick-btns"><button class="q-btn" onclick="setQty(${i}, 9)">9+1</button><button class="q-btn" onclick="setQty(${i}, 18)">18+3</button><button class="q-btn" onclick="setQty(${i}, 24)">24+6</button></div><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><input type="number" id="qty-${i}" value="0" class="qty-input" oninput="updateTotals()"><button class="qty-btn" onclick="changeQty(${i},1)">+</button></div>`;
+                const div = document.createElement('div');
+                div.className = 'order-item';
+                div.innerHTML = `
+                    <img src="${p.img}" class="p-img" alt="${p.name}">
+                    <div class="p-info">
+                        <strong>${p.name}</strong>
+                        <small style="display:block; font-weight:700; color:#718096;">${p.price.toFixed(2)} €</small>
+                        <div id="stock-${i}" class="stock-label">...</div>
+                    </div>
+                    <div style="font-weight:900; color:var(--primary); font-size:1.4rem;" id="total-${i}">0.00 €</div>
+                    <div class="quick-btns">
+                        <button type="button" class="q-btn" onclick="setQty(${i}, 9)">9+1</button>
+                        <button type="button" class="q-btn" onclick="setQty(${i}, 18)">18+3</button>
+                        <button type="button" class="q-btn" onclick="setQty(${i}, 24)">24+6</button>
+                    </div>
+                    <div class="qty-controls">
+                        <button type="button" class="qty-btn" onclick="changeQty(${i},-1)">-</button>
+                        <input type="number" id="qty-${i}" value="0" class="qty-input" oninput="updateTotals()">
+                        <button type="button" class="qty-btn" onclick="changeQty(${i},1)">+</button>
+                    </div>
+                `;
                 container.appendChild(div);
             });
         }
 
-        function updateTotals() {
-            let net = 0; products.forEach((p, i) => { const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; net += q * p.price; document.getElementById(`total-${i}`).textContent = (q * p.price).toFixed(2) + " €"; });
-            let volPerc = net >= 200 ? Math.min(10, Math.floor(net / 100)) : 0;
-            const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
-            let volDiscVal = net * (volPerc / 100);
-            let cashDiscVal = (net - volDiscVal) * (isCash ? 0.02 : 0);
-            let netFinal = net - volDiscVal - cashDiscVal;
-            let vatAmount = netFinal * 0.24;
-            document.getElementById("init-net").textContent = net.toFixed(2) + " €";
-            document.getElementById("vol-disc").textContent = "- " + volDiscVal.toFixed(2) + " € (" + volPerc + "%)";
-            document.getElementById("cash-disc").textContent = "- " + cashDiscVal.toFixed(2) + " €" + (isCash ? " (2%)" : "");
-            document.getElementById("net-invoice").textContent = netFinal.toFixed(2) + " €";
-            document.getElementById("vat-val").textContent = vatAmount.toFixed(2) + " €";
-            document.getElementById("total-val").textContent = (netFinal + vatAmount).toFixed(2) + " €";
-            document.getElementById("sticky-total").textContent = (netFinal + vatAmount).toFixed(2) + " €";
-            document.getElementById("sticky-badge").textContent = (volPerc + (isCash?2:0)) + "% DISC.";
-            let nextT = net < 200 ? 200 : (Math.floor(net / 100) + 1) * 100;
-            document.getElementById("progress-text").textContent = volPerc >= 10 ? "Μέγιστη έκπτωση!" : `Προσθέστε ${(nextT - net).toFixed(0)} € για ${Math.floor(nextT/100)}%`;
+        function getQty(index) {
+            return Math.max(0, parseInt(document.getElementById(`qty-${index}`).value) || 0);
         }
 
-        function setQty(i, v) { document.getElementById(`qty-${i}`).value = v; updateTotals(); }
-        function changeQty(i, d) { const el = document.getElementById(`qty-${i}`); el.value = Math.max(0, (parseInt(el.value)||0)+d); updateTotals(); }
-        function onlyOne(c) { document.getElementsByName('payment').forEach(b => { if(b !== c) b.checked = false; }); updateTotals(); }
+        function getCart() {
+            return products.map((p, i) => {
+                const qty = getQty(i);
+                if (qty <= 0) return null;
+                const giftQty = getGiftQty(qty);
+                return {
+                    index: i,
+                    name: p.name,
+                    price: p.price,
+                    qty,
+                    giftQty,
+                    lineTotal: qty * p.price
+                };
+            }).filter(Boolean);
+        }
+
+        function getGiftQty(qty) {
+            if (qty === 9) return 1;
+            if (qty === 18) return 3;
+            if (qty === 24) return 6;
+            return 0;
+        }
+
+        function getAppliedMixTier(totalQty, tiers) {
+            for (const tier of tiers) {
+                if (totalQty >= tier.minQty) return tier;
+            }
+            return null;
+        }
+
+        function calculateMixDiscounts(cart) {
+            const details = [];
+            let totalMixDiscount = 0;
+
+            for (const group of MIX_GROUPS) {
+                const groupItems = cart.filter(item => group.products.includes(item.name));
+                if (!groupItems.length) continue;
+
+                const totalQty = groupItems.reduce((sum, item) => sum + item.qty, 0);
+                const subtotal = groupItems.reduce((sum, item) => sum + item.lineTotal, 0);
+                const tier = getAppliedMixTier(totalQty, group.tiers);
+
+                if (tier) {
+                    const discountValue = subtotal * (tier.pct / 100);
+                    totalMixDiscount += discountValue;
+
+                    details.push({
+                        code: group.code,
+                        title: group.title,
+                        qty: totalQty,
+                        subtotal: subtotal,
+                        pct: tier.pct,
+                        value: discountValue,
+                        products: groupItems.map(x => `${x.name} (${x.qty})`)
+                    });
+                }
+            }
+
+            return { totalMixDiscount, details };
+        }
+
+        function calculateOrderSummary() {
+            const cart = getCart();
+            const grossNet = cart.reduce((sum, item) => sum + item.lineTotal, 0);
+
+            const gifts = cart
+                .filter(item => item.giftQty > 0)
+                .map(item => ({
+                    name: item.name,
+                    purchasedQty: item.qty,
+                    giftQty: item.giftQty
+                }));
+
+            const { totalMixDiscount, details: mixDetails } = calculateMixDiscounts(cart);
+
+            const afterMix = grossNet - totalMixDiscount;
+
+            let volPerc = afterMix >= 200 ? Math.min(10, Math.floor(afterMix / 100)) : 0;
+            let volDiscVal = afterMix * (volPerc / 100);
+
+            const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
+            let cashDiscVal = (afterMix - volDiscVal) * (isCash ? 0.02 : 0);
+
+            let netFinal = afterMix - volDiscVal - cashDiscVal;
+            let vatAmount = netFinal * 0.24;
+            let totalFinal = netFinal + vatAmount;
+
+            return {
+                cart,
+                gifts,
+                mixDetails,
+                grossNet,
+                totalMixDiscount,
+                afterMix,
+                volPerc,
+                volDiscVal,
+                cashDiscVal,
+                netFinal,
+                vatAmount,
+                totalFinal,
+                isCash,
+                effectiveDiscountPct: grossNet > 0 ? ((grossNet - netFinal) / grossNet) * 100 : 0
+            };
+        }
+
+        function formatGiftBreakdown(gifts) {
+            if (!gifts.length) return "Δεν υπάρχουν δώρα ακόμη.";
+
+            return gifts.map(g =>
+                `<div class="mini-line gift-line"><span>${g.name}</span><span>Δώρο ${g.giftQty} τεμ</span></div>`
+            ).join('');
+        }
+
+        function formatDiscountBreakdown(summary) {
+            const lines = [];
+
+            summary.mixDetails.forEach(d => {
+                lines.push(
+                    `<div class="mini-line discount-line"><span>${d.title} (${d.qty} τεμ / ${d.pct}%)</span><span>- ${d.value.toFixed(2)} €</span></div>`
+                );
+            });
+
+            if (summary.volDiscVal > 0) {
+                lines.push(
+                    `<div class="mini-line discount-line"><span>Έκπτωση τζίρου (${summary.volPerc}%)</span><span>- ${summary.volDiscVal.toFixed(2)} €</span></div>`
+                );
+            }
+
+            if (summary.cashDiscVal > 0) {
+                lines.push(
+                    `<div class="mini-line discount-line"><span>Έκπτωση μετρητών (2%)</span><span>- ${summary.cashDiscVal.toFixed(2)} €</span></div>`
+                );
+            }
+
+            return lines.length ? lines.join('') : "Δεν υπάρχουν εκπτώσεις ακόμη.";
+        }
+
+        function updateTotals() {
+            const summary = calculateOrderSummary();
+
+            products.forEach((p, i) => {
+                const qty = getQty(i);
+                document.getElementById(`total-${i}`).textContent = (qty * p.price).toFixed(2) + " €";
+            });
+
+            document.getElementById("init-net").textContent = summary.grossNet.toFixed(2) + " €";
+            document.getElementById("mix-disc").textContent = "- " + summary.totalMixDiscount.toFixed(2) + " €";
+            document.getElementById("vol-disc").textContent = "- " + summary.volDiscVal.toFixed(2) + " € (" + summary.volPerc + "%)";
+            document.getElementById("cash-disc").textContent = "- " + summary.cashDiscVal.toFixed(2) + " €" + (summary.isCash ? " (2%)" : "");
+            document.getElementById("net-invoice").textContent = summary.netFinal.toFixed(2) + " €";
+            document.getElementById("vat-val").textContent = summary.vatAmount.toFixed(2) + " €";
+            document.getElementById("total-val").textContent = summary.totalFinal.toFixed(2) + " €";
+            document.getElementById("sticky-total").textContent = summary.totalFinal.toFixed(2) + " €";
+
+            const stickerPct = summary.effectiveDiscountPct > 0 ? summary.effectiveDiscountPct.toFixed(1) : "0";
+            document.getElementById("sticky-badge").textContent = `${stickerPct}% DISC.`;
+
+            document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
+            document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
+
+            let nextThreshold = summary.afterMix < 200 ? 200 : (Math.floor(summary.afterMix / 100) + 1) * 100;
+            document.getElementById("progress-text").textContent =
+                summary.volPerc >= 10
+                    ? "Μέγιστη έκπτωση τζίρου!"
+                    : `Προσθέστε ${(nextThreshold - summary.afterMix).toFixed(0)} € για ${Math.floor(nextThreshold / 100)}% τζίρου`;
+        }
+
+        function setQty(i, v) {
+            document.getElementById(`qty-${i}`).value = v;
+            updateTotals();
+        }
+
+        function changeQty(i, d) {
+            const el = document.getElementById(`qty-${i}`);
+            el.value = Math.max(0, (parseInt(el.value) || 0) + d);
+            updateTotals();
+        }
+
+        function onlyOne(c) {
+            document.getElementsByName('payment').forEach(b => {
+                if (b !== c) b.checked = false;
+            });
+            updateTotals();
+        }
+
+        function buildPayload() {
+            const summary = calculateOrderSummary();
+
+            const customer = {
+                afm: document.getElementById('afm').value.trim(),
+                eponimia: document.getElementById('eponimia').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                kinito: document.getElementById('kinito').value.trim(),
+                stathero: document.getElementById('stathero').value.trim(),
+                doy: document.getElementById('doy').value.trim()
+            };
+
+            return {
+                action: "submitOrder",
+
+                customer,
+
+                afm: customer.afm,
+                eponimia: customer.eponimia,
+                email: customer.email,
+                kinito: customer.kinito,
+                stathero: customer.stathero,
+                doy: customer.doy,
+
+                payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή 60 Ημερών",
+                remarks: document.getElementById('remarks').value.trim(),
+
+                cart: summary.cart.map(x => ({
+                    name: x.name,
+                    qty: x.qty,
+                    giftQty: x.giftQty,
+                    price: x.price,
+                    lineTotal: x.lineTotal
+                })),
+
+                gifts: summary.gifts,
+                mixDiscounts: summary.mixDetails,
+
+                discountAnalysis: {
+                    grossNet: summary.grossNet,
+                    mixDiscount: summary.totalMixDiscount,
+                    afterMix: summary.afterMix,
+                    volumeDiscountPercent: summary.volPerc,
+                    volumeDiscountValue: summary.volDiscVal,
+                    cashDiscountValue: summary.cashDiscVal,
+                    netFinal: summary.netFinal,
+                    vatAmount: summary.vatAmount,
+                    totalFinal: summary.totalFinal
+                },
+
+                items: summary.cart.map(x => {
+                    const giftText = x.giftQty > 0 ? ` + ΔΩΡΟ ${x.giftQty}` : "";
+                    return `${x.name} (${x.qty})${giftText}`;
+                }).join(", "),
+
+                giftsSummary: summary.gifts.length
+                    ? summary.gifts.map(g => `${g.name}: Δώρο ${g.giftQty} τεμ`).join(" | ")
+                    : "Χωρίς δώρα",
+
+                discountsSummary: [
+                    ...summary.mixDetails.map(d => `${d.title}: ${d.qty} τεμ => ${d.pct}% = ${d.value.toFixed(2)} €`),
+                    `Έκπτωση τζίρου: ${summary.volPerc}% = ${summary.volDiscVal.toFixed(2)} €`,
+                    `Έκπτωση μετρητών: ${summary.cashDiscVal.toFixed(2)} €`,
+                    `Τελική καθαρή αξία: ${summary.netFinal.toFixed(2)} €`,
+                    `ΦΠΑ: ${summary.vatAmount.toFixed(2)} €`,
+                    `Τελικό σύνολο: ${summary.totalFinal.toFixed(2)} €`
+                ].join(" | ")
+            };
+        }
 
         async function processOrder() {
-            const cart = products.map((p, i) => { const q = parseInt(document.getElementById(`qty-${i}`).value) || 0; return q > 0 ? { name: p.name, qty: q, price: p.price } : null; }).filter(x => x);
-            if (cart.length === 0) return alert("Κενή παραγγελία!");
-            const data = { action: "submitOrder", afm: document.getElementById('afm').value, eponimia: document.getElementById('eponimia').value, email: document.getElementById('email').value, kinito: document.getElementById('kinito').value, stathero: document.getElementById('stathero').value, doy: document.getElementById('doy').value, payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή", remarks: document.getElementById('remarks').value, cart: cart, items: cart.map(x => `${x.name} (${x.qty})`).join(", ") };
-            try { const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) }); if (r.ok) { alert("Η παραγγελία καταχωρήθηκε!"); location.reload(); } } catch(e) {}
+            const payload = buildPayload();
+
+            if (!payload.cart.length) {
+                return alert("Κενή παραγγελία!");
+            }
+
+            try {
+                const r = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (r.ok) {
+                    alert("Η παραγγελία καταχωρήθηκε!");
+                    location.reload();
+                    return;
+                }
+
+                alert("Υπήρξε πρόβλημα στην αποστολή της παραγγελίας.");
+            } catch (e) {
+                console.error("processOrder error:", e);
+                alert("Υπήρξε πρόβλημα σύνδεσης.");
+            }
         }
 
         async function toggleAdminMode() {
@@ -186,12 +698,19 @@
             if (pin === "1234") {
                 document.getElementById('hourglass').style.display = 'inline-block';
                 try {
-                    const r = await fetch(`${SCRIPT_URL}?action=getStock&pin=${pin}`);
+                    const r = await fetch(`${SCRIPT_URL}?action=getStock&pin=${encodeURIComponent(pin)}`);
                     const d = await r.json();
                     if (d.success) {
-                        products.forEach((p, i) => { const el = document.getElementById(`stock-${i}`); el.style.display = "block"; el.textContent = "STOCK: " + (d.inventory[p.name] || 0); });
+                        products.forEach((p, i) => {
+                            const el = document.getElementById(`stock-${i}`);
+                            el.style.display = "block";
+                            el.textContent = "STOCK: " + (d.inventory[p.name] || 0);
+                        });
                     }
-                } catch(e) {} document.getElementById('hourglass').style.display = 'none';
+                } catch (e) {
+                    console.error("toggleAdminMode error:", e);
+                }
+                document.getElementById('hourglass').style.display = 'none';
             }
         }
     </script>
