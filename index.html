@@ -73,9 +73,16 @@
         .p-img { grid-area: img; width: 80px; height: 80px; object-fit: contain; }
         .stock-label { display: none; color: #f59e0b; font-weight: 800; font-size: 0.85rem; }
 
-        .quick-btns { grid-area: btns; display: flex; gap: 10px; margin: 15px 0; }
+        .quick-btns {
+            grid-area: btns;
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
         .q-btn {
-            flex: 1;
+            flex: 1 1 90px;
             padding: 18px 5px;
             border: none;
             border-radius: 20px;
@@ -85,7 +92,9 @@
             color: var(--primary);
             cursor: pointer;
             transition: 0.3s;
+            min-width: 80px;
         }
+
         .q-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
 
         .qty-controls {
@@ -193,6 +202,7 @@
             max-width: 1400px;
             margin: 0 auto;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .sticky-price-val { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; }
@@ -317,7 +327,7 @@
             { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" }
         ];
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZZ-PSyN-sSFwgCeJl3LFjbAYy6XzMbnKD3TJS0a6V5Zm0TI5xdYjVpxyjYGQmCA7R2Q/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpauEItvM_ASnL2IDt3Gh5ZIZ5a38KRonAA57T1sUAdeFWFUJrUIdfqCcaxJAf4RlGpg/exec";
 
         const MIX_GROUPS = [
             {
@@ -395,6 +405,28 @@
             }
         }
 
+        function isNutriMX(productName) {
+            return NUTRI_MX_PRODUCTS.includes(productName);
+        }
+
+        function getQuickButtons(productName, index) {
+            if (isNutriMX(productName)) {
+                return `
+                    <button type="button" class="q-btn" onclick="setQty(${index}, 6)">6</button>
+                    <button type="button" class="q-btn" onclick="setQty(${index}, 12)">12</button>
+                    <button type="button" class="q-btn" onclick="setQty(${index}, 18)">18</button>
+                    <button type="button" class="q-btn" onclick="setQty(${index}, 24)">24</button>
+                `;
+            }
+
+            return `
+                <button type="button" class="q-btn" onclick="setQty(${index}, 6)">6</button>
+                <button type="button" class="q-btn" onclick="setQty(${index}, 9)">9+1</button>
+                <button type="button" class="q-btn" onclick="setQty(${index}, 18)">18+3</button>
+                <button type="button" class="q-btn" onclick="setQty(${index}, 24)">24+6</button>
+            `;
+        }
+
         function renderProducts() {
             const container = document.getElementById('orderGrid');
             products.forEach((p, i) => {
@@ -409,9 +441,7 @@
                     </div>
                     <div style="font-weight:900; color:var(--primary); font-size:1.4rem;" id="total-${i}">0.00 €</div>
                     <div class="quick-btns">
-                        <button type="button" class="q-btn" onclick="setQty(${i}, 9)">9+1</button>
-                        <button type="button" class="q-btn" onclick="setQty(${i}, 18)">18+3</button>
-                        <button type="button" class="q-btn" onclick="setQty(${i}, 24)">24+6</button>
+                        ${getQuickButtons(p.name, i)}
                     </div>
                     <div class="qty-controls">
                         <button type="button" class="qty-btn" onclick="changeQty(${i},-1)">-</button>
@@ -428,7 +458,7 @@
         }
 
         function getGiftQty(qty, productName) {
-            if (NUTRI_MX_PRODUCTS.includes(productName)) {
+            if (isNutriMX(productName)) {
                 return 0;
             }
             if (qty >= 24) return 6;
