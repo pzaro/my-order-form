@@ -318,6 +318,7 @@
         ];
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpauEItvM_ASnL2IDt3Gh5ZIZ5a38KRonAA57T1sUAdeFWFUJrUIdfqCcaxJAf4RlGpg/exec";
+
         const MIX_GROUPS = [
             {
                 code: "ZPLAST_CLASSIC",
@@ -356,6 +357,15 @@
                 ],
                 tiers: [{ minQty: 15, pct: 10 }]
             }
+        ];
+
+        const NUTRI_MX_PRODUCTS = [
+            'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps',
+            'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab',
+            'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB',
+            'NUTRI MX OMEGA 3 30 Softgel Caps',
+            'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB',
+            'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab'
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -417,11 +427,21 @@
             return Math.max(0, parseInt(document.getElementById(`qty-${index}`).value) || 0);
         }
 
+        function getGiftQty(qty, productName) {
+            if (NUTRI_MX_PRODUCTS.includes(productName)) {
+                return 0;
+            }
+            if (qty >= 24) return 6;
+            if (qty >= 18) return 3;
+            if (qty >= 9) return 1;
+            return 0;
+        }
+
         function getCart() {
             return products.map((p, i) => {
                 const qty = getQty(i);
                 if (qty <= 0) return null;
-                const giftQty = getGiftQty(qty);
+                const giftQty = getGiftQty(qty, p.name);
                 return {
                     index: i,
                     name: p.name,
@@ -431,13 +451,6 @@
                     lineTotal: qty * p.price
                 };
             }).filter(Boolean);
-        }
-
-        function getGiftQty(qty) {
-            if (qty >= 24) return 6;
-            if (qty >= 18) return 3;
-            if (qty >= 9) return 1;
-            return 0;
         }
 
         function getAppliedMixTier(totalQty, tiers) {
