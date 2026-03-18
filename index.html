@@ -327,32 +327,41 @@
             { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" }
         ];
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpauEItvM_ASnL2IDt3Gh5ZIZ5a38KRonAA57T1sUAdeFWFUJrUIdfqCcaxJAf4RlGpg/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9kAYLBBaQDTXsqLFS2rZqskcAn1qf3ia_bYrWz-MN4v95y44Bmz4w0n-crgLlXCnqSA/exec";
 
         const MIX_GROUPS = [
             {
-                code: "ZPLAST_CLASSIC",
-                title: "ZplastCream mix",
-                products: ['ZplastCream 40gr', 'ZplastCream 100gr'],
-                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
-            },
-            {
-                code: "ZPLAST_TR",
-                title: "Zplast Total Repair mix",
-                products: ['Zplast Total Repair Cream 30ml', 'Zplast Total Repair 50ml', 'Zplast Total Repair 100ml'],
-                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+                code: "ZPLAST_ALL",
+                title: "Zplast Mix",
+                products: [
+                    'ZplastCream 40gr',
+                    'ZplastCream 100gr',
+                    'Zplast Total Repair Cream 30ml',
+                    'Zplast Total Repair 50ml',
+                    'Zplast Total Repair 100ml'
+                ],
+                tiers: [
+                    { minQty: 20, pct: 15 },
+                    { minQty: 10, pct: 10 }
+                ]
             },
             {
                 code: "ZBOOST",
                 title: "Z-boost mix",
                 products: ['Z-boost 30 caps', 'Z-boost 12 caps'],
-                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+                tiers: [
+                    { minQty: 20, pct: 15 },
+                    { minQty: 10, pct: 10 }
+                ]
             },
             {
                 code: "BRUISE_OFF",
                 title: "Bruise Off mix",
                 products: ['Bruise Off cream 50ml', 'Bruise Off cream 100ml'],
-                tiers: [{ minQty: 20, pct: 15 }, { minQty: 10, pct: 10 }]
+                tiers: [
+                    { minQty: 20, pct: 15 },
+                    { minQty: 10, pct: 10 }
+                ]
             },
             {
                 code: "NUTRI_MX",
@@ -365,7 +374,10 @@
                     'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB',
                     'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab'
                 ],
-                tiers: [{ minQty: 15, pct: 10 }]
+                tiers: [
+                    { minQty: 24, pct: 15 },
+                    { minQty: 15, pct: 10 }
+                ]
             }
         ];
 
@@ -458,9 +470,7 @@
         }
 
         function getGiftQty(qty, productName) {
-            if (isNutriMX(productName)) {
-                return 0;
-            }
+            if (isNutriMX(productName)) return 0;
             if (qty >= 24) return 6;
             if (qty >= 18) return 3;
             if (qty >= 9) return 1;
@@ -536,15 +546,15 @@
             const { totalMixDiscount, details: mixDetails } = calculateMixDiscounts(cart);
 
             const afterMix = grossNet - totalMixDiscount;
-            let volPerc = afterMix >= 200 ? Math.min(10, Math.floor(afterMix / 100)) : 0;
-            let volDiscVal = afterMix * (volPerc / 100);
+            const volPerc = afterMix >= 200 ? Math.min(10, Math.floor(afterMix / 100)) : 0;
+            const volDiscVal = afterMix * (volPerc / 100);
 
             const isCash = document.querySelector('input[name="payment"]:checked')?.value === "Αντικαταβολή Μετρητά";
-            let cashDiscVal = (afterMix - volDiscVal) * (isCash ? 0.02 : 0);
+            const cashDiscVal = (afterMix - volDiscVal) * (isCash ? 0.02 : 0);
 
-            let netFinal = afterMix - volDiscVal - cashDiscVal;
-            let vatAmount = netFinal * 0.24;
-            let totalFinal = netFinal + vatAmount;
+            const netFinal = afterMix - volDiscVal - cashDiscVal;
+            const vatAmount = netFinal * 0.24;
+            const totalFinal = netFinal + vatAmount;
 
             return {
                 cart,
@@ -618,7 +628,7 @@
             document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
             document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
 
-            let nextThreshold = summary.afterMix < 200 ? 200 : (Math.floor(summary.afterMix / 100) + 1) * 100;
+            const nextThreshold = summary.afterMix < 200 ? 200 : (Math.floor(summary.afterMix / 100) + 1) * 100;
             document.getElementById("progress-text").textContent =
                 summary.volPerc >= 10
                     ? "Μέγιστη έκπτωση τζίρου!"
@@ -666,7 +676,6 @@
                 doy: customer.doy,
                 payment: document.querySelector('input[name="payment"]:checked')?.value || "Επιταγή 60 Ημερών",
                 remarks: document.getElementById('remarks').value.trim(),
-
                 cart: summary.cart.map(x => ({
                     name: x.name,
                     qty: x.qty,
@@ -674,10 +683,8 @@
                     price: x.price,
                     lineTotal: x.lineTotal
                 })),
-
                 gifts: summary.gifts,
                 mixDiscounts: summary.mixDetails,
-
                 discountAnalysis: {
                     grossNet: summary.grossNet,
                     mixDiscount: summary.totalMixDiscount,
@@ -689,16 +696,13 @@
                     vatAmount: summary.vatAmount,
                     totalFinal: summary.totalFinal
                 },
-
                 items: summary.cart.map(x => {
                     const giftText = x.giftQty > 0 ? ` + ΔΩΡΟ ${x.giftQty}` : "";
                     return `${x.name} (${x.qty})${giftText}`;
                 }).join(", "),
-
                 giftsSummary: summary.gifts.length
                     ? summary.gifts.map(g => `${g.name}: Δώρο ${g.giftQty} τεμ`).join(" | ")
                     : "Χωρίς δώρα",
-
                 discountsSummary: [
                     ...summary.mixDetails.map(d => `${d.title}: ${d.qty} τεμ => ${d.pct}% = ${d.value.toFixed(2)} €`),
                     `Έκπτωση τζίρου: ${summary.volPerc}% = ${summary.volDiscVal.toFixed(2)} €`,
