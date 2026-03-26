@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Zarkolia Health</title>
-
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Zarkolia">
@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Health%20Order%20Form.jpg?raw=true&v=final">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-
+    
     <style>
         :root {
             --primary: #4a5d4e;
@@ -36,23 +36,13 @@
         #hourglass { display: none; animation: spin 2s infinite linear; color: var(--accent); margin-left: 10px; vertical-align: middle; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .customer-header {
-            background: var(--white);
-            border-radius: 35px;
-            padding: clamp(20px, 5vw, 40px);
-            border: 3px solid var(--primary);
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
+        .customer-header { background: var(--white); border-radius: 35px; padding: clamp(20px, 5vw, 40px); border: 3px solid var(--primary); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
         .input-group input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--border); font-weight: 600; font-size: 1.1rem; }
 
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
-        @media (min-width: 1100px) {
-            .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; align-items: start; }
-        }
+        @media (min-width: 1100px) { .dashboard-grid { grid-template-columns: 1.8fr 1.2fr; align-items: start; } }
 
         .order-item {
             display: grid;
@@ -60,179 +50,45 @@
             grid-template-areas:
                 "img info total"
                 "btns btns btns"
+                "science science science"
                 "qty qty qty";
-            align-items: center;
-            padding: 25px;
-            background: #fff;
-            border-radius: 40px;
-            border: 1px solid var(--border);
-            margin-bottom: 25px;
-            gap: 15px;
+            align-items: center; padding: 25px; background: #fff; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 25px; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.02);
         }
 
-        .p-img { grid-area: img; width: 80px; height: 80px; object-fit: contain; }
+        .p-img { grid-area: img; width: 80px; height: 80px; object-fit: contain; border-radius: 10px; }
         .stock-label { display: none; color: #f59e0b; font-weight: 800; font-size: 0.85rem; }
 
-        .quick-btns {
-            grid-area: btns;
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
+        /* SCIENCE UI ELEMENTS */
+        .science-btn { color: var(--gray); text-decoration: underline; cursor: pointer; font-size: 0.75rem; font-weight: 800; margin-top: 5px; display: inline-block; }
+        .science-box { grid-area: science; display: none; background: #f8fafc; padding: 25px; border-radius: 20px; border-left: 6px solid var(--primary); margin: 5px 0 15px 0; font-size: 0.85rem; line-height: 1.6; color: #4a5568; }
+        .science-box h4 { color: var(--primary); margin: 15px 0 5px; text-transform: uppercase; font-size: 0.75rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+        .science-box h4:first-child { margin-top: 0; }
 
-        .q-btn {
-            flex: 1 1 90px;
-            padding: 18px 5px;
-            border: none;
-            border-radius: 20px;
-            background: #eef2f0;
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--primary);
-            cursor: pointer;
-            transition: 0.3s;
-            min-width: 80px;
-        }
-
+        .quick-btns { grid-area: btns; display: flex; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
+        .q-btn { flex: 1 1 90px; padding: 18px 5px; border: none; border-radius: 20px; background: #eef2f0; font-size: 1rem; font-weight: 800; color: var(--primary); cursor: pointer; transition: 0.3s; min-width: 80px; }
         .q-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
 
-        .qty-controls {
-            grid-area: qty;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f7faf9;
-            padding: 15px;
-            border-radius: 25px;
-            border: 1px solid #e2e8f0;
-        }
+        .qty-controls { grid-area: qty; display: flex; align-items: center; justify-content: space-between; background: #f7faf9; padding: 15px; border-radius: 25px; border: 1px solid #e2e8f0; }
+        .qty-btn { width: 55px; height: 55px; border: none; background: #fff; border-radius: 18px; font-weight: 900; font-size: 2rem; cursor: pointer; color: var(--primary); }
+        .qty-input { width: 100px; text-align: center; border: none; background: transparent; font-weight: 800; font-size: 1.8rem; color: var(--primary); }
 
-        .qty-btn {
-            width: 55px;
-            height: 55px;
-            border: none;
-            background: #fff;
-            border-radius: 18px;
-            font-weight: 900;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--primary);
-        }
+        .billing-card { background: #fff; border-radius: 50px; padding: clamp(30px, 5vw, 50px); border: 3px solid var(--primary); position: sticky; top: 20px; }
+        .summary-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; font-weight: 600; }
+        .summary-row.total { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; color: var(--primary); border-top: 5px solid var(--accent); padding-top: 25px; margin-top: 25px; }
 
-        .qty-input {
-            width: 100px;
-            text-align: center;
-            border: none;
-            background: transparent;
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-
-        .billing-card {
-            background: #fff;
-            border-radius: 50px;
-            padding: clamp(30px, 5vw, 50px);
-            border: 3px solid var(--primary);
-            position: sticky;
-            top: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .summary-row.total {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            font-weight: 900;
-            color: var(--primary);
-            border-top: 5px solid var(--accent);
-            padding-top: 25px;
-            margin-top: 25px;
-        }
-
-        .mini-box {
-            margin-top: 18px;
-            padding: 14px 16px;
-            background: #f8faf8;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 0.95rem;
-        }
-
-        .mini-box h4 {
-            margin: 0 0 10px 0;
-            color: var(--primary);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-        }
-
-        .mini-line {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 0.92rem;
-        }
-
+        .mini-box { margin-top: 18px; padding: 14px 16px; background: #f8faf8; border: 1px solid #e2e8f0; border-radius: 16px; font-size: 0.95rem; }
+        .mini-box h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 0.95rem; text-transform: uppercase; }
+        .mini-line { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; font-size: 0.92rem; }
         .gift-line { color: var(--danger); font-weight: 800; }
         .discount-line { color: var(--accent); font-weight: 800; }
 
-        .sticky-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: var(--primary);
-            color: #fff;
-            padding: 15px clamp(15px, 4vw, 40px);
-            z-index: 1000;
-            border-top: 4px solid var(--accent);
-        }
-
-        .sticky-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
+        .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 15px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); }
+        .sticky-content { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; gap: 15px; flex-wrap: wrap; }
         .sticky-price-val { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; }
         .sticky-badge { background: var(--accent); color: white; padding: 6px 14px; border-radius: 10px; font-weight: 900; }
 
-        .btn-confirm {
-            width: 100%;
-            padding: 25px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.6rem;
-            font-weight: 900;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 35px;
-            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
-        }
-
-        textarea {
-            width: 100%;
-            height: 110px;
-            border-radius: 20px;
-            border: 2px solid var(--border);
-            padding: 15px;
-            margin-top: 20px;
-            font-family: inherit;
-            resize: none;
-        }
+        .btn-confirm { width: 100%; padding: 25px; background: var(--accent); color: white; border: none; border-radius: 25px; font-size: 1.6rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 35px; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
+        textarea { width: 100%; height: 110px; border-radius: 20px; border: 2px solid var(--border); padding: 15px; margin-top: 20px; font-family: inherit; resize: none; }
     </style>
 </head>
 <body id="mainBody">
@@ -262,7 +118,6 @@
                             <input type="checkbox" name="payment" value="Αντικαταβολή Μετρητά" onclick="onlyOne(this)" style="width:25px; height:25px;">
                             Μετρητά (+2%)
                         </label>
-
                         <label style="display:flex; align-items:center; gap:14px; margin-bottom:30px; cursor:pointer; font-weight:700;">
                             <input type="checkbox" name="payment" value="Επιταγή 60 Ημερών" onclick="onlyOne(this)" style="width:25px; height:25px;">
                             Επιταγή 60 Ημερών
@@ -303,32 +158,58 @@
     </div>
 
     <script>
+        // ΕΝΣΩΜΑΤΩΣΗ ΕΠΙΣΤΗΜΟΝΙΚΩΝ ΔΕΔΟΜΕΝΩΝ (SCI OBJECTS)
+        const sciTotalRepair = {
+            act: "Centella Asiatica, Hypericum Perforatum, Linum Seed Oil, Avocado Oil, Calamine, Sea Buckthorn, Honey, Mastic, Hyaluronic Acid, Vit E.",
+            ind: "Επιβαρυμένο και ερεθισμένο δέρμα, ανάγκη επανόρθωσης επιφανειακού φραγμού, ξηρότητα και αφυδάτωση, καταπραϋντική περιποίηση περιοχών με επιφανειακή καταπόνηση, τραχύτητα και δυσφορία.",
+            mech: "Centella: Υποστήριξη επούλωσης & κολλαγονική δραστηριότητα. Hypericum: Καταπραϋντική φροντίδα. Μέλι: Υγρό επουλωτικό περιβάλλον. Calamine: Ανακούφιση ερεθισμού. Υαλουρονικό: Humectant ενυδάτωση. Φυτικά έλαια: Μείωση TEWL & ενίσχυση φραγμού."
+        };
+
+        const sciZplastCream = {
+            act: "Μαστίχα Χίου, Βαλσαμόχορτο, Μέλι, Καλαμίνη, Καλέντουλα, Zea mays, Ιπποφαές, Αβοκάντο.",
+            ind: "Ερεθισμένο δέρμα, ήπια επιφανειακή δερματική καταπόνηση, ξηρότητα και αίσθημα τραβήγματος, φροντίδα δέρματος με ανάγκη καταπράυνσης, υποστηρικτική περιποίηση μικροτραυματισμών και barrier support.",
+            mech: "Hypericum / καλέντουλα: βοτανική υποστήριξη με καταπραϋντικό ενδιαφέρον. Μέλι: συμβολή σε προστατευτικό / υγρό επουλωτικό περιβάλλον. Καλαμίνη: τοπική ανακούφιση ερεθισμού. Μαστίχα / ιπποφαές / αβοκάντο: αντιοξειδωτική και barrier-support δράση."
+        };
+
+        const sciBruiseOff = {
+            act: "Ουρία 10%, Άρνικα 10%, Ριγανέλαιο, Μελισσόχορτο.",
+            ind: "Μώλωπες, τοπικό οίδημα, τοπική δυσφορία μετά από μικροκακώσεις, καταπραϋντική φροντίδα της περιοχής εφαρμογής.",
+            mech: "Άρνικα: παραδοσιακή χρήση για μώλωπες / τοπική φλεγμονώδη αντίδραση. Ουρία: ενυδατική και ήπια κερατολυτική δράση. Μελισσόχορτο / ριγανέλαιο: βοτανική υποστηρικτική καταπραϋντική συμβολή."
+        };
+
+        const sciZboost = {
+            act: "NAC 300 mg, Ψευδάργυρος, Σελήνιο, ALA (άλφα-λιποϊκό οξύ), CoQ10, Ginger.",
+            ind: "Αντιοξειδωτική υποστήριξη, υποστήριξη φυσιολογικής λειτουργίας ανοσοποιητικού, καταστάσεις αυξημένου οξειδωτικού στρες, υποστήριξη ενεργειακού μεταβολισμού, συμπληρωματική υποστήριξη σε κόπωση.",
+            mech: "NAC: πρόδρομος της γλουταθειόνης. CoQ10: υποστήριξη μιτοχονδριακής παραγωγής ενέργειας. Ψευδάργυρος/Σελήνιο: συμμετοχή σε αντιοξειδωτικά ένζυμα. ALA: redox-cycling. Ginger: αντιοξειδωτικό ενδιαφέρον."
+        };
+
+        // Ο ΚΑΤΑΛΟΓΟΣ ΤΩΝ ΠΡΟΪΟΝΤΩΝ ΣΑΣ (ΜΕ ΤΙΣ ΕΙΚΟΝΕΣ ΚΑΙ ΤΑ SCI DATA)
         const products = [
-            { name: 'Zplast Total Repair Cream 30ml', price: 10.21, img: "https://github.com/pzaro/my-order-form/blob/main/images/Zarkolia%20Health%20Order%20Form.jpg?raw=true" },
-            { name: 'Z-DermAspis', price: 5.03, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG" },
-            { name: 'Zplast Total Repair 50ml', price: 14.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" },
-            { name: 'Zplast Total Repair 100ml', price: 26.80, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg" },
-            { name: 'ZplastCream 40gr', price: 12.30, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg" },
-            { name: 'ZplastCream 100gr', price: 24.79, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg" },
-            { name: 'Bruise Off cream 50ml', price: 5.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg" },
-            { name: 'Bruise Off cream 100ml', price: 9.50, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg" },
-            { name: 'Z-boost 30 caps', price: 14.93, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg" },
-            { name: 'Z-boost 12 caps', price: 6.99, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg" },
-            { name: 'Hydralia Face cream 50ml', price: 8.90, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Hydralia%20Face%20Cream%2050ml.jpg" },
-            { name: 'Revitacell Plus Face cream 50ml', price: 10.69, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg" },
-            { name: 'Revitace Eyes cream Luce 30ml', price: 10.10, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg" },
-            { name: 'Alveolair Sir', price: 7.65, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Alveolair%20Sir.jpg" },
-            { name: 'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps', price: 8.96, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg" },
-            { name: 'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab', price: 5.98, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg" },
-            { name: 'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB', price: 6.51, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg" },
-            { name: 'NUTRI MX OMEGA 3 30 Softgel Caps', price: 6.87, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg" },
-            { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 10.16, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg" },
-            { name: 'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab', price: 7.90, img: "https://github.com/pzaro/zarkolia-images/blob/main/NUTRI%20MX%20D3%20k2.png?raw=true" },
-            { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg" }
+            { name: 'Zplast Total Repair Cream 30ml', price: 10.21, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
+            { name: 'Zplast Total Repair 50ml', price: 14.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
+            { name: 'Zplast Total Repair 100ml', price: 26.80, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
+            { name: 'ZplastCream 40gr', price: 12.30, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg", sci: sciZplastCream },
+            { name: 'ZplastCream 100gr', price: 24.79, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/ZplastCream%2040gr.jpg", sci: sciZplastCream },
+            { name: 'Bruise Off cream 50ml', price: 5.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg", sci: sciBruiseOff },
+            { name: 'Bruise Off cream 100ml', price: 9.50, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Bruise%20Off%20Bite%20Out%20&%20Pain%20Free%20cream.jpg", sci: sciBruiseOff },
+            { name: 'Z-boost 30 caps', price: 14.93, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg", sci: sciZboost },
+            { name: 'Z-boost 12 caps', price: 6.99, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Z-boost%2030%20caps.jpg", sci: sciZboost },
+            { name: 'Hydralia Face cream 50ml', price: 8.90, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Hydralia%20Face%20Cream%2050ml.jpg", sci: { act: "Υαλουρονικό οξύ, Έλαιο Αβοκάντο, Έλαιο Jojoba, Αμυγδαλέλαιο, Aloe vera.", ind: "Ξηρό ή αφυδατωμένο δέρμα, καθημερινή ενυδάτωση προσώπου, δέρμα με αίσθημα τραβήγματος, υποστήριξη δερματικού φραγμού.", mech: "Υαλουρονικό: συγκράτηση νερού στην επιδερμίδα. Aloe vera: humectant. Jojoba/αβοκάντο: μαλακτική, θρεπτική και barrier-support δράση." } },
+            { name: 'Revitacell Plus Face cream 50ml', price: 10.69, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitacell%20Plus%20Face%20cream%2050ml.jpg", sci: { act: "Έλαιο ροδιού, Υαλουρονικό οξύ, Μαστίχα Χίου, Βιταμίνη Ε, Έλαιο Jojoba, Έλαιο Αβοκάντο.", ind: "Αφυδατωμένο δέρμα, θαμπό δέρμα, δέρμα με απώλεια ελαστικότητας, πρόωρη γήρανση, ανάγκη ενίσχυσης δερματικού φραγμού.", mech: "Υαλουρονικό: ενισχύει ενυδάτωση. Έλαιο ροδιού: αντιοξειδωτική υποστήριξη. Μαστίχα Χίου: καταπραϋντική φροντίδα. Βιταμίνη Ε: προστασία λιπιδικών δομών." } },
+            { name: 'Revitace Eyes cream Luce 30ml', price: 10.10, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Revitace%20Eyes%20cream%20Luce%2030ml.jpg", sci: { act: "Ιπποκαστανιά / Escin, Άρνικα, Υαλουρονικό οξύ.", ind: "Περιοφθαλμική αφυδάτωση, αίσθηση κούρασης, φροντίδα για αίσθηση βάρους / ήπιου οιδήματος.", mech: "Escin: υποστήριξη μικροκυκλοφορίας και οιδήματος. Υαλουρονικό: ενυδάτωση. Άρνικα: παραδοσιακή τοπική καταπραϋντική χρήση." } },
+            { name: 'Alveolair Sir', price: 7.65, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Alveolair%20Sir.jpg", sci: { act: "Αλθέα, Ευκάλυπτος, Θυμάρι, Κράνι (Cornus mas), Ιπποφαές.", ind: "Ερεθισμένος λαιμός, βήχας ως υποστηρικτική βοτανική φροντίδα, ανάγκη για μαλακτική υποστήριξη βλεννογόνου.", mech: "Αλθέα: demulcent / μαλακτική δράση σε βλεννογόνους. Θυμάρι: αναπνευστική υποστήριξη. Ευκάλυπτος: σχετίζεται με αίσθηση αποσυμφόρησης." } },
+            { name: 'NUTRI MX PROBIOTIC Premium (18 ΠΡΟΒΙΟΤΙΚΑ - 10 Billion CFU) 30 caps', price: 8.96, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20PROBIOTIC%20PREMIUM.jpg", sci: { act: "18 στελέχη (Bifidobacterium, Lactobacillus), περίπου 10 billion CFU ανά κάψουλα.", ind: "Αποκατάσταση εντερικού μικροβιώματος, υποστήριξη μετά από αντιβίωση, λειτουργικές διαταραχές εντέρου.", mech: "Ανταγωνισμός παθογόνων μικροοργανισμών, ενίσχυση εντερικού φραγμού, modulation τοπικής ανοσολογικής απόκρισης." } },
+            { name: 'NUTRI MX MAGNESIUM +B6 (200 mg +5mg) 30 tab', price: 5.98, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20MAGNESIUM%201%20%CE%A4%CE%B5%CE%BC.jpg", sci: { act: "Magnesium 200 mg, Vitamin B6 5 mg.", ind: "Κόπωση, μυϊκή λειτουργία, νευρομυϊκή υποστήριξη, έντονη φυσική δραστηριότητα.", mech: "Μαγνήσιο: ενζυμικές αντιδράσεις, νευρομυϊκή λειτουργία, παραγωγή ενέργειας. Βιταμίνη B6: μεταβολισμός αμινοξέων, λειτουργία νευρικού συστήματος." } },
+            { name: 'NUTRI MX A-Z ΠΟΛΥΒΙΤΑΜΙΝΗ 30 TAB', price: 6.51, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20A-Z.jpg", sci: { act: "Πλήρες φάσμα Βιταμινών (A, B, C, D, E, K1) και Μετάλλων + Lutein 0.5 mg.", ind: "Γενική διατροφική υποστήριξη, κάλυψη αυξημένων αναγκών μικροθρεπτικών, κόπωση / έντονος ρυθμός ζωής.", mech: "Πολυπαραγοντική ενίσχυση ενζυμικών/μεταβολικών οδών, παραγωγή ενέργειας, ανοσολογική λειτουργία και αντιοξειδωτική άμυνα." } },
+            { name: 'NUTRI MX OMEGA 3 30 Softgel Caps', price: 6.87, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg", sci: { act: "Fish Oil 1000 mg (EPA 180 mg, DHA 120 mg).", ind: "Υποστήριξη καρδιαγγειακής υγείας, συμβολή στη φυσιολογική λειτουργία εγκεφάλου, υποστήριξη όρασης.", mech: "EPA / DHA: ενσωμάτωση σε κυτταρικές μεμβράνες, ρύθμιση εικοσανοειδών και φλεγμονωδών μονοπατιών." } },
+            { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 10.16, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg", sci: { act: "Glucosamine 500 mg, MSM 133.3 mg, Chondroitin 100 mg, Collagen 100 mg, Citrus bioflavonoids 100 mg, Ginger 5 mg.", ind: "Υποστήριξη αρθρώσεων, χόνδρων και συνδέσμων, συμπληρωματική φροντίδα σε αυξημένη επιβάρυνση μυοσκελετικού.", mech: "Glucosamine / chondroitin: δομική υποστήριξη χόνδρου. MSM: θειούχος υποστηρικτικός παράγοντας. Collagen: υποστήριξη συνδετικού ιστού." } },
+            { name: 'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab', price: 7.90, img: "https://github.com/pzaro/zarkolia-images/blob/main/NUTRI%20MX%20D3%20k2.png?raw=true", sci: { act: "Vitamin D3 4000 IU (100 μg), Vitamin K2 (MK-7) 100 μg.", ind: "Υποστήριξη οστικής υγείας, φυσιολογικός μεταβολισμός ασβεστίου, υποστήριξη μυϊκής λειτουργίας.", mech: "Vitamin D3: αυξάνει εντερική απορρόφηση ασβεστίου. Vitamin K2: συμμετέχει στην καρβοξυλίωση της οστεοκαλσίνης." } },
+            { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg", sci: { act: "Hydralia Face Cream + Revitacell Plus Face Cream + Revitace Eyes Cream.", ind: "Ολοκληρωμένη καθημερινή αντιοξειδωτική, ενυδατική και επανορθωτική φροντίδα προσώπου και περιοφθαλμικής περιοχής.", mech: "Συνδυαστική δράση υαλουρονικού οξέος, ελαίου ροδιού, μαστίχας Χίου και escin για πλήρη δερματική προστασία." } }
         ];
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz9kAYLBBaQDTXsqLFS2rZqskcAn1qf3ia_bYrWz-MN4v95y44Bmz4w0n-crgLlXCnqSA/exec";
-
+        
+        // ΟΛΗ Η ΔΙΚΗ ΣΑΣ ΛΟΓΙΚΗ ΑΝΕΠΑΦΗ!
         const MIX_GROUPS = [
             {
                 code: "ZPLAST_ALL",
@@ -439,6 +320,7 @@
             `;
         }
 
+        // ΕΝΣΩΜΑΤΩΣΗ ΤΟΥ SCIENCE UI ΜΕΣΑ ΣΤΗ ΔΙΚΗ ΣΑΣ RENDER LOGIC
         function renderProducts() {
             const container = document.getElementById('orderGrid');
             products.forEach((p, i) => {
@@ -450,8 +332,14 @@
                         <strong>${p.name}</strong>
                         <small style="display:block; font-weight:700; color:#718096;">${p.price.toFixed(2)} €</small>
                         <div id="stock-${i}" class="stock-label">...</div>
+                        <span class="science-btn" onclick="toggleScience(${i})">ℹ️ Επιστημονική Τεκμηρίωση</span>
                     </div>
                     <div style="font-weight:900; color:var(--primary); font-size:1.4rem;" id="total-${i}">0.00 €</div>
+                    <div id="science-${i}" class="science-box">
+                        <h4>Βασικές Δραστικές</h4><p>${p.sci ? p.sci.act : ''}</p>
+                        <h4>Ενδείξεις</h4><p>${p.sci ? p.sci.ind : ''}</p>
+                        <h4>Μηχανισμοί Δράσης</h4><p>${p.sci ? p.sci.mech : ''}</p>
+                    </div>
                     <div class="quick-btns">
                         ${getQuickButtons(p.name, i)}
                     </div>
@@ -463,6 +351,12 @@
                 `;
                 container.appendChild(div);
             });
+        }
+
+        // ΝΕΑ ΣΥΝΑΡΤΗΣΗ ΓΙΑ ΑΝΟΙΓΜΑ/ΚΛΕΙΣΙΜΟ ΕΠΙΣΤΗΜΟΝΙΚΩΝ ΔΕΔΟΜΕΝΩΝ
+        function toggleScience(i) {
+            const el = document.getElementById(`science-${i}`);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
         }
 
         function getQty(index) {
