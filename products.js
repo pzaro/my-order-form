@@ -31,7 +31,7 @@ const sciZDermAspis = {
 
 // Ο ΚΑΤΑΛΟΓΟΣ ΤΩΝ ΠΡΟΪΟΝΤΩΝ ΣΑΣ (ΜΕ ΤΙΣ ΕΙΚΟΝΕΣ ΚΑΙ ΤΑ SCI DATA)
 const products = [
-    { name: 'Z-DermAspis', price: 5.03, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG", sci: sciZDermAspis },
+    { name: 'Z-DermAspis', price: 5.95, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG", sci: sciZDermAspis },
     { name: 'Zplast Total Repair Cream 30ml', price: 10.21, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
     { name: 'Zplast Total Repair 50ml', price: 14.60, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
     { name: 'Zplast Total Repair 100ml', price: 26.80, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
