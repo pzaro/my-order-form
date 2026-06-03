@@ -29,7 +29,7 @@ const sciZDermAspis = {
     mech: "Δημιουργία προστατευτικού φραγμού και αποκλεισμός οσφρητικών υποδοχέων εντόμων."
 };
 
-// Ο ΚΑΤΑΛΟΓΟΣ ΤΩΝ ΠΡΟΪΟΝΤΩΝ ΣΑΣ
+// Ο ΚΑΤΑΛΟΓΟΣ ΤΩΝ ΠΡΟΪΟΝΤΩΝ ΣΑΣ (ΜΕ ΤΙΣ ΕΙΚΟΝΕΣ ΚΑΙ ΤΑ SCI DATA)
 const products = [
     { name: 'Z-DermAspis', price: 5.03, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG", sci: sciZDermAspis },
     { name: 'Zplast Total Repair Cream 30ml', price: 10.21, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zplast%20Total%20Repair.jpeg", sci: sciTotalRepair },
