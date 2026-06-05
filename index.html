@@ -82,13 +82,13 @@
         .gift-line { color: var(--danger); font-weight: 800; }
         .discount-line { color: var(--accent); font-weight: 800; }
 
-        /* UPSELL ALERTS ΣΤΟ SIDEBAR */
+        /* UPSELL ALERTS STYLING */
         .upsell-alert { background: #ecfdf5; color: var(--primary); padding: 12px 15px; border-radius: 12px; margin-top: 15px; font-size: 0.85rem; border: 1px dashed var(--accent); line-height: 1.4; }
         .upsell-alert.success { background: #eef2f0; border-color: var(--primary); }
         .upsell-alert strong { color: var(--accent); font-weight: 900; font-size: 1rem; }
         .upsell-alert.success strong { color: var(--primary); }
 
-        /* POLICY TABLE */
+        /* POLICY TABLE STYLING */
         .policy-section { background: #fff; border-radius: 35px; padding: clamp(20px, 4vw, 40px); border: 3px solid var(--border); margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .policy-section h3 { color: var(--primary); text-transform: uppercase; margin-top: 0; font-size: 1.5rem; text-align: center; margin-bottom: 30px; }
         .policy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -97,11 +97,11 @@
         .policy-card ul { margin: 0; padding-left: 20px; color: #4a5568; line-height: 1.8; font-size: 0.95rem; }
         .policy-card ul li strong { color: var(--primary); }
 
-        /* STICKY BAR CSS */
+        /* STICKY BAR */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 15px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); }
         .sticky-content { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; gap: 15px; flex-wrap: wrap; }
         .sticky-price-val { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; }
-        .sticky-progress-text { text-align: center; flex: 1; min-width: 250px; }
+        .sticky-progress-text { text-align: center; flex: 1; min-width: 250px; font-size: 0.9rem;}
         .sticky-badge { background: var(--accent); color: white; padding: 6px 14px; border-radius: 10px; font-weight: 900; }
 
         .btn-confirm { width: 100%; padding: 25px; background: var(--accent); color: white; border: none; border-radius: 25px; font-size: 1.6rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 35px; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
@@ -424,7 +424,7 @@
             return { totalMixDiscount, details };
         }
 
-        // Συνάρτηση για τα μηνύματα στο SIDEBAR
+        // --- Η ΝΕΑ ΣΥΝΑΡΤΗΣΗ ΓΙΑ ΤΑ ΜΗΝΥΜΑΤΑ ΣΤΟ ΤΑΜΕΙΟ (SIDEBAR) ---
         function formatUpsellMessages(cart) {
             let messages = [];
             for (const group of MIX_GROUPS) {
@@ -436,16 +436,16 @@
                     
                     if (totalQty < maxTier.minQty) {
                         const diff = maxTier.minQty - totalQty;
-                        messages.push(`<div class="upsell-alert">✨ Προσθέστε ακόμη <strong>${diff} τεμ.</strong> από <strong>${group.title}</strong> για έκπτωση <strong>${maxTier.pct}%</strong>!</div>`);
+                        messages.push(`<div class="upsell-alert">✨ Προσθέστε ακόμα <strong>${diff} τεμ. ${group.title}</strong> για να λάβετε <strong>${maxTier.pct}%</strong> πρόσθετη έκπτωση στόχου mix!</div>`);
                     } else {
-                        messages.push(`<div class="upsell-alert success">🏆 Συγχαρητήρια! Λάβατε τη μέγιστη έκπτωση <strong>${maxTier.pct}%</strong> στο <strong>${group.title}</strong>!</div>`);
+                        messages.push(`<div class="upsell-alert success">🏆 Συγχαρητήρια! Λάβατε τη μέγιστη πρόσθετη έκπτωση στόχου mix <strong>${maxTier.pct}%</strong> στο <strong>${group.title}</strong>!</div>`);
                     }
                 }
             }
             return messages.join('');
         }
 
-        // Συνάρτηση ΠΟΛΥ ΣΥΝΟΠΤΙΚΗ για τα μηνύματα στο STICKY BAR (Κάτω Μπάρα)
+        // --- Η ΝΕΑ ΣΥΝΑΡΤΗΣΗ ΓΙΑ ΤΗΝ ΚΑΤΩ ΣΤΑΘΕΡΗ ΜΠΑΡΑ (STICKY BAR) ---
         function getConciseUpsellMessage(cart) {
             let messages = [];
             for (const group of MIX_GROUPS) {
@@ -456,9 +456,8 @@
                     const maxTier = group.tiers.reduce((prev, current) => (prev.pct > current.pct) ? prev : current);
                     if (totalQty < maxTier.minQty) {
                         const diff = maxTier.minQty - totalQty;
-                        // Αφαιρούμε τη λέξη 'mix' για να χωράει πιο εύκολα στην οθόνη του κινητού
                         let shortTitle = group.title.replace(' mix', '').replace(' Mix', '');
-                        messages.push(`+${diff} ${shortTitle} για ${maxTier.pct}%`);
+                        messages.push(`+${diff} ${shortTitle} για ${maxTier.pct}% mix`);
                     }
                 }
             }
@@ -561,11 +560,11 @@
 
             document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
             document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
-            
-            // 1. Ενημέρωση Sidebar Upsell
+
+            // ΕΝΗΜΕΡΩΣΗ ΜΗΝΥΜΑΤΩΝ UPSELL ΣΤΟ SIDEBAR
             document.getElementById("upsell-messages").innerHTML = formatUpsellMessages(summary.cart);
 
-            // 2. Ενημέρωση Sticky Bar (Κάτω Μπάρα)
+            // ΕΝΗΜΕΡΩΣΗ ΚΑΤΩ ΜΠΑΡΑΣ (STICKY BAR) ΜΕ ΤΑ ΜΗΝΥΜΑΤΑ UPSELL
             const nextThreshold = summary.afterMix < 200 ? 200 : (Math.floor(summary.afterMix / 100) + 1) * 100;
             const volText = summary.volPerc >= 10
                 ? "Μέγιστη έκπτωση τζίρου!"
@@ -574,7 +573,6 @@
             const mixUpsellText = getConciseUpsellMessage(summary.cart);
 
             if (mixUpsellText) {
-                // Εμφανίζουμε τα τεμάχια MIX με κίτρινο χρώμα ώστε να ξεχωρίζουν
                 document.getElementById("progress-text").innerHTML = `
                     <div style="color:#fcd34d; font-weight:900; font-size:1.05rem; margin-bottom:4px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                         ⚡ ${mixUpsellText}
