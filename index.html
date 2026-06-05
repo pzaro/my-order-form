@@ -82,15 +82,26 @@
         .gift-line { color: var(--danger); font-weight: 800; }
         .discount-line { color: var(--accent); font-weight: 800; }
 
-        /* UPSELL ALERTS */
+        /* UPSELL ALERTS ΣΤΟ SIDEBAR */
         .upsell-alert { background: #ecfdf5; color: var(--primary); padding: 12px 15px; border-radius: 12px; margin-top: 15px; font-size: 0.85rem; border: 1px dashed var(--accent); line-height: 1.4; }
         .upsell-alert.success { background: #eef2f0; border-color: var(--primary); }
         .upsell-alert strong { color: var(--accent); font-weight: 900; font-size: 1rem; }
         .upsell-alert.success strong { color: var(--primary); }
 
+        /* POLICY TABLE */
+        .policy-section { background: #fff; border-radius: 35px; padding: clamp(20px, 4vw, 40px); border: 3px solid var(--border); margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .policy-section h3 { color: var(--primary); text-transform: uppercase; margin-top: 0; font-size: 1.5rem; text-align: center; margin-bottom: 30px; }
+        .policy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .policy-card { background: #f8fafc; padding: 25px; border-radius: 20px; border-left: 5px solid var(--accent); }
+        .policy-card h4 { margin: 0 0 15px 0; color: var(--primary); font-size: 1.1rem; }
+        .policy-card ul { margin: 0; padding-left: 20px; color: #4a5568; line-height: 1.8; font-size: 0.95rem; }
+        .policy-card ul li strong { color: var(--primary); }
+
+        /* STICKY BAR CSS */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 15px clamp(15px, 4vw, 40px); z-index: 1000; border-top: 4px solid var(--accent); }
         .sticky-content { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; gap: 15px; flex-wrap: wrap; }
         .sticky-price-val { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; }
+        .sticky-progress-text { text-align: center; flex: 1; min-width: 250px; }
         .sticky-badge { background: var(--accent); color: white; padding: 6px 14px; border-radius: 10px; font-weight: 900; }
 
         .btn-confirm { width: 100%; padding: 25px; background: var(--accent); color: white; border: none; border-radius: 25px; font-size: 1.6rem; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 35px; box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
@@ -155,29 +166,29 @@
                 </div>
             </div>
 
-            <section style="background:#fff; border-radius:35px; padding:clamp(20px, 4vw, 40px); border:3px solid var(--border); margin-top:40px; box-shadow:0 10px 30px rgba(0,0,0,0.05);">
-                <h3 style="color:var(--primary); text-transform:uppercase; margin-top:0; font-size:1.5rem; text-align:center; margin-bottom:30px;">Εμπορική Πολιτική Zarkolia Health</h3>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
-                    <div style="background:#f8fafc; padding:25px; border-radius:20px; border-left:5px solid var(--accent);">
-                        <h4 style="margin:0 0 15px 0; color:var(--primary); font-size:1.1rem;">Mix Εκπτώσεις (Ανά Κατηγορία)</h4>
-                        <ul style="margin:0; padding-left:20px; color:#4a5568; line-height:1.8; font-size:0.95rem;">
+            <section class="policy-section">
+                <h3>Εμπορική Πολιτική Zarkolia Health</h3>
+                <div class="policy-grid">
+                    <div class="policy-card">
+                        <h4>Mix Εκπτώσεις (Ανά Κατηγορία)</h4>
+                        <ul>
                             <li><strong>Zplast Mix:</strong> 10 τεμ &rarr; 10% | 20 τεμ &rarr; 15%</li>
                             <li><strong>Z-boost Mix:</strong> 10 τεμ &rarr; 10% | 20 τεμ &rarr; 15%</li>
                             <li><strong>Bruise Off Mix:</strong> 10 τεμ &rarr; 10% | 20 τεμ &rarr; 15%</li>
                             <li><strong>NUTRI MX Mix:</strong> 15 τεμ &rarr; 10% | 24 τεμ &rarr; 15%</li>
                         </ul>
                     </div>
-                    <div style="background:#f8fafc; padding:25px; border-radius:20px; border-left:5px solid var(--accent);">
-                        <h4 style="margin:0 0 15px 0; color:var(--primary); font-size:1.1rem;">Πολιτική Δώρων (Εκτός Nutri MX)</h4>
-                        <ul style="margin:0; padding-left:20px; color:#4a5568; line-height:1.8; font-size:0.95rem;">
+                    <div class="policy-card">
+                        <h4>Πολιτική Δώρων (Εκτός Nutri MX)</h4>
+                        <ul>
                             <li><strong>9 τεμ</strong> &rarr; 1 Δώρο (9+1)</li>
                             <li><strong>18 τεμ</strong> &rarr; 3 Δώρα (18+3)</li>
                             <li><strong>24 τεμ</strong> &rarr; 6 Δώρα (24+6)</li>
                         </ul>
                     </div>
-                    <div style="background:#f8fafc; padding:25px; border-radius:20px; border-left:5px solid var(--accent);">
-                        <h4 style="margin:0 0 15px 0; color:var(--primary); font-size:1.1rem;">Γενικές Εκπτώσεις</h4>
-                        <ul style="margin:0; padding-left:20px; color:#4a5568; line-height:1.8; font-size:0.95rem;">
+                    <div class="policy-card">
+                        <h4>Γενικές Εκπτώσεις</h4>
+                        <ul>
                             <li><strong>Έκπτωση Τζίρου:</strong> 1% ανά 100€ (Μέγιστο 10% στα 1000€)</li>
                             <li><strong>Έκπτωση Μετρητοίς:</strong> Επιπλέον 2% στην τελική καθαρή αξία</li>
                         </ul>
@@ -190,7 +201,7 @@
     <div class="sticky-bar">
         <div class="sticky-content">
             <span id="sticky-total" class="sticky-price-val">0.00 €</span>
-            <span id="progress-text" class="sticky-progress-text"></span>
+            <div id="progress-text" class="sticky-progress-text"></div>
             <span id="sticky-badge" class="sticky-badge">0% DISC.</span>
         </div>
     </div>
@@ -413,7 +424,7 @@
             return { totalMixDiscount, details };
         }
 
-        // ΝΕΑ ΛΟΓΙΚΗ ΓΙΑ ΜΗΝΥΜΑΤΑ ΠΡΟΤΡΟΠΗΣ (UPSELL)
+        // Συνάρτηση για τα μηνύματα στο SIDEBAR
         function formatUpsellMessages(cart) {
             let messages = [];
             for (const group of MIX_GROUPS) {
@@ -421,7 +432,6 @@
                 const totalQty = groupItems.reduce((sum, item) => sum + item.qty, 0);
 
                 if (totalQty > 0) {
-                    // Βρίσκουμε το ανώτερο κλιμάκιο για τη συγκεκριμένη ομάδα (15%)
                     const maxTier = group.tiers.reduce((prev, current) => (prev.pct > current.pct) ? prev : current);
                     
                     if (totalQty < maxTier.minQty) {
@@ -433,6 +443,26 @@
                 }
             }
             return messages.join('');
+        }
+
+        // Συνάρτηση ΠΟΛΥ ΣΥΝΟΠΤΙΚΗ για τα μηνύματα στο STICKY BAR (Κάτω Μπάρα)
+        function getConciseUpsellMessage(cart) {
+            let messages = [];
+            for (const group of MIX_GROUPS) {
+                const groupItems = cart.filter(item => group.products.includes(item.name));
+                const totalQty = groupItems.reduce((sum, item) => sum + item.qty, 0);
+
+                if (totalQty > 0) {
+                    const maxTier = group.tiers.reduce((prev, current) => (prev.pct > current.pct) ? prev : current);
+                    if (totalQty < maxTier.minQty) {
+                        const diff = maxTier.minQty - totalQty;
+                        // Αφαιρούμε τη λέξη 'mix' για να χωράει πιο εύκολα στην οθόνη του κινητού
+                        let shortTitle = group.title.replace(' mix', '').replace(' Mix', '');
+                        messages.push(`+${diff} ${shortTitle} για ${maxTier.pct}%`);
+                    }
+                }
+            }
+            return messages.join(' | ');
         }
 
         function calculateOrderSummary() {
@@ -532,14 +562,30 @@
             document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
             document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
             
-            // ΕΝΗΜΕΡΩΣΗ ΜΗΝΥΜΑΤΩΝ UPSELL
+            // 1. Ενημέρωση Sidebar Upsell
             document.getElementById("upsell-messages").innerHTML = formatUpsellMessages(summary.cart);
 
+            // 2. Ενημέρωση Sticky Bar (Κάτω Μπάρα)
             const nextThreshold = summary.afterMix < 200 ? 200 : (Math.floor(summary.afterMix / 100) + 1) * 100;
-            document.getElementById("progress-text").textContent =
-                summary.volPerc >= 10
-                    ? "Μέγιστη έκπτωση τζίρου!"
-                    : `Προσθέστε ${(nextThreshold - summary.afterMix).toFixed(0)} € για ${Math.floor(nextThreshold / 100)}% τζίρου`;
+            const volText = summary.volPerc >= 10
+                ? "Μέγιστη έκπτωση τζίρου!"
+                : `+ ${(nextThreshold - summary.afterMix).toFixed(0)}€ για ${Math.floor(nextThreshold / 100)}% τζίρου`;
+
+            const mixUpsellText = getConciseUpsellMessage(summary.cart);
+
+            if (mixUpsellText) {
+                // Εμφανίζουμε τα τεμάχια MIX με κίτρινο χρώμα ώστε να ξεχωρίζουν
+                document.getElementById("progress-text").innerHTML = `
+                    <div style="color:#fcd34d; font-weight:900; font-size:1.05rem; margin-bottom:4px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+                        ⚡ ${mixUpsellText}
+                    </div>
+                    <div style="font-size:0.85rem; opacity:0.9;">
+                        ${volText}
+                    </div>
+                `;
+            } else {
+                document.getElementById("progress-text").innerHTML = `<div style="font-size:1rem;">${volText}</div>`;
+            }
         }
 
         function setQty(i, v) {
