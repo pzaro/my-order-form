@@ -297,6 +297,12 @@
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
+            if (typeof products === "undefined") {
+                document.getElementById('orderGrid').innerHTML =
+                  '<div style="padding:25px;color:#dc2626;font-weight:700;background:#fef2f2;border-radius:20px;">'
+                  + '⚠️ Δεν φορτώθηκε το <strong>products.js</strong>. Βεβαιώσου ότι βρίσκεται στον ΙΔΙΟ φάκελο με το index.html (ίδιο όνομα, πεζά).</div>';
+                return;
+            }
             renderProducts();
             document.getElementById('afm').addEventListener('input', lookupCustomer);
             updateTotals();
