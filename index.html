@@ -297,6 +297,10 @@
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Ο lookup πελάτη συνδέεται ΠΑΝΤΑ (ανεξάρτητα από το products.js)
+            const afmEl = document.getElementById('afm');
+            if (afmEl) afmEl.addEventListener('input', lookupCustomer);
+
             if (typeof products === "undefined") {
                 document.getElementById('orderGrid').innerHTML =
                   '<div style="padding:25px;color:#dc2626;font-weight:700;background:#fef2f2;border-radius:20px;">'
@@ -304,7 +308,6 @@
                 return;
             }
             renderProducts();
-            document.getElementById('afm').addEventListener('input', lookupCustomer);
             updateTotals();
         });
 
