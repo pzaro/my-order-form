@@ -114,6 +114,16 @@
             <h1 onclick="toggleAdminMode()">ZARKOLIA<span>HEALTH</span> <span id="hourglass">⏳</span></h1>
         </header>
 
+        <div id="pinModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+            <div style="background:#fff; padding:30px; border-radius:20px; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
+                <h3 style="color:var(--primary); margin-top:0;">Εισαγωγή PIN</h3>
+                <input type="password" id="adminPinInput" style="padding:10px; font-size:1.2rem; text-align:center; border:2px solid var(--border); border-radius:10px; width:150px; margin-bottom:20px;">
+                <br>
+                <button type="button" class="q-btn" onclick="submitPin()" style="background:var(--accent); color:white;">Είσοδος</button>
+                <button type="button" class="q-btn" onclick="document.getElementById('pinModal').style.display='none'" style="background:#e2e8f0;">Ακύρωση</button>
+            </div>
+        </div>
+
         <form id="orderForm" onsubmit="return false;">
             <section class="customer-header">
                 <div class="customer-grid">
@@ -126,13 +136,11 @@
                 </div>
             </section>
 
-            <!-- ΚΡΥΦΟ ADMIN BAR (εμφανίζεται μετά το PIN) -->
             <div id="adminBar" style="display:none; gap:12px; margin-bottom:25px; flex-wrap:wrap;">
                 <button type="button" class="q-btn" style="flex:0 0 auto; padding:14px 22px;"
                         onclick="toggleInventoryPanel()">📋 Απογραφή Πελάτη</button>
             </div>
 
-            <!-- PANEL ΑΠΟΓΡΑΦΗΣ ΠΕΛΑΤΗ -->
             <section id="inventoryPanel" class="customer-header" style="display:none; border-color:var(--accent);">
                 <h3 style="color:var(--primary); text-transform:uppercase; margin-top:0;">Απογραφή Πελάτη</h3>
                 <p style="color:var(--gray); font-size:0.95rem; margin-top:0;">
@@ -297,7 +305,6 @@
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Ο lookup πελάτη συνδέεται ΠΑΝΤΑ (ανεξάρτητα από το products.js)
             const afmEl = document.getElementById('afm');
             if (afmEl) afmEl.addEventListener('input', lookupCustomer);
 
@@ -309,6 +316,13 @@
             }
             renderProducts();
             updateTotals();
+
+            // Υποστήριξη "Enter" key για το PIN modal
+            document.getElementById('adminPinInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    submitPin();
+                }
+            });
         });
 
         async function lookupCustomer() {
@@ -457,7 +471,6 @@
             return { totalMixDiscount, details };
         }
 
-        // Συνάρτηση για τα μηνύματα στο SIDEBAR
         function formatUpsellMessages(cart) {
             let messages = [];
             for (const group of MIX_GROUPS) {
@@ -478,7 +491,6 @@
             return messages.join('');
         }
 
-        // Συνάρτηση ΠΟΛΥ ΣΥΝΟΠΤΙΚΗ για τα μηνύματα στο STICKY BAR (Κάτω Μπάρα)
         function getConciseUpsellMessage(cart) {
             let messages = [];
             for (const group of MIX_GROUPS) {
@@ -489,7 +501,6 @@
                     const maxTier = group.tiers.reduce((prev, current) => (prev.pct > current.pct) ? prev : current);
                     if (totalQty < maxTier.minQty) {
                         const diff = maxTier.minQty - totalQty;
-                        // Αφαιρούμε τη λέξη 'mix' για να χωράει πιο εύκολα στην οθόνη του κινητού
                         let shortTitle = group.title.replace(' mix', '').replace(' Mix', '');
                         messages.push(`+${diff} ${shortTitle} για ${maxTier.pct}%`);
                     }
@@ -595,10 +606,8 @@
             document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
             document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
             
-            // 1. Ενημέρωση Sidebar Upsell
             document.getElementById("upsell-messages").innerHTML = formatUpsellMessages(summary.cart);
 
-            // 2. Ενημέρωση Sticky Bar (Κάτω Μπάρα)
             const nextThreshold = summary.afterMix < 200 ? 200 : (Math.floor(summary.afterMix / 100) + 1) * 100;
             const volText = summary.volPerc >= 10
                 ? "Μέγιστη έκπτωση τζίρου!"
@@ -607,7 +616,6 @@
             const mixUpsellText = getConciseUpsellMessage(summary.cart);
 
             if (mixUpsellText) {
-                // Εμφανίζουμε τα τεμάχια MIX με κίτρινο χρώμα ώστε να ξεχωρίζουν
                 document.getElementById("progress-text").innerHTML = `
                     <div style="color:#fcd34d; font-weight:900; font-size:1.05rem; margin-bottom:4px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
                         ⚡ ${mixUpsellText}
@@ -727,8 +735,17 @@
             }
         }
 
-        async function toggleAdminMode() {
-            const pin = prompt("PIN:");
+        // ΝΕΕΣ ΣΥΝΑΡΤΗΣΕΙΣ ΓΙΑ ΤΟ MODAL ΑΝΤΙ ΓΙΑ PROMPT
+        function toggleAdminMode() {
+            document.getElementById('pinModal').style.display = 'flex';
+            document.getElementById('adminPinInput').focus();
+        }
+
+        async function submitPin() {
+            const pin = document.getElementById('adminPinInput').value;
+            document.getElementById('pinModal').style.display = 'none'; // Κλείσιμο modal
+            document.getElementById('adminPinInput').value = ''; // Καθαρισμός πεδίου
+            
             if (pin === "1234") {
                 document.getElementById('adminBar').style.display = 'flex';
                 document.getElementById('hourglass').style.display = 'inline-block';
@@ -738,12 +755,14 @@
                     if (d.success) {
                         products.forEach((p, i) => {
                             const el = document.getElementById(`stock-${i}`);
-                            el.style.display = "block";
-                            el.textContent = "STOCK: " + (d.inventory[p.name] || 0);
+                            if (el) {
+                                el.style.display = "block";
+                                el.textContent = "STOCK: " + (d.inventory[p.name] || 0);
+                            }
                         });
                     }
                 } catch (e) {
-                    console.error("toggleAdminMode error:", e);
+                    console.error("submitPin error:", e);
                 }
                 document.getElementById('hourglass').style.display = 'none';
             }
