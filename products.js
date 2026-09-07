@@ -29,6 +29,20 @@ const sciZDermAspis = {
     mech: "Δημιουργία προστατευτικού φραγμού και αποκλεισμός οσφρητικών υποδοχέων εντόμων."
 };
 
+
+const sciBurnOutLipo = {
+    act: "Ανά κάψουλα: Εκχύλισμα φύλλων πράσινου τσαγιού (Camellia sinensis) 200 mg [πολυφαινόλες 80 mg, κατεχίνες 40 mg, EGCG 14 mg], καφεΐνη 150 mg, L-carnitine L-tartrate 130 mg [L-carnitine 88.4 mg], cayenne pepper (Capsicum annuum) powder 100 mg, L-τυροσίνη 75 mg, ταυρίνη 75 mg, χιτοζάνη 50 mg, εκχύλισμα ρίζας ginger (Zingiber officinale) 20 mg [gingerols 1 mg], εκχύλισμα black pepper (Piper nigrum) 2.5 mg [piperine 2.375 mg], βιταμίνη B6 1 mg, βιταμίνη B12 1 mg (όπως αναγράφεται στην παρεχόμενη ετικέτα), χρώμιο 98 μg. Ημερήσια μερίδα: 2 κάψουλες.",
+    ind: "Στην εμπρόσθια ετικέτα αναφέρονται: Normal Macronutrient Metabolism και Normal Blood Glucose Levels. Η φόρμουλα φέρει επίσης ένδειξη High caffeine content.",
+    mech: "Σύνθεση πολυσυστατικού συμπληρώματος με καφεΐνη/πράσινο τσάι, L-carnitine, αμινοξέα, φυτικά εκχυλίσματα και χρώμιο. Το χρώμιο συνδέεται με τον φυσιολογικό μεταβολισμό των μακροθρεπτικών συστατικών και τη διατήρηση φυσιολογικών επιπέδων γλυκόζης στο αίμα. Για χρήση σε υλικό προώθησης απαιτείται τελικός κανονιστικός έλεγχος των επιτρεπόμενων ισχυρισμών."
+};
+
+const sciZMA = {
+    act: "Η παρεχόμενη εμπρόσθια εικόνα δεν εμφανίζει αναλυτική σύνθεση ή δοσολογία των συστατικών. Απαιτείται Supplement Facts / οπίσθια ετικέτα για ακριβή καταχώριση.",
+    ind: "Στην εμπρόσθια ετικέτα αναφέρονται: Muscle function, Protein synthesis, Testosterone support.",
+    mech: "Δεν καταχωρίστηκε μηχανισμός δράσης χωρίς την πλήρη σύνθεση του προϊόντος, ώστε να μη γίνει μη τεκμηριωμένη υπόθεση."
+};
+
+
 // Ο ΚΑΤΑΛΟΓΟΣ ΤΩΝ ΠΡΟΪΟΝΤΩΝ ΣΑΣ (ΜΕ ΤΙΣ ΕΙΚΟΝΕΣ ΚΑΙ ΤΑ SCI DATA)
 const products = [
     { name: 'Z-DermAspis', price: 5.95, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Graphone.PNG", sci: sciZDermAspis },
@@ -51,5 +65,7 @@ const products = [
     { name: 'NUTRI MX OMEGA 3 30 Softgel Caps', price: 8.87, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20OMEGA%203.jpg", sci: { act: "Fish Oil 1000 mg (EPA 180 mg, DHA 120 mg).", ind: "Υποστήριξη καρδιαγγειακής υγείας, συμβολή στη φυσιολογική λειτουργία εγκεφάλου, υποστήριξη όρασης.", mech: "EPA / DHA: ενσωμάτωση σε κυτταρικές μεμβράνες, ρύθμιση εικοσανοειδών και φλεγμονωδών μονοπατιών." } },
     { name: 'NUTRI MX JOINT (GLUCOSAMINE + CHONDROITINE + MSM +COLLAGEN) 30 TAB', price: 10.16, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/NUTRI%20MX%20JOINT.jpg", sci: { act: "Glucosamine 500 mg, MSM 133.3 mg, Chondroitin 100 mg, Collagen 100 mg, Citrus bioflavonoids 100 mg, Ginger 5 mg.", ind: "Υποστήριξη αρθρώσεων, χόνδρων και συνδέσμων, συμπληρωματική φροντίδα σε αυξημένη επιβάρυνση μυοσκελετικού.", mech: "Glucosamine / chondroitin: δομική υποστήριξη χόνδρου. MSM: θειούχος υποστηρικτικός παράγοντας. Collagen: υποστήριξη συνδετικού ιστού." } },
     { name: 'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab', price: 7.90, img: "https://github.com/pzaro/zarkolia-images/blob/main/NUTRI%20MX%20D3%20k2.png?raw=true", sci: { act: "Vitamin D3 4000 IU (100 μg), Vitamin K2 (MK-7) 100 μg.", ind: "Υποστήριξη οστικής υγείας, φυσιολογικός μεταβολισμός ασβεστίου, υποστήριξη μυϊκής λειτουργίας.", mech: "Vitamin D3: αυξάνει εντερική απορρόφηση ασβεστίου. Vitamin K2: συμμετέχει στην καρβοξυλίωση της οστεοκαλσίνης." } },
+    { name: 'NUTRI-MX BURN OUT LIPO 90 caps', price: 20.90, retailPrice: 35.00, img: "./images/BURN-OUT-LIPO-WEB(1).png", sci: sciBurnOutLipo },
+    { name: 'NUTRI-MX ZMA 90 caps', price: 8.36, retailPrice: 14.00, img: "./images/ZMA(1).png", sci: sciZMA },
     { name: 'Zarkolia Cosmetic pack', price: 23.89, img: "https://raw.githubusercontent.com/pzaro/my-order-form/main/images/Zarkolia%20Cosmetic%20pack.jpg", sci: { act: "Hydralia Face Cream + Revitacell Plus Face Cream + Revitace Eyes Cream.", ind: "Ολοκληρωμένη καθημερινή αντιοξειδωτική, ενυδατική και επανορθωτική φροντίδα προσώπου και περιοφθαλμικής περιοχής.", mech: "Συνδυαστική δράση υαλουρονικού οξέος, ελαίου ροδιού, μαστίχας Χίου και escin για πλήρη δερματική προστασία." } }
 ];
