@@ -49,10 +49,57 @@
             grid-template-columns: 85px 1fr auto;
             grid-template-areas:
                 "img info total"
+                "disc disc disc"
                 "btns btns btns"
                 "science science science"
                 "qty qty qty";
             align-items: center; padding: 25px; background: #fff; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 25px; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        /* ============ ΠΛΑΙΣΙΟ ΕΚΠΤΩΣΕΩΝ ΑΝΑ ΚΩΔΙΚΟ ============ */
+        .disc-panel {
+            grid-area: disc;
+            display: flex; flex-direction: column; gap: 10px;
+            padding: 14px 16px; border-radius: 22px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 55%, #fde68a 100%);
+            border: 2px solid #fcd34d;
+            box-shadow: 0 4px 14px rgba(252, 211, 77, 0.35);
+        }
+        .disc-panel:empty { display: none; }
+
+        .disc-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+        .disc-label {
+            font-size: 0.75rem; font-weight: 900; letter-spacing: 0.5px;
+            text-transform: uppercase; color: #92400e; white-space: nowrap;
+        }
+
+        .disc-chip {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 7px 13px; border-radius: 999px;
+            background: rgba(255,255,255,0.85); border: 2px solid #fcd34d;
+            font-size: 0.88rem; font-weight: 800; color: #92400e;
+            transition: 0.25s; white-space: nowrap;
+        }
+        .disc-chip.active {
+            background: var(--accent); border-color: #047857; color: #fff;
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.45);
+            transform: scale(1.04);
+        }
+        .disc-chip.next {
+            border-color: #f59e0b; border-style: dashed;
+            background: rgba(255,255,255,0.55);
+        }
+
+        .disc-hint {
+            font-size: 0.8rem; font-weight: 800; color: #b45309;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .disc-hint.done { color: #047857; }
+
+        @media (max-width: 480px) {
+            .disc-chip { font-size: 0.8rem; padding: 6px 10px; }
+            .disc-label { font-size: 0.7rem; }
         }
 
         .p-img { grid-area: img; width: 80px; height: 80px; object-fit: contain; border-radius: 10px; }
@@ -313,7 +360,7 @@
     <script src="products.js"></script>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCBGhz5In6khEqkcnIQto9xkH8zcnDjray_Vk7MzVkEr-Yg5l5fKf6g_QSUymVXXPKxw/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwM1pPUZBLivzUjy0kQyXPvB9221RjKyCK8WUtIIDB6VqSZT7lVoDREJPEcfrpGoHrDbQ/exec";
 
         /* ===================== ΕΛΑΧΙΣΤΗ ΠΑΡΑΓΓΕΛΙΑ =====================
          * MIN_ORDER_NET   : το όριο σε ευρώ, ΧΩΡΙΣ ΦΠΑ.
@@ -492,6 +539,7 @@
                         <span class="science-btn" onclick="toggleScience(${i})">ℹ️ Επιστημονική Τεκμηρίωση</span>
                     </div>
                     <div style="font-weight:900; color:var(--primary); font-size:1.4rem;" id="total-${i}">0.00 €</div>
+                    <div class="disc-panel" id="disc-${i}"></div>
                     <div id="science-${i}" class="science-box">
                         <h4>Βασικές Δραστικές</h4><p>${p.sci ? p.sci.act : ''}</p>
                         <h4>Ενδείξεις</h4><p>${p.sci ? p.sci.ind : ''}</p>
@@ -693,12 +741,104 @@
             return lines.length ? lines.join('') : "Δεν υπάρχουν εκπτώσεις ακόμη.";
         }
 
+        /* ============ ΠΛΑΙΣΙΟ ΕΚΠΤΩΣΕΩΝ ΑΝΑ ΚΩΔΙΚΟ ============ */
+
+        const GIFT_TIERS = [
+            { minQty: 9,  gift: 1 },
+            { minQty: 18, gift: 3 },
+            { minQty: 24, gift: 6 }
+        ];
+
+        /** Βρίσκει σε ποια ομάδα mix ανήκει ένα προϊόν. */
+        function findMixGroup(name) {
+            return MIX_GROUPS.find(function (g) {
+                return g.products.indexOf(name) !== -1;
+            }) || null;
+        }
+
+        /** Συνολικά τεμάχια της ομάδας mix στο τρέχον καλάθι. */
+        function groupQty(group) {
+            return products.reduce(function (sum, p, idx) {
+                return group.products.indexOf(p.name) !== -1 ? sum + getQty(idx) : sum;
+            }, 0);
+        }
+
+        /**
+         * Χτίζει το φωτεινό πλαίσιο με τις διαθέσιμες εκπτώσεις του κωδικού.
+         * Ενεργό κλιμάκιο -> πράσινο. Επόμενο στόχο -> διακεκομμένο περίγραμμα.
+         */
+        function renderDiscountPanel(p, i) {
+            const qty = getQty(i);
+            const rows = [];
+
+            // ---------- Τεμαχιακή (δώρα) ----------
+            if (!isNutriMX(p.name)) {
+                const reached = GIFT_TIERS.filter(function (t) { return qty >= t.minQty; }).pop() || null;
+                const next    = GIFT_TIERS.find(function (t) { return qty < t.minQty; }) || null;
+
+                const chips = GIFT_TIERS.map(function (t) {
+                    const isActive = reached && t.minQty === reached.minQty;
+                    const isNext   = next && t.minQty === next.minQty && qty > 0;
+                    return '<span class="disc-chip' + (isActive ? ' active' : (isNext ? ' next' : '')) + '">' +
+                           (isActive ? '✓ ' : '') + t.minQty + ' + <strong>' + t.gift + '</strong> δώρο</span>';
+                }).join('');
+
+                let hint = '';
+                if (reached) {
+                    hint = '<div class="disc-hint done">🎁 Κερδίζεις ' + reached.gift + ' τεμ. δώρο' +
+                           (next ? ' · +' + (next.minQty - qty) + ' τεμ. για ' + next.gift + ' δώρα' : '') + '</div>';
+                } else if (qty > 0 && next) {
+                    hint = '<div class="disc-hint">➕ Ακόμη ' + (next.minQty - qty) + ' τεμ. για ' +
+                           next.gift + ' τεμ. δώρο</div>';
+                }
+
+                rows.push('<div class="disc-row"><span class="disc-label">🎁 Τεμαχιακή</span>' + chips + '</div>' + hint);
+            }
+
+            // ---------- Mix έκπτωση ----------
+            const group = findMixGroup(p.name);
+            if (group) {
+                const gQty  = groupQty(group);
+                const tiers = group.tiers.slice().sort(function (a, b) { return a.minQty - b.minQty; });
+
+                const reached = tiers.filter(function (t) { return gQty >= t.minQty; }).pop() || null;
+                const next    = tiers.find(function (t) { return gQty < t.minQty; }) || null;
+
+                const chips = tiers.map(function (t) {
+                    const isActive = reached && t.minQty === reached.minQty;
+                    const isNext   = next && t.minQty === next.minQty && gQty > 0;
+                    return '<span class="disc-chip' + (isActive ? ' active' : (isNext ? ' next' : '')) + '">' +
+                           (isActive ? '✓ ' : '') + t.minQty + ' τεμ → <strong>' + t.pct + '%</strong></span>';
+                }).join('');
+
+                let hint;
+                if (reached) {
+                    hint = '<div class="disc-hint done">✅ Ενεργή έκπτωση ' + reached.pct + '% στη σειρά ' +
+                           group.title + ' (' + gQty + ' τεμ.)' +
+                           (next ? ' · +' + (next.minQty - gQty) + ' τεμ. για ' + next.pct + '%' : '') + '</div>';
+                } else if (next) {
+                    hint = '<div class="disc-hint">➕ ' + (next.minQty - gQty) + ' τεμ. ακόμη από τη σειρά ' +
+                           group.title + ' για ' + next.pct + '%</div>';
+                } else {
+                    hint = '';
+                }
+
+                rows.push('<div class="disc-row"><span class="disc-label">🔗 ' + group.title +
+                          '</span>' + chips + '</div>' + hint);
+            }
+
+            return rows.join('');
+        }
+
         function updateTotals() {
             const summary = calculateOrderSummary();
 
             products.forEach((p, i) => {
                 const qty = getQty(i);
                 document.getElementById(`total-${i}`).textContent = (qty * p.price).toFixed(2) + " €";
+
+                const discEl = document.getElementById(`disc-${i}`);
+                if (discEl) discEl.innerHTML = renderDiscountPanel(p, i);
             });
 
             document.getElementById("init-net").textContent = summary.grossNet.toFixed(2) + " €";
