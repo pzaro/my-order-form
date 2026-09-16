@@ -436,8 +436,7 @@
             if (afm.length >= 8) {
                 document.getElementById('hourglass').style.display = 'inline-block';
                 try {
-                    const r = await fetch(`${SCRIPT_URL}?action=lookup&afm=${encodeURIComponent(afm)}`);
-                    const d = await r.json();
+                    const d = await fetchJson(`${SCRIPT_URL}?action=lookup&afm=${encodeURIComponent(afm)}`);
                     if (d.success) {
                         document.getElementById('eponimia').value = d.data.eponimia || "";
                         document.getElementById('email').value = d.data.email || "";
@@ -902,8 +901,7 @@
             document.getElementById('hourglass').style.display = 'inline-block';
 
             try {
-                const r = await fetch(`${SCRIPT_URL}?action=getStock&pin=${encodeURIComponent(pin)}`);
-                const d = await r.json();
+                const d = await fetchJson(`${SCRIPT_URL}?action=getStock&pin=${encodeURIComponent(pin)}`);
 
                 if (!d.success) {
                     alert(d.error || "Λάθος PIN.");
@@ -922,9 +920,45 @@
                 });
             } catch (e) {
                 console.error("submitPin error:", e);
-                alert("Πρόβλημα σύνδεσης.");
+                alert(e.message || "Πρόβλημα σύνδεσης.");
             } finally {
                 document.getElementById('hourglass').style.display = 'none';
+            }
+        }
+
+        /**
+         * Κάνει fetch και επιστρέφει JSON. Αν το Apps Script γυρίσει σελίδα
+         * HTML (σφάλμα ή οθόνη σύνδεσης), ρίχνει ΠΕΡΙΓΡΑΦΙΚΟ σφάλμα αντί
+         * για γενικό «πρόβλημα σύνδεσης».
+         */
+        async function fetchJson(url, options) {
+            const r = await fetch(url, options);
+            const text = await r.text();
+
+            try {
+                return JSON.parse(text);
+            } catch (err) {
+                if (text.indexOf("Script function not found") !== -1) {
+                    throw new Error(
+                        "Το backend δεν έχει ενημερωθεί.\n\n" +
+                        "Apps Script → Ανάπτυξη → Διαχείριση αναπτύξεων → ✏️ →\n" +
+                        "Έκδοση: ΝΕΑ ΕΚΔΟΣΗ → Ανάπτυξη."
+                    );
+                }
+                if (text.indexOf("accounts.google.com") !== -1 || text.indexOf("ServiceLogin") !== -1) {
+                    throw new Error(
+                        "Η εφαρμογή ζητά σύνδεση Google.\n\n" +
+                        "Στις ρυθμίσεις ανάπτυξης, το «Ποιος έχει πρόσβαση»\n" +
+                        "πρέπει να είναι «Οποιοσδήποτε»."
+                    );
+                }
+                if (text.indexOf("<!DOCTYPE") !== -1 || text.indexOf("<html") !== -1) {
+                    throw new Error(
+                        "Ο server επέστρεψε σελίδα σφάλματος αντί για δεδομένα.\n" +
+                        "Έλεγξε το Execution Log στο Apps Script."
+                    );
+                }
+                throw new Error("Μη αναγνωρίσιμη απάντηση: " + text.slice(0, 120));
             }
         }
 
@@ -986,8 +1020,7 @@
                           + '&pin=' + encodeURIComponent(_adminPin)
                           + '&q='   + encodeURIComponent(q);
 
-                const r = await fetch(url);
-                const d = await r.json();
+                const d = await fetchJson(url);
 
                 // Αγνόησε απάντηση που ξεπεράστηκε από νεότερη πληκτρολόγηση
                 if (seq !== _custSeq) return;
@@ -999,7 +1032,7 @@
                 renderCustResults(q);
             } catch (e) {
                 console.error('runCustomerSearch error:', e);
-                if (seq === _custSeq) showCustMessage('Πρόβλημα σύνδεσης.');
+                if (seq === _custSeq) showCustMessage(escHtml(e.message || 'Πρόβλημα σύνδεσης.'));
             } finally {
                 if (seq === _custSeq) document.getElementById('custSpinner').style.display = 'none';
             }
@@ -1089,8 +1122,7 @@
             status.textContent = 'Φόρτωση...';
             document.getElementById('hourglass').style.display = 'inline-block';
             try {
-                const r = await fetch(`${SCRIPT_URL}?action=getCustomerInventory&pin=${encodeURIComponent(_adminPin)}&afm=${encodeURIComponent(afm)}`);
-                const d = await r.json();
+                const d = await fetchJson(`${SCRIPT_URL}?action=getCustomerInventory&pin=${encodeURIComponent(_adminPin)}&afm=${encodeURIComponent(afm)}`);
                 if (!d.success) { status.textContent = 'Σφάλμα: ' + (d.error || 'άγνωστο'); return; }
                 _invData = d;
                 renderInventoryRows(d);
@@ -1098,7 +1130,7 @@
                 document.getElementById('saveInvBtn').style.display = d.products.length ? 'inline-block' : 'none';
             } catch (e) {
                 console.error('loadCustomerInventory error:', e);
-                status.textContent = 'Πρόβλημα σύνδεσης.';
+                status.textContent = e.message || 'Πρόβλημα σύνδεσης.';
             } finally {
                 document.getElementById('hourglass').style.display = 'none';
             }
