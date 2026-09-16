@@ -138,6 +138,43 @@
             </div>
         </div>
 
+        <!-- ============ MODAL ΕΛΑΧΙΣΤΗΣ ΠΑΡΑΓΓΕΛΙΑΣ ============ -->
+        <div id="minOrderModal" role="dialog" aria-modal="true" aria-labelledby="minOrderTitle"
+             style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+                    background:rgba(0,0,0,0.55); z-index:10000; justify-content:center; align-items:center; padding:20px;">
+            <div style="background:#fff; padding:32px 28px; border-radius:20px; text-align:center;
+                        box-shadow:0 20px 45px rgba(0,0,0,0.25); max-width:420px; width:100%;">
+
+                <div style="font-size:2.8rem; line-height:1; margin-bottom:12px;">🛒</div>
+
+                <h3 id="minOrderTitle" style="color:#dc2626; margin:0 0 14px 0; font-size:1.35rem;">
+                    Ελάχιστη παραγγελία 100 € (+ ΦΠΑ)
+                </h3>
+
+                <p style="color:#4a5568; margin:0 0 18px 0; line-height:1.6;">
+                    Η παραγγελία σας δεν φτάνει το ελάχιστο όριο και δεν μπορεί να υποβληθεί.
+                </p>
+
+                <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:12px;
+                            padding:16px; margin-bottom:22px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#7f1d1d;">Καθαρή αξία τώρα:</span>
+                        <strong id="minOrderCurrent" style="color:#7f1d1d;">0,00 €</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; padding-top:8px;
+                                border-top:1px solid #fecaca;">
+                        <span style="color:#dc2626; font-weight:700;">Υπολείπονται:</span>
+                        <strong id="minOrderRemaining" style="color:#dc2626; font-size:1.15rem;">100,00 €</strong>
+                    </div>
+                </div>
+
+                <button type="button" class="q-btn" onclick="closeMinOrderModal()"
+                        style="background:var(--primary); color:#fff; padding:12px 32px; font-size:1rem;">
+                    Συνέχεια παραγγελίας
+                </button>
+            </div>
+        </div>
+
         <form id="orderForm" onsubmit="return false;">
             <section class="customer-header">
                 <div class="customer-grid">
@@ -157,9 +194,30 @@
 
             <section id="inventoryPanel" class="customer-header" style="display:none; border-color:var(--accent);">
                 <h3 style="color:var(--primary); text-transform:uppercase; margin-top:0;">Απογραφή Πελάτη</h3>
+
+                <!-- ============ ΑΝΑΖΗΤΗΣΗ ΦΑΡΜΑΚΕΙΟΥ ============ -->
+                <div style="position:relative; margin-bottom:18px; max-width:560px;">
+                    <label style="display:block; font-weight:700; color:var(--primary); margin-bottom:6px; font-size:0.9rem;">
+                        🔍 Αναζήτηση φαρμακείου
+                    </label>
+                    <input type="text" id="custSearch" autocomplete="off" spellcheck="false"
+                           placeholder="Γράψε επωνυμία ή ΑΦΜ (τουλάχιστον 2 χαρακτήρες)…"
+                           style="width:100%; padding:13px 15px; font-size:1rem; border:2px solid var(--border);
+                                  border-radius:12px; box-sizing:border-box;">
+
+                    <div id="custSpinner"
+                         style="display:none; position:absolute; right:14px; top:40px; font-size:1.1rem;">⏳</div>
+
+                    <div id="custResults"
+                         style="display:none; position:absolute; left:0; right:0; top:100%; margin-top:4px;
+                                background:#fff; border:2px solid var(--accent); border-radius:12px;
+                                box-shadow:0 12px 28px rgba(0,0,0,0.18); max-height:320px; overflow-y:auto; z-index:900;"></div>
+                </div>
+
                 <p style="color:var(--gray); font-size:0.95rem; margin-top:0;">
-                    Συμπλήρωσε το <strong>ΑΦΜ</strong> πελάτη στα στοιχεία επάνω και πάτησε «Φόρτωση Ιστορικού».
-                    Εμφανίζονται οι αγορές του τρέχοντος έτους και ο μέσος όρος/μήνα ανά προϊόν.
+                    Διάλεξε φαρμακείο από τη λίστα — τα στοιχεία συμπληρώνονται αυτόματα και
+                    φορτώνεται το ιστορικό. Εναλλακτικά συμπλήρωσε το <strong>ΑΦΜ</strong> επάνω
+                    και πάτησε «Φόρτωση Ιστορικού».
                 </p>
                 <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:15px;">
                     <button type="button" class="q-btn" style="flex:0 0 auto; padding:14px 22px;"
@@ -255,7 +313,39 @@
     <script src="products.js"></script>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCBGhz5In6khEqkcnIQto9xkH8zcnDjray_Vk7MzVkEr-Yg5l5fKf6g_QSUymVXXPKxw/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwM1pPUZBLivzUjy0kQyXPvB9221RjKyCK8WUtIIDB6VqSZT7lVoDREJPEcfrpGoHrDbQ/exec";
+
+        /* ===================== ΕΛΑΧΙΣΤΗ ΠΑΡΑΓΓΕΛΙΑ =====================
+         * MIN_ORDER_NET   : το όριο σε ευρώ, ΧΩΡΙΣ ΦΠΑ.
+         * MIN_ORDER_BASIS : ποιο ποσό συγκρίνεται με το όριο.
+         *   "netFinal" -> η Καθαρή Αξία ΜΕΤΑ τις εκπτώσεις (αυτό που τιμολογείται)
+         *   "grossNet" -> η Αρχική Αξία ΠΡΙΝ τις εκπτώσεις (πιο επιεικές)
+         * Η ίδια ρύθμιση πρέπει να υπάρχει και στο Code.gs.
+         * ============================================================== */
+        const MIN_ORDER_NET   = 100;
+        const MIN_ORDER_BASIS = "netFinal";
+
+        /** Επιστρέφει το ποσό που ελέγχεται έναντι του ορίου. */
+        function getMinOrderAmount(summary) {
+            return MIN_ORDER_BASIS === "grossNet" ? summary.grossNet : summary.netFinal;
+        }
+
+        /** Μορφοποίηση ευρώ σε ελληνικό format. */
+        function fmtEur(v) {
+            return Number(v || 0).toLocaleString("el-GR", {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            }) + " €";
+        }
+
+        function showMinOrderModal(current) {
+            document.getElementById('minOrderCurrent').textContent   = fmtEur(current);
+            document.getElementById('minOrderRemaining').textContent = fmtEur(MIN_ORDER_NET - current);
+            document.getElementById('minOrderModal').style.display   = 'flex';
+        }
+
+        function closeMinOrderModal() {
+            document.getElementById('minOrderModal').style.display = 'none';
+        }
         
         const MIX_GROUPS = [
             {
@@ -321,6 +411,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             const afmEl = document.getElementById('afm');
             if (afmEl) afmEl.addEventListener('input', lookupCustomer);
+
+            initCustomerSearch();
 
             if (typeof products === "undefined") {
                 document.getElementById('orderGrid').innerHTML =
@@ -634,6 +726,22 @@
 
             const mixUpsellText = getConciseUpsellMessage(summary.cart);
 
+            // ---------- ΖΩΝΤΑΝΗ ΕΝΔΕΙΞΗ ΕΛΑΧΙΣΤΗΣ ΠΑΡΑΓΓΕΛΙΑΣ ----------
+            const minAmount  = getMinOrderAmount(summary);
+            const belowMin   = summary.cart.length > 0 && minAmount < MIN_ORDER_NET;
+            const stickyEl   = document.getElementById("sticky-total");
+
+            stickyEl.style.color = belowMin ? "#fca5a5" : "";
+
+            if (belowMin) {
+                document.getElementById("progress-text").innerHTML =
+                    '<div style="color:#fca5a5; font-weight:900; font-size:1.05rem; text-shadow:0 1px 2px rgba(0,0,0,0.5);">' +
+                    '🛒 Ελάχιστη παραγγελία 100 € (+ ΦΠΑ)</div>' +
+                    '<div style="font-size:0.85rem; opacity:0.9;">Υπολείπονται ' +
+                    fmtEur(MIN_ORDER_NET - minAmount) + '</div>';
+                return;
+            }
+
             if (mixUpsellText) {
                 document.getElementById("progress-text").innerHTML = `
                     <div style="color:#fcd34d; font-weight:900; font-size:1.05rem; margin-bottom:4px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
@@ -734,6 +842,15 @@
                 return alert("Κενή παραγγελία!");
             }
 
+            // ---------- ΕΛΕΓΧΟΣ ΕΛΑΧΙΣΤΗΣ ΠΑΡΑΓΓΕΛΙΑΣ ----------
+            const summary = calculateOrderSummary();
+            const amount  = getMinOrderAmount(summary);
+
+            if (amount < MIN_ORDER_NET) {
+                showMinOrderModal(amount);
+                return;
+            }
+
             try {
                 const r = await fetch(SCRIPT_URL, {
                     method: 'POST',
@@ -741,13 +858,26 @@
                     body: JSON.stringify(payload)
                 });
 
-                if (r.ok) {
-                    alert("Η παραγγελία καταχωρήθηκε!");
-                    location.reload();
+                if (!r.ok) {
+                    alert("Υπήρξε πρόβλημα στην αποστολή της παραγγελίας.");
                     return;
                 }
 
-                alert("Υπήρξε πρόβλημα στην αποστολή της παραγγελίας.");
+                // Το Apps Script επιστρέφει 200 ακόμη και σε σφάλμα -> ελέγχουμε το σώμα.
+                let result = null;
+                try { result = await r.json(); } catch (parseErr) { /* μη JSON απόκριση */ }
+
+                if (result && result.success === false) {
+                    if (result.code === "MIN_ORDER") {
+                        showMinOrderModal(Number(result.amount) || amount);
+                    } else {
+                        alert(result.error || "Η παραγγελία δεν καταχωρήθηκε.");
+                    }
+                    return;
+                }
+
+                alert("Η παραγγελία καταχωρήθηκε!");
+                location.reload();
             } catch (e) {
                 console.error("processOrder error:", e);
                 alert("Υπήρξε πρόβλημα σύνδεσης.");
@@ -755,6 +885,8 @@
         }
 
         // ΝΕΕΣ ΣΥΝΑΡΤΗΣΕΙΣ ΓΙΑ ΤΟ MODAL ΑΝΤΙ ΓΙΑ PROMPT
+        let _adminPin = "";   // το PIN που δόθηκε — χρησιμοποιείται στα admin αιτήματα
+
         function toggleAdminMode() {
             document.getElementById('pinModal').style.display = 'flex';
             document.getElementById('adminPinInput').focus();
@@ -764,27 +896,182 @@
             const pin = document.getElementById('adminPinInput').value;
             document.getElementById('pinModal').style.display = 'none'; // Κλείσιμο modal
             document.getElementById('adminPinInput').value = ''; // Καθαρισμός πεδίου
-            
-            if (pin === "1234") {
-                document.getElementById('adminBar').style.display = 'flex';
-                document.getElementById('hourglass').style.display = 'inline-block';
-                try {
-                    const r = await fetch(`${SCRIPT_URL}?action=getStock&pin=${encodeURIComponent(pin)}`);
-                    const d = await r.json();
-                    if (d.success) {
-                        products.forEach((p, i) => {
-                            const el = document.getElementById(`stock-${i}`);
-                            if (el) {
-                                el.style.display = "block";
-                                el.textContent = "STOCK: " + (d.inventory[p.name] || 0);
-                            }
-                        });
-                    }
-                } catch (e) {
-                    console.error("submitPin error:", e);
+
+            if (!pin) return;
+
+            document.getElementById('hourglass').style.display = 'inline-block';
+
+            try {
+                const r = await fetch(`${SCRIPT_URL}?action=getStock&pin=${encodeURIComponent(pin)}`);
+                const d = await r.json();
+
+                if (!d.success) {
+                    alert(d.error || "Λάθος PIN.");
+                    return;
                 }
+
+                _adminPin = pin;                       // επιτυχής ταυτοποίηση
+                document.getElementById('adminBar').style.display = 'flex';
+
+                products.forEach((p, i) => {
+                    const el = document.getElementById(`stock-${i}`);
+                    if (el) {
+                        el.style.display = "block";
+                        el.textContent = "STOCK: " + (d.inventory[p.name] || 0);
+                    }
+                });
+            } catch (e) {
+                console.error("submitPin error:", e);
+                alert("Πρόβλημα σύνδεσης.");
+            } finally {
                 document.getElementById('hourglass').style.display = 'none';
             }
+        }
+
+        /* ===================== ΑΝΑΖΗΤΗΣΗ ΦΑΡΜΑΚΕΙΟΥ ===================== */
+
+        let _custTimer  = null;   // debounce
+        let _custList   = [];     // τρέχοντα αποτελέσματα
+        let _custActive = -1;     // επιλεγμένη γραμμή (πλήκτρα βελών)
+        let _custSeq    = 0;      // αύξων αριθμός αιτήματος (κατά των εκπρόθεσμων απαντήσεων)
+
+        function initCustomerSearch() {
+            const box = document.getElementById('custSearch');
+            if (!box) return;
+
+            box.addEventListener('input', function () {
+                clearTimeout(_custTimer);
+                const q = box.value.trim();
+
+                if (q.length < 2) { hideCustResults(); return; }
+
+                // Αναμονή 250ms μετά το τελευταίο πλήκτρο -> λιγότερα αιτήματα
+                _custTimer = setTimeout(function () { runCustomerSearch(q); }, 250);
+            });
+
+            box.addEventListener('keydown', function (ev) {
+                const open = document.getElementById('custResults').style.display === 'block';
+
+                if (ev.key === 'Escape') { hideCustResults(); return; }
+                if (!open || !_custList.length) return;
+
+                if (ev.key === 'ArrowDown') {
+                    ev.preventDefault();
+                    _custActive = (_custActive + 1) % _custList.length;
+                    highlightCustRow();
+                } else if (ev.key === 'ArrowUp') {
+                    ev.preventDefault();
+                    _custActive = (_custActive - 1 + _custList.length) % _custList.length;
+                    highlightCustRow();
+                } else if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    pickCustomer(_custActive >= 0 ? _custActive : 0);
+                }
+            });
+
+            // Κλείσιμο με κλικ εκτός
+            document.addEventListener('click', function (ev) {
+                if (!ev.target.closest('#custSearch') && !ev.target.closest('#custResults')) {
+                    hideCustResults();
+                }
+            });
+        }
+
+        async function runCustomerSearch(q) {
+            const seq = ++_custSeq;
+            document.getElementById('custSpinner').style.display = 'block';
+
+            try {
+                const url = SCRIPT_URL + '?action=searchCustomers'
+                          + '&pin=' + encodeURIComponent(_adminPin)
+                          + '&q='   + encodeURIComponent(q);
+
+                const r = await fetch(url);
+                const d = await r.json();
+
+                // Αγνόησε απάντηση που ξεπεράστηκε από νεότερη πληκτρολόγηση
+                if (seq !== _custSeq) return;
+
+                if (!d.success) { showCustMessage('Σφάλμα: ' + (d.error || 'άγνωστο')); return; }
+
+                _custList = d.results || [];
+                _custActive = -1;
+                renderCustResults(q);
+            } catch (e) {
+                console.error('runCustomerSearch error:', e);
+                if (seq === _custSeq) showCustMessage('Πρόβλημα σύνδεσης.');
+            } finally {
+                if (seq === _custSeq) document.getElementById('custSpinner').style.display = 'none';
+            }
+        }
+
+        function escHtml(s) {
+            return String(s == null ? '' : s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function renderCustResults(q) {
+            const wrap = document.getElementById('custResults');
+
+            if (!_custList.length) {
+                showCustMessage('Δεν βρέθηκε φαρμακείο με «' + escHtml(q) + '».');
+                return;
+            }
+
+            wrap.innerHTML = _custList.map(function (c, i) {
+                const contact = [c.kinito, c.stathero, c.email].filter(Boolean).join(' · ');
+                return '<div class="cust-row" data-i="' + i + '" onclick="pickCustomer(' + i + ')" ' +
+                       'style="padding:12px 15px; cursor:pointer; border-bottom:1px solid #edf2f7;">' +
+                         '<div style="font-weight:800; color:var(--primary);">' + escHtml(c.eponimia) + '</div>' +
+                         '<div style="font-size:0.85rem; color:var(--gray); margin-top:2px;">' +
+                           'ΑΦΜ ' + escHtml(c.afm) + (c.doy ? ' · ' + escHtml(c.doy) : '') +
+                         '</div>' +
+                         (contact ? '<div style="font-size:0.8rem; color:#a0aec0; margin-top:2px;">' +
+                                    escHtml(contact) + '</div>' : '') +
+                       '</div>';
+            }).join('');
+
+            wrap.style.display = 'block';
+        }
+
+        function showCustMessage(msg) {
+            const wrap = document.getElementById('custResults');
+            wrap.innerHTML = '<div style="padding:14px 15px; color:var(--gray);">' + msg + '</div>';
+            wrap.style.display = 'block';
+            _custList = [];
+            _custActive = -1;
+        }
+
+        function highlightCustRow() {
+            const rows = document.querySelectorAll('#custResults .cust-row');
+            rows.forEach(function (el, i) {
+                el.style.background = (i === _custActive) ? '#f0fdf4' : '';
+            });
+            if (rows[_custActive]) rows[_custActive].scrollIntoView({ block: 'nearest' });
+        }
+
+        function hideCustResults() {
+            document.getElementById('custResults').style.display = 'none';
+            _custActive = -1;
+        }
+
+        /** Συμπληρώνει τα στοιχεία πελάτη και φορτώνει το ιστορικό. */
+        function pickCustomer(i) {
+            const c = _custList[i];
+            if (!c) return;
+
+            document.getElementById('afm').value      = c.afm      || '';
+            document.getElementById('eponimia').value = c.eponimia || '';
+            document.getElementById('email').value    = c.email    || '';
+            document.getElementById('kinito').value   = c.kinito   || '';
+            document.getElementById('stathero').value = c.stathero || '';
+            document.getElementById('doy').value      = c.doy      || '';
+
+            document.getElementById('custSearch').value = c.eponimia || '';
+            hideCustResults();
+
+            loadCustomerInventory();
         }
 
         /* ===================== ΑΠΟΓΡΑΦΗ ΠΕΛΑΤΗ ===================== */
@@ -802,7 +1089,7 @@
             status.textContent = 'Φόρτωση...';
             document.getElementById('hourglass').style.display = 'inline-block';
             try {
-                const r = await fetch(`${SCRIPT_URL}?action=getCustomerInventory&pin=1234&afm=${encodeURIComponent(afm)}`);
+                const r = await fetch(`${SCRIPT_URL}?action=getCustomerInventory&pin=${encodeURIComponent(_adminPin)}&afm=${encodeURIComponent(afm)}`);
                 const d = await r.json();
                 if (!d.success) { status.textContent = 'Σφάλμα: ' + (d.error || 'άγνωστο'); return; }
                 _invData = d;
