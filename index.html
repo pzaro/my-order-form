@@ -91,12 +91,7 @@
             display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
             margin-bottom: 20px;
         }
-        .grid-tools input {
-            flex: 1 1 240px; padding: 14px 16px; font-size: 1rem;
-            border: 2px solid var(--border); border-radius: 16px; font-family: inherit;
-        }
-        .grid-count { color: var(--gray); font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
-        .order-item.hidden { display: none; }
+        .grid-count { flex: 1 1 auto; color: var(--gray); font-weight: 700; font-size: 0.9rem; }
 
         .customer-header { background: var(--white); border-radius: 35px; padding: clamp(20px, 5vw, 40px); border: 3px solid var(--primary); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -345,9 +340,6 @@
 
             <div class="dashboard-grid">
                 <div class="grid-tools">
-                    <input type="text" id="prodFilter" autocomplete="off" spellcheck="false"
-                           placeholder="Φίλτρο προϊόντων — γράψε όνομα ή σειρά"
-                           oninput="filterProducts()">
                     <span class="grid-count" id="gridCount"></span>
                     <button type="button" class="q-btn" style="flex:0 0 auto; padding:14px 20px;"
                             onclick="clearOrder()">Μηδενισμός</button>
@@ -950,7 +942,7 @@
             const stickerPct = summary.effectiveDiscountPct > 0 ? summary.effectiveDiscountPct.toFixed(1) : "0";
             document.getElementById("sticky-badge").textContent = `${stickerPct}% DISC.`;
 
-            updateGridCount(document.querySelectorAll('.order-item:not(.hidden)').length);
+            updateGridCount();
 
             document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
             document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
@@ -994,35 +986,11 @@
             }
         }
 
-        /* ============ ΦΙΛΤΡΟ ΠΡΟΪΟΝΤΩΝ ============ */
-
-        /** Αγνοεί τόνους και πεζά/κεφαλαία, όπως και η αναζήτηση πελάτη. */
-        function normGreek(s) {
-            let t = String(s || '').toUpperCase();
-            try { t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch (e) {}
-            return t.replace(/\s+/g, ' ').trim();
-        }
-
-        function filterProducts() {
-            const q = normGreek(document.getElementById('prodFilter').value);
-            let shown = 0;
-
-            products.forEach(function (p, i) {
-                const card = document.getElementById('qty-' + i).closest('.order-item');
-                const hit = !q || normGreek(p.name).indexOf(q) !== -1;
-                card.classList.toggle('hidden', !hit);
-                if (hit) shown++;
-            });
-
-            updateGridCount(shown);
-        }
-
-        function updateGridCount(shown) {
+        function updateGridCount() {
             const lines = products.filter(function (p, i) { return getQty(i) > 0; }).length;
-            const total = (shown == null) ? products.length : shown;
 
             document.getElementById('gridCount').textContent =
-                total + ' από ' + products.length + ' προϊόντα' +
+                products.length + ' προϊόντα' +
                 (lines ? ' · ' + lines + ' στην παραγγελία' : '');
         }
 
@@ -1188,7 +1156,13 @@
                 }
 
                 _adminPin = pin;                       // επιτυχής ταυτοποίηση
-                document.getElementById('adminBar').style.display = 'flex';
+                document.getElementById('adminBar').style.display = 'block';
+
+                // Ο δρομέας πάει κατευθείαν στην αναζήτηση πελάτη
+                setTimeout(function () {
+                    const box = document.getElementById('custSearch');
+                    if (box) box.focus();
+                }, 100);
 
                 products.forEach((p, i) => {
                     const el = document.getElementById(`stock-${i}`);
