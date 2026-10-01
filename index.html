@@ -86,12 +86,6 @@
         }
         .cust-picked strong { font-weight: 900; }
 
-        /* ============ ΦΙΛΤΡΟ ΠΡΟΪΟΝΤΩΝ ============ */
-        .grid-tools {
-            display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .grid-count { flex: 1 1 auto; color: var(--gray); font-weight: 700; font-size: 0.9rem; }
 
         .customer-header { background: var(--white); border-radius: 35px; padding: clamp(20px, 5vw, 40px); border: 3px solid var(--primary); margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .customer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -339,11 +333,6 @@
             </section>
 
             <div class="dashboard-grid">
-                <div class="grid-tools">
-                    <span class="grid-count" id="gridCount"></span>
-                    <button type="button" class="q-btn" style="flex:0 0 auto; padding:14px 20px;"
-                            onclick="clearOrder()">Μηδενισμός</button>
-                </div>
                 <div id="orderGrid"></div>
 
                 <div class="sidebar">
@@ -942,8 +931,6 @@
             const stickerPct = summary.effectiveDiscountPct > 0 ? summary.effectiveDiscountPct.toFixed(1) : "0";
             document.getElementById("sticky-badge").textContent = `${stickerPct}% DISC.`;
 
-            updateGridCount();
-
             document.getElementById("gift-breakdown").innerHTML = formatGiftBreakdown(summary.gifts);
             document.getElementById("discount-breakdown").innerHTML = formatDiscountBreakdown(summary);
             
@@ -984,22 +971,6 @@
             } else {
                 document.getElementById("progress-text").innerHTML = `<div style="font-size:1rem;">${volText}</div>`;
             }
-        }
-
-        function updateGridCount() {
-            const lines = products.filter(function (p, i) { return getQty(i) > 0; }).length;
-
-            document.getElementById('gridCount').textContent =
-                products.length + ' προϊόντα' +
-                (lines ? ' · ' + lines + ' στην παραγγελία' : '');
-        }
-
-        function clearOrder() {
-            if (!products.some(function (p, i) { return getQty(i) > 0; })) return;
-            if (!confirm('Μηδενισμός όλων των ποσοτήτων;')) return;
-
-            products.forEach(function (p, i) { document.getElementById('qty-' + i).value = 0; });
-            updateTotals();
         }
 
         function setQty(i, v) {
