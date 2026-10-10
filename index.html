@@ -68,6 +68,63 @@
         .clock-time { font-size: 1.45rem; font-weight: 800; color: var(--primary); }
         .clock-date { font-size: 0.95rem; font-weight: 600; }
 
+        /* ============ TICKER ΕΙΔΗΣΕΩΝ ============ */
+        .ticker {
+            display: none;                      /* εμφανίζεται μόνο με ειδήσεις */
+            align-items: stretch;
+            background: var(--primary); color: #fff;
+            border-radius: 18px; overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 18px rgba(74, 93, 78, 0.22);
+        }
+        .ticker-label {
+            flex: 0 0 auto; display: flex; align-items: center; gap: 8px;
+            background: var(--accent); color: #fff;
+            padding: 0 16px; font-weight: 900; font-size: 0.82rem;
+            letter-spacing: 0.6px; white-space: nowrap;
+        }
+        .ticker-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #fff;
+            animation: tickerPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes tickerPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+        .ticker-viewport { flex: 1 1 auto; overflow: hidden; position: relative; }
+        .ticker-track {
+            display: inline-flex; align-items: center;
+            white-space: nowrap; padding: 13px 0;
+            animation: tickerScroll 70s linear infinite;
+            will-change: transform;
+        }
+        .ticker:hover .ticker-track,
+        .ticker-track:focus-within { animation-play-state: paused; }
+        @keyframes tickerScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: inline-flex; align-items: baseline; gap: 9px;
+            padding: 0 26px; color: #fff; text-decoration: none;
+            font-size: 0.93rem; border-right: 1px solid rgba(255,255,255,0.18);
+        }
+        .ticker-item:hover { color: #d1fae5; }
+        .ticker-item b {
+            font-size: 0.72rem; font-weight: 900; letter-spacing: 0.5px;
+            color: #a7f3d0; white-space: nowrap;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ticker-track { animation: none; }
+            .ticker-viewport { overflow-x: auto; }
+            .ticker-dot { animation: none; }
+        }
+        @media (max-width: 600px) {
+            .ticker-label span:last-child { display: none; }
+            .ticker-label { padding: 0 12px; }
+            .ticker-item { font-size: 0.86rem; padding: 0 18px; }
+        }
+
         /* ============ ΜΠΑΡΑ ΔΙΑΧΕΙΡΙΣΗΣ ============ */
         .admin-panel {
             background: var(--white); border: 3px solid var(--accent);
@@ -229,6 +286,15 @@
                 <span class="clock-date" id="clockDate">&nbsp;</span>
             </div>
         </header>
+
+        <div class="ticker" id="newsTicker" aria-label="Τελευταίες ειδήσεις">
+            <div class="ticker-label">
+                <span class="ticker-dot"></span><span>ΕΙΔΗΣΕΙΣ</span>
+            </div>
+            <div class="ticker-viewport">
+                <div class="ticker-track" id="newsTrack"></div>
+            </div>
+        </div>
 
         <div id="pinModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
             <div style="background:#fff; padding:30px; border-radius:20px; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
@@ -510,6 +576,49 @@
             'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab'
         ];
 
+        /* ===================== TICKER ΕΙΔΗΣΕΩΝ ===================== */
+
+        const NEWS_REFRESH_MIN = 20;   // κάθε πόσα λεπτά ζητάει νέες ειδήσεις
+
+        async function loadNews() {
+            const ticker = document.getElementById('newsTicker');
+            const track  = document.getElementById('newsTrack');
+            if (!ticker || !track) return;
+
+            try {
+                const d = await fetchJson(SCRIPT_URL + '?action=getNews');
+                if (!d || !d.success || !d.items || !d.items.length) {
+                    ticker.style.display = 'none';
+                    return;
+                }
+
+                // Το περιεχόμενο μπαίνει δύο φορές ώστε η κύλιση να είναι αδιάκοπη.
+                const html = d.items.map(renderNewsItem).join('');
+                track.innerHTML = html + html;
+
+                // Ταχύτητα ανάλογη του πλήθους: σταθερός ρυθμός ανάγνωσης.
+                track.style.animationDuration = Math.max(40, d.items.length * 7) + 's';
+
+                ticker.style.display = 'flex';
+            } catch (e) {
+                console.warn('loadNews:', e.message);
+                ticker.style.display = 'none';
+            }
+        }
+
+        function renderNewsItem(it) {
+            const title = escHtml(it.title);
+            const label = escHtml(it.label || '');
+            const href  = (it.link && /^https?:\/\//i.test(it.link)) ? it.link : '';
+
+            const inner = '<b>' + label + '</b><span>' + title + '</span>';
+
+            return href
+                ? '<a class="ticker-item" href="' + escHtml(href) +
+                  '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
+                : '<span class="ticker-item">' + inner + '</span>';
+        }
+
         /* ===================== ΡΟΛΟΪ ===================== */
 
         function startClock() {
@@ -533,6 +642,8 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             startClock();
+            loadNews();
+            setInterval(loadNews, NEWS_REFRESH_MIN * 60000);
 
             const afmEl = document.getElementById('afm');
             if (afmEl) afmEl.addEventListener('input', lookupCustomer);
