@@ -340,6 +340,31 @@
                         style="background:var(--primary); color:#fff; padding:12px 32px; font-size:1rem;">
                     Συνέχεια παραγγελίας
                 </button>
+
+                <!-- ============ ΚΩΔΙΚΟΣ ΕΞΑΙΡΕΣΗΣ ============ -->
+                <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+                    <button type="button" id="overrideToggle" onclick="toggleOverride()"
+                            style="background:none; border:none; color:#cbd5e0; font-family:inherit;
+                                   font-size:0.78rem; letter-spacing:0.5px; cursor:pointer; padding:0;">
+                        Admin
+                    </button>
+
+                    <div id="overrideBox" style="display:none; margin-top:14px;">
+                        <div style="display:flex; gap:8px;">
+                            <input type="password" id="overrideCode" autocomplete="off"
+                                   placeholder=""
+                                   onkeydown="if(event.key==='Enter'){event.preventDefault();submitWithOverride();}"
+                                   style="flex:1 1 auto; padding:12px 14px; font-size:1rem; font-family:inherit;
+                                          border:2px solid var(--border); border-radius:12px; min-width:0;">
+                            <button type="button" class="q-btn" onclick="submitWithOverride()"
+                                    style="flex:0 0 auto; background:var(--accent); color:#fff; padding:12px 18px;">
+                                Υποβολή
+                            </button>
+                        </div>
+                        <div id="overrideError"
+                             style="display:none; margin-top:10px; color:#dc2626; font-size:0.85rem; font-weight:700;"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -513,6 +538,41 @@
 
         function closeMinOrderModal() {
             document.getElementById('minOrderModal').style.display = 'none';
+            resetOverrideBox();
+        }
+
+        /* ============ ΚΩΔΙΚΟΣ ΕΞΑΙΡΕΣΗΣ ΕΛΑΧΙΣΤΟΥ ============ */
+
+        function resetOverrideBox() {
+            document.getElementById('overrideBox').style.display = 'none';
+            document.getElementById('overrideToggle').style.display = 'inline';
+            document.getElementById('overrideCode').value = '';
+            document.getElementById('overrideError').style.display = 'none';
+        }
+
+        function toggleOverride() {
+            document.getElementById('overrideToggle').style.display = 'none';
+            document.getElementById('overrideBox').style.display = 'block';
+            document.getElementById('overrideCode').focus();
+        }
+
+        function showOverrideError(msg) {
+            const el = document.getElementById('overrideError');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        /** Ξαναστέλνει την παραγγελία μαζί με τον κωδικό εξαίρεσης. */
+        function submitWithOverride() {
+            const code = document.getElementById('overrideCode').value.trim();
+
+            if (!code) {
+                showOverrideError('Συμπλήρωσε τον κωδικό.');
+                return;
+            }
+
+            document.getElementById('overrideError').style.display = 'none';
+            processOrder(code);
         }
         
         const MIX_GROUPS = [
@@ -1163,7 +1223,7 @@
             };
         }
 
-        async function processOrder() {
+        async function processOrder(overrideCode) {
             const payload = buildPayload();
 
             if (!payload.cart.length) {
@@ -1174,10 +1234,14 @@
             const summary = calculateOrderSummary();
             const amount  = getMinOrderAmount(summary);
 
-            if (amount < MIN_ORDER_NET) {
+            // Χωρίς κωδικό -> εμφάνισε το παράθυρο. Με κωδικό -> προχώρα,
+            // και ο έλεγχος γίνεται στον server.
+            if (amount < MIN_ORDER_NET && !overrideCode) {
                 showMinOrderModal(amount);
                 return;
             }
+
+            if (overrideCode) payload.overrideCode = overrideCode;
 
             try {
                 const r = await fetch(SCRIPT_URL, {
@@ -1197,6 +1261,11 @@
 
                 if (result && result.success === false) {
                     if (result.code === "MIN_ORDER") {
+                        // Ο server απέρριψε τον κωδικό που στάλθηκε.
+                        if (result.codeTried) {
+                            showOverrideError('Λάθος κωδικός εξαίρεσης.');
+                            return;
+                        }
                         showMinOrderModal(Number(result.amount) || amount);
                     } else {
                         alert(result.error || "Η παραγγελία δεν καταχωρήθηκε.");
