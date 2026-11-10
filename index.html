@@ -91,6 +91,7 @@
             pointer-events: none;
         }
         .promo > * { position: relative; z-index: 1; }
+        .promo > div { min-width: 0; }        /* να μπορεί να στενέψει η στήλη κειμένου */
 
         .promo-flag {
             position: absolute; top: 0; left: 0; z-index: 2;
@@ -178,8 +179,8 @@
         }
         .promo--light .promo-flag       { background: #0f766e; }
         .promo--light .promo-shot {
-            /* όρθιο βαζάκι: στενότερο και ψηλότερο από το πακέτο του σιροπιού */
-            width: clamp(96px, 13vw, 148px); height: clamp(118px, 19vw, 198px);
+            /* δύο βαζάκια δίπλα-δίπλα: πλατύτερο κάδρο */
+            width: clamp(150px, 21vw, 248px); height: clamp(120px, 17vw, 192px);
             filter: drop-shadow(0 12px 18px rgba(31,46,28,0.26));
         }
         .promo--light .promo-sub        { color: #5c6c59; }
@@ -194,6 +195,26 @@
         }
         .promo--light .promo-vit::before { border-color: rgba(56, 189, 248, 0.8); }
         .promo--light .promo-vit-big     { font-size: clamp(1.15rem, 3.1vw, 1.5rem); }
+
+        .promo--light                    { cursor: default; }
+
+        /* δύο ξεχωριστές συσκευασίες — η καθεμιά δικό της κουμπί */
+        .promo-ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+        .promo-pick {
+            display: inline-flex; align-items: baseline; gap: 8px;
+            font-family: inherit; font-size: 0.84rem; font-weight: 800;
+            padding: 9px 17px; border-radius: 999px; cursor: pointer;
+            border: 2px solid #166534; background: #166534; color: #eafff2;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+        }
+        .promo-pick--alt { background: transparent; color: #166534; }
+        .promo-pick:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(22, 101, 52, 0.26);
+        }
+        .promo-pick--alt:hover { background: #166534; color: #eafff2; }
+        .promo-pick b     { font-weight: 900; }
+        .promo-pick span  { font-weight: 700; opacity: 0.82; font-size: 0.78rem; }
 
         @media (max-width: 720px) {
             .promo {
@@ -220,9 +241,20 @@
             .promo-vit-sub { margin-top: 0; font-size: 0.6rem; }
             .promo-vit-sub br { display: none; }
 
-            .promo--light .promo-shot    { width: 92px; height: 118px; }
+            .promo--light .promo-shot    { width: 124px; height: 108px; }
             .promo--light .promo-vit-big { font-size: 1.22rem; white-space: nowrap; }
             .promo--light .promo-vit-sub { white-space: nowrap; }
+
+            /* Στο κινητό η κάθε συσκευασία παίρνει δική της γραμμή πλήρους πλάτους. */
+            .promo-ctas { flex-direction: column; gap: 7px; margin-top: 12px; }
+            .promo-pick {
+                width: 100%;
+                flex-direction: column; align-items: center; justify-content: center;
+                font-size: 0.72rem; padding: 8px 10px; gap: 2px;
+                border-radius: 16px;
+            }
+            .promo-pick b, .promo-pick span { white-space: nowrap; }
+            .promo-pick span { font-size: 0.65rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             .promo-vit::before { animation: none; }
@@ -316,7 +348,7 @@
 
         .order-item {
             display: grid;
-            grid-template-columns: 85px 1fr auto;
+            grid-template-columns: clamp(170px, 30vw, 260px) 1fr auto;
             grid-template-areas:
                 "img info total"
                 "disc disc disc"
@@ -373,10 +405,28 @@
         }
 
         .p-img {
-            grid-area: img; width: 80px; height: 80px; object-fit: contain;
-            border-radius: 10px; cursor: zoom-in; transition: transform 0.15s;
+            grid-area: img; width: 100%; height: clamp(170px, 30vw, 260px); object-fit: contain;
+            border-radius: 14px; cursor: zoom-in; transition: transform 0.15s;
         }
         .p-img:hover { transform: scale(1.08); }
+        .p-total { font-weight: 900; color: var(--primary); font-size: 1.4rem; white-space: nowrap; }
+
+        /* Σε στενή οθόνη το σύνολο πάει κάτω από το όνομα, ώστε να χωράει η μεγάλη φωτογραφία. */
+        @media (max-width: 560px) {
+            .order-item {
+                grid-template-columns: 152px 1fr;
+                grid-template-areas:
+                    "img info"
+                    "img total"
+                    "disc disc"
+                    "btns btns"
+                    "science science"
+                    "qty qty";
+                padding: 18px; gap: 12px;
+            }
+            .p-img   { height: 152px; align-self: start; }
+            .p-total { grid-area: total; align-self: start; font-size: 1.25rem; }
+        }
         .stock-label { display: none; color: #f59e0b; font-weight: 800; font-size: 0.85rem; }
 
         /* BADGE ΓΙΑ ΔΙΑΧΩΡΙΣΜΟ ΣΥΣΚΕΥΑΣΙΑΣ */
@@ -612,18 +662,16 @@
             </div>
 
             <!-- ============ ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ: Z-BOOST ============ -->
-            <div class="promo promo--light" id="promoBanner2" onclick="goToPromoProduct('Z-boost 30 caps')"
-                 role="button" tabindex="0"
-                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToPromoProduct('Z-boost 30 caps');}">
+            <div class="promo promo--light" id="promoBanner2">
                 <div class="promo-flag">❄ ΓΙΑ ΤΟΝ ΧΕΙΜΩΝΑ</div>
 
                 <img class="promo-shot" id="promoShot2" src="" alt="Z-boost Caps">
 
                 <div>
                     <div class="promo-name">Z-boost Caps</div>
-                    <div class="promo-sub">Στήριξη του ανοσοποιητικού τη δύσκολη εποχή · 30 &amp; 12 κάψουλες</div>
+                    <div class="promo-sub">Στήριξη του ανοσοποιητικού τη δύσκολη εποχή</div>
                     <div class="promo-herbs" id="promoHerbs2"></div>
-                    <div class="promo-cta">Προσθήκη στην παραγγελία →</div>
+                    <div class="promo-ctas" id="promoCtas2"></div>
                 </div>
 
                 <div class="promo-vit">
@@ -858,8 +906,13 @@
             },
             {
                 banner: 'promoBanner2', chips: 'promoHerbs2', shot: 'promoShot2',
-                product: 'Z-boost 30 caps', img: 'zboost-pack.png', every: 1150,
-                items: ['NAC', 'Ψευδάργυρος', 'Σελήνιο', 'ALA', 'CoQ10', 'Ginger']
+                product: 'Z-boost 30 caps', img: 'zboost-duo.png', every: 1150,
+                items: ['NAC', 'Ψευδάργυρος', 'Σελήνιο', 'ALA', 'CoQ10', 'Ginger'],
+                ctas: 'promoCtas2',
+                picks: [
+                    { product: 'Z-boost 30 caps', label: '30 κάψουλες', note: 'πράσινη · μηνιαία αγωγή' },
+                    { product: 'Z-boost 12 caps', label: '12 κάψουλες', note: 'μπλε · έξυπνη συσκευασία' }
+                ]
             }
         ];
 
@@ -882,6 +935,28 @@
 
                 wrap.innerHTML = cfg.items
                     .map(h => '<span class="promo-herb">' + h + '</span>').join('');
+
+                // Ξεχωριστό κουμπί ανά συσκευασία — το καθένα δείχνει άλλο προϊόν.
+                if (cfg.picks) {
+                    const row = document.getElementById(cfg.ctas);
+                    if (row) {
+                        row.innerHTML = '';
+                        cfg.picks.forEach(function (pick, n) {
+                            const prod = products.find(p => p.name === pick.product);
+                            if (!prod) return;
+                            const btn = document.createElement('button');
+                            btn.type = 'button';
+                            btn.className = 'promo-pick' + (n ? ' promo-pick--alt' : '');
+                            btn.innerHTML = '<b>Προσθέστε ' + pick.label + '</b>'
+                                          + '<span>' + prod.price.toFixed(2) + ' € · ' + pick.note + '</span>';
+                            btn.onclick = function (e) {
+                                e.stopPropagation();
+                                goToPromoProduct(pick.product);
+                            };
+                            row.appendChild(btn);
+                        });
+                    }
+                }
 
                 // Περιστρεφόμενος προβολέας στα συστατικά — ένα κάθε φορά.
                 if (still) return;
@@ -1069,7 +1144,7 @@
                         <div id="stock-${i}" class="stock-label">...</div>
                         <span class="science-btn" onclick="toggleScience(${i})">ℹ️ Επιστημονική Τεκμηρίωση</span>
                     </div>
-                    <div style="font-weight:900; color:var(--primary); font-size:1.4rem;" id="total-${i}">0.00 €</div>
+                    <div class="p-total" id="total-${i}">0.00 €</div>
                     <div class="disc-panel" id="disc-${i}"></div>
                     <div id="science-${i}" class="science-box">
                         <h4>Βασικές Δραστικές</h4><p>${p.sci ? p.sci.act : ''}</p>
