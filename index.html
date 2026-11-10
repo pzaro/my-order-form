@@ -68,6 +68,128 @@
         .clock-time { font-size: 1.45rem; font-weight: 800; color: var(--primary); }
         .clock-date { font-size: 0.95rem; font-weight: 600; }
 
+        /* ============ ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ ΠΡΟΪΟΝΤΟΣ ============ */
+        .promo {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: clamp(16px, 3vw, 32px);
+            position: relative;
+            background:
+                radial-gradient(130% 160% at 8% 0%, #5c7361 0%, #41523f 55%, #2f3d2e 100%);
+            color: #fff;
+            border-radius: 32px;
+            padding: clamp(18px, 3vw, 26px) clamp(20px, 3.5vw, 34px);
+            margin-bottom: 28px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 14px 34px rgba(47, 61, 46, 0.3);
+        }
+        .promo::after {                       /* διακριτικό φως πάνω δεξιά */
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(60% 90% at 88% 10%, rgba(16,185,129,0.22), transparent 70%);
+            pointer-events: none;
+        }
+        .promo > * { position: relative; z-index: 1; }
+
+        .promo-flag {
+            position: absolute; top: 0; left: 0; z-index: 2;
+            background: #c0392b; color: #fff;
+            font-size: 0.64rem; font-weight: 900; letter-spacing: 1.4px;
+            padding: 7px 16px 7px 20px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .promo-shot {
+            width: clamp(118px, 19vw, 206px); height: clamp(104px, 17vw, 180px);
+            object-fit: contain;
+            filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+        }
+
+        .promo-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.5rem, 4.4vw, 2.2rem);
+            font-weight: 800; letter-spacing: -0.5px; line-height: 1;
+            margin: 10px 0 4px;
+        }
+        .promo-sub { font-size: clamp(0.82rem, 2.1vw, 0.95rem); color: #c3d4c6; margin-bottom: 14px; }
+
+        .promo-herbs { display: flex; flex-wrap: wrap; gap: 7px; }
+        .promo-herb {
+            font-size: 0.78rem; font-weight: 700;
+            padding: 6px 13px; border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.26);
+            color: #d7e5d9; white-space: nowrap;
+            transition: background 0.45s, color 0.45s, border-color 0.45s, transform 0.45s;
+        }
+        .promo-herb.on {
+            background: var(--accent); border-color: var(--accent);
+            color: #04291d; transform: translateY(-2px);
+        }
+
+        /* ---- το δυνατό σημείο: βιταμίνη C ---- */
+        .promo-vit {
+            flex: 0 0 auto; text-align: center; position: relative;
+            width: clamp(104px, 15vw, 136px); height: clamp(104px, 15vw, 136px);
+            display: grid; place-content: center; border-radius: 50%;
+            background: linear-gradient(150deg, #f7b733 0%, #e8821a 100%);
+            color: #3d2404;
+            box-shadow: 0 10px 26px rgba(232, 130, 26, 0.45);
+        }
+        .promo-vit::before {                  /* παλμός */
+            content: ''; position: absolute; inset: -6px; border-radius: 50%;
+            border: 2px solid rgba(247, 183, 51, 0.75);
+            animation: promoPulse 2.6s ease-out infinite;
+        }
+        @keyframes promoPulse {
+            0%   { transform: scale(1);    opacity: 0.85; }
+            70%  { transform: scale(1.28); opacity: 0; }
+            100% { transform: scale(1.28); opacity: 0; }
+        }
+        .promo-vit-top { font-size: 0.6rem; font-weight: 900; letter-spacing: 1.2px; }
+        .promo-vit-big {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.6rem, 4.6vw, 2.1rem); font-weight: 800; line-height: 1;
+        }
+        .promo-vit-sub { font-size: 0.58rem; font-weight: 700; line-height: 1.25; margin-top: 3px; }
+
+        .promo-cta {
+            display: inline-flex; align-items: center; gap: 7px;
+            margin-top: 16px; font-size: 0.85rem; font-weight: 800;
+            color: #a7f3d0;
+        }
+        .promo:hover .promo-cta { color: #fff; }
+
+        @media (max-width: 720px) {
+            .promo {
+                grid-template-columns: auto 1fr;
+                column-gap: 14px; row-gap: 14px;
+                padding: 36px 18px 20px;
+            }
+            .promo-shot  { width: 104px; height: 92px; }
+            .promo-name  { margin: 2px 0 2px; }
+            .promo-sub   { margin-bottom: 10px; }
+            .promo-herb  { font-size: 0.7rem; padding: 4px 10px; }
+            .promo-herbs { gap: 5px; }
+            .promo-cta   { margin-top: 12px; font-size: 0.8rem; }
+
+            /* Το δυνατό σημείο γίνεται οριζόντια πλακέτα, όχι κύκλος */
+            .promo-vit {
+                grid-column: 1 / -1; width: 100%; height: auto;
+                border-radius: 18px; padding: 11px 16px;
+                display: flex; align-items: center; justify-content: center; gap: 10px;
+            }
+            .promo-vit::before { border-radius: 18px; inset: -4px; }
+            .promo-vit-top { font-size: 0.64rem; }
+            .promo-vit-big { font-size: 1.5rem; }
+            .promo-vit-sub { margin-top: 0; font-size: 0.6rem; }
+            .promo-vit-sub br { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .promo-vit::before { animation: none; }
+            .promo-herb { transition: none; }
+        }
+
         /* ============ TICKER ΕΙΔΗΣΕΩΝ ============ */
         .ticker {
             display: none;                      /* εμφανίζεται μόνο με ειδήσεις */
@@ -427,6 +549,28 @@
                 <div id="inventoryRows" style="overflow-x:auto;"></div>
             </section>
 
+            <!-- ============ ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ ============ -->
+            <div class="promo" id="promoBanner" onclick="goToPromoProduct()"
+                 role="button" tabindex="0"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToPromoProduct();}">
+                <div class="promo-flag">ΝΕΑ ΦΟΡΜΟΥΛΑ</div>
+
+                <img class="promo-shot" id="promoShot" src="" alt="AlveolAir">
+
+                <div>
+                    <div class="promo-name">AlveolAir</div>
+                    <div class="promo-sub">Φυτικό σιρόπι για λαιμό &amp; αναπνευστικό · 200 ml</div>
+                    <div class="promo-herbs" id="promoHerbs"></div>
+                    <div class="promo-cta">Προσθήκη στην παραγγελία →</div>
+                </div>
+
+                <div class="promo-vit">
+                    <div class="promo-vit-top">ΒΙΤΑΜΙΝΗ C</div>
+                    <div class="promo-vit-big">102%</div>
+                    <div class="promo-vit-sub">ημερήσιας <br>πρόσληψης</div>
+                </div>
+            </div>
+
             <div class="dashboard-grid">
                 <div id="orderGrid"></div>
 
@@ -640,6 +784,59 @@
             'NUTRI MX D3 + K2 (4000 IU +100μg) 30 tab'
         ];
 
+        /* ===================== ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ ===================== */
+
+        const PROMO_PRODUCT = 'Alveolair Sir';
+        const PROMO_HERBS   = ['Αλθαία', 'Θυμάρι', 'Ευκάλυπτος', 'Ιπποφαές', 'Ασερόλα'];
+
+        function initPromo() {
+            const wrap = document.getElementById('promoHerbs');
+            const shot = document.getElementById('promoShot');
+            if (!wrap) return;
+
+            const prod = products.find(p => p.name === PROMO_PRODUCT);
+            if (!prod) {                       // αν λείψει το προϊόν, κρύψε την ταμπέλα
+                document.getElementById('promoBanner').style.display = 'none';
+                return;
+            }
+            shot.src = 'https://raw.githubusercontent.com/pzaro/'
+                    + 'my-order-form/main/images/alveolair-pack.png';
+
+            wrap.innerHTML = PROMO_HERBS
+                .map(h => '<span class="promo-herb">' + h + '</span>').join('');
+
+            // Περιστρεφόμενος προβολέας στα βότανα — ένα κάθε φορά.
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const chips = wrap.querySelectorAll('.promo-herb');
+            let i = 0;
+            setInterval(function () {
+                chips.forEach(c => c.classList.remove('on'));
+                chips[i].classList.add('on');
+                i = (i + 1) % chips.length;
+            }, 1300);
+        }
+
+        /** Κλικ στην ταμπέλα: πήγαινε στο προϊόν και εστίασε στην ποσότητα. */
+        function goToPromoProduct() {
+            const idx = products.findIndex(p => p.name === PROMO_PRODUCT);
+            if (idx === -1) return;
+
+            const field = document.getElementById('qty-' + idx);
+            if (!field) return;
+
+            const card = field.closest('.order-item');
+            (card || field).scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Σύντομη ανάδειξη, ώστε να φανεί πού προσγειώθηκε ο χρήστης.
+            if (card) {
+                card.style.transition = 'box-shadow 0.35s';
+                card.style.boxShadow = '0 0 0 3px var(--accent)';
+                setTimeout(() => { card.style.boxShadow = ''; }, 1600);
+            }
+            setTimeout(() => { field.focus(); field.select && field.select(); }, 450);
+        }
+
         /* ===================== TICKER ΕΙΔΗΣΕΩΝ ===================== */
 
         const NEWS_REFRESH_MIN = 20;   // κάθε πόσα λεπτά ζητάει νέες ειδήσεις
@@ -706,6 +903,7 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             startClock();
+            initPromo();
             loadNews();
             setInterval(loadNews, NEWS_REFRESH_MIN * 60000);
 
