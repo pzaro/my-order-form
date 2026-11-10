@@ -210,7 +210,11 @@
             .disc-label { font-size: 0.7rem; }
         }
 
-        .p-img { grid-area: img; width: 80px; height: 80px; object-fit: contain; border-radius: 10px; }
+        .p-img {
+            grid-area: img; width: 80px; height: 80px; object-fit: contain;
+            border-radius: 10px; cursor: zoom-in; transition: transform 0.15s;
+        }
+        .p-img:hover { transform: scale(1.08); }
         .stock-label { display: none; color: #f59e0b; font-weight: 800; font-size: 0.85rem; }
 
         /* BADGE ΓΙΑ ΔΙΑΧΩΡΙΣΜΟ ΣΥΣΚΕΥΑΣΙΑΣ */
@@ -780,7 +784,8 @@
                 const div = document.createElement('div');
                 div.className = 'order-item';
                 div.innerHTML = `
-                    <img src="${p.img}" class="p-img" alt="${p.name}">
+                    <img src="${p.img}" class="p-img" alt="${p.name}" title="Κλικ για μεγέθυνση"
+                         onclick="window.open('${p.img}','_blank','noopener')">
                     <div class="p-info">
                         <strong style="display:block; line-height:1.5;">${highlightSize(p.name)}</strong>
                         <small style="display:block; font-weight:700; color:#718096;">${p.price.toFixed(2)} €</small>
