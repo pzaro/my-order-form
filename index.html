@@ -99,6 +99,11 @@
             padding: 7px 16px 7px 20px;
             border-bottom-right-radius: 16px;
         }
+        .promo-flag.blink { animation: promoFlagBlink 1.3s steps(1, end) infinite; }
+        @keyframes promoFlagBlink {
+            0%, 58%   { background: #c0392b; color: #fff; }
+            59%, 100% { background: #fff6f5; color: #c0392b; }
+        }
 
         .promo-shot {
             width: clamp(118px, 19vw, 206px); height: clamp(104px, 17vw, 180px);
@@ -160,6 +165,36 @@
         }
         .promo:hover .promo-cta { color: #fff; }
 
+        /* ---- φωτεινή παραλλαγή: Z-boost ---- */
+        .promo--light {
+            background: radial-gradient(130% 160% at 10% 0%, #ffffff 0%, #eff7ed 55%, #dfeedb 100%);
+            color: #22311f;
+            border: 1px solid #d6e6d2;
+            box-shadow: 0 14px 30px rgba(47, 61, 46, 0.16);
+            margin-top: -8px;
+        }
+        .promo--light::after {
+            background: radial-gradient(62% 92% at 86% 8%, rgba(247,183,51,0.3), transparent 70%);
+        }
+        .promo--light .promo-flag       { background: #0f766e; }
+        .promo--light .promo-shot {
+            /* όρθιο βαζάκι: στενότερο και ψηλότερο από το πακέτο του σιροπιού */
+            width: clamp(96px, 13vw, 148px); height: clamp(118px, 19vw, 198px);
+            filter: drop-shadow(0 12px 18px rgba(31,46,28,0.26));
+        }
+        .promo--light .promo-sub        { color: #5c6c59; }
+        .promo--light .promo-herb       { border-color: rgba(34,49,31,0.22); color: #3f5140; }
+        .promo--light .promo-herb.on    { background: #166534; border-color: #166534; color: #eafff2; }
+        .promo--light .promo-cta        { color: #166534; }
+        .promo--light:hover .promo-cta  { color: #0b3d1f; }
+        .promo--light .promo-vit {
+            background: linear-gradient(150deg, #38bdf8 0%, #2563eb 100%);
+            color: #fff;
+            box-shadow: 0 10px 26px rgba(37, 99, 235, 0.38);
+        }
+        .promo--light .promo-vit::before { border-color: rgba(56, 189, 248, 0.8); }
+        .promo--light .promo-vit-big     { font-size: clamp(1.15rem, 3.1vw, 1.5rem); }
+
         @media (max-width: 720px) {
             .promo {
                 grid-template-columns: auto 1fr;
@@ -184,10 +219,15 @@
             .promo-vit-big { font-size: 1.5rem; }
             .promo-vit-sub { margin-top: 0; font-size: 0.6rem; }
             .promo-vit-sub br { display: none; }
+
+            .promo--light .promo-shot    { width: 92px; height: 118px; }
+            .promo--light .promo-vit-big { font-size: 1.22rem; white-space: nowrap; }
+            .promo--light .promo-vit-sub { white-space: nowrap; }
         }
         @media (prefers-reduced-motion: reduce) {
             .promo-vit::before { animation: none; }
             .promo-herb { transition: none; }
+            .promo-flag.blink { animation: none; }
         }
 
         /* ============ TICKER ΕΙΔΗΣΕΩΝ ============ */
@@ -550,10 +590,10 @@
             </section>
 
             <!-- ============ ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ ============ -->
-            <div class="promo" id="promoBanner" onclick="goToPromoProduct()"
+            <div class="promo" id="promoBanner" onclick="goToPromoProduct('Alveolair Sir')"
                  role="button" tabindex="0"
-                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToPromoProduct();}">
-                <div class="promo-flag">ΝΕΑ ΦΟΡΜΟΥΛΑ</div>
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToPromoProduct('Alveolair Sir');}">
+                <div class="promo-flag blink">ΝΕΑ ΦΟΡΜΟΥΛΑ</div>
 
                 <img class="promo-shot" id="promoShot" src="" alt="AlveolAir">
 
@@ -568,6 +608,28 @@
                     <div class="promo-vit-top">ΒΙΤΑΜΙΝΗ C</div>
                     <div class="promo-vit-big">102%</div>
                     <div class="promo-vit-sub">ημερήσιας <br>πρόσληψης</div>
+                </div>
+            </div>
+
+            <!-- ============ ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ: Z-BOOST ============ -->
+            <div class="promo promo--light" id="promoBanner2" onclick="goToPromoProduct('Z-boost 30 caps')"
+                 role="button" tabindex="0"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goToPromoProduct('Z-boost 30 caps');}">
+                <div class="promo-flag">❄ ΓΙΑ ΤΟΝ ΧΕΙΜΩΝΑ</div>
+
+                <img class="promo-shot" id="promoShot2" src="" alt="Z-boost Caps">
+
+                <div>
+                    <div class="promo-name">Z-boost Caps</div>
+                    <div class="promo-sub">Στήριξη του ανοσοποιητικού τη δύσκολη εποχή · 30 &amp; 12 κάψουλες</div>
+                    <div class="promo-herbs" id="promoHerbs2"></div>
+                    <div class="promo-cta">Προσθήκη στην παραγγελία →</div>
+                </div>
+
+                <div class="promo-vit">
+                    <div class="promo-vit-top">ΑΝΟΣΟΠΟΙΗΤΙΚΟ</div>
+                    <div class="promo-vit-big">Zn + Se</div>
+                    <div class="promo-vit-sub">φυσιολογική <br>λειτουργία</div>
                 </div>
             </div>
 
@@ -786,40 +848,57 @@
 
         /* ===================== ΤΑΜΠΕΛΑ ΠΡΟΒΟΛΗΣ ===================== */
 
-        const PROMO_PRODUCT = 'Alveolair Sir';
-        const PROMO_HERBS   = ['Αλθαία', 'Θυμάρι', 'Ευκάλυπτος', 'Ιπποφαές', 'Ασερόλα'];
+        const PROMO_IMG_BASE = 'https://raw.githubusercontent.com/pzaro/my-order-form/main/images/';
+
+        const PROMO_BANNERS = [
+            {
+                banner: 'promoBanner', chips: 'promoHerbs', shot: 'promoShot',
+                product: 'Alveolair Sir', img: 'alveolair-pack.png', every: 1300,
+                items: ['Αλθαία', 'Θυμάρι', 'Ευκάλυπτος', 'Ιπποφαές', 'Ασερόλα']
+            },
+            {
+                banner: 'promoBanner2', chips: 'promoHerbs2', shot: 'promoShot2',
+                product: 'Z-boost 30 caps', img: 'zboost-pack.png', every: 1150,
+                items: ['NAC', 'Ψευδάργυρος', 'Σελήνιο', 'ALA', 'CoQ10', 'Ginger']
+            }
+        ];
 
         function initPromo() {
-            const wrap = document.getElementById('promoHerbs');
-            const shot = document.getElementById('promoShot');
-            if (!wrap) return;
+            const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            const prod = products.find(p => p.name === PROMO_PRODUCT);
-            if (!prod) {                       // αν λείψει το προϊόν, κρύψε την ταμπέλα
-                document.getElementById('promoBanner').style.display = 'none';
-                return;
-            }
-            shot.src = 'https://raw.githubusercontent.com/pzaro/'
-                    + 'my-order-form/main/images/alveolair-pack.png';
+            PROMO_BANNERS.forEach(function (cfg) {
+                const wrap = document.getElementById(cfg.chips);
+                const shot = document.getElementById(cfg.shot);
+                if (!wrap) return;
 
-            wrap.innerHTML = PROMO_HERBS
-                .map(h => '<span class="promo-herb">' + h + '</span>').join('');
+                // Αν λείψει το προϊόν από τον κατάλογο, κρύψε την ταμπέλα.
+                if (!products.find(p => p.name === cfg.product)) {
+                    const b = document.getElementById(cfg.banner);
+                    if (b) b.style.display = 'none';
+                    return;
+                }
 
-            // Περιστρεφόμενος προβολέας στα βότανα — ένα κάθε φορά.
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                if (shot) shot.src = PROMO_IMG_BASE + cfg.img;
 
-            const chips = wrap.querySelectorAll('.promo-herb');
-            let i = 0;
-            setInterval(function () {
-                chips.forEach(c => c.classList.remove('on'));
-                chips[i].classList.add('on');
-                i = (i + 1) % chips.length;
-            }, 1300);
+                wrap.innerHTML = cfg.items
+                    .map(h => '<span class="promo-herb">' + h + '</span>').join('');
+
+                // Περιστρεφόμενος προβολέας στα συστατικά — ένα κάθε φορά.
+                if (still) return;
+
+                const chips = wrap.querySelectorAll('.promo-herb');
+                let i = 0;
+                setInterval(function () {
+                    chips.forEach(c => c.classList.remove('on'));
+                    chips[i].classList.add('on');
+                    i = (i + 1) % chips.length;
+                }, cfg.every);
+            });
         }
 
         /** Κλικ στην ταμπέλα: πήγαινε στο προϊόν και εστίασε στην ποσότητα. */
-        function goToPromoProduct() {
-            const idx = products.findIndex(p => p.name === PROMO_PRODUCT);
+        function goToPromoProduct(name) {
+            const idx = products.findIndex(p => p.name === name);
             if (idx === -1) return;
 
             const field = document.getElementById('qty-' + idx);
